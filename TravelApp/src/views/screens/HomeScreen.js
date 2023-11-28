@@ -2,9 +2,25 @@ import { SafeAreaView, StatusBar, StyleSheet, Text, View } from 'react-native';
 import COLORS from '../../consts/colors';
 import React from 'react';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import { ScrollView } from 'react-native-gesture-handler';
+import { ScrollView, TextInput } from 'react-native-gesture-handler';
 
 const HomeScreen = ({navigation}) => {
+  const categoryIcon = [
+    <Icon name="restaurant" size={25} color={COLORS.grey} />,
+    <Icon name="flights_and_hotels" size={25} color={COLORS.grey} />,
+    <Icon name="wc" size={25} color={COLORS.grey} />,
+  ]
+
+  const ListCategories = () => {
+    return <View style={styles.categoryContainer}>
+      {categoryIcon.map((icon, index) => (
+        <View key={index}> {icon} </View>
+      )
+      
+      )}
+    </View>
+  }
+
   return (
     <SafeAreaView style={{flex:1}}>
       <StatusBar translucent={false} backgroundColor={COLORS.primary} />
@@ -15,13 +31,19 @@ const HomeScreen = ({navigation}) => {
     </View>
     <ScrollView showsVerticalScrollIndicator={false}>
       <View style={{backgroundColor : COLORS.primary, height: 120}}>
-      <View>
-      <Text style={styles.text}>Discover the Best</Text>
-        <Text style={styles.text}>Sites to Travel</Text>
-        <View style={styles.inputcontainer}></View>
+        <View>
+          <Text style={styles.text}>Discover the Best</Text>
+          <Text style={styles.text}>Sites to Travel</Text>
+            <View style={styles.inputcontainer}>
+            <Icon name="search" size={28} style={styles.icons}/>
+            <TextInput placeholder='Search heritage' style={{color: COLORS.grey}}/>
+            </View>
         </View>
         
       </View>
+      <ListCategories>
+
+      </ListCategories>
     </ScrollView>
     </SafeAreaView>
   )
@@ -53,5 +75,15 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 90,
     alignSelf: 'center',
+  },
+  icons:{
+    marginTop: 15,
+    marginHorizontal: 15,
+  },
+  categoryContainer:{
+    marginTop: 60,
+    marginHorizontal: 20,
+    flexDirection: "row",
+    justifyContent: "space-between",
   }
 })
