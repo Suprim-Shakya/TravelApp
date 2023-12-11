@@ -1,8 +1,8 @@
-import { ImageBackground, SafeAreaView, StatusBar, StyleSheet, Text, View } from 'react-native';
+import { ImageBackground, SafeAreaView, StatusBar, StyleSheet, Text, View, ScrollView, TextInput } from 'react-native';
 import COLORS from '../../consts/colors';
 import React from 'react';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import { ScrollView, TextInput } from 'react-native-gesture-handler';
+import 'react-native-gesture-handler';
 
 const HomeScreen = ({navigation}) => {
   const categoryIcon = [
