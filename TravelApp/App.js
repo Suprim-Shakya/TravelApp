@@ -36,7 +36,7 @@ function TabNavigator(){
         screenOptions={{headerShown: false}}>
       <Tab.Screen
         name="Home"
-        component={StackNavigator}
+        component={HomeScreen}
         options={{
           tabBarLabel: 'Home',
           
@@ -44,28 +44,28 @@ function TabNavigator(){
       />
       <Tab.Screen
         name="Notifications"
-        component={StackNavigator}
+        component={Notifications}
         options={{
           tabBarLabel: 'Updates',
         }}
       />
       <Tab.Screen
         name="Scan"
-        component={StackNavigator}
+        component={ScanScreen}
         options={{
           tabBarLabel: 'Scan',
         }}
       />
       <Tab.Screen
         name="Search"
-        component={StackNavigator}
+        component={SearchScreen}
         options={{
           tabBarLabel: 'Search',
         }}
       />
       <Tab.Screen
         name="Chat"
-        component={StackNavigator}
+        component={ChatScreen}
         options={{
           tabBarLabel: 'Chat',
         }}
