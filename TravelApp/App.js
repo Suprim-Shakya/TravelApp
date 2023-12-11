@@ -6,6 +6,12 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import OnBoardScreen from './src/views/screens/OnBoardScreen';
 import HomeScreen from './src/views/screens/HomeScreen';
 import DetailsScreen from './src/views/screens/DetailsScreen';
+import Notifications from './src/views/screens/Notifications';
+import ScanScreen from './src/views/screens/ScanScreen';
+import SearchScreen from './src/views/screens/SearchScreen';
+import ChatScreen from './src/views/screens/ChatScreen';
+
+
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
@@ -15,6 +21,10 @@ function StackNavigator(){
         <Stack.Screen name="OnBoardScreen" component={OnBoardScreen} />
         <Stack.Screen name='HomeScreen' component={HomeScreen} />
         <Stack.Screen name='DetailsScreen' component={DetailsScreen} />
+        <Stack.Screen name="Notifications" component={Notifications} />
+        <Stack.Screen name="ScanScreen" component={ScanScreen} />
+        <Stack.Screen name="SearchScreen" component={SearchScreen} />
+        <Stack.Screen name="ChatScreen" component={ChatScreen} />
       </Stack.Navigator>
   );
 }
@@ -47,10 +57,10 @@ function TabNavigator(){
         }}
       />
       <Tab.Screen
-        name="Settings"
+        name="Search"
         component={StackNavigator}
         options={{
-          tabBarLabel: 'Settings',
+          tabBarLabel: 'Search',
         }}
       />
       <Tab.Screen
