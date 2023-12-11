@@ -6,7 +6,6 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import OnBoardScreen from './src/views/screens/OnBoardScreen';
 import HomeScreen from './src/views/screens/HomeScreen';
 import DetailsScreen from './src/views/screens/DetailsScreen';
-import COLORS from './src/consts/colors';
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
@@ -24,7 +23,7 @@ function TabNavigator(){
   return(
     <Tab.Navigator screenOptions={{headerShown: false}}>
        <Tab.Group
-    screenOptions={{headerShown: false}}>
+        screenOptions={{headerShown: false}}>
       <Tab.Screen
         name="Home"
         component={StackNavigator}
@@ -38,7 +37,27 @@ function TabNavigator(){
         component={StackNavigator}
         options={{
           tabBarLabel: 'Updates',
-          
+        }}
+      />
+      <Tab.Screen
+        name="Scan"
+        component={StackNavigator}
+        options={{
+          tabBarLabel: 'Scan',
+        }}
+      />
+      <Tab.Screen
+        name="Settings"
+        component={StackNavigator}
+        options={{
+          tabBarLabel: 'Settings',
+        }}
+      />
+      <Tab.Screen
+        name="Chat"
+        component={StackNavigator}
+        options={{
+          tabBarLabel: 'Chat',
         }}
       />
     </Tab.Group>
