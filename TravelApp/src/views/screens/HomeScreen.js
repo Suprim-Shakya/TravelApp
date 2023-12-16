@@ -3,6 +3,8 @@ import COLORS from '../../consts/colors';
 import React from 'react';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import 'react-native-gesture-handler';
+import ElevatedCards from './ElevatedCards';
+
 
 const HomeScreen = ({navigation}) => {
   const categoryIcon = [

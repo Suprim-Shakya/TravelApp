@@ -75,7 +75,7 @@ function TabNavigator(){
   )
 }
 
-function StackNavigator(){
+const App = () => {
   return(
     <NavigationContainer>
       <TabNavigator /> 
