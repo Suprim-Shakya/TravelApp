@@ -1,7 +1,7 @@
 import { ImageBackground, StatusBar, StyleSheet, Text, View } from 'react-native';
 import React from 'react';
 import COLORS from '../../consts/colors';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { GestureHandlerRootView, TouchableOpacity } from 'react-native-gesture-handler';
 
 const OnBoardScreen = ({navigation}) => {
     return(
@@ -17,7 +17,7 @@ const OnBoardScreen = ({navigation}) => {
                 <Text style={{color: COLORS.white, lineHeight: 25, marginTop: 15, fontSize:18}}>Explore new places in Nepal and gain experience.</Text>
                 <TouchableOpacity activeOpacity={0.8} onPress={() => navigation.navigate('HomeScreen')}>
                 <View style={styles.btn}>
-                    <Text style={{fontWeight: 'bold'}}>Get Started</Text>
+                    <Text style={{fontWeight: 'bold',color:'red'}}>Get Started</Text>
                 </View>
                 </TouchableOpacity>
             </View>

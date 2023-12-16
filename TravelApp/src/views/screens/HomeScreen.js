@@ -3,6 +3,7 @@ import COLORS from '../../consts/colors';
 import React from 'react';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { ScrollView, TextInput } from 'react-native-gesture-handler';
+import ElevatedCards from './ElevatedCards'
 
 const HomeScreen = ({navigation}) => {
   const categoryIcon = [
@@ -43,12 +44,14 @@ const HomeScreen = ({navigation}) => {
                 <Icon name="search" size={28} style={styles.icons}/>
                 <TextInput placeholder="Search"/>
               </View>
+              
           </View>
           
         </View>
         <ListCategories>
           <Text style={styles.sectionTitle}> Trending </Text>
         </ListCategories>
+        <ElevatedCards></ElevatedCards>
       </ScrollView>
     </SafeAreaView>
   )
@@ -71,6 +74,7 @@ const styles = StyleSheet.create({
     color: '#FFF',
     fontSize: 22,
     marginHorizontal: 20,
+    
   },
   inputcontainer:{
     height: 60,
@@ -81,6 +85,11 @@ const styles = StyleSheet.create({
     top: 90,
     alignSelf: 'center',
     flexDirection: 'row',
+    backgroundColor:'#e3e3e3',
+    
+  },
+  TextInput:{
+    color:'red',
   },
   icons:{
     marginTop: 15,
@@ -99,5 +108,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 20,
-  }
+  },
+  sectionTitle:{
+    color:'red',
+    backgroundColor:'blue',
+  },
 });
