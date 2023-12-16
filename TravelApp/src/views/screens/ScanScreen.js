@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import React, { useState } from 'react';
 import { View, Button, Text, Image } from 'react-native';
 import { launchImageLibrary, launchCamera } from 'react-native-image-picker';
@@ -96,19 +95,3 @@ const App = () => {
 };
 
 export default App;
-=======
-import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
-
-const ScanScreen = () => {
-  return (
-    <View>
-      <Text>ScanScreen</Text>
-    </View>
-  )
-}
-
-export default ScanScreen
-
-const styles = StyleSheet.create({})
->>>>>>> efbf8e3c250ccb2c95e2c332b2aed8c49dabe38c
