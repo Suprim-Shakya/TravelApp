@@ -15,69 +15,33 @@ import ChatScreen from './src/views/screens/ChatScreen';
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
-function StackNavigator(){
-  return(
+function MainStack() {
+  return (
     <Stack.Navigator screenOptions={{headerShown: false}}>
-        <Stack.Screen name="OnBoardScreen" component={OnBoardScreen} />
-        <Stack.Screen name='HomeScreen' component={HomeScreen} />
-        <Stack.Screen name='DetailsScreen' component={DetailsScreen} />
-      </Stack.Navigator>
+      <Stack.Screen name="HomeScreen" component={HomeScreen} />
+      <Stack.Screen name="DetailsScreen" component={DetailsScreen} />
+    </Stack.Navigator>
   );
 }
 
-function TabNavigator(){
-  return(
-    <Tab.Navigator screenOptions={{headerShown: false}}>
-       <Tab.Group
-        screenOptions={{headerShown: false}}>
-      <Tab.Screen
-        name="Home"
-        component={HomeScreen}
-        options={{
-          tabBarLabel: 'Home',
-          
-        }}
-      />
-      <Tab.Screen
-        name="Notifications"
-        component={Notifications}
-        options={{
-          tabBarLabel: 'Updates',
-        }}
-      />
-      <Tab.Screen
-        name="Scan"
-        component={ScanScreen}
-        options={{
-          tabBarLabel: 'Scan',
-        }}
-      />
-      <Tab.Screen
-        name="Search"
-        component={SearchScreen}
-        options={{
-          tabBarLabel: 'Search',
-        }}
-      />
-      <Tab.Screen
-        name="Chat"
-        component={ChatScreen}
-        options={{
-          tabBarLabel: 'Chat',
-        }}
-      />
-    </Tab.Group>
-    </Tab.Navigator>
-  )
+function SubStack() {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen name="ScanScreen" component={ScanScreen} />
+      <Stack.Screen name="SearchScreen" component={SearchScreen} />
+    </Stack.Navigator>
+  );
 }
 
-const App = () => {
-  return(
-    <NavigationContainer>
-      <TabNavigator /> 
-     
+const App=() => {
+  return (
+     <NavigationContainer>
+      <Tab.Navigator screenOptions={{headerShown: false}}>
+        <Tab.Screen name="Home" component={MainStack} />
+        <Tab.Screen name="Scan" component={SubStack} />
+      </Tab.Navigator>
     </NavigationContainer>
   );
-};
+}
 
 export default App;

@@ -42,7 +42,7 @@ const HomeScreen = ({navigation}) => {
     return (
       <TouchableOpacity
         activeOpacity={0.8}
-        onPress={() => navigation.navigate('DetailsScreen', place)}>
+        onPress={() => navigation.navigate('DetailsScreen',place)}>
         <ImageBackground style={style.cardImage} source={place.image}>
           <Text
             style={{
