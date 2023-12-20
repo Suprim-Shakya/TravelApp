@@ -62,36 +62,9 @@ const DetailsScreen = ({navigation, route}) => {
           </Text>
         </View>
         <Text style={{marginTop: 20, fontWeight: 'bold', fontSize: 20}}>
-          About the trip
+          About the heritage
         </Text>
         <Text style={{marginTop: 20, lineHeight: 22}}>{place.details}</Text>
-      </View>
-      <View style={style.footer}>
-        <View style={{flex: 1, flexDirection: 'row', alignItems: 'center'}}>
-          <Text
-            style={{
-              fontSize: 18,
-              fontWeight: 'bold',
-              color: COLORS.white,
-            }}>
-            $100
-          </Text>
-          <Text
-            style={{
-              fontSize: 12,
-              fontWeight: 'bold',
-              color: COLORS.grey,
-              marginLeft: 2,
-            }}>
-            /PER DAY
-          </Text>
-        </View>
-        <View style={style.bookNowBtn}>
-          <Text
-            style={{color: COLORS.primary, fontSize: 16, fontWeight: 'bold'}}>
-            Book Now
-          </Text>
-        </View>
       </View>
     </SafeAreaView>
   );
@@ -140,16 +113,6 @@ const style = StyleSheet.create({
     width: '100%',
     position: 'absolute',
     bottom: 30,
-  },
-  footer: {
-    flexDirection: 'row',
-    backgroundColor: COLORS.primary,
-    height: 70,
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingHorizontal: 20,
-    borderTopLeftRadius: 15,
-    borderTopRightRadius: 15,
   },
 });
 
