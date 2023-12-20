@@ -21,10 +21,6 @@ function StackNavigator(){
         <Stack.Screen name="OnBoardScreen" component={OnBoardScreen} />
         <Stack.Screen name='HomeScreen' component={HomeScreen} />
         <Stack.Screen name='DetailsScreen' component={DetailsScreen} />
-        <Stack.Screen name="Notifications" component={Notifications} />
-        <Stack.Screen name="ScanScreen" component={ScanScreen} />
-        <Stack.Screen name="SearchScreen" component={SearchScreen} />
-        <Stack.Screen name="ChatScreen" component={ChatScreen} />
       </Stack.Navigator>
   );
 }
