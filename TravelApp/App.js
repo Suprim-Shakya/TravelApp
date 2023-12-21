@@ -9,6 +9,7 @@ import DetailsScreen from './src/views/screens/DetailsScreen';
 import ScanScreen from './src/views/screens/ScanScreen';
 import SearchScreen from './src/views/screens/SearchScreen';
 import COLORS from './src/consts/colors';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -38,12 +39,17 @@ const App=() => {
         headerShown: false,
         tabBarActiveTintColor: COLORS.dark,
         tabBarInactiveTintColor: COLORS.grey,
-        tabBarShowLabel: false
         }}>
-        <Tab.Screen name="Home" component={MainStack} options={
-          tabBarIcon:
-        }/>
-        <Tab.Screen name="Scan" component={SubStack} />
+        <Tab.Screen name="Home" component={MainStack} options={{
+          tabBarIcon: ({color}) => {
+            <Icon name="home" color={color} size={25} />
+          }
+        }}/>
+        <Tab.Screen name="Scan" component={SubStack} options={{
+          tabBarIcon: ({color}) =>{
+            <Icon name="search" color={color} size={25}/>
+          }
+        }}/>
       </Tab.Navigator>
     </NavigationContainer>
   );
