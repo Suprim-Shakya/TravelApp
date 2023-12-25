@@ -32,27 +32,38 @@ function SubStack() {
   );
 }
 
-const App=() => {
+const App = () => {
   return (
-     <NavigationContainer>
-      <Tab.Navigator screenOptions={{
-        headerShown: false,
-        tabBarActiveTintColor: COLORS.dark,
-        tabBarInactiveTintColor: COLORS.grey,
-        }}>
-        <Tab.Screen name="Home" component={MainStack} options={{
-          tabBarIcon: ({color}) => {
-            <Icon name="home" color={color} size={25} />
-          }
-        }}/>
-        <Tab.Screen name="Scan" component={SubStack} options={{
-          tabBarIcon: ({color}) =>{
-            <Icon name="search" color={color} size={25}/>
-          }
-        }}/>
+    <NavigationContainer>
+      <Tab.Navigator
+        screenOptions={{
+          headerShown: false,
+          tabBarActiveTintColor: COLORS.dark,
+          tabBarInactiveTintColor: COLORS.grey,
+        }}
+      >
+        <Tab.Screen
+          name="Home"
+          component={MainStack}
+          options={{
+            tabBarIcon: ({ color, size }) => (
+              <Icon name="home" color={color} size={size} />
+            ),
+          }}
+        />
+        <Tab.Screen
+          name="Scan"
+          component={SubStack}
+          options={{
+            tabBarIcon: ({ color, size }) => (
+              <Icon name="search" color={color} size={size} />
+            ),
+          }}
+        />
       </Tab.Navigator>
     </NavigationContainer>
   );
-}
+};
+
 
 export default App;
