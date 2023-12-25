@@ -10,6 +10,7 @@ import ScanScreen from './src/views/screens/ScanScreen';
 import SearchScreen from './src/views/screens/SearchScreen';
 import COLORS from './src/consts/colors';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import Notifications from './src/views/screens/Notifications';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -19,6 +20,7 @@ function MainStack() {
     <Stack.Navigator screenOptions={{headerShown: false}}>
       <Stack.Screen name="HomeScreen" component={HomeScreen} />
       <Stack.Screen name="DetailsScreen" component={DetailsScreen} />
+      <Stack.Screen name="Notifications" component={Notifications} />
     </Stack.Navigator>
   );
 }

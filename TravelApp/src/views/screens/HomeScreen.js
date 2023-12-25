@@ -11,6 +11,7 @@ import {
   FlatList,
   Dimensions,
   TouchableOpacity,
+  Alert,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import COLORS from '../../consts/colors';
@@ -117,9 +118,20 @@ const HomeScreen = ({navigation}) => {
     <SafeAreaView style={{flex: 1, backgroundColor: COLORS.white}}>
       <StatusBar translucent={false} backgroundColor={COLORS.primary} />
       <View style={style.header}>
+        <TouchableOpacity onPress={() => {}}>
         <Icon name="sort" size={28} color={COLORS.white} />
+        </TouchableOpacity>
         <Text style={style.headerTitle}>Travel Guide</Text>
-        <Icon name="notifications-none" size={28} color={COLORS.white} />
+        <TouchableOpacity onPress={() => { Alert.alert(
+      'Limitations',
+      'This app can be used to identify heritages of Kathmandu Durbar Square only. We will work to expand its applications in future.',
+      [
+        { text: 'OK', onPress: () => console.log('OK Pressed') },
+        // You can add more buttons here if needed
+      ]
+    );}}>
+        <Icon name="info" size={28} color={COLORS.white} />
+      </TouchableOpacity>
       </View>
       <ScrollView showsVerticalScrollIndicator={false}>
         <View
