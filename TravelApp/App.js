@@ -1,3 +1,5 @@
+
+
 import 'react-native-gesture-handler';
 import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
@@ -24,6 +26,16 @@ function MainStack() {
     </Stack.Navigator>
   );
 }
+
+// function Draw(){
+//   return(
+//     <Drawer.Navigator drawerContent={() => <DrawerItems />}>
+//         <Drawer.Screen name="Profile" component={ProfileScreen} />
+//         <Drawer.Screen name="Settings" component={SettingsScreen} />
+//         {/* Add more screens */}
+//       </Drawer.Navigator>
+//   )
+// }
 
 function SubStack() {
   return (

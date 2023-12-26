@@ -9,13 +9,17 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import COLORS from '../../consts/colors';
+import { ScrollView } from 'react-native-gesture-handler';
 
 const DetailsScreen = ({navigation, route}) => {
   const place = route.params;
   return (
+    
     <SafeAreaView style={{flex: 1, backgroundColor: COLORS.white}}>
+      
       <StatusBar translucent backgroundColor="rgba(0,0,0,0)" />
-      <ImageBackground style={{flex: 0.7}} source={place.image}>
+      
+      <ImageBackground style={{flex: 0.8}} source={place.image}>
         <View style={style.header}>
           <Icon
             name="arrow-back-ios"
@@ -23,7 +27,6 @@ const DetailsScreen = ({navigation, route}) => {
             color={COLORS.white}
             onPress={navigation.goBack}
           />
-          <Icon name="more-vert" size={28} color={COLORS.white} />
         </View>
         <View style={style.imageDetails}>
           <Text
@@ -32,7 +35,7 @@ const DetailsScreen = ({navigation, route}) => {
               fontSize: 30,
               fontWeight: 'bold',
               color: COLORS.white,
-              marginBottom: 20,
+              marginBottom: 0,
             }}>
             {place.name}
           </Text>
@@ -45,27 +48,29 @@ const DetailsScreen = ({navigation, route}) => {
           </View>
         </View>
       </ImageBackground>
-      <View style={style.detailsContainer}>
-        <View style={style.iconContainer}>
-          <Icon name="favorite" color={COLORS.red} size={30} />
-        </View>
-        <View style={{flexDirection: 'row', marginTop: 10}}>
-          <Icon name="place" size={28} color={COLORS.primary} />
-          <Text
-            style={{
-              marginLeft: 5,
-              fontSize: 20,
-              fontWeight: 'bold',
-              color: COLORS.primary,
-            }}>
-            {place.location}
+      <ScrollView style={style.detailsContainer}>
+        <View style={style.detailsContainer}>
+          {/* <View style={style.iconContainer}>
+            <Icon name="favorite" color={COLORS.red} size={30} />
+          </View> */}
+          <View style={{flexDirection: 'row', marginTop: 10}}>
+            <Icon name="place" size={28} color={COLORS.primary} />
+            <Text
+              style={{
+                marginLeft: 5,
+                fontSize: 20,
+                fontWeight: 'bold',
+                color: COLORS.primary,
+              }}>
+              {place.location}
+            </Text>
+          </View>
+          <Text style={{marginTop: 20, fontWeight: 'bold', fontSize: 20}}>
+            About the heritage
           </Text>
+          <Text style={{marginTop: 20, lineHeight: 22}}>{place.details}</Text>
         </View>
-        <Text style={{marginTop: 20, fontWeight: 'bold', fontSize: 20}}>
-          About the heritage
-        </Text>
-        <Text style={{marginTop: 20, lineHeight: 22}}>{place.details}</Text>
-      </View>
+        </ScrollView>
     </SafeAreaView>
   );
 };
@@ -79,27 +84,28 @@ const style = StyleSheet.create({
     alignItems: 'center',
   },
 
-  iconContainer: {
-    height: 60,
-    width: 60,
-    position: 'absolute',
-    top: -30,
-    backgroundColor: COLORS.white,
-    borderRadius: 30,
-    right: 20,
-    elevation: 10,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
+  // iconContainer: {
+  //   height: 60,
+  //   width: 60,
+  //   position: 'absolute',
+  //   top: -30,
+  //   backgroundColor: COLORS.white,
+  //   borderRadius: 30,
+  //   right: 20,
+  //   elevation: 10,
+  //   justifyContent: 'center',
+  //   alignItems: 'center',
+  // },
+  
   detailsContainer: {
-    top: -30,
+    top: -10,
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,
-    paddingVertical: 40,
-    paddingHorizontal: 20,
+    paddingVertical: 18,
+    paddingHorizontal: 15,
     backgroundColor: COLORS.white,
     flex: 0.3,
-  },
+    },
   header: {
     marginTop: 60,
     flexDirection: 'row',
