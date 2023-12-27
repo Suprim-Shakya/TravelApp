@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, Button, Text, Image } from 'react-native';
 import { launchImageLibrary, launchCamera } from 'react-native-image-picker';
+import places from '../../consts/places';
 
 const App = () => {
   const [responseMessage, setResponseMessage] = useState('');
@@ -90,6 +91,9 @@ const App = () => {
         />
       )}
       <Text style={{color:'black'}}>{responseName}</Text>
+      
+      <Button title="View Details" onPress={() =>{} }></Button>
+
     </View>
   );
 };
