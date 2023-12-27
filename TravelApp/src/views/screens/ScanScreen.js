@@ -7,6 +7,7 @@ const App = () => {
   const [responseMessage, setResponseMessage] = useState('');
   const [responseImageURL, setResponseImageURL] = useState('');
   const [responseName, setResponseName] = useState('');
+  const [isLoading, setIsLoading] = useState(false); // declare a state variable to track the loading status
 
   const openGallery = async () => {
     const options = {};
@@ -47,6 +48,7 @@ const App = () => {
   };
 
   const sendImageToServer = async (formdata) => {
+    setIsLoading(true); // set the loading status to true before sending the image
     try {
       let response = await fetch('https://yoloapi.khanalsaurav.com.np/inferyolo/', {
         method: 'post',
@@ -68,6 +70,8 @@ const App = () => {
       setResponseName(responseJson.data.detections[0].name);
     } catch (error) {
       console.error('Error:', error.message);
+    } finally {
+      setIsLoading(false); // set the loading status to false after receiving the response
     }
   };
 
@@ -92,7 +96,7 @@ const App = () => {
       )}
       <Text style={{color:'black'}}>{responseName}</Text>
       
-      <Button title="View Details" onPress={() =>{} }></Button>
+      {isLoading ? null : <Button title="View Details" onPress={() =>{} }></Button>} // use conditional rendering to show the button only if isLoading is false
 
     </View>
   );
