@@ -2,28 +2,28 @@
 
 import 'react-native-gesture-handler';
 import React from 'react';
-import {NavigationContainer} from '@react-navigation/native';
-import {createStackNavigator} from '@react-navigation/stack';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import OnBoardScreen from './src/views/screens/OnBoardScreen';
 import HomeScreen from './src/views/screens/HomeScreen';
 import DetailsScreen from './src/views/screens/DetailsScreen';
 import ScanScreen from './src/views/screens/ScanScreen';
-import SearchScreen from './src/views/screens/SearchScreen';
 import COLORS from './src/consts/colors';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Notifications from './src/views/screens/Notifications';
+import ScanImage from './src/componentsSaurav/ScanImage';
 
-const Stack = createStackNavigator();
+const HomeStack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
 function MainStack() {
   return (
-    <Stack.Navigator screenOptions={{headerShown: false}}>
-      <Stack.Screen name="HomeScreen" component={HomeScreen} />
-      <Stack.Screen name="DetailsScreen" component={DetailsScreen} />
-      <Stack.Screen name="Notifications" component={Notifications} />
-    </Stack.Navigator>
+    <HomeStack.Navigator screenOptions={{headerShown:false}}>
+      <HomeStack.Screen name="HomeScreen" component={HomeScreen} />
+      <HomeStack.Screen name="DetailsScreen" component={DetailsScreen} />
+      <HomeStack.Screen name="Notifications" component={Notifications} />
+    </HomeStack.Navigator>
   );
 }
 
@@ -37,12 +37,13 @@ function MainStack() {
 //   )
 // }
 
-function SubStack() {
+const StackScan=createStackNavigator();
+
+function ScanStack() {
   return (
-    <Stack.Navigator>
-      <Stack.Screen name="ScanScreen" component={ScanScreen} />
-      <Stack.Screen name="SearchScreen" component={SearchScreen} />
-    </Stack.Navigator>
+    <StackScan.Navigator screenOptions={{headerShown:false}}>
+      <StackScan.Screen name="ScanScreen" component={ScanImage}/>
+    </StackScan.Navigator>
   );
 }
 
@@ -55,6 +56,7 @@ const App = () => {
           tabBarActiveTintColor: COLORS.dark,
           tabBarInactiveTintColor: COLORS.grey,
         }}
+        initialRouteName='Scan'
       >
         <Tab.Screen
           name="Home"
@@ -67,11 +69,12 @@ const App = () => {
         />
         <Tab.Screen
           name="Scan"
-          component={SubStack}
+          component={ScanStack}
           options={{
             tabBarIcon: ({ color, size }) => (
               <Icon name="search" color={color} size={size} />
             ),
+            headerShown:false,
           }}
         />
       </Tab.Navigator>
