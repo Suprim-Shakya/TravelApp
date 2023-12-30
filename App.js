@@ -1,5 +1,3 @@
-
-
 import 'react-native-gesture-handler';
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
@@ -13,13 +11,18 @@ import COLORS from './src/consts/colors';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Notifications from './src/views/screens/Notifications';
 import ScanImage from './src/componentsSaurav/ScanImage';
+import UploadImage from './src/componentsSaurav/UploadImage';
+import Detections from './src/componentsSaurav/Detections';
+// import { useCameraPermission } from 'react-native-vision-camera';
+
+
 
 const HomeStack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
 function MainStack() {
   return (
-    <HomeStack.Navigator screenOptions={{headerShown:false}}>
+    <HomeStack.Navigator screenOptions={{ headerShown: false }}>
       <HomeStack.Screen name="HomeScreen" component={HomeScreen} />
       <HomeStack.Screen name="DetailsScreen" component={DetailsScreen} />
       <HomeStack.Screen name="Notifications" component={Notifications} />
@@ -37,24 +40,35 @@ function MainStack() {
 //   )
 // }
 
-const StackScan=createStackNavigator();
+const StackScan = createStackNavigator();
 
 function ScanStack() {
   return (
-    <StackScan.Navigator screenOptions={{headerShown:false}}>
-      <StackScan.Screen name="ScanScreen" component={ScanImage}/>
+    <StackScan.Navigator screenOptions={{ headerShown: false }}>
+      <StackScan.Screen name="ScanScreen" component={ScanImage} />
+      <StackScan.Screen name="Detections" component={Detections}/>
     </StackScan.Navigator>
   );
 }
 
 const App = () => {
+  // const {hasPermission, requestPermission} = useCameraPermission()
+
+  // if (!hasPermission) {
+  //   requestPermission();
+  // }
+
   return (
     <NavigationContainer>
       <Tab.Navigator
         screenOptions={{
           headerShown: false,
-          tabBarActiveTintColor: COLORS.dark,
-          tabBarInactiveTintColor: COLORS.grey,
+          tabBarActiveTintColor: COLORS.primary,
+          // tabBarInactiveTintColor: COLORS.grey,
+          tabBarLabelStyle: {
+            top: -3,
+            // fontWeight:'900'
+          }
         }}
         initialRouteName='Scan'
       >
@@ -63,20 +77,30 @@ const App = () => {
           component={MainStack}
           options={{
             tabBarIcon: ({ color, size }) => (
-              <Icon name="home" color={color} size={size} />
+              <Icon name="home" color={color} size={size * 1.2} />
             ),
           }}
         />
+        {/* open camera */}
         <Tab.Screen
           name="Scan"
           component={ScanStack}
           options={{
-            tabBarIcon: ({ color, size }) => (
-              <Icon name="search" color={color} size={size} />
-            ),
-            headerShown:false,
+            tabBarIcon: ({ color, size }) => (<Icon name="camera-alt" color={color} size={size * 1.2} />),
+            headerShown: false,
           }}
         />
+
+        {/* open file explorer to take image */}
+        <Tab.Screen
+          name='Upload'
+          component={UploadImage}
+          options={{
+            tabBarIcon: ({ color, size }) => (<Icon name='folder' color={color} size={size * 1.2} />)
+          }}
+        >
+        </Tab.Screen>
+
       </Tab.Navigator>
     </NavigationContainer>
   );

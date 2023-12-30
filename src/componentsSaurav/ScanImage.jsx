@@ -3,12 +3,18 @@ import React, { useState } from 'react'
 import { launchImageLibrary, launchCamera } from 'react-native-image-picker';
 import { API_ENDPOINT } from './config';
 
+
+
 const ScanImage = ({ navigation }) => {
 
     const [response, setResponse] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const [responseImageURL, setResponseImageURL] = useState('');
     const [responseName, setResponseName] = useState('');
+
+    const handleDetection = (detectionData) => {
+        navigation.navigate('Detections', { ...detectionData })
+    }
 
     const openCamera = async () => {
         const options = {};
@@ -23,6 +29,7 @@ const ScanImage = ({ navigation }) => {
             });
 
             await sendImageToServer(formData);
+
         } catch (error) {
             console.error('Error occurred while sending image to server from camera: ', error);
             Alert.alert("Couldn't send image to server.")
@@ -31,9 +38,9 @@ const ScanImage = ({ navigation }) => {
 
 
     const openGallery = async () => {
-        const options = {};
+        // const options = {};
         try {
-            const images = await launchImageLibrary(options);
+            const images = await launchImageLibrary({ mediaType: 'photo', selectionLimit: 1 });
             const formData = new FormData();
             formData.append(
                 'file', {
@@ -43,8 +50,9 @@ const ScanImage = ({ navigation }) => {
             });
 
             await sendImageToServer(formData);
+
         } catch (error) {
-            console.error('Error occurred while sending image to server from gallery: ', error);
+            console.error('Error occurred while sending image to server from galleryx: ', error);
             Alert.alert("Couldn't send image to server.")
         }
     }
@@ -66,13 +74,20 @@ const ScanImage = ({ navigation }) => {
             }
 
             const responseJson = await response.json();
-            console.log(responseJson)
-            setResponse(responseJson.message);
-            setResponseImageURL(responseJson.data.imageURL);
-            responseJson.data.detections[0] ? setResponseName(responseJson.data.detections[0].name) : setResponseName('No detections')
+
+            handleDetection(responseJson.data)
+            
+            // console.log(responseJson)
+            // setResponse(responseJson.message);
+            // setResponseImageURL(responseJson.data.imageURL);
+            // responseJson.data.detections[0] ? setResponseName(responseJson.data.detections[0].name) : setResponseName('No detections')
 
         } catch (error) {
-            console.error('Error occurred on post request: ', error)
+            if (error.message === 'Network request failed') {
+                Alert.alert('Internet unstable', 'Please check your internet connection')
+            } else {
+                console.error('Error occurred on post request: ', error)
+            }
         } finally {
             setIsLoading(false)
         }
