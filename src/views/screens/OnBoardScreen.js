@@ -1,6 +1,6 @@
 import { ImageBackground, StatusBar, StyleSheet, Text, View } from 'react-native';
 import React from 'react';
-import COLORS from '../../consts/colors';
+import COLORS from '../../constants/colors';
 import { GestureHandlerRootView, TouchableOpacity } from 'react-native-gesture-handler';
 
 const OnBoardScreen = ({navigation}) => {

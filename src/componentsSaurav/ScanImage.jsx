@@ -54,7 +54,7 @@ const ScanImage = ({ navigation }) => {
                     return
                 } //user didn't select image
 
-                
+
                 const formData = new FormData();
                 formData.append(
                     'file', {
@@ -85,13 +85,13 @@ const ScanImage = ({ navigation }) => {
                 }
             })
 
-            if (!response.ok) {
-                throw new Error(`HTTP error! Status: ${response.status}`);
-            }
+            // if (!response.ok) {
+            //     throw new Error(`HTTP error! Status: ${response.status}`);
+            // }
 
             const responseJson = await response.json();
 
-            handleDetection(responseJson.data)
+            handleDetection({...responseJson.data})
 
             // console.log(responseJson)
             // setResponse(responseJson.message);
@@ -102,8 +102,9 @@ const ScanImage = ({ navigation }) => {
             if (error.message === 'Network request failed') {
                 Alert.alert('Internet unstable', 'Please check your internet connection')
             } else {
-                console.error('Error occurred on post request: ', error)
+                console.error('Error occurred on post request send to server: ', error)
             }
+
         } finally {
             setIsLoading(false)
         }

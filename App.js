@@ -7,12 +7,13 @@ import OnBoardScreen from './src/views/screens/OnBoardScreen';
 import HomeScreen from './src/views/screens/HomeScreen';
 import DetailsScreen from './src/views/screens/DetailsScreen';
 import ScanScreen from './src/views/screens/ScanScreen';
-import COLORS from './src/consts/colors';
+import COLORS from './src/constants/colors';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Notifications from './src/views/screens/Notifications';
 import ScanImage from './src/componentsSaurav/ScanImage';
-import UploadImage from './src/componentsSaurav/UploadImage';
 import Detections from './src/componentsSaurav/Detections';
+import Maps from './src/componentsSaurav/Maps';
+
 // import { useCameraPermission } from 'react-native-vision-camera';
 
 
@@ -46,7 +47,7 @@ function ScanStack() {
   return (
     <StackScan.Navigator screenOptions={{ headerShown: false }}>
       <StackScan.Screen name="ScanScreen" component={ScanImage} />
-      <StackScan.Screen name="Detections" component={Detections}/>
+      <StackScan.Screen name="Detections" component={Detections} options={{headerShown: true}}/>
     </StackScan.Navigator>
   );
 }
@@ -87,16 +88,16 @@ const App = () => {
           component={ScanStack}
           options={{
             tabBarIcon: ({ color, size }) => (<Icon name="camera-alt" color={color} size={size * 1.2} />),
-            headerShown: false,
+            // headerShown: true,
           }}
         />
 
         {/* open file explorer to take image */}
         <Tab.Screen
-          name='Upload'
-          component={UploadImage}
+          name='Map'
+          component={Maps}
           options={{
-            tabBarIcon: ({ color, size }) => (<Icon name='folder' color={color} size={size * 1.2} />)
+            tabBarIcon: ({ color, size }) => (<Icon name='map' color={color} size={size * 1.2} />)
           }}
         >
         </Tab.Screen>
