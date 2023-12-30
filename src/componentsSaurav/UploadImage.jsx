@@ -4,7 +4,7 @@ import React from 'react'
 const UploadImage = () => {
   return (
 	<View>
-	  <Text>UploadImage</Text>
+	  <Text style={{color: 'black'}}>UploadImage</Text>
 	</View>
   )
 }

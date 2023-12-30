@@ -3,15 +3,51 @@ import React from 'react'
 import { useRoute } from '@react-navigation/native'
 
 import COLORS from '../consts/colors'
+import { DATABASE_ENDPOINT, MONGODB_API_KEY } from './config'
 
 
-const fetchDetailsFromDb = (classNumber) => {
-	
-}
+const fetchDetailsFromDb = async(classNumber) => {
 
-const DetectionCard = ({ name , confidence, classNumber }) => {
+	let response
+	try{
+
+		response = await fetch (DATABASE_ENDPOINT,
+			{
+				method: 'POST',
+				cache: 'no-cache', //may break api , remove is problem occurs
+				headers : {
+					'Content-Type': 'application/json',
+					'Accept': 'application/json',
+					'apiKey':MONGODB_API_KEY
+				},
+				body: JSON.stringify({
+					'dataSource': 'Cluster0',
+					'database': 'travelGuide',
+					'collection': 'heritageData',
+					'filter': {
+						'classNumber': classNumber
+					}
+				})
+			})
+			
+			if(!response.ok) {
+				throw new Error(`HTTP error! Status: ${response.status}`);
+			}
+
+			const details = await response.json();
+			console.log(details)
+			
+		}catch (error) {
+			console.error('fetch failed: ', error)
+			Alert.alert('fetch failed', error)
+		}
+	}
+		
+const DetectionCard = ({ name, confidence, classNumber }) => {
+
 
 	const descriptions = fetchDetailsFromDb(classNumber)
+	console.log(descriptions)
 
 	return (
 		<View style={styles.outer}>
@@ -128,6 +164,7 @@ const styles = StyleSheet.create({
 		width: 100,
 		height: 'auto',
 		borderRadius: 7,
+		// objectFit: 'contain'
 
 	},
 
@@ -141,22 +178,23 @@ const Detections = ({ navigation }) => {
 	return (
 		<View>
 
-			<Text style={{ backgroundColor: COLORS.primary, fontWeight: 'bold', fontSize: 25, textAlign: 'center', color: 'white' }}>Detections</Text>
-			<Text style={{ color: 'black' }}>{detectionData.numberOfDetection} sites were discovered</Text>
+			<Text style={{ backgroundColor: COLORS.primary, fontWeight: 'bold', fontSize: 25, textAlign: 'center', color: 'white', paddingBottom:3}}>Detections</Text>
+			{/* <Text style={{ color: 'black' }}>{detectionData.numberOfDetection} sites were discovered</Text>
 
 			<Text style={{ color: 'black' }}>the image url is{detectionData.imageURL}</Text>
 
 			{console.log(detectionData)}
 
 			{detectionData.detections.length ? <Text style={{ color: 'black' }}>There are some detections</Text> : <Text style={{ color: 'black' }}>There are no detections</Text>}
-			{console.log('inside detections: ')}
+			{console.log('inside detections: ')} */}
 
-			{detectionData.detections.length ? (detectionData.detections.map((detection, index) => {
-				return (
-					<DetectionCard key={index} {...detection} />
-				)
-			})) : (<Text>There are no detections.</Text>)}
+			{
+				detectionData.detections.length ?
 
+					detectionData.detections.map((detection, index) => <DetectionCard key={index} {...detection} />)
+					:
+					<Text style={{ fontSize: 30, color: 'black', textAlign: 'center' }}>No sites are found.</Text>
+			}
 
 		</View>
 	)

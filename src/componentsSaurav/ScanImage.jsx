@@ -19,16 +19,24 @@ const ScanImage = ({ navigation }) => {
     const openCamera = async () => {
         const options = {};
         try {
-            const images = await launchCamera(options);
-            const formData = new FormData();
-            formData.append(
-                'file', {
-                uri: images.assets[0].uri,
-                type: images.assets[0].type,
-                name: images.assets[0].fileName,
-            });
+            const callbackFxn = async (response) => {
 
-            await sendImageToServer(formData);
+                if (response.didCancel) {
+                    return
+                } //user didn't click image
+
+
+                const formData = new FormData();
+                formData.append(
+                    'file', {
+                    uri: response.assets[0].uri,
+                    type: response.assets[0].type,
+                    name: response.assets[0].fileName,
+                });
+
+                await sendImageToServer(formData);
+            }
+            await launchCamera(options, callbackFxn);
 
         } catch (error) {
             console.error('Error occurred while sending image to server from camera: ', error);
@@ -38,21 +46,29 @@ const ScanImage = ({ navigation }) => {
 
 
     const openGallery = async () => {
-        // const options = {};
         try {
-            const images = await launchImageLibrary({ mediaType: 'photo', selectionLimit: 1 });
-            const formData = new FormData();
-            formData.append(
-                'file', {
-                uri: images.assets[0].uri,
-                type: images.assets[0].type,
-                name: images.assets[0].fileName,
-            });
 
-            await sendImageToServer(formData);
+            const callbackFxn = async (response) => {
+
+                if (response.didCancel) {
+                    return
+                } //user didn't select image
+
+                
+                const formData = new FormData();
+                formData.append(
+                    'file', {
+                    uri: response.assets[0].uri,
+                    type: response.assets[0].type,
+                    name: response.assets[0].fileName,
+                });
+
+                await sendImageToServer(formData);
+            }
+            await launchImageLibrary({ mediaType: 'photo', selectionLimit: 1 }, callbackFxn);
 
         } catch (error) {
-            console.error('Error occurred while sending image to server from galleryx: ', error);
+            console.error('Error occurred while sending image to server from gallery: ', error);
             Alert.alert("Couldn't send image to server.")
         }
     }
@@ -76,7 +92,7 @@ const ScanImage = ({ navigation }) => {
             const responseJson = await response.json();
 
             handleDetection(responseJson.data)
-            
+
             // console.log(responseJson)
             // setResponse(responseJson.message);
             // setResponseImageURL(responseJson.data.imageURL);
@@ -100,7 +116,7 @@ const ScanImage = ({ navigation }) => {
             <View style={[styles.container, styles.displayFlexCenter]}>
                 <Text>Scan Image and go to detections page </Text>
             </View>
-            <View style={[styles.displayFlexCenter, { flexDirection: 'row' }]}>
+            <View style={[styles.displayFlexCenter, { height: '90%', justifyContent: 'space-around' }]}>
                 <Button title='upload image' onPress={openGallery} />
                 <Button title='open camera' onPress={openCamera} />
             </View>
