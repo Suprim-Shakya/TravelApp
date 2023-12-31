@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Button, Text, Image } from 'react-native';
 import { launchImageLibrary, launchCamera } from 'react-native-image-picker';
-import places from '../../consts/places';
+import places from '../../constants/places';
 
 const App = () => {
   const [responseMessage, setResponseMessage] = useState('');

@@ -14,8 +14,8 @@ import {
   Alert,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import COLORS from '../../consts/colors';
-import places from '../../consts/places';
+import COLORS from '../../constants/colors';
+import places from '../../constants/places';
 
 const {width} = Dimensions.get('screen');
 

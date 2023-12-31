@@ -8,7 +8,7 @@ import {
   Text,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import COLORS from '../../consts/colors';
+import COLORS from '../../constants/colors';
 import { ScrollView } from 'react-native-gesture-handler';
 
 const DetailsScreen = ({navigation, route}) => {
