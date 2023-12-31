@@ -1,15 +1,18 @@
 import React, { useRef } from 'react';
+import { Button } from 'react-native';
+
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+
 import DetailsScreen from './src/views/screens/DetailsScreen';
-import BottomDrawer from './src/componentsSaurav/BottomDrawerx';
 import Detections from './src/componentsSaurav/Detections';
 import HomeScreen from './src/views/screens/HomeScreen';
 import Maps from './src/componentsSaurav/Maps';
+import BottomDrawer from './src/componentsSaurav/BottomDrawerx';
+
 import RBSheet from 'react-native-raw-bottom-sheet';
-import { Button } from 'react-native';
 
 const HomeStack = createStackNavigator();
 
@@ -39,7 +42,7 @@ const ScanScreenStack = ({ navigation }) => {
 
     return (
         <ScanStack.Navigator screenOptions={{ headerShown: false }}>
-            <ScanStack.Screen name='BottomDrawer'  component={BottomDrawer} initialParams={{openDrawer}}/>
+            {/* <ScanStack.Screen name='BottomDrawer'  component={BottomDrawer} /> */}
             <ScanStack.Screen name='Detections' component={Detections}  />
         </ScanStack.Navigator>
     );
@@ -60,8 +63,8 @@ const App = () => {
                 />
                 <Tab.Screen
                     name='Scan'
-                    component={BottomDrawer}
-                    initialParams={{openDrawer: ()=> refRBSheet.current.open()}}
+                    component={ScanScreenStack} // this is prevented by listeners
+                    // initialParams={{openDrawer: ()=> refRBSheet.current.open()}}
                     options={{
                         tabBarIcon: ({ color, size }) => <Icon name='camera-alt' color={color} size={size * 1.2} />,
                     }}
@@ -82,5 +85,6 @@ const App = () => {
         </NavigationContainer>
     );
 };
+
 
 export default App;
