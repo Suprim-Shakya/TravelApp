@@ -7,6 +7,7 @@ import { DATABASE_ENDPOINT, MONGODB_API_KEY } from './config'
 
 import fallbackImage from '../assets/onboardImage.jpg'
 import { ScrollView } from 'react-native-gesture-handler'
+import MyLoader from './MyContentLoader'
 
 const fetchDetailsFromDb = async (classNumber) => {
 
@@ -49,6 +50,7 @@ const fetchDetailsFromDb = async (classNumber) => {
 const DetectionCard = ({ box, name, confidence, classNumber }) => {
 
 	const [data, setData] = useState(null);
+	const [renderSkeleton, setRenderSkeleton] = useState(true)
 	// let data;
 
 	useEffect(() => {
@@ -56,12 +58,13 @@ const DetectionCard = ({ box, name, confidence, classNumber }) => {
 		const fetchData = async () => {
 			try {
 				const result = await fetchDetailsFromDb(classNumber);
-				console.log("_______________________________________________________________________________________________")
+				// console.log("_______________________________________________________________________________________________")
 				// descriptions = {_id, classNumber, className, imageLink, latitude, longitude, constructionDate, constructedBy, Description, Ticket, Restrictions, TimeOpen, TimeClose};
 				// details = {...data}
 				// setDescription([])
-				console.log(result)
+				// console.log(result)
 				// setDescription(data.Description)
+				setRenderSkeleton(false)
 				setData(result)
 
 			} catch (error) {
@@ -71,6 +74,14 @@ const DetectionCard = ({ box, name, confidence, classNumber }) => {
 		}
 
 		fetchData();
+
+		return (
+			() => {
+				console.log('clear use effect');
+				setData(null);
+				setRenderSkeleton(true)
+			}
+		)
 
 	}, [classNumber])
 
@@ -88,35 +99,42 @@ const DetectionCard = ({ box, name, confidence, classNumber }) => {
 	// const imageSource = data.imageLink ? data.imageLink : fallbackImage
 
 	return (
+		<View>
+			{renderSkeleton && <MyLoader/>}
+			{data ? <View style={styles.outer}>
 
-	data &&	<View style={styles.outer}>
+				<View style={styles.card}>
+					{/* FETCH descriptions and images from db */}
+					<Image source={data.imageLink ? { uri: data.imageLink } : fallbackImage} style={styles.img} />
 
-			<View style={styles.card}>
-				{/* FETCH descriptions and images from db */}
-				<Image source={data.imageLink ? {uri: data.imageLink} : fallbackImage} style={styles.img} />
+					<View style={styles.cardText}>
 
-				<View style={styles.cardText}>
+						<Text style={styles.headingText}>{name} - {confidence}%</Text>
 
-					<Text style={styles.headingText}>{name} - {confidence}%</Text>
+						{data && <Text style={styles.description}>{data.Description}</Text>}
 
-					{data && <Text style={styles.description}>{data.Description}</Text>}
+						<View style={styles.btnContainer}>
+							<Pressable
+								onPress={() => Alert.alert('you really wanna know more?')}
+								style={({ pressed }) => ({ backgroundColor: pressed ? 'gray' : 'black', ...styles.btnStyle })}
+							>
+								<Text style={{ color: 'white' }}>Know More</Text>
 
-					<View style={styles.btnContainer}>
-						<Pressable
-							onPress={() => Alert.alert('you really wanna know more?')}
-							style={({ pressed }) => ({backgroundColor: pressed ? 'gray' : 'black', ...styles.btnStyle})}
-						>
-							<Text>Know More</Text>
+							</Pressable>
 
-						</Pressable>
+							<Pressable style={({ pressed }) => ({ backgroundColor: pressed ? 'gray' : 'black', ...styles.btnStyle })}>
+								<Text style={{ color: 'white' }}>Add to plan</Text>
+							</Pressable>
 
-						<Pressable style={({ pressed }) => ({backgroundColor: pressed ? 'gray' : 'black', ...styles.btnStyle})}><Text >Add to plan</Text></Pressable>
+						</View>
 
 					</View>
 
 				</View>
-
 			</View>
+			:
+			<MyLoader />}
+
 		</View>
 	)
 }
@@ -128,7 +146,7 @@ const styles = StyleSheet.create({
 		flexDirection: 'row',
 		justifyContent: 'center',
 		margin: 10,
-		marginBottom:0,
+		marginBottom: 0,
 		// width:'100%',
 		// backgroundColor:'red'
 		minHeight: 150,
@@ -190,7 +208,7 @@ const styles = StyleSheet.create({
 	},
 
 	btnStyle: {
-		
+
 		borderRadius: 7,
 		flex: 0,
 		color: 'white',

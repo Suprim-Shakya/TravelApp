@@ -1,6 +1,7 @@
 import { View, Text, Pressable, StyleSheet } from 'react-native'
 import React, { useState } from 'react'
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import COLORS from '../constants/colors';
 
 const CustomButton = ({ text, onPress, iconName, iconSize, iconColor, btnBgColor, btnTextColor }) => {
     const [isPressed, setIsPressed] = useState(false);
@@ -8,7 +9,7 @@ const CustomButton = ({ text, onPress, iconName, iconSize, iconColor, btnBgColor
     const styles = StyleSheet.create({
         button: {
             opacity: isPressed ? 0.7 : 1,
-            backgroundColor: 'black',
+            backgroundColor: COLORS.primary,
             color: 'white',
             borderRadius: 100,
             width: 160,
