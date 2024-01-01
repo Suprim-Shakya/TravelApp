@@ -25,6 +25,7 @@ const BottomDrawer = ({ refRBSheet }) => {
 				iconName='camera-alt'
 				onPress={
 					() => {
+						console.log('camera is opened / clicked')
 						refRBSheet.current.close();
 						navigation.navigate('Scan', { screen: 'Detections', params: { initiator: 'camera' } })
 					}
@@ -36,6 +37,7 @@ const BottomDrawer = ({ refRBSheet }) => {
 				iconName='photo'
 				onPress={
 					() => {
+						console.log("-gallery clicked")
 						refRBSheet.current.close();
 						navigation.navigate('Scan', { screen: 'Detections', params: { initiator: 'gallery' } })
 					}

@@ -3,7 +3,7 @@ import fallbackImage from '../../assets/onboardImage.jpg'
 import { StyleSheet, View, Image, Text, Pressable,Alert } from "react-native";
 
 const DetectionCard = ({ box, name, confidence, classNumber }) => {
-
+console.log('did some one called detection card?')
 	const [data, setData] = useState(null);
 	// let data;
 

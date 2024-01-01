@@ -8,7 +8,7 @@ const openCamera = async () => {
         const callbackFxn = async (response) => {
 
             if (response.didCancel) {
-                return
+                return 'cancel'
             } //user didn't click image
 
             const formData = new FormData();

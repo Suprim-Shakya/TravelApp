@@ -1,4 +1,5 @@
 import { Alert } from "react-native";
+import { API_ENDPOINT } from "../config";
 const sendImageToServer = async (formData) => {
     try {
         const response = await fetch(API_ENDPOINT, {
