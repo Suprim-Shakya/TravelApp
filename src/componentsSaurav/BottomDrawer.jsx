@@ -29,7 +29,8 @@ const BottomDrawer = ({ refRBSheet }) => {
 				if (response.didCancel) {
 					return
 				} //user didn't click image
-
+				
+				navigation.navigate('Scan',{screen:'Skeleton'})
 
 				const formData = new FormData();
 				formData.append(
@@ -59,6 +60,7 @@ const BottomDrawer = ({ refRBSheet }) => {
 					return
 				} //user didn't select image
 
+				navigation.navigate('Scan',{screen:'Skeleton'})
 
 				const formData = new FormData();
 				formData.append(
@@ -123,9 +125,26 @@ const BottomDrawer = ({ refRBSheet }) => {
 			closeOnPressBack={true}
 			customStyles={{ wrapper: { backgroundColor: 'rgba(0,0,0, 0.8)' }, draggableIcon: { backgroundColor: "#000" } }}
 		>
-			<CustomButton title='Open Camera' onPress={() => { refRBSheet.current.close();openCamera() }} iconName='camera-alt' text='Camera'/>
-			<CustomButton title='Open Gallery' onPress={()=>{refRBSheet.current.close();openGallery()}} iconName='photo' text='Gallery'/>
-			<CustomButton title='Cancel' onPress={() => refRBSheet.current.close()} iconName='cancel' text='Cancel'/>
+			<CustomButton
+				title='Open Camera'
+				onPress={
+					() => {
+						refRBSheet.current.close();
+						openCamera()
+					}}
+				iconName='camera-alt'
+				text='Camera'
+			/>
+			<CustomButton
+				title='Open Gallery'
+				onPress={() => {
+					refRBSheet.current.close();
+					openGallery()
+				}}
+				iconName='photo'
+				text='Gallery'
+			/>
+			<CustomButton title='Cancel' onPress={() => refRBSheet.current.close()} iconName='cancel' text='Cancel' />
 		</RBSheet>
 	)
 }

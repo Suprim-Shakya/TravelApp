@@ -2,13 +2,14 @@ import { View, Text } from 'react-native'
 import React from 'react'
 import MyLoader from './MyContentLoader'
 
-const LoadingScreen = () => {
+const SkeletonScreen = () => {
+
   return (
-    <View>
+    <View style={{height:'100%', backgroundColor:'white'}}>
       <MyLoader/>
       <MyLoader/>
     </View>
   )
 }
 
-export default LoadingScreen
+export default SkeletonScreen

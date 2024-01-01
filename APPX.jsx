@@ -13,6 +13,7 @@ import Maps from './src/componentsSaurav/Maps';
 import BottomDrawer from './src/componentsSaurav/BottomDrawer';
 
 import RBSheet from 'react-native-raw-bottom-sheet';
+import SkeletonScreen from './src/componentsSaurav/SkeletonScreen';
 
 const HomeStack = createStackNavigator();
 
@@ -44,6 +45,7 @@ const ScanScreenStack = ({ navigation }) => {
         <ScanStack.Navigator screenOptions={{ headerShown: true }}>
             {/* <ScanStack.Screen name='BottomDrawer'  component={BottomDrawer} /> */}
             <ScanStack.Screen name='Detections' component={Detections}  />
+            <ScanStack.Screen name='Skeleton' component={SkeletonScreen} title='Loading...' />
         </ScanStack.Navigator>
     );
 };

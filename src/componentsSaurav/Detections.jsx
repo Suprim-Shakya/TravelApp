@@ -227,7 +227,7 @@ const Detections = ({ navigation }) => {
 	// const detectionData = route.params;
 
 	return (
-		<ScrollView>
+		<ScrollView >
 
 			{/* <Text style={{ backgroundColor: COLORS.primary, fontWeight: 'bold', fontSize: 25, textAlign: 'center', color: 'white', paddingBottom: 3 }}>Detections</Text>
 			<Text style={{ color: 'black' }}>{numberOfDetection} sites were discovered</Text>
@@ -267,3 +267,5 @@ const Detections = ({ navigation }) => {
 }
 
 export default Detections
+
+//TODO: the skeletion logic also works here ,, but result is not given till recieved from server so now visible, if we can handle server here then skeleton will be visible
