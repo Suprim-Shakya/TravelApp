@@ -1,15 +1,15 @@
 import React from "react"
 import ContentLoader, { Rect } from "react-content-loader/native"
-import COLORS from "../constants/colors"
+import COLORS from "../../constants/colors"
 
 const MyLoader = (props) => (
   <ContentLoader 
-    speed={2}
+    speed={1}
     width={400}
     height={160}
     viewBox="0 0 320 160"
     backgroundColor="#f5f5f5"
-    foregroundColor="#ebebeb"
+    foregroundColor={COLORS.grey}
     {...props}
   >
     <Rect x="180" y="11" rx="3" ry="3" width="90" height="6" /> 

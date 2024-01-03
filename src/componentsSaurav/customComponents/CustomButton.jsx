@@ -1,7 +1,7 @@
 import { View, Text, Pressable, StyleSheet } from 'react-native'
 import React, { useState } from 'react'
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import COLORS from '../constants/colors';
+import COLORS from '../../constants/colors';
 
 const CustomButton = ({ text, onPress, iconName, iconSize, iconColor, btnBgColor, btnTextColor }) => {
     const [isPressed, setIsPressed] = useState(false);

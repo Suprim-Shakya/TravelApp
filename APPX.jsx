@@ -7,13 +7,13 @@ import { NavigationContainer } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import DetailsScreen from './src/views/screens/DetailsScreen';
-import Detections from './src/componentsSaurav/Detections';
+import RenderDetections from './src/componentsSaurav/screens/RenderDetections';
 import HomeScreen from './src/views/screens/HomeScreen';
-import Maps from './src/componentsSaurav/Maps';
-import BottomDrawer from './src/componentsSaurav/BottomDrawer';
+import Maps from './src/componentsSaurav/screens/Maps';
+import BottomDrawer from './src/componentsSaurav/screens/BottomDrawer';
 
 import RBSheet from 'react-native-raw-bottom-sheet';
-import SkeletonScreen from './src/componentsSaurav/SkeletonScreen';
+import SkeletonScreen from './src/componentsSaurav/customComponents/SkeletonScreen';
 
 const HomeStack = createStackNavigator();
 
@@ -44,7 +44,7 @@ const ScanScreenStack = ({ navigation }) => {
     return (
         <ScanStack.Navigator screenOptions={{ headerShown: true }}>
             {/* <ScanStack.Screen name='BottomDrawer'  component={BottomDrawer} /> */}
-            <ScanStack.Screen name='Detections' component={Detections}  />
+            <ScanStack.Screen name='RenderDetections' component={RenderDetections}  />
             <ScanStack.Screen name='Skeleton' component={SkeletonScreen} title='Loading...' />
         </ScanStack.Navigator>
     );

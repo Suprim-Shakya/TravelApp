@@ -3,9 +3,9 @@ import React, { useRef, useState } from 'react'
 import RBSheet from 'react-native-raw-bottom-sheet';
 
 import { launchImageLibrary, launchCamera } from 'react-native-image-picker';
-import { API_ENDPOINT } from './config';
+import { API_ENDPOINT } from '../config';
 import { useNavigation } from '@react-navigation/native';
-import CustomButton from './CustomButton';
+import CustomButton from '../customComponents/CustomButton';
 
 
 
@@ -13,12 +13,9 @@ import CustomButton from './CustomButton';
 const BottomDrawer = ({ refRBSheet }) => {
 
 	const navigation = useNavigation();
-	// const refRBSheet = useRef();
-	const [responseImageURL, setResponseImageURL] = useState('');
-	const [responseName, setResponseName] = useState('');
 
 	const handleDetection = ({ detections, imageURL, numberOfDetection }) => {
-		navigation.navigate('Scan', { screen: 'Detections', params: { detections, imageURL, numberOfDetection } })
+		navigation.navigate('Scan', { screen: 'RenderDetections', params: { detections, imageURL, numberOfDetection } })
 	}
 
 	const openCamera = async () => {
@@ -29,8 +26,8 @@ const BottomDrawer = ({ refRBSheet }) => {
 				if (response.didCancel) {
 					return
 				} //user didn't click image
-				
-				navigation.navigate('Scan',{screen:'Skeleton'})
+
+				navigation.navigate('Scan', { screen: 'Skeleton' })
 
 				const formData = new FormData();
 				formData.append(
@@ -60,7 +57,7 @@ const BottomDrawer = ({ refRBSheet }) => {
 					return
 				} //user didn't select image
 
-				navigation.navigate('Scan',{screen:'Skeleton'})
+				navigation.navigate('Scan', { screen: 'Skeleton' })
 
 				const formData = new FormData();
 				formData.append(
@@ -82,7 +79,7 @@ const BottomDrawer = ({ refRBSheet }) => {
 
 
 	const sendImageToServer = async (formData) => {
-		// setIsLoading(true);
+
 		try {
 			const response = await fetch(API_ENDPOINT, {
 				method: 'post',
@@ -92,18 +89,9 @@ const BottomDrawer = ({ refRBSheet }) => {
 				}
 			})
 
-			// if (!response.ok) {
-			//     throw new Error(`HTTP error! Status: ${response.status}`);
-			// }
-
 			const responseJson = await response.json();
 
 			handleDetection({ ...responseJson.data })
-
-			// console.log(responseJson)
-			// setResponse(responseJson.message);
-			// setResponseImageURL(responseJson.data.imageURL);
-			// responseJson.data.detections[0] ? setResponseName(responseJson.data.detections[0].name) : setResponseName('No detections')
 
 		} catch (error) {
 			if (error.message === 'Network request failed') {
@@ -112,8 +100,6 @@ const BottomDrawer = ({ refRBSheet }) => {
 				console.error('Error occurred on post request send to server: ', error)
 			}
 
-		} finally {
-			// setIsLoading(false)
 		}
 	}
 
