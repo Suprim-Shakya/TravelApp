@@ -4,7 +4,7 @@ import React from 'react'
 const Maps = () => {
   return (
     <View>
-      <Text style={{color:'black'}}>***********************************Maps</Text>
+      <Text style={{color:'black', alignSelf:'center'}}>Maps</Text>
     </View>
   )
 }
