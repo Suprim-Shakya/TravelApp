@@ -3,11 +3,12 @@ import React,{useState, useEffect} from "react";
 import fallbackImage from '../../assets/onboardImage.jpg'
 import MyLoader from './DetectionLoaderSkeleton'
 import fetchDetailsFromDb from "../apiCalls/fetchDataFromDB";
+import { useNavigation } from "@react-navigation/native";
 
 const DetectionCard = ({ box, name, confidence, classNumber,}) => {
-
+	const navigation = useNavigation();
 	const [data, setData] = useState(null);
-	const [renderSkeleton, setRenderSkeleton] = useState(true)
+	// const [renderSkeleton, setRenderSkeleton] = useState(true);
 	// let data;
 
 	useEffect(() => {
@@ -15,8 +16,8 @@ const DetectionCard = ({ box, name, confidence, classNumber,}) => {
 		const fetchData = async () => {
 			try {
 				const result = await fetchDetailsFromDb(classNumber);
-				setRenderSkeleton(false)
-                console.log(result)
+				// setRenderSkeleton(false)
+                // console.log(result)
 				setData(result)
 
 			} catch (error) {
@@ -31,12 +32,17 @@ const DetectionCard = ({ box, name, confidence, classNumber,}) => {
 			() => {
 				console.log('clear use effect');
 				setData(null);
-				setRenderSkeleton(true)
+				// setRenderSkeleton(true)
 			}
 		)
 
 	}, [classNumber])
 
+	const handleKnowMore = () => {
+		console.log('hello')
+		navigation.navigate('Scan', { screen: 'DetectionDetail', params: { ...data} })
+		console.log('hello')
+	}
 
 
 	return (
@@ -56,7 +62,7 @@ const DetectionCard = ({ box, name, confidence, classNumber,}) => {
 
 						<View style={styles.btnContainer}>
 							<Pressable
-								onPress={() => Alert.alert('you really wanna know more?')}
+								onPress={()=>handleKnowMore()}
 								style={({ pressed }) => ({ backgroundColor: pressed ? 'gray' : 'black', ...styles.btnStyle })}
 							>
 								<Text style={{ color: 'white' }}>Know More</Text>

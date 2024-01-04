@@ -5,7 +5,7 @@ import COLORS from "../../constants/colors"
 const MyLoader = (props) => (
   <ContentLoader 
     speed={1}
-    width={400}
+    width={320}
     height={160}
     viewBox="0 0 320 160"
     backgroundColor="#f5f5f5"

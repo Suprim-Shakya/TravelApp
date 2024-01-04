@@ -14,6 +14,7 @@ import BottomDrawer from './src/componentsSaurav/screens/BottomDrawer';
 
 import SkeletonScreen from './src/componentsSaurav/customComponents/SkeletonScreen';
 import COLORS from './src/constants/colors';
+import DetectionDetail from './src/components/DetectionDetail';
 
 const HomeStack = createStackNavigator();
 
@@ -36,6 +37,7 @@ const ScanScreenStack = ({ navigation }) => {
         <ScanStack.Navigator screenOptions={{ headerShown: true, }}>
             {/* <ScanStack.Screen name='BottomDrawer'  component={BottomDrawer} /> */}
             <ScanStack.Screen name='RenderDetections' component={RenderDetections}  options={{title:'Detections'}}/>
+            <ScanStack.Screen name='DetectionDetail' component={DetectionDetail} options={{headerShown: false}}/>
             {/* <ScanStack.Screen name='Skeleton' component={SkeletonScreen}  options={{ title:'Loading Detections...'}}/> */}
         </ScanStack.Navigator>
     );
@@ -45,7 +47,7 @@ const App = () => {
     const Tab = createBottomTabNavigator();
     const refRBSheet = useRef();
     return (
-        <NavigationContainer>
+        <NavigationContainer >
             <StatusBar translucent={false} backgroundColor={COLORS.primary} />
             <Tab.Navigator screenOptions={{
                 headerShown: false,

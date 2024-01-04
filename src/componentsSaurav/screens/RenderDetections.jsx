@@ -31,9 +31,7 @@ const RenderDetections = ({ route }) => {
 				{
 					detections.length ? (
 						detections.map((detection, index) => (
-							<View>
 								<DetectionCard key={index} {...detection} />
-							</View>
 						)
 						)
 					) : (<View style={{ backgroundColor: 'white', justifyContent: 'center', alignItems: 'center', height: 800 }}>
