@@ -1,4 +1,4 @@
-import { DATABASE_ENDPOINT, MONGODB_API_KEY } from "../config";
+import { CLUSTER_NAME, COLLECTION_NAME, DATABASE_ENDPOINT, DATABASE_NAME, MONGODB_API_KEY } from "../config";
 
 
 const fetchDetailsFromDb = async (classNumber) => {
@@ -16,9 +16,9 @@ const fetchDetailsFromDb = async (classNumber) => {
 					'apiKey': MONGODB_API_KEY
 				},
 				body: JSON.stringify({
-					'dataSource': 'Cluster0',
-					'database': 'travelGuide',
-					'collection': 'heritageData',
+					'dataSource': CLUSTER_NAME,
+					'database': DATABASE_NAME,
+					'collection': COLLECTION_NAME,
 					'filter': {
 						'classNumber': classNumber
 					}
