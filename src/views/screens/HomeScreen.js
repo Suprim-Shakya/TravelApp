@@ -67,10 +67,10 @@ const HomeScreen = ({navigation}) => {
                 {place.location}
               </Text>
             </View>
-            <View style={{flexDirection: 'row'}}>
+            {/* <View style={{flexDirection: 'row'}}>
               <Icon name="star" size={20} color={COLORS.white} />
               <Text style={{marginLeft: 5, color: COLORS.white}}>5.0</Text>
-            </View>
+            </View> */}
           </View>
         </ImageBackground>
       </TouchableOpacity>
@@ -102,10 +102,10 @@ const HomeScreen = ({navigation}) => {
                 {place.location}
               </Text>
             </View>
-            <View style={{flexDirection: 'row'}}>
+            {/* <View style={{flexDirection: 'row'}}>
               <Icon name="star" size={22} color={COLORS.white} />
               <Text style={{color: COLORS.white, marginLeft: 5}}>5.0</Text>
-            </View>
+            </View> */}
           </View>
           <Text style={{color: COLORS.white, fontSize: 13}}>
             {place.details}
