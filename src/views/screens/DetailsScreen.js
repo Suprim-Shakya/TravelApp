@@ -64,15 +64,15 @@ const DetailsScreen = ({navigation, route}) => {
               }}>
               {place.location}
             </Text>}
-		  {place.name && <Icon name="fastfood" size={28} color={COLORS.primary} />}
-           {place.name && <Text
+		  {place.foodName && <Icon name="fastfood" size={28} color={COLORS.primary} />}
+           {place.foodName && <Text
               style={{
                 marginLeft: 5,
                 fontSize: 20,
                 fontWeight: 'bold',
                 color: COLORS.primary,
               }}>
-              {place.name}
+              {place.foodName}
             </Text>}
           </View>
           {/* <Text style={{marginTop: 20, fontWeight: 'bold', fontSize: 20,color: COLORS.dark}}>
