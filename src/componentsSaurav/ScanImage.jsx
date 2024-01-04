@@ -113,7 +113,7 @@ const ScanImage = ({ navigation }) => {
 
     return (
 
-        <View style={[styles.displayFlexCenter]}>
+        <View style={styles.displayFlexCenter}>
             <View style={[styles.container, styles.displayFlexCenter]}>
                 <Text>Scan Image and go to detections page </Text>
             </View>
