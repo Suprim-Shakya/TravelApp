@@ -19,9 +19,9 @@ const BottomDrawer = ({ refRBSheet }) => {
 		if (formData == 'cancel') {
 			return
 		} else {
-			navigation.navigate('Scan', { screen: 'Skeleton' })
+			navigation.navigate('Scan', { screen: 'RenderDetections', params: {loading: true} })
 			const response = await sendImageToServer(formData);
-			navigation.navigate('Scan', { screen: 'RenderDetections', params: { ...response } })
+			navigation.navigate('Scan', { screen: 'RenderDetections', params: { ...response, loading: false } })
 		}
 	}
 

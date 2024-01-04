@@ -41,7 +41,7 @@ const DetectionCard = ({ box, name, confidence, classNumber,}) => {
 
 	return (
 		<View>
-			{renderSkeleton && <MyLoader/>}
+			{/* {renderSkeleton && <MyLoader/>} */}
 			{data ? <View style={styles.outer}>
 
 				<View style={styles.card}>
