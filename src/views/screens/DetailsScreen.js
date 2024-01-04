@@ -39,13 +39,13 @@ const DetailsScreen = ({navigation, route}) => {
             }}>
             {place.name}
           </Text>
-          <View style={{flexDirection: 'row'}}>
+          {/* <View style={{flexDirection: 'row'}}>
             <Icon name="star" size={30} color={COLORS.orange} />
             <Text
               style={{color: COLORS.white, fontWeight: 'bold', fontSize: 20}}>
               5.0
             </Text>
-          </View>
+          </View> */}
         </View>
       </ImageBackground>
       <ScrollView style={style.detailsContainer}>
@@ -54,8 +54,8 @@ const DetailsScreen = ({navigation, route}) => {
             <Icon name="favorite" color={COLORS.red} size={30} />
           </View> */}
           <View style={{flexDirection: 'row', marginTop: 10}}>
-            <Icon name="place" size={28} color={COLORS.primary} />
-            <Text
+		  {place.location && <Icon name="place" size={28} color={COLORS.primary} />}
+           {place.location && <Text
               style={{
                 marginLeft: 5,
                 fontSize: 20,
@@ -63,42 +63,31 @@ const DetailsScreen = ({navigation, route}) => {
                 color: COLORS.primary,
               }}>
               {place.location}
-            </Text>
+            </Text>}
+		  {place.foodName && <Icon name="fastfood" size={28} color={COLORS.primary} />}
+           {place.foodName && <Text
+              style={{
+                marginLeft: 5,
+                fontSize: 20,
+                fontWeight: 'bold',
+                color: COLORS.primary,
+              }}>
+              {place.foodName}
+            </Text>}
           </View>
-          <Text style={{marginTop: 20, fontWeight: 'bold', fontSize: 20}}>
+          {/* <Text style={{marginTop: 20, fontWeight: 'bold', fontSize: 20,color: COLORS.dark}}>
             About the heritage
-          </Text>
-          <Text style={{marginTop: 20, lineHeight: 22}}>{place.details}</Text>
+          </Text> */}
+          <Text style={{marginTop: 20, lineHeight: 22, color:COLORS.dark}}>{place.details}</Text>
         </View>
         </ScrollView>
     </SafeAreaView>
   );
 };
 const style = StyleSheet.create({
-  bookNowBtn: {
-    height: 50,
-    width: 150,
-    backgroundColor: COLORS.white,
-    borderRadius: 10,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
 
-  // iconContainer: {
-  //   height: 60,
-  //   width: 60,
-  //   position: 'absolute',
-  //   top: -30,
-  //   backgroundColor: COLORS.white,
-  //   borderRadius: 30,
-  //   right: 20,
-  //   elevation: 10,
-  //   justifyContent: 'center',
-  //   alignItems: 'center',
-  // },
-  
+ 
   detailsContainer: {
-    top: -10,
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,
     paddingVertical: 18,

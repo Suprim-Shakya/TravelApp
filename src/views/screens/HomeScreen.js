@@ -16,6 +16,8 @@ import {
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import COLORS from '../../constants/colors';
 import places from '../../constants/places';
+import cuisines from '../../constants/cusines';
+// import cusines from '../../constants/cusines'
 
 const {width} = Dimensions.get('screen');
 
@@ -67,10 +69,10 @@ const HomeScreen = ({navigation}) => {
                 {place.location}
               </Text>
             </View>
-            <View style={{flexDirection: 'row'}}>
+            {/* <View style={{flexDirection: 'row'}}>
               <Icon name="star" size={20} color={COLORS.white} />
               <Text style={{marginLeft: 5, color: COLORS.white}}>5.0</Text>
-            </View>
+            </View> */}
           </View>
         </ImageBackground>
       </TouchableOpacity>
@@ -79,6 +81,9 @@ const HomeScreen = ({navigation}) => {
 
   const RecommendedCard = ({place}) => {
     return (
+      <TouchableOpacity activeOpacity={0.8}
+      onPress={() => navigation.navigate('DetailsScreen',place)}>
+
       <ImageBackground style={style.rmCardImage} source={place.image}>
         <Text
           style={{
@@ -102,16 +107,17 @@ const HomeScreen = ({navigation}) => {
                 {place.location}
               </Text>
             </View>
-            <View style={{flexDirection: 'row'}}>
+            {/* <View style={{flexDirection: 'row'}}>
               <Icon name="star" size={22} color={COLORS.white} />
               <Text style={{color: COLORS.white, marginLeft: 5}}>5.0</Text>
-            </View>
+            </View> */}
           </View>
           <Text style={{color: COLORS.white, fontSize: 13}}>
             {place.details}
           </Text>
         </View>
       </ImageBackground>
+            </TouchableOpacity>
     );
   };
   return (
@@ -144,10 +150,10 @@ const HomeScreen = ({navigation}) => {
             <Text style={style.headerTitle}>Discover the Best</Text>
             <Text style={style.headerTitle}>Sites to Travel</Text>
             <View style={style.inputContainer}>
-              <Icon name="search" size={28} />
+              <Icon name="search" size={28} color={COLORS.darkGrey}/>
               <TextInput
-                placeholder="Search heritage"
-                style={{color: COLORS.grey}}
+                placeholder=" Search heritage"
+                placeholderTextColor={COLORS.grey}
               />
             </View>
           </View>
@@ -162,13 +168,13 @@ const HomeScreen = ({navigation}) => {
             data={places}
             renderItem={({item}) => <Card place={item} />}
           />
-          <Text style={style.sectionTitle}>Recommended</Text>
+          <Text style={style.sectionTitle}>Cuisines</Text>
           <FlatList
             snapToInterval={width - 20}
             contentContainerStyle={{paddingLeft: 20, paddingBottom: 20}}
             showsHorizontalScrollIndicator={false}
             horizontal
-            data={places}
+            data={cuisines}
             renderItem={({item}) => <RecommendedCard place={item} />}
           />
         </View>
@@ -221,6 +227,7 @@ const style = StyleSheet.create({
     marginVertical: 20,
     fontWeight: 'bold',
     fontSize: 20,
+    color: COLORS.darkGrey
   },
   cardImage: {
     height: 220,
