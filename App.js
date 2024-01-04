@@ -5,13 +5,14 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import OnBoardScreen from './src/views/screens/OnBoardScreen';
 import HomeScreen from './src/views/screens/HomeScreen';
-import DetailsScreen from './src/views/screens/DetailsScreen';
+// import DetailsScreen from './src/views/screens/DetailsScreen';
 import ScanScreen from './src/views/screens/ScanScreen';
 import COLORS from './src/constants/colors';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Notifications from './src/views/screens/Notifications';
 import ScanImage from './src/componentsSaurav/ScanImage';
 import Detections from './src/componentsSaurav/Detections';
+import FinalDetailsScreen from './src/componentsSaurav/FinalDetailsScreen';
 import Maps from './src/componentsSaurav/Maps';
 
 // import { useCameraPermission } from 'react-native-vision-camera';
@@ -48,6 +49,7 @@ function ScanStack() {
     <StackScan.Navigator screenOptions={{ headerShown: false }}>
       <StackScan.Screen name="ScanScreen" component={ScanImage} />
       <StackScan.Screen name="Detections" component={Detections} options={{headerShown: true}}/>
+      <StackScan.Screen name="MainStack" component={DetailsScreen} options={{headerShown: true}}/>
     </StackScan.Navigator>
   );
 }
@@ -83,14 +85,15 @@ const App = () => {
           }}
         />
         {/* open camera */}
-        <Tab.Screen
+        {/* <Tab.Screen
           name="Scan"
           component={ScanStack}
           options={{
             tabBarIcon: ({ color, size }) => (<Icon name="camera-alt" color={color} size={size * 1.2} />),
             // headerShown: true,
           }}
-        />
+        /> */}
+        <DetailsScreen></DetailsScreen>
 
         {/* open file explorer to take image */}
         <Tab.Screen

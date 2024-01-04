@@ -1,13 +1,24 @@
 import { View, Text, Pressable, StyleSheet, Image, Alert } from 'react-native'
 import React, { useState, useEffect } from 'react'
-import { useRoute } from '@react-navigation/native'
+// import { useRoute } from '@react-navigation/native'
+import { useRoute, useNavigation } from '@react-navigation/native';
+import Maps from './Maps';
+
+
+
 
 import COLORS from '../constants/colors'
-import { DATABASE_ENDPOINT, MONGODB_API_KEY } from './config'
+// import { DATABASE_ENDPOINT, MONGODB_API_KEY } from './config'
 
 import fallbackImage from '../assets/onboardImage.jpg'
 import { ScrollView } from 'react-native-gesture-handler'
 import MyLoader from './MyContentLoader'
+
+import { CLUSTER_NAME, COLLECTION_NAME, DATABASE_ENDPOINT, DATABASE_NAME, MONGODB_API_KEY } from "./config";
+
+import { createStackNavigator } from '@react-navigation/stack';
+import FinalDetailsScreen from './FinalDetailsScreen';
+
 
 const fetchDetailsFromDb = async (classNumber) => {
 
@@ -24,9 +35,9 @@ const fetchDetailsFromDb = async (classNumber) => {
 					'apiKey': MONGODB_API_KEY
 				},
 				body: JSON.stringify({
-					'dataSource': 'Cluster0',
-					'database': 'travelGuide',
-					'collection': 'heritageData',
+					'dataSource': CLUSTER_NAME,
+					'database': DATABASE_NAME,
+					'collection': COLLECTION_NAME,
 					'filter': {
 						'classNumber': classNumber
 					}
@@ -43,7 +54,7 @@ const fetchDetailsFromDb = async (classNumber) => {
 
 	} catch (error) {
 		console.error('fetch failed: ', error)
-		Alert.alert('fetch failed', error)
+		// Alert.alert('fetch failed', error)
 	}
 }
 
@@ -51,6 +62,7 @@ const DetectionCard = ({ box, name, confidence, classNumber }) => {
 
 	const [data, setData] = useState(null);
 	const [renderSkeleton, setRenderSkeleton] = useState(true)
+	const navigation = useNavigation();
 	// let data;
 
 	useEffect(() => {
@@ -62,7 +74,10 @@ const DetectionCard = ({ box, name, confidence, classNumber }) => {
 				// descriptions = {_id, classNumber, className, imageLink, latitude, longitude, constructionDate, constructedBy, Description, Ticket, Restrictions, TimeOpen, TimeClose};
 				// details = {...data}
 				// setDescription([])
-				// console.log(result)
+				console.log(result)
+				console.log('------------------')
+				console.log(result.ArchitectureStyle)
+				
 				// setDescription(data.Description)
 				setRenderSkeleton(false)
 				setData(result)
@@ -85,19 +100,29 @@ const DetectionCard = ({ box, name, confidence, classNumber }) => {
 
 	}, [classNumber])
 
+	const handleKnowMorePress = () => {
+		// Navigate to the DetailsScreen with the required data
+		navigation.navigate('FinalDetailsScreen', {
+			className: data?.className || '',
+			architectureStyle: data?.ArchitectureStyle || '',
+			constructedBy: data?.constructedBy || '',
+			constructionDate: data?.constructionDate || '',
+			Ticket: data?.Ticket || '',
+			Description: data?.Description || '',
+			imageLink: data?.imageLink || '',
+			latitude: data?.latitude || '',
+			longitude: data?.longitude || '',
+		  });
+	};
 
-	// if (!data) {
-	// 	// Return a placeholder or loading state
-	// 	return <View><Text>loading...</Text></View>;
-	//   }
 
-	// const {className, Description, latitude, longitude, imageLink} = fetchDetailsFromDb(classNumber)
-
-	// const { imageLink, latitude, longitude, Description, Ticket, Restriction, TimeOpen, TimeClose } = descriptions
-	// const imageSource = (imageLink ? { uri: imageLink } : fallbackImage)
-
-	// const imageSource = data.imageLink ? data.imageLink : fallbackImage
-
+	const handleAddToPlanPress = () => {
+		// Navigate to the Maps screen with the className parameter
+		navigation.navigate('Maps', {
+		  className: data?.className || '',
+		});
+	}
+		
 	return (
 		<View>
 			{renderSkeleton && <MyLoader/>}
@@ -111,18 +136,19 @@ const DetectionCard = ({ box, name, confidence, classNumber }) => {
 
 						<Text style={styles.headingText}>{name} - {confidence}%</Text>
 
-						{data && <Text style={styles.description}>{data.Description}</Text>}
+						{data && <Text style={styles.description}>{}</Text>}
 
 						<View style={styles.btnContainer}>
 							<Pressable
-								onPress={() => Alert.alert('you really wanna know more?')}
+								onPress={() => handleKnowMorePress()}
 								style={({ pressed }) => ({ backgroundColor: pressed ? 'gray' : 'black', ...styles.btnStyle })}
 							>
 								<Text style={{ color: 'white' }}>Know More</Text>
 
 							</Pressable>
 
-							<Pressable style={({ pressed }) => ({ backgroundColor: pressed ? 'gray' : 'black', ...styles.btnStyle })}>
+							<Pressable onPress={()=>handleAddToPlanPress()}
+							style={({ pressed }) => ({ backgroundColor: pressed ? 'gray' : 'black', ...styles.btnStyle })}>
 								<Text style={{ color: 'white' }}>Add to plan</Text>
 							</Pressable>
 
@@ -134,6 +160,13 @@ const DetectionCard = ({ box, name, confidence, classNumber }) => {
 			</View>
 			:
 			<MyLoader />}
+			{/* {data && (
+				<View>
+				<Text>Architecture Style: {data.ArchitectureStyle}</Text>
+				<Text>Constructed By: {data.constructedBy}</Text>
+				<Text>Description: {data.Description}</Text>
+				</View>
+			)} */}
 
 		</View>
 	)
@@ -220,9 +253,9 @@ const styles = StyleSheet.create({
 
 })
 
-const Detections = ({ navigation }) => {
+const Detections = ({ route }) => {
 
-	const route = useRoute();
+	// const route = useRoute();
 	const { detections, imageURL, numberOfDetection } = route.params
 	// const detectionData = route.params;
 
@@ -267,5 +300,3 @@ const Detections = ({ navigation }) => {
 }
 
 export default Detections
-
-//TODO: the skeletion logic also works here ,, but result is not given till recieved from server so now visible, if we can handle server here then skeleton will be visible

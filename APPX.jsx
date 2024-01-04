@@ -14,6 +14,7 @@ import BottomDrawer from './src/componentsSaurav/BottomDrawer';
 
 import RBSheet from 'react-native-raw-bottom-sheet';
 import SkeletonScreen from './src/componentsSaurav/SkeletonScreen';
+import FinalDetailsScreen from './src/componentsSaurav/FinalDetailsScreen';
 
 const HomeStack = createStackNavigator();
 
@@ -46,6 +47,7 @@ const ScanScreenStack = ({ navigation }) => {
             {/* <ScanStack.Screen name='BottomDrawer'  component={BottomDrawer} /> */}
             <ScanStack.Screen name='Detections' component={Detections}  />
             <ScanStack.Screen name='Skeleton' component={SkeletonScreen} title='Loading...' />
+            <ScanStack.Screen name='FinalDetailsScreen' component={FinalDetailsScreen} title='Loading...' />
         </ScanStack.Navigator>
     );
 };

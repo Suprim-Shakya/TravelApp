@@ -16,6 +16,7 @@ import {
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import COLORS from '../../constants/colors';
 import places from '../../constants/places';
+import cuisines from '../../constants/cuisines';
 
 const {width} = Dimensions.get('screen');
 
@@ -77,43 +78,115 @@ const HomeScreen = ({navigation}) => {
     );
   };
 
+  //cuisines
+  const Card2 = ({cuisines}) => {
+    return (
+      <TouchableOpacity
+        activeOpacity={0.8}
+        onPress={() => navigation.navigate('CuisinesScreen',cuisines)}>
+        <ImageBackground style={style.cardImage} source={cuisines.image}>
+          <Text
+            style={{
+              color: COLORS.white,
+              fontSize: 20,
+              fontWeight: 'bold',
+              marginTop: 10,
+            }}>
+            {cuisines.name}
+          </Text>
+          <View
+            style={{
+              flex: 1,
+              justifyContent: 'space-between',
+              flexDirection: 'row',
+              alignItems: 'flex-end',
+            }}>
+            <View style={{flexDirection: 'row'}}>
+              <Icon name="place" size={20} color={COLORS.white} />
+              <Text style={{marginLeft: 5, color: COLORS.white}}>
+                {cuisines.location}
+              </Text>
+            </View>
+          </View>
+        </ImageBackground>
+      </TouchableOpacity>
+    );
+  };
+
   const RecommendedCard = ({place}) => {
     return (
-      <ImageBackground style={style.rmCardImage} source={place.image}>
-        <Text
-          style={{
-            color: COLORS.white,
-            fontSize: 22,
-            fontWeight: 'bold',
-            marginTop: 10,
-          }}>
-          {place.name}
-        </Text>
-        <View
-          style={{
-            flex: 1,
-            justifyContent: 'space-between',
-            alignItems: 'flex-end',
-          }}>
-          <View style={{width: '100%', flexDirection: 'row', marginTop: 10}}>
+      <TouchableOpacity
+        activeOpacity={0.8}
+        onPress={() => navigation.navigate('CuisinesScreen',cuisines)}>
+        <ImageBackground style={style.cardImage} source={cuisines.image}>
+          <Text
+            style={{
+              color: COLORS.white,
+              fontSize: 20,
+              fontWeight: 'bold',
+              marginTop: 10,
+            }}>
+            {cuisines.name}
+          </Text>
+          <View
+            style={{
+              flex: 1,
+              justifyContent: 'space-between',
+              flexDirection: 'row',
+              alignItems: 'flex-end',
+            }}>
             <View style={{flexDirection: 'row'}}>
-              <Icon name="place" size={22} color={COLORS.white} />
-              <Text style={{color: COLORS.white, marginLeft: 5}}>
-                {place.location}
+              <Icon name="cuisines" size={20} color={COLORS.white} />
+              <Text style={{marginLeft: 5, color: COLORS.white}}>
+                {cuisines.location}
               </Text>
             </View>
             <View style={{flexDirection: 'row'}}>
-              <Icon name="star" size={22} color={COLORS.white} />
-              <Text style={{color: COLORS.white, marginLeft: 5}}>5.0</Text>
+              <Icon name="star" size={20} color={COLORS.white} />
+              <Text style={{marginLeft: 5, color: COLORS.white}}>5.0</Text>
             </View>
           </View>
-          <Text style={{color: COLORS.white, fontSize: 13}}>
-            {place.details}
-          </Text>
-        </View>
-      </ImageBackground>
+        </ImageBackground>
+      </TouchableOpacity>
     );
   };
+  // const RecommendedCard = ({cuisines}) => {
+  //   return (
+  //     <ImageBackground style={style.rmCardImage} source={cuisines.image}>
+  //       <Text
+  //         style={{
+  //           color: COLORS.white,
+  //           fontSize: 22,
+  //           fontWeight: 'bold',
+  //           marginTop: 10,
+  //         }}>
+  //         {cuisines.name}
+  //       </Text>
+  //       <View
+  //         style={{
+  //           flex: 1,
+  //           justifyContent: 'space-between',
+  //           alignItems: 'flex-end',
+  //         }}>
+  //         <View style={{width: '100%', flexDirection: 'row', marginTop: 10}}>
+  //           <View style={{flexDirection: 'row'}}>
+  //             <Icon name="cuisines" size={22} color={COLORS.white} />
+  //             <Text style={{color: COLORS.white, marginLeft: 5}}>
+  //               {cuisines.location}
+  //             </Text>
+  //           </View>
+  //           <View style={{flexDirection: 'row'}}>
+  //             <Icon name="star" size={22} color={COLORS.white} />
+  //             <Text style={{color: COLORS.white, marginLeft: 5}}>5.0</Text>
+  //           </View>
+  //         </View>
+  //         <Text style={{color: COLORS.white, fontSize: 13}}>
+  //           {cuisines.details}
+  //         </Text>
+  //       </View>
+  //     </ImageBackground>
+  //   );
+  // };
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: COLORS.white}}>
       <StatusBar translucent={false} backgroundColor={COLORS.primary} />
@@ -153,7 +226,7 @@ const HomeScreen = ({navigation}) => {
           </View>
         </View>
         <ListCategories />
-        <Text style={style.sectionTitle}>Places</Text>
+        <Text style={style.sectionTitle}>Explore</Text>
         <View>
           <FlatList
             contentContainerStyle={{paddingLeft: 20}}
@@ -161,15 +234,23 @@ const HomeScreen = ({navigation}) => {
             showsHorizontalScrollIndicator={false}
             data={places}
             renderItem={({item}) => <Card place={item} />}
-          />
-          <Text style={style.sectionTitle}>Recommended</Text>
-          <FlatList
+    
+           />
+          <Text style={style.sectionTitle}>Cuisines</Text>
+          {/* <FlatList
             snapToInterval={width - 20}
             contentContainerStyle={{paddingLeft: 20, paddingBottom: 20}}
             showsHorizontalScrollIndicator={false}
             horizontal
             data={places}
             renderItem={({item}) => <RecommendedCard place={item} />}
+          /> */}
+          <FlatList
+            contentContainerStyle={{paddingLeft: 20}}
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            data={cuisines}
+            renderItem={({item}) => <Card place={item} />}
           />
         </View>
       </ScrollView>
@@ -217,15 +298,16 @@ const style = StyleSheet.create({
     borderRadius: 10,
   },
   sectionTitle: {
-    marginHorizontal: 20,
-    marginVertical: 20,
+    marginHorizontal: 10,
+    marginVertical: 10,
     fontWeight: 'bold',
     fontSize: 20,
   },
   cardImage: {
     height: 220,
-    width: width / 2,
-    marginRight: 20,
+    width: 300,
+    marginRight: 10,
+    marginLeft:0,
     padding: 10,
     overflow: 'hidden',
     borderRadius: 10,

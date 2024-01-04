@@ -4,7 +4,7 @@ const places = [
       name: 'Swoyambhu Temple',
       location: 'Swoyambhu',
       image: require('../assets/location1.jpg'),
-      details: `स्वयम्भू स्तूप (Swayambhu), also known as the Monkey Temple, is an ancient religious complex perched atop a hill in the Kathmandu Valley, west of Kathmandu city. This UNESCO World Heritage Site holds immense historical and cultural significance, resonating with both Hinduism and Buddhism.
+      details: `स्वयम्भू स्तूप (Swayambhu), ohoo, is an ancient religious complex perched atop a hill in the Kathmandu Valley, west of Kathmandu city. This UNESCO World Heritage Site holds immense historical and cultural significance, resonating with both Hinduism and Buddhism.
 
       Here are some key points about Swayambhu Temple:
       
