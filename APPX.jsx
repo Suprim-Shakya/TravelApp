@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { Button } from 'react-native';
+import { StatusBar } from 'react-native';
 
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -12,7 +12,6 @@ import HomeScreen from './src/views/screens/HomeScreen';
 import Maps from './src/componentsSaurav/screens/Maps';
 import BottomDrawer from './src/componentsSaurav/screens/BottomDrawer';
 
-import RBSheet from 'react-native-raw-bottom-sheet';
 import SkeletonScreen from './src/componentsSaurav/customComponents/SkeletonScreen';
 import COLORS from './src/constants/colors';
 
@@ -34,10 +33,10 @@ const ScanScreenStack = ({ navigation }) => {
     const refRBSheet = useRef();
 
     return (
-        <ScanStack.Navigator screenOptions={{ headerShown: true }}>
+        <ScanStack.Navigator screenOptions={{ headerShown: true, }}>
             {/* <ScanStack.Screen name='BottomDrawer'  component={BottomDrawer} /> */}
             <ScanStack.Screen name='RenderDetections' component={RenderDetections}  options={{title:'Detections'}}/>
-            <ScanStack.Screen name='Skeleton' component={SkeletonScreen}  options={{ title:'Loading Detections...'}}/>
+            {/* <ScanStack.Screen name='Skeleton' component={SkeletonScreen}  options={{ title:'Loading Detections...'}}/> */}
         </ScanStack.Navigator>
     );
 };
@@ -47,18 +46,19 @@ const App = () => {
     const refRBSheet = useRef();
     return (
         <NavigationContainer>
-            <Tab.Navigator screenOptions={{ 
-                headerShown: false ,
+            <StatusBar translucent={false} backgroundColor={COLORS.primary} />
+            <Tab.Navigator screenOptions={{
+                headerShown: false,
                 tabBarStyle: {
                     height: 60
                 },
                 tabBarHideOnKeyboard: true,
-                tabBarActiveTintColor: COLORS.dark,
+                tabBarActiveTintColor: COLORS.primary,
                 tabBarLabelStyle: {
                     top: -10,
                     fontWeight: 'bold'
                 }
-                }} >
+            }} >
                 <Tab.Screen
                     name='Home'
                     component={HomeScreenStack}
@@ -73,12 +73,12 @@ const App = () => {
                     options={{
                         tabBarIcon: ({ color, size }) => <Icon name='camera-alt' color={color} size={size * 1.2} />,
                     }}
-                listeners={() => ({
-                    tabPress: e => {
-                        e.preventDefault();
-                        refRBSheet.current.open();
-                    }
-                })}
+                    listeners={() => ({
+                        tabPress: e => {
+                            e.preventDefault();
+                            refRBSheet.current.open();
+                        }
+                    })}
                 />
                 <Tab.Screen
                     name='Maps'
