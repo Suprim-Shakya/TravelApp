@@ -44,8 +44,8 @@ const ScanScreenStack = ({ navigation }) => {
     return (
         <ScanStack.Navigator screenOptions={{ headerShown: true }}>
             {/* <ScanStack.Screen name='BottomDrawer'  component={BottomDrawer} /> */}
-            <ScanStack.Screen name='RenderDetections' component={RenderDetections}  />
-            <ScanStack.Screen name='Skeleton' component={SkeletonScreen} title='Loading...' />
+            <ScanStack.Screen name='RenderDetections' component={RenderDetections}  options={{title:'Detections'}}/>
+            <ScanStack.Screen name='Skeleton' component={SkeletonScreen}  options={{ title:'Loading Detections...'}}/>
         </ScanStack.Navigator>
     );
 };

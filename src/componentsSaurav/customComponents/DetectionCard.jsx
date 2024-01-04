@@ -52,7 +52,7 @@ const DetectionCard = ({ box, name, confidence, classNumber,}) => {
 
 						<Text style={styles.headingText}>{name} - {confidence}%</Text>
 
-						{data && <Text style={styles.description}>{data.Description}</Text>}
+						{data && <Text style={styles.description}>{data.Description.slice(0,100)}...</Text>}
 
 						<View style={styles.btnContainer}>
 							<Pressable
@@ -118,6 +118,7 @@ const styles = StyleSheet.create({
 		padding: 5,
 		textAlign: 'justify',
 		flexGrow: 1,
+		overflow: 'hidden'
 	},
 	btnContainer: {
 		flex: 1,
