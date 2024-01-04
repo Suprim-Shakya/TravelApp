@@ -1,29 +1,12 @@
 const places = [
-    {
-      id: '1',
-      name: 'Swoyambhu Temple',
-      location: 'Swoyambhu',
-      image: require('../assets/location1.jpg'),
-      details: `स्वयम्भू स्तूप (Swayambhu), also known as the Monkey Temple, is an ancient religious complex perched atop a hill in the Kathmandu Valley, west of Kathmandu city. This UNESCO World Heritage Site holds immense historical and cultural significance, resonating with both Hinduism and Buddhism.
 
-      Here are some key points about Swayambhu Temple:
-      
-      Name and Origin:
-      
-      The Tibetan name for the site translates to ‘Sublime Trees’, reflecting the diverse varieties of trees found on the hill.
-      In Nepal Bhasa, it is called ‘Swayambhu’, meaning ‘self-sprung’. For the Buddhist Newars, it is profoundly sacred and central to their mythological history and religious practices.
-      Tibetans and followers of Tibetan Buddhism hold it in high regard, second only to Boudha.
-      Complex Features:
-      
-      The complex includes a stupa, various shrines, and temples, some dating back to the Licchavi period.
-      A Tibetan monastery, museum, and library have been added more recently.
-      The stupa is adorned with Buddha’s eyes and eyebrows painted on it, and the number one (in Nepal script) represents the nose.
-      Visitors can explore shops, restaurants, and hostels within the temple premises.
-      Access Points:
-      
-      There are two ways to reach Swayambhu:
-      Staircase: A long staircase leads directly to the main platform of the temple from the top of the hill (eastern side).
-      Car Road: A road encircles the hill from the south, leading to the south-west entrance.`,
+
+    {
+        id: '3',
+        name: 'Patan Durbar Square',
+        location: 'Patan',
+        image: require('../assets/location3.jpg'),
+        details: `Patan Durbar Square is a UNESCO World Heritage Site located in Lalitpur, Nepal. It is one of the three Durbar Squares in the Kathmandu Valley. The square is a marvel of Newar architecture and is tiled with red bricks. The medieval royal palace where the Malla Kings of Lalitpur resided is one of the attractions of the square. There are many temples and statues in the area. The main temples are aligned opposite of the western face of the palace. The entrance of the temples faces east, towards the palace. The square also holds old Newari residential houses.`,
     },
     {
         id: '2',
@@ -39,13 +22,6 @@ const places = [
         Kumari Chouk: At the southern edge of the Durbar Square stands the three-story Kumari Chouk (or Kumari Bahal), a Malla-era temple. It serves as the residence of the Kumari, a young girl revered as the living embodiment of the Hindu Goddess Durga.
         Earthquake Impact: In 2015, a devastating earthquake severely damaged the square, including the centuries-old wooden structure known as Kasthamandap1.
         Kathmandu Durbar Square remains a vibrant hub for Buddhist and Hindu rituals, royal events, and kingly coronations. Its intricate architecture and historical significance make it a must-visit destination for travelers exploring Nepal’s cultural heritage.`,
-    },
-    {
-        id: '3',
-        name: 'Patan Durbar Square',
-        location: 'Patan',
-        image: require('../assets/location3.jpg'),
-        details: `Patan Durbar Square is a UNESCO World Heritage Site located in Lalitpur, Nepal. It is one of the three Durbar Squares in the Kathmandu Valley. The square is a marvel of Newar architecture and is tiled with red bricks. The medieval royal palace where the Malla Kings of Lalitpur resided is one of the attractions of the square. There are many temples and statues in the area. The main temples are aligned opposite of the western face of the palace. The entrance of the temples faces east, towards the palace. The square also holds old Newari residential houses.`,
     },
     {
         id: '4',
@@ -75,6 +51,32 @@ const places = [
         image: require('../assets/location7.jpg'),
         details: `Changu Narayan Temple is an ancient Hindu temple located on a high hilltop that is also known as Changu or Dolagiri in Changunarayan Municipality of Bhaktapur District, Nepal. The temple is considered to be one of the oldest temples in Nepal and is dedicated to Lord Vishnu. It is a two-story pagoda-style temple surrounded by ancient carvings and statues. The temple has survived destruction in 1702 and 2015 and is said to be the oldest Hindu temple still in use in the Kathmandu Valley today. The temple is decorated with ten incarnations of Lord Vishnu and stone lions guard all the four doors of the temple.`,
     },
+    {
+        id: '1',
+        name: 'Swoyambhu Temple',
+        location: 'Swoyambhu',
+        image: require('../assets/location1.jpg'),
+        details: `स्वयम्भू स्तूप (Swayambhu), also known as the Monkey Temple, is an ancient religious complex perched atop a hill in the Kathmandu Valley, west of Kathmandu city. This UNESCO World Heritage Site holds immense historical and cultural significance, resonating with both Hinduism and Buddhism.
+  
+        Here are some key points about Swayambhu Temple:
+        
+        Name and Origin:
+        
+        The Tibetan name for the site translates to ‘Sublime Trees’, reflecting the diverse varieties of trees found on the hill.
+        In Nepal Bhasa, it is called ‘Swayambhu’, meaning ‘self-sprung’. For the Buddhist Newars, it is profoundly sacred and central to their mythological history and religious practices.
+        Tibetans and followers of Tibetan Buddhism hold it in high regard, second only to Boudha.
+        Complex Features:
+        
+        The complex includes a stupa, various shrines, and temples, some dating back to the Licchavi period.
+        A Tibetan monastery, museum, and library have been added more recently.
+        The stupa is adorned with Buddha’s eyes and eyebrows painted on it, and the number one (in Nepal script) represents the nose.
+        Visitors can explore shops, restaurants, and hostels within the temple premises.
+        Access Points:
+        
+        There are two ways to reach Swayambhu:
+        Staircase: A long staircase leads directly to the main platform of the temple from the top of the hill (eastern side).
+        Car Road: A road encircles the hill from the south, leading to the south-west entrance.`,
+      },
   ];
   
   export default places;
