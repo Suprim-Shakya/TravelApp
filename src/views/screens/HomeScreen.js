@@ -144,10 +144,10 @@ const HomeScreen = ({navigation}) => {
             <Text style={style.headerTitle}>Discover the Best</Text>
             <Text style={style.headerTitle}>Sites to Travel</Text>
             <View style={style.inputContainer}>
-              <Icon name="search" size={28} />
+              <Icon name="search" size={28} color={COLORS.darkGrey}/>
               <TextInput
-                placeholder="Search heritage"
-                style={{color: COLORS.grey}}
+                placeholder=" Search heritage"
+                placeholderTextColor={COLORS.grey}
               />
             </View>
           </View>
@@ -221,6 +221,7 @@ const style = StyleSheet.create({
     marginVertical: 20,
     fontWeight: 'bold',
     fontSize: 20,
+    color: COLORS.darkGrey
   },
   cardImage: {
     height: 220,

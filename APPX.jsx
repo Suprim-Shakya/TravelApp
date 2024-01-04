@@ -14,6 +14,7 @@ import BottomDrawer from './src/componentsSaurav/screens/BottomDrawer';
 
 import RBSheet from 'react-native-raw-bottom-sheet';
 import SkeletonScreen from './src/componentsSaurav/customComponents/SkeletonScreen';
+import COLORS from './src/constants/colors';
 
 const HomeStack = createStackNavigator();
 
@@ -26,15 +27,6 @@ const HomeScreenStack = () => {
     );
 };
 
-// const BottomDrawer = ({ refRBSheet }) => {
-//     return (
-//         <RBSheet ref={refRBSheet} closeOnDragDown={true} closeOnPressBack={true} customStyles={{ wrapper: { backgroundColor: 'rgba(0,0,0, 0)' }, draggableIcon: { backgroundColor: "#000" } }}>
-//             {/* <Button title='Open Camera' onPress={() => { openCamera }} />
-//             <Button title='Open Gallery' onPress={openGallery} /> */}
-//             <Button title='Cancel' onPress={() => refRBSheet.current.close()} />
-//         </RBSheet>
-//     )
-// }
 
 const ScanStack = createStackNavigator();
 
@@ -55,12 +47,23 @@ const App = () => {
     const refRBSheet = useRef();
     return (
         <NavigationContainer>
-            <Tab.Navigator screenOptions={{ headerShown: false }}>
+            <Tab.Navigator screenOptions={{ 
+                headerShown: false ,
+                tabBarStyle: {
+                    height: 60
+                },
+                tabBarHideOnKeyboard: true,
+                tabBarActiveTintColor: COLORS.dark,
+                tabBarLabelStyle: {
+                    top: -10,
+                    fontWeight: 'bold'
+                }
+                }} >
                 <Tab.Screen
                     name='Home'
                     component={HomeScreenStack}
                     options={{
-                        tabBarIcon: ({ color, size }) => <Icon name='home' color={color} size={size * 1.2} />,
+                        tabBarIcon: ({ color, size }) => <Icon name='home' color={color} size={size * 1.3} />,
                     }}
                 />
                 <Tab.Screen

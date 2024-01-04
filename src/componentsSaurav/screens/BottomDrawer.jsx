@@ -42,7 +42,9 @@ const BottomDrawer = ({ refRBSheet }) => {
 			ref={refRBSheet}
 			closeOnDragDown={true}
 			closeOnPressBack={true}
-			customStyles={{ wrapper: { backgroundColor: 'rgba(0,0,0, 0.8)' }, draggableIcon: { backgroundColor: "#000" } }}
+			animationType='fade'
+			closeDuration={250}
+			customStyles={{ wrapper: { backgroundColor: 'rgba(0,0,0, 0.8)',  }, draggableIcon: { backgroundColor: "#e0e0e0" } }}
 		>
 			<CustomButton
 				title='Open Camera'
