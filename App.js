@@ -10,9 +10,9 @@ import ScanScreen from './src/views/screens/ScanScreen';
 import COLORS from './src/constants/colors';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Notifications from './src/views/screens/Notifications';
-import ScanImage from './src/componentsSaurav/ScanImage';
-import Detections from './src/componentsSaurav/Detections';
-import Maps from './src/componentsSaurav/Maps';
+import ScanImage from './src/componentsSaurav/screens/ScanImage';
+import Detections from './src/componentsSaurav/screens/RenderDetections';
+import Maps from './src/componentsSaurav/screens/Maps';
 
 // import { useCameraPermission } from 'react-native-vision-camera';
 

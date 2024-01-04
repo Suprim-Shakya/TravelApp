@@ -1,7 +1,7 @@
 import { Button, StyleSheet, Text, View, Image, Alert } from 'react-native'
 import React, { useState } from 'react'
 import { launchImageLibrary, launchCamera } from 'react-native-image-picker';
-import { API_ENDPOINT } from './config';
+import { API_ENDPOINT } from '../config';
 
 
 

@@ -39,13 +39,13 @@ const DetailsScreen = ({navigation, route}) => {
             }}>
             {place.name}
           </Text>
-          <View style={{flexDirection: 'row'}}>
+          {/* <View style={{flexDirection: 'row'}}>
             <Icon name="star" size={30} color={COLORS.orange} />
             <Text
               style={{color: COLORS.white, fontWeight: 'bold', fontSize: 20}}>
               5.0
             </Text>
-          </View>
+          </View> */}
         </View>
       </ImageBackground>
       <ScrollView style={style.detailsContainer}>
@@ -65,40 +65,19 @@ const DetailsScreen = ({navigation, route}) => {
               {place.location}
             </Text>
           </View>
-          <Text style={{marginTop: 20, fontWeight: 'bold', fontSize: 20}}>
+          {/* <Text style={{marginTop: 20, fontWeight: 'bold', fontSize: 20,color: COLORS.dark}}>
             About the heritage
-          </Text>
-          <Text style={{marginTop: 20, lineHeight: 22}}>{place.details}</Text>
+          </Text> */}
+          <Text style={{marginTop: 20, lineHeight: 22, color:COLORS.dark}}>{place.details}</Text>
         </View>
         </ScrollView>
     </SafeAreaView>
   );
 };
 const style = StyleSheet.create({
-  bookNowBtn: {
-    height: 50,
-    width: 150,
-    backgroundColor: COLORS.white,
-    borderRadius: 10,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
 
-  // iconContainer: {
-  //   height: 60,
-  //   width: 60,
-  //   position: 'absolute',
-  //   top: -30,
-  //   backgroundColor: COLORS.white,
-  //   borderRadius: 30,
-  //   right: 20,
-  //   elevation: 10,
-  //   justifyContent: 'center',
-  //   alignItems: 'center',
-  // },
-  
+ 
   detailsContainer: {
-    top: -10,
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,
     paddingVertical: 18,
