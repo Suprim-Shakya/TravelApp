@@ -16,6 +16,8 @@ import {
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import COLORS from '../../constants/colors';
 import places from '../../constants/places';
+import cuisines from '../../constants/cusines';
+// import cusines from '../../constants/cusines'
 
 const {width} = Dimensions.get('screen');
 
@@ -79,6 +81,9 @@ const HomeScreen = ({navigation}) => {
 
   const RecommendedCard = ({place}) => {
     return (
+      <TouchableOpacity activeOpacity={0.8}
+      onPress={() => navigation.navigate('DetailsScreen',place)}>
+
       <ImageBackground style={style.rmCardImage} source={place.image}>
         <Text
           style={{
@@ -112,6 +117,7 @@ const HomeScreen = ({navigation}) => {
           </Text>
         </View>
       </ImageBackground>
+            </TouchableOpacity>
     );
   };
   return (
@@ -162,13 +168,13 @@ const HomeScreen = ({navigation}) => {
             data={places}
             renderItem={({item}) => <Card place={item} />}
           />
-          <Text style={style.sectionTitle}>Recommended</Text>
+          <Text style={style.sectionTitle}>Cuisines</Text>
           <FlatList
             snapToInterval={width - 20}
             contentContainerStyle={{paddingLeft: 20, paddingBottom: 20}}
             showsHorizontalScrollIndicator={false}
             horizontal
-            data={places}
+            data={cuisines}
             renderItem={({item}) => <RecommendedCard place={item} />}
           />
         </View>

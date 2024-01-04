@@ -54,8 +54,8 @@ const DetailsScreen = ({navigation, route}) => {
             <Icon name="favorite" color={COLORS.red} size={30} />
           </View> */}
           <View style={{flexDirection: 'row', marginTop: 10}}>
-            <Icon name="place" size={28} color={COLORS.primary} />
-            <Text
+		  {place.location && <Icon name="place" size={28} color={COLORS.primary} />}
+           {place.location && <Text
               style={{
                 marginLeft: 5,
                 fontSize: 20,
@@ -63,7 +63,17 @@ const DetailsScreen = ({navigation, route}) => {
                 color: COLORS.primary,
               }}>
               {place.location}
-            </Text>
+            </Text>}
+		  {place.name && <Icon name="fastfood" size={28} color={COLORS.primary} />}
+           {place.name && <Text
+              style={{
+                marginLeft: 5,
+                fontSize: 20,
+                fontWeight: 'bold',
+                color: COLORS.primary,
+              }}>
+              {place.name}
+            </Text>}
           </View>
           {/* <Text style={{marginTop: 20, fontWeight: 'bold', fontSize: 20,color: COLORS.dark}}>
             About the heritage
