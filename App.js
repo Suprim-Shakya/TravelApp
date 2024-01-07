@@ -13,6 +13,7 @@ import Notifications from './src/views/screens/Notifications';
 import ScanImage from './src/componentsSaurav/screens/ScanImage';
 import Detections from './src/componentsSaurav/screens/RenderDetections';
 import Maps from './src/componentsSaurav/screens/Maps';
+import FavouritesScreen from './src/componentsSaurav/screens/Favourites';
 
 // import { useCameraPermission } from 'react-native-vision-camera';
 
@@ -26,10 +27,20 @@ function MainStack() {
     <HomeStack.Navigator screenOptions={{ headerShown: false }}>
       <HomeStack.Screen name="HomeScreen" component={HomeScreen} />
       <HomeStack.Screen name="DetailsScreen" component={DetailsScreen} />
-      <HomeStack.Screen name="Notifications" component={Notifications} />
+      <StackNavigator />
     </HomeStack.Navigator>
   );
 }
+
+const Stack = createStackNavigator();
+
+function StackNav ()  {
+  return (
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="Favourites" component={FavouritesScreen} />
+    </Stack.Navigator>
+  );
+ };
 
 // function Draw(){
 //   return(
@@ -71,8 +82,7 @@ const App = () => {
             // fontWeight:'900'
           }
         }}
-        initialRouteName='Scan'
-      >
+        initialRouteName='Scan'>
         <Tab.Screen
           name="Home"
           component={MainStack}
@@ -91,7 +101,13 @@ const App = () => {
             // headerShown: true,
           }}
         />
-
+        <Tab.Screen
+        name="Favorite"
+        component={StackNav}
+        options={{
+            tabBarIcon: ({ color, size }) => (<Icon name='stars' color={color} size={size * 1.2} />),
+        }}
+        />
         {/* open file explorer to take image */}
         <Tab.Screen
           name='Map'
@@ -99,8 +115,10 @@ const App = () => {
           options={{
             tabBarIcon: ({ color, size }) => (<Icon name='map' color={color} size={size * 1.2} />)
           }}
-        >
-        </Tab.Screen>
+        />
+
+
+        
 
       </Tab.Navigator>
     </NavigationContainer>

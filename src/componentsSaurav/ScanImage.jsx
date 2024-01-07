@@ -132,7 +132,7 @@ const ScanImage = ({ navigation }) => {
     )
 }
 
-export default ScanImage
+export default ScanImage;
 
 const styles = StyleSheet.create({
 
