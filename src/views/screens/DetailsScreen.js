@@ -50,9 +50,9 @@ const DetailsScreen = ({navigation, route}) => {
       </ImageBackground>
       <ScrollView style={style.detailsContainer}>
         <View style={style.detailsContainer}>
-          {/* <View style={style.iconContainer}>
+          <View style={style.iconContainer}>
             <Icon name="favorite" color={COLORS.red} size={30} />
-          </View> */}
+          </View>
           <View style={{flexDirection: 'row', marginTop: 10}}>
 		  {place.location && <Icon name="place" size={28} color={COLORS.primary} />}
            {place.location && <Text
@@ -85,8 +85,28 @@ const DetailsScreen = ({navigation, route}) => {
   );
 };
 const style = StyleSheet.create({
+  bookNowBtn: {
+    height: 50,
+    width: 150,
+    backgroundColor: COLORS.white,
+    borderRadius: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 
- 
+  iconContainer: {
+    height: 60,
+    width: 60,
+    position: 'absolute',
+    top: -30,
+    backgroundColor: COLORS.white,
+    borderRadius: 30,
+    right: 20,
+    elevation: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  
   detailsContainer: {
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,
