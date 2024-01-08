@@ -69,3 +69,6 @@ yarn-error.log
 #add
 ./src/componentsSaurav/config.js
 /src/componentsSaurav/config.js
+
+./android/app/src/main/AndroidMAnifest.xml
+/android/app/src/main/AndroidMAnifest.xml

@@ -48,7 +48,7 @@ const App = () => {
     const refRBSheet = useRef();
     return (
         <NavigationContainer >
-            <StatusBar translucent={false} backgroundColor={COLORS.primary} />
+            <StatusBar translucent={false}/>
             <Tab.Navigator screenOptions={{
                 headerShown: false,
                 tabBarStyle: {
