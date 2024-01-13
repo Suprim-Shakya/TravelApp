@@ -5,6 +5,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import IconX from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import DetailsScreen from './src/views/screens/DetailsScreen';
 import RenderDetections from './src/componentsSaurav/screens/RenderDetections';
@@ -15,6 +16,7 @@ import BottomDrawer from './src/componentsSaurav/screens/BottomDrawer';
 import SkeletonScreen from './src/componentsSaurav/customComponents/SkeletonScreen';
 import COLORS from './src/constants/colors';
 import DetectionDetail from './src/components/DetectionDetail';
+import Bookmarks from './src/componentsSaurav/screens/Bookmarks';
 
 const HomeStack = createStackNavigator();
 
@@ -42,6 +44,17 @@ const ScanScreenStack = ({ navigation }) => {
 		</ScanStack.Navigator>
 	);
 };
+
+
+const BookmarkStack = createStackNavigator();
+
+const BookmarkScreenStack = ({navigation}) => {
+	return(
+		<BookmarkStack.Navigator>
+			<BookmarkStack.Screen name='BookmarksScreen' component={Bookmarks} />
+		</BookmarkStack.Navigator>
+	)
+}
 
 const App = () => {
 	const Tab = createBottomTabNavigator();
@@ -86,6 +99,12 @@ const App = () => {
 					name='Maps'
 					component={Maps}
 					options={{ tabBarIcon: ({ color, size }) => <Icon name='map' color={color} size={size * 1.2} /> }}
+					/>
+
+				<Tab.Screen
+					name='Bookmarks'
+					component={BookmarkScreenStack}
+					options={{ tabBarIcon: ({ color, size }) => <IconX name='bookmark' color={color} size={size * 1.2} /> }}
 				/>
 			</Tab.Navigator>
 			<BottomDrawer refRBSheet={refRBSheet} />
