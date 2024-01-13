@@ -69,3 +69,5 @@ yarn-error.log
 #add
 ./src/componentsSaurav/config.js
 /src/componentsSaurav/config.js
+/src/componentsSaurav/untrackedFiles
+.vscode

@@ -16,7 +16,8 @@ import BottomDrawer from './src/componentsSaurav/screens/BottomDrawer';
 import SkeletonScreen from './src/componentsSaurav/customComponents/SkeletonScreen';
 import COLORS from './src/constants/colors';
 import DetectionDetail from './src/components/DetectionDetail';
-import Bookmarks from './src/componentsSaurav/screens/Bookmarks';
+import Bookmarks from './src/componentsSaurav/screens/BookmarkScreen/Bookmarks';
+import ShowPresentLocations from './src/componentsSaurav/screens/BookmarkScreen/ShowPresentLocations';
 
 const HomeStack = createStackNavigator();
 
@@ -52,6 +53,7 @@ const BookmarkScreenStack = ({navigation}) => {
 	return(
 		<BookmarkStack.Navigator>
 			<BookmarkStack.Screen name='BookmarksScreen' component={Bookmarks} />
+			<BookmarkStack.Screen name='ShowPresentLocations' component={ShowPresentLocations}/>
 		</BookmarkStack.Navigator>
 	)
 }

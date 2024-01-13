@@ -13,7 +13,7 @@ const createData = async (value) => {
     return true
 }
 
-const readData = async () => {
+const getSavedPlaces = async () => {
     try {
         console.log('\n1. Attempting to read data with key: ', key)
         const dataString = await AsyncStorage.getItem(key);
@@ -32,7 +32,7 @@ const readData = async () => {
     return null
 }
 
-const updateData = async (value) => {
+const addPlace = async (value) => {
     try {
 
         const pastData = await AsyncStorage.getItem(key);
@@ -54,7 +54,7 @@ const updateData = async (value) => {
                 return true;
             } else {
                 console.log(`\n3. The item ${value} already exists`)
-                return true;
+                return false;
             }
         }
         else {
@@ -71,7 +71,7 @@ const updateData = async (value) => {
     }
 }
 
-const removeItem = async (value) => {
+const removePlace = async (value) => {
     try {
 
         const pastData = await AsyncStorage.getItem(key);
@@ -81,6 +81,8 @@ const removeItem = async (value) => {
 
         dataArray = dataArray.filter(item => item !== String(value))
         console.log(`Existing value updated as ${dataArray}`)
+
+        await AsyncStorage.setItem(key, dataArray.join(','))
         return true;
 
     } catch (error) {
@@ -89,7 +91,7 @@ const removeItem = async (value) => {
     }
 }
 
-const deleteAll = async () => {
+const deleteAllPlaces = async () => {
     await AsyncStorage.clear();
     console.log('\n\n\nAll existing data are deleted')
 }
@@ -99,7 +101,7 @@ async function init() {
     const bookmarksArray = '';
     // if data is already stored then skip
     // else create new bookmark object
-    const isStoreCreated = await readData();
+    const isStoreCreated = await getSavedPlaces();
 
     if (isStoreCreated == null) {
         await createData('') //initialize with empty string 
@@ -107,4 +109,4 @@ async function init() {
 } // anonymous async function runs as soon as declared;
 init();
 
-export { createData, readData, removeItem, updateData, deleteAll }
+export { createData, getSavedPlaces, removePlace, addPlace, deleteAllPlaces }
