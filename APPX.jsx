@@ -52,8 +52,8 @@ const BookmarkStack = createStackNavigator();
 const BookmarkScreenStack = ({navigation}) => {
 	return(
 		<BookmarkStack.Navigator>
-			<BookmarkStack.Screen name='BookmarksScreen' component={Bookmarks} />
-			<BookmarkStack.Screen name='ShowPresentLocations' component={ShowPresentLocations}/>
+			{/* <BookmarkStack.Screen name='BookmarksScreen' component={Bookmarks} /> */}
+			<BookmarkStack.Screen name='ShowPresentLocations' component={ShowPresentLocations} options={{ headerShown: false }}/>
 		</BookmarkStack.Navigator>
 	)
 }
@@ -64,7 +64,7 @@ const App = () => {
 	return (
 		<NavigationContainer >
 			<StatusBar translucent={false} backgroundColor={COLORS.primary} />
-			<Tab.Navigator initialRouteName='Bookmarks' screenOptions={{
+			<Tab.Navigator screenOptions={{
 				headerShown: false,
 				tabBarStyle: {
 					height: 60

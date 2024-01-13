@@ -57,7 +57,7 @@ const DetectionCard = ({ box, name, confidence, classNumber, fromDetection = tru
 		: await removePlace(String(classNumber))
 		.then((response)=> {
 			if (response){
-				Alert.alert(`${data.className} is successfully removed from Bookmarks.`)
+				Alert.alert('',`${data.className} is successfully removed from Bookmarks.`)
 			} else {
 				Alert.alert('', `${data.className} couldn't be removed`)
 			}
