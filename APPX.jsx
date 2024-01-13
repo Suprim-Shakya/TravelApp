@@ -62,7 +62,7 @@ const App = () => {
 	return (
 		<NavigationContainer >
 			<StatusBar translucent={false} backgroundColor={COLORS.primary} />
-			<Tab.Navigator screenOptions={{
+			<Tab.Navigator initialRouteName='Bookmarks' screenOptions={{
 				headerShown: false,
 				tabBarStyle: {
 					height: 60
