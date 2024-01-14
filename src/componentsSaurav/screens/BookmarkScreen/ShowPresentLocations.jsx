@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View, Button, Pressable } from 'react-native'
 import React, { useEffect, useState } from 'react'
-import ListItem from './ListItem'
+// import ListItem from './ListItem'
 import { ScrollView } from 'react-native-gesture-handler'
 import DetectionCard from '../../customComponents/DetectionCard'
 import { useSafeAreaFrame } from 'react-native-safe-area-context'

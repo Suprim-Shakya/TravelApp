@@ -19,6 +19,10 @@ import DetectionDetail from './src/components/DetectionDetail';
 import Bookmarks from './src/componentsSaurav/screens/BookmarkScreen/Bookmarks';
 import ShowPresentLocations from './src/componentsSaurav/screens/BookmarkScreen/ShowPresentLocations';
 
+import { Provider } from 'react-redux'; //redux
+import store from './src/componentsSaurav/redux/app/store';
+import RenderBookmarks from './src/componentsSaurav/screens/BookmarkScreen/RenderBookmarks';
+
 const HomeStack = createStackNavigator();
 
 const HomeScreenStack = () => {
@@ -53,7 +57,8 @@ const BookmarkScreenStack = ({navigation}) => {
 	return(
 		<BookmarkStack.Navigator>
 			{/* <BookmarkStack.Screen name='BookmarksScreen' component={Bookmarks} /> */}
-			<BookmarkStack.Screen name='ShowPresentLocations' component={ShowPresentLocations} options={{ headerShown: false }}/>
+			{/* <BookmarkStack.Screen name='ShowPresentLocations' component={ShowPresentLocations} options={{ headerShown: false }}/> */}
+			<BookmarkStack.Screen name ='RenderBookmarks' component={RenderBookmarks} options={{headerShown: false}}/>
 		</BookmarkStack.Navigator>
 	)
 }
@@ -61,7 +66,8 @@ const BookmarkScreenStack = ({navigation}) => {
 const App = () => {
 	const Tab = createBottomTabNavigator();
 	const refRBSheet = useRef();
-	return (
+	return (//redux provider
+	<Provider store={store}> 
 		<NavigationContainer >
 			<StatusBar translucent={false} backgroundColor={COLORS.primary} />
 			<Tab.Navigator screenOptions={{
@@ -82,7 +88,7 @@ const App = () => {
 					options={{
 						tabBarIcon: ({ color, size }) => <Icon name='home' color={color} size={size * 1.3} />,
 					}}
-				/>
+					/>
 				<Tab.Screen
 					name='Scan'
 					component={ScanScreenStack} // this is prevented by listeners
@@ -96,7 +102,7 @@ const App = () => {
 							refRBSheet.current.open();
 						}
 					})}
-				/>
+					/>
 				<Tab.Screen
 					name='Maps'
 					component={Maps}
@@ -107,10 +113,11 @@ const App = () => {
 					name='Bookmarks'
 					component={BookmarkScreenStack}
 					options={{ tabBarIcon: ({ color, size }) => <IconX name='bookmark' color={color} size={size * 1.2} /> }}
-				/>
+					/>
 			</Tab.Navigator>
 			<BottomDrawer refRBSheet={refRBSheet} />
 		</NavigationContainer>
+	</Provider>
 	);
 };
 
