@@ -77,7 +77,7 @@ const DetectionCard = ({ box, name, confidence, classNumber, fromDetection = tru
 
 						<Text style={styles.headingText}>{name || data.className} {confidence&& `- ${confidence} %`}</Text>
 
-						{data && <Text style={styles.description}>{data.Description.slice(0,150)}...</Text>}
+						{data && <Text style={styles.description}>{data.Description && data.Description.slice(0,150)}...</Text>}
 
 						<View style={styles.btnContainer}>
 							<Pressable
