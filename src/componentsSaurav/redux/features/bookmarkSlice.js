@@ -10,7 +10,7 @@ const bookmarkSlice = createSlice({
         addToBookmark: (state, action) => {
 
             const newPlace = {
-                id: nanoid(),
+                // id: nanoid(),
                 classNumber: action.payload.classNumber,
                 location: action.payload.location,
             }
