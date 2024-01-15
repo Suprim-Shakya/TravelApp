@@ -132,7 +132,7 @@ return (
 						</Pressable>
 
 						<Pressable style={({ pressed }) => ({ backgroundColor: pressed ? 'gray' : 'black', ...styles.btnStyle })} onPress={handleAddToPlan}>
-							<Text style={{ color: 'white' }}>{!isBookmarked ? 'Add to Plan' : 'Remove'}</Text>
+							<Text style={{ color: 'white', alignSelf: "center" }}>{!isBookmarked ? 'Bookmark' : 'Remove'}</Text>
 						</Pressable>
 
 					</View>
@@ -227,6 +227,7 @@ const styles = StyleSheet.create({
 		paddingLeft: 5,
 		paddingRight: 5,
 		height: 30,
+		minWidth: 90,
 	}
 
 })
