@@ -11,7 +11,7 @@ const FinalDetailsScreen = ({ route }) => {
 
     return (
         <View style={styles.container}>
-            <StatusBar translucent={true} backgroundColor="rgba(0,0,0,0.2)" />
+            {/* <StatusBar backgroundColor="rgba(0,0,0,0.1)" /> */}
             {imageLink && <ImageBackground source={{ uri: imageLink }} style={styles.image} >
             </ImageBackground>}
 
