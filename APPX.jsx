@@ -40,7 +40,7 @@ const ScanScreenStack = ({ navigation }) => {
 
 	return (
 		<ScanStack.Navigator screenOptions={{ headerShown: true, }}>
-			<ScanStack.Screen name='RenderDetections' component={RenderDetections} options={{ title: 'Detections' }} />
+			<ScanStack.Screen name='RenderDetections' component={RenderDetections} options={{ title: 'Detections', headerStyle: {backgroundColor: COLORS.primary} ,headerTitleStyle: {color: 'white', fontWeight: 'bold'} }} />
 			<ScanStack.Screen name='DetectionDetail' component={DetectionDetail} options={{ headerShown: false }} />
 		</ScanStack.Navigator>
 	);
@@ -51,7 +51,7 @@ const BookmarkStack = createStackNavigator();
 const BookmarkScreenStack = ({navigation}) => {
 	return(
 		<BookmarkStack.Navigator>
-			<BookmarkStack.Screen name ='RenderBookmarks' component={RenderBookmarks} options={{headerShown: false}}/>
+			<BookmarkStack.Screen name ='RenderBookmarks' component={RenderBookmarks} options={{headerShown: true, title: "Bookmarks", headerStyle: {backgroundColor: COLORS.primary} ,headerTitleStyle: {color: 'white', fontSize: 20, fontWeight: 'bold', alignSelf: 'center'}}}/>
 		</BookmarkStack.Navigator>
 	)
 }
