@@ -4,12 +4,12 @@ import MyLoader from './DetectionLoaderSkeleton'
 
 const SkeletonScreen = () => {
 
-  return (
-    <View style={{height:'100%', backgroundColor:'white'}}>
-      <MyLoader/>
-      {/* <MyLoader/> */}
-    </View>
-  )
+	return (
+		<View style={{ height: '100%', backgroundColor: 'white' }}>
+			<MyLoader />
+			{/* <MyLoader/> */}
+		</View>
+	)
 }
 
 export default SkeletonScreen

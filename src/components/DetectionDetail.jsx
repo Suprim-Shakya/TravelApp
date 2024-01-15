@@ -1,7 +1,6 @@
 import React from 'react';
-import { View, Text, Image, StyleSheet, ImageBackground, StatusBar, Pressable } from 'react-native';
+import { View, Text, Image, StyleSheet, ImageBackground, StatusBar } from 'react-native';
 import COLORS from '../constants/colors';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { ScrollView } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 

@@ -1,9 +1,8 @@
-import { StyleSheet, Text, View, Button, Pressable } from 'react-native'
+import { StyleSheet, Text} from 'react-native'
 import React, { useEffect, useState } from 'react'
 // import ListItem from './ListItem'
 import { ScrollView } from 'react-native-gesture-handler'
 import DetectionCard from '../../customComponents/DetectionCard'
-import { useSafeAreaFrame } from 'react-native-safe-area-context'
 import { getSavedPlaces } from '../../modules/localStore'
 import CustomButton from '../../customComponents/CustomButton'
 

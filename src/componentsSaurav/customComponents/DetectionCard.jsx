@@ -1,18 +1,15 @@
-import { StyleSheet, View, Text, Pressable, Image, Alert } from "react-native";
+import { StyleSheet, View, Text, Pressable, Image} from "react-native";
 import React, { useState, useEffect } from "react";
 import fallbackImage from '../../assets/onboardImage.jpg'
 import MyLoader from './DetectionLoaderSkeleton'
 import fetchDetailsFromDb from "../apiCalls/fetchDataFromDB";
 import { useNavigation } from "@react-navigation/native";
-import { removePlace, addPlace } from "../modules/localStore";
 import { useDispatch, useSelector } from "react-redux";
 import { addToBookmark, removeFromBookmark } from "../redux/features/bookmarkSlice";
 
 const DetectionCard = ({ box, name, confidence, classNumber, fromDetection = true }) => {
 	const navigation = useNavigation();
 	const [data, setData] = useState(null);
-	// const [renderSkeleton, setRenderSkeleton] = useState(true);
-	// let data;
 
 	const dispatch = useDispatch();
 	const bookmarks = useSelector(state => state.bookmark);
