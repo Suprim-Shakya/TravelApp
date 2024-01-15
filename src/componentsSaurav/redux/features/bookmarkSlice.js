@@ -1,48 +1,38 @@
-// import { createSlice, nanoid } from "@reduxjs/toolkit"
+import { createSlice, nanoid } from "@reduxjs/toolkit"
+import AsyncStorage from "@react-native-async-storage/async-storage"
 
-// const initialState = {
-//     bookmark: [{id: 1, classNumber: 10},]
+let localBookmark = null;
+let initialState= {bookmark:[]}
+
+
+// async function loadFromLocal() {
+//     localBookmark = await AsyncStorage.getItem('bookmark'); //upon boot load from local storage if present
+    
+//     if (localBookmark !== null) {
+//         console.log('\n\nchecking if there are old value')
+//         previousValue = JSON.parse(localBookmark)
+//         initialState = {bookmark: previousValue}
+//         console.log('\n\ncheck finished if there are old value')
+//         console.log(`previous state was : ${initialState}`)
+//     }else {
+//         initialState = {bookmark:[]};
+//     }
 // }
 
-// const bookmarkSlice = createSlice({
-//     name: 'bookmarks', //ignore this
-//     initialState: {bookmark:[{id: 1, classNumber: 10},]},
-//     reducers: {
+// loadFromLocal();
 
-//         addToBookmark: (state, action) => {
+// async function updateBookmarks (newValue) {
+//     console.log('\n\ninside update bookmark')
+//     await AsyncStorage.setItem('bookmark', JSON.stringify(newValue)) // save on local storage
+//     console.log('\n\nfinished update bookmark')
+//     await AsyncStorage.getItem('bookmark')
+//     .then(res => console.log(`The updated value on local storage is ${res}`))
 
-//             const newPlace = {
-//                 id: nanoid(),
-//                 classNumber: action.payload.classNumber,
-//                 // location: {lat: 55, lng: 66},
-//             }
-
-//             state.bookmark.push(newPlace)
-
-//         },
-
-//         removeFromBookmark: (state,action) => {
-            
-//             state.bookmark = state.bookmark.filter((item)=> item.classNumber !== action.payload)
-//         },
-
-//     }
-// })
-
-// export const {addToBookmark, removeFromBookmark} = bookmarkSlice.actions;
-// export default bookmarkSlice.reducer;
-
-//above approach uses object to store data, let's try to store data using array only
-
-import { createSlice, nanoid } from "@reduxjs/toolkit"
-
-// const initialState = {
-//     bookmark: []
 // }
 
 const bookmarkSlice = createSlice({
     name: 'bookmarks', //ignore this
-    initialState: {bookmark:[{"classNumber": 26, "id": "iE4N9FmTxwMiAJQ0D7v0p", "location": {"lat": 27.70375172, "lng": 85.30796183}}, {"classNumber": 20, "id": "-8SBpuF9xVsWv7tLTdvVf", "location": {"latitude": 27.70392176, "longitude": 85.30747712}}]},
+    initialState,
     reducers: {
 
         addToBookmark: (state, action) => {
@@ -53,17 +43,26 @@ const bookmarkSlice = createSlice({
                 location: action.payload.location,
             }
 
-            state.bookmark.push(newPlace)
-
-        },
-
-        removeFromBookmark: (state,action) => {
+            const newBookmarks = state.bookmark.push(newPlace)
+            // console.log(`\nADD TO BOOKMARK \nbookmarks on local storage is  updated with status \n${newBookmarks} \nalso value may be \n ${state.bookmark}`)
+            // updateBookmarks(state.bookmark)
             
-            state.bookmark = state.bookmark.filter((item)=> item.classNumber !== action.payload)
+        },
+        
+        removeFromBookmark: (state, action) => {
+            
+            state.bookmark = state.bookmark.filter((item) => item.classNumber !== action.payload)
+            // console.log(`\nRemove FROM BOOKMARK\nbookmarks on local storage is being updated with value \n${state.bookmark} `)
+            // updateBookmarks(state.bookmark)
         },
 
+        loadExistingBookmark: (state, action)=> {
+            console.log('yeta ayo hai')
+            state.bookmark = state.bookmark.concat(action.payload);
+            console.log(`/n loaded existing value: ${action.payload}\n new value is: \n${state.bookmark}`)
+        }   
     }
 })
 
-export const {addToBookmark, removeFromBookmark} = bookmarkSlice.actions;
+export const { addToBookmark, removeFromBookmark,loadExistingBookmark } = bookmarkSlice.actions;
 export default bookmarkSlice.reducer;
