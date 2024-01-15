@@ -5,7 +5,6 @@ import { ScrollView } from 'react-native-gesture-handler'
 
 import DetectionCard from '../customComponents/DetectionCard'
 
-// import { CommonActions, useFocusEffect, useNavigation } from '@react-navigation/native';
 import MyLoader from '../customComponents/DetectionLoaderSkeleton';
 
 const RenderDetections = ({ route }) => {
