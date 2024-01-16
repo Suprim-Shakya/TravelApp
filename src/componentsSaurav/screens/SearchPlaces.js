@@ -44,14 +44,15 @@ const SearchPlaces = ({ onPlaceSelected }) => {
       <GooglePlacesAutocomplete
       placeholder='Search'
       onPress={(data, details = null) => {
-    // console.log(data, details);
+    console.log(data, details);
     // Check if details contains geometry information
     if (details && details.geometry && details.geometry.location) {
-      const coordinates = details.geometry.location;
+      const selCoordinates = details.geometry.location;
       console.log('----------------');
-      console.log('Selected coordinates:', coordinates);
-      console.log('Selected Latitude:', coordinates.lat);
-      console.log('Selected Longitude:', coordinates.lng);
+      // console.log('Selected coordinates:', selCoordinates);
+      // console.log('Selected Latitude:', selCoordinates.lat);
+      // console.log('Selected Longitude:', selCoordinates.lng);
+      onPlaceSelected(selCoordinates)
       // Call your callback function with the coordinates
     } else {
       console.error('No geometry information in the response');
