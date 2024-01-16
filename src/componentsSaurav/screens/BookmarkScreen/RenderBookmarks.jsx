@@ -18,6 +18,12 @@ const RenderBookmarks = () => {
 
     useEffect(() => {
 
+        
+        if (bookmarks.length > 0 ) return
+        
+        // if a bookmark exists in redux store that means it has already been loaded from local
+        // so don't load again
+        
         console.log('inside use effect of bookmarks')
 
         const loadLocalBookmarks = async () => {

@@ -18,7 +18,7 @@ const DetectionCard = ({ box, name, confidence, classNumber, fromDetection = tru
 	const classPresentInBookmark = bookmarks.find((item) => item.classNumber == classNumber)
 
 	const [isBookmarked, setIsBookmarked] = useState(classPresentInBookmark)
-
+	// const [isBookmarked, setIsBookmarked] = useState(useSelector(state => state.bookmark.find((item) => item.classNumber == classNumber)))
 	// fromDetection = !isBookmarked;
 
 	useEffect(() => {
@@ -49,9 +49,9 @@ const DetectionCard = ({ box, name, confidence, classNumber, fromDetection = tru
 	}, [classNumber])
 
 	const handleKnowMore = () => {
-		console.log('hello')
+		// console.log('hello')
 		navigation.navigate('Scan', { screen: 'DetectionDetail', params: { ...data } })
-		console.log('hello')
+		// console.log('hello')
 	}
 
 	// const handleAddToPlan = async() => {
@@ -84,11 +84,11 @@ const DetectionCard = ({ box, name, confidence, classNumber, fromDetection = tru
 			}
 			// dispatch(addToBookmark({ classNumber: Number(classNumber) })); 
 			dispatch(addToBookmark(dataObj));
-			console.log("\n\n\n\n\n start add to bookmark function -------------\n")
+			// console.log("\n\n\n\n\n start add to bookmark function -------------\n")
 			// Alert.alert(`${name} must be saved on Bookmarks.`, `Navigate to Bookmarks tab to access it.`)
 
-			bookmarks.map(item => console.log(item))
-			console.log("\nend add to bookmark function -------------")
+			// bookmarks.map(item => console.log(item))
+			// console.log("\nend add to bookmark function -------------")
 			setIsBookmarked(true)
 		}
 
@@ -97,13 +97,13 @@ const DetectionCard = ({ box, name, confidence, classNumber, fromDetection = tru
 
 			// Alert.alert(`${data.name} must be removed.`, `Navigate to Bookmarks tab to access it.`)
 			// const bookmarks = useSelector(state=> state.bookmark);
-			console.log("\n\n\n\n\n start remove bookmark function**************\n")
-			bookmarks.map(item => console.log(item))
-			console.log("\n\end remove bookmark function***************")
+			// console.log("\n\n\n\n\n start remove bookmark function**************\n")
+			// bookmarks.map(item => console.log(item))
+			// console.log("\n\end remove bookmark function***************")
 			setIsBookmarked(false)
 		}
 
-		!isBookmarked ? ATB() : RFB();
+		!isBookmarked ? ATB() : RFB(); //add to bookmark or remove from bookmark
 
 	}
 
