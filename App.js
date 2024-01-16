@@ -1,128 +1,116 @@
-import 'react-native-gesture-handler';
-import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
+import React, { useRef } from 'react';
+import { StatusBar } from 'react-native';
+
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import OnBoardScreen from './src/views/screens/OnBoardScreen';
-import HomeScreen from './src/views/screens/HomeScreen';
-import DetailsScreen from './src/views/screens/DetailsScreen';
-import ScanScreen from './src/views/screens/ScanScreen';
-import COLORS from './src/constants/colors';
+import { NavigationContainer } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import Notifications from './src/views/screens/Notifications';
-import ScanImage from './src/componentsSaurav/screens/ScanImage';
-import Detections from './src/componentsSaurav/screens/RenderDetections';
+import IconX from 'react-native-vector-icons/MaterialCommunityIcons';
+
+import DetailsScreen from './src/views/screens/DetailsScreen';
+import RenderDetections from './src/componentsSaurav/screens/RenderDetections';
+import HomeScreen from './src/views/screens/HomeScreen';
 import Maps from './src/componentsSaurav/screens/Maps';
-import FavouritesScreen from './src/componentsSaurav/screens/Favourites';
+import BottomDrawer from './src/componentsSaurav/screens/BottomDrawer';
 
-// import { useCameraPermission } from 'react-native-vision-camera';
-
-
+import SkeletonScreen from './src/componentsSaurav/customComponents/SkeletonScreen';
+import COLORS from './src/constants/colors';
+import DetectionDetail from './src/components/DetectionDetail';
+import FavouritesScreen from './src/views/screens/FavouritesScreen';
 
 const HomeStack = createStackNavigator();
-const Tab = createBottomTabNavigator();
 
-function MainStack() {
-  return (
-    <HomeStack.Navigator screenOptions={{ headerShown: false }}>
-      <HomeStack.Screen name="HomeScreen" component={HomeScreen} />
-      <HomeStack.Screen name="DetailsScreen" component={DetailsScreen} />
-      <StackNavigator />
-    </HomeStack.Navigator>
-  );
+const HomeScreenStack = () => {
+	return (
+		<HomeStack.Navigator screenOptions={{ headerShown: false }}>
+			<HomeStack.Screen name='HomeScreen' component={HomeScreen} />
+			<HomeStack.Screen name='DetailsScreen' component={DetailsScreen} />
+		</HomeStack.Navigator>
+	);
+};
+
+
+const ScanStack = createStackNavigator();
+
+const ScanScreenStack = ({ navigation }) => {
+	const refRBSheet = useRef();
+
+	return (
+		<ScanStack.Navigator screenOptions={{ headerShown: true, }}>
+			{/* <ScanStack.Screen name='BottomDrawer'  component={BottomDrawer} /> */}
+			<ScanStack.Screen name='RenderDetections' component={RenderDetections} options={{ title: 'Detections' }} />
+			<ScanStack.Screen name='DetectionDetail' component={DetectionDetail} options={{ headerShown: false }} />
+			{/* <ScanStack.Screen name='Skeleton' component={SkeletonScreen}  options={{ title:'Loading Detections...'}}/> */}
+		</ScanStack.Navigator>
+	);
+};
+
+const FavoriteStack = createStackNavigator();
+
+const FavoriteScreenStack = ({ navigation }) => {
+	return (
+		<FavoriteStack.Navigator>
+			<FavoriteStack.Screen name='Favourite' component={FavouritesScreen}/>
+		</FavoriteStack.Navigator>
+	)
 }
 
-const Stack = createStackNavigator();
-
-function StackNav ()  {
-  return (
-    <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="Favourites" component={FavouritesScreen} />
-    </Stack.Navigator>
-  );
- };
-
-// function Draw(){
-//   return(
-//     <Drawer.Navigator drawerContent={() => <DrawerItems />}>
-//         <Drawer.Screen name="Profile" component={ProfileScreen} />
-//         <Drawer.Screen name="Settings" component={SettingsScreen} />
-//         {/* Add more screens */}
-//       </Drawer.Navigator>
-//   )
-// }
-
-const StackScan = createStackNavigator();
-
-function ScanStack() {
-  return (
-    <StackScan.Navigator screenOptions={{ headerShown: false }}>
-      <StackScan.Screen name="ScanScreen" component={ScanImage} />
-      <StackScan.Screen name="Detections" component={Detections} options={{headerShown: true}}/>
-    </StackScan.Navigator>
-  );
-}
 
 const App = () => {
-  // const {hasPermission, requestPermission} = useCameraPermission()
+	const Tab = createBottomTabNavigator();
+	const refRBSheet = useRef();
+	return (
+		<NavigationContainer >
+			<StatusBar translucent={false} backgroundColor={COLORS.primary} />
+			<Tab.Navigator screenOptions={{
+				headerShown: false,
+				tabBarStyle: {
+					height: 60
+				},
+				tabBarHideOnKeyboard: true,
+				tabBarActiveTintColor: COLORS.primary,
+				tabBarLabelStyle: {
+					top: -10,
+					fontWeight: 'bold'
+				}
+			}} >
+				<Tab.Screen
+					name='Home'
+					component={HomeScreenStack}
+					options={{
+						tabBarIcon: ({ color, size }) => <Icon name='home' color={color} size={size * 1.3} />,
+					}}
+				/>
 
-  // if (!hasPermission) {
-  //   requestPermission();
-  // }
+				<Tab.Screen
+					name='Scan'
+					component={ScanScreenStack} // this is prevented by listeners
+					// initialParams={{openDrawer: ()=> refRBSheet.current.open()}}
+					options={{
+						tabBarIcon: ({ color, size }) => <Icon name='camera-alt' color={color} size={size * 1.2} />,
+					}}
+					listeners={() => ({
+						tabPress: e => {
+							e.preventDefault();
+							refRBSheet.current.open();
+						}
+					})}
+				/>
+				<Tab.Screen
+					name='Maps'
+					component={Maps}
+					options={{ tabBarIcon: ({ color, size }) => <Icon name='map' color={color} size={size * 1.2} /> }}
+					/>
 
-  return (
-    <NavigationContainer>
-      <Tab.Navigator
-        screenOptions={{
-          headerShown: false,
-          tabBarActiveTintColor: COLORS.primary,
-          // tabBarInactiveTintColor: COLORS.grey,
-          tabBarLabelStyle: {
-            top: -3,
-            // fontWeight:'900'
-          }
-        }}
-        initialRouteName='Scan'>
-        <Tab.Screen
-          name="Home"
-          component={MainStack}
-          options={{
-            tabBarIcon: ({ color, size }) => (
-              <Icon name="home" color={color} size={size * 1.2} />
-            ),
-          }}
-        />
-        {/* open camera */}
-        <Tab.Screen
-          name="Scan"
-          component={ScanStack}
-          options={{
-            tabBarIcon: ({ color, size }) => (<Icon name="camera-alt" color={color} size={size * 1.2} />),
-            // headerShown: true,
-          }}
-        />
-        <Tab.Screen
-        name="Favorite"
-        component={StackNav}
-        options={{
-            tabBarIcon: ({ color, size }) => (<Icon name='stars' color={color} size={size * 1.2} />),
-        }}
-        />
-        {/* open file explorer to take image */}
-        <Tab.Screen
-          name='Map'
-          component={Maps}
-          options={{
-            tabBarIcon: ({ color, size }) => (<Icon name='map' color={color} size={size * 1.2} />)
-          }}
-        />
-
-
-        
-
-      </Tab.Navigator>
-    </NavigationContainer>
-  );
+				<Tab.Screen
+					name='Favourite'
+					component={FavoriteScreenStack}
+					options={{ tabBarIcon: ({ color, size }) => <IconX name='heart' color={color} size={size * 1.2} /> }}
+				/>
+			</Tab.Navigator>
+			<BottomDrawer refRBSheet={refRBSheet} />
+		</NavigationContainer>
+	);
 };
 
 

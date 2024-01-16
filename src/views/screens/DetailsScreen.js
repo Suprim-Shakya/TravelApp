@@ -11,7 +11,7 @@ import {
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import COLORS from '../../constants/colors';
 import { ScrollView } from 'react-native-gesture-handler';
-import FavouritesScreen from '../../componentsSaurav/screens/Favourites';
+import FavouritesScreen from '../../componentsSaurav/screens/FavouritesScreen';
 
 
 const DetailsScreen = ({navigation, route}) => {
