@@ -113,7 +113,11 @@ const DetectionCard = ({ box, name, confidence, classNumber, fromDetection = tru
 			{/* {renderSkeleton && <MyLoader/>} */}
 			{data ? <View style={styles.outer}>
 
-				<Pressable android_ripple={true} style={styles.card} onPress={() => handleKnowMore()}>
+				<Pressable
+					android_ripple={{ color: 'rgba(0, 0,0, 0.2)' }}
+					style={styles.card}
+					onPress={handleKnowMore}
+				>
 					{/* FETCH descriptions and images from db */}
 					<Image source={data.imageLink ? { uri: data.imageLink } : fallbackImage} style={styles.img} />
 
@@ -121,7 +125,7 @@ const DetectionCard = ({ box, name, confidence, classNumber, fromDetection = tru
 
 						<Text style={styles.headingText}>{name || data.className} {confidence && `- ${confidence} %`}</Text>
 
-						{data && <Text style={styles.description}>{data.Description && data.Description.slice(0, 200)}...</Text>}
+						{data && <Text style={styles.description}>{data.Description && data.Description.slice(0, 150)}...</Text>}
 
 						<BookmarkButton onPress={handleAddToPlan} active={isBookmarked} />
 
