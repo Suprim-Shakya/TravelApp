@@ -1,15 +1,24 @@
-import { StyleSheet, View, Text, Pressable,Image,Alert } from "react-native";
-import React,{useState, useEffect} from "react";
+import { StyleSheet, View, Text, Pressable, Image} from "react-native";
+import React, { useState, useEffect } from "react";
 import fallbackImage from '../../assets/onboardImage.jpg'
 import MyLoader from './DetectionLoaderSkeleton'
 import fetchDetailsFromDb from "../apiCalls/fetchDataFromDB";
 import { useNavigation } from "@react-navigation/native";
+import { useDispatch, useSelector } from "react-redux";
+import { addToBookmark, removeFromBookmark } from "../redux/features/bookmarkSlice";
 
-const DetectionCard = ({ box, name, confidence, classNumber,}) => {
+const DetectionCard = ({ box, name, confidence, classNumber, fromDetection = true }) => {
 	const navigation = useNavigation();
 	const [data, setData] = useState(null);
-	// const [renderSkeleton, setRenderSkeleton] = useState(true);
-	// let data;
+
+	const dispatch = useDispatch();
+	const bookmarks = useSelector(state => state.bookmark);
+
+	const classPresentInBookmark = bookmarks.find((item) => item.classNumber == classNumber)
+
+	const [isBookmarked, setIsBookmarked] = useState(classPresentInBookmark)
+
+	// fromDetection = !isBookmarked;
 
 	useEffect(() => {
 
@@ -17,7 +26,7 @@ const DetectionCard = ({ box, name, confidence, classNumber,}) => {
 			try {
 				const result = await fetchDetailsFromDb(classNumber);
 				// setRenderSkeleton(false)
-                // console.log(result)
+				// console.log(result)
 				setData(result)
 
 			} catch (error) {
@@ -40,50 +49,103 @@ const DetectionCard = ({ box, name, confidence, classNumber,}) => {
 
 	const handleKnowMore = () => {
 		console.log('hello')
-		navigation.navigate('Scan', { screen: 'DetectionDetail', params: { ...data} })
+		navigation.navigate('Scan', { screen: 'DetectionDetail', params: { ...data } })
 		console.log('hello')
 	}
 
+	// const handleAddToPlan = async() => {
+	// 	fromDetection ? await addPlace(String(classNumber))
+	// 	.then((response) => {
+	// 		if (response){
+	// 			Alert.alert(`${name} is successfully saved on Bookmarks.`, `\nNavigate to Bookmarks tab to access it.`)
+	// 		} else {
+	// 			Alert.alert('', `${name} is already saved.\n\nNavigate to Bookmarks tab to access it.`)
+	// 		}
+	// 	}) 
+	// 	: await removePlace(String(classNumber))
+	// 	.then((response)=> {
+	// 		if (response){
+	// 			Alert.alert('',`${data.className} is successfully removed from Bookmarks.`)
+	// 		} else {
+	// 			Alert.alert('', `${data.className} couldn't be removed`)
+	// 		}
+	// 	})
+	// }
 
-	return (
-		<View>
-			{/* {renderSkeleton && <MyLoader/>} */}
-			{data ? <View style={styles.outer}>
+	const handleAddToPlan = async () => {
 
-				<View style={styles.card}>
-					{/* FETCH descriptions and images from db */}
-					<Image source={data.imageLink ? { uri: data.imageLink } : fallbackImage} style={styles.img} />
+		console.log('inside add to plan')
 
-					<View style={styles.cardText}>
+		const ATB = () => {
+			const dataObj = {
+			    classNumber: classNumber,
+			    location: { lat: parseFloat(data.latitude), lng: parseFloat(data.longitude) }
+			}
+			// dispatch(addToBookmark({ classNumber: Number(classNumber) })); 
+			dispatch(addToBookmark(dataObj)); 
+			console.log("\n\n\n\n\n start add to bookmark function -------------\n")
+			// Alert.alert(`${name} must be saved on Bookmarks.`, `Navigate to Bookmarks tab to access it.`)
+			
+			bookmarks.map(item => console.log(item))
+			console.log("\nend add to bookmark function -------------")
+			setIsBookmarked(true)
+		}
 
-						<Text style={styles.headingText}>{name} - {confidence}%</Text>
+		const RFB = () => {
+			dispatch(removeFromBookmark(classNumber))// check datatype 
 
-						{data && <Text style={styles.description}>{data.Description.slice(0,150)}...</Text>}
+			// Alert.alert(`${data.name} must be removed.`, `Navigate to Bookmarks tab to access it.`)
+			// const bookmarks = useSelector(state=> state.bookmark);
+			console.log("\n\n\n\n\n start remove bookmark function**************\n")
+			bookmarks.map(item => console.log(item))
+			console.log("\n\end remove bookmark function***************")
+			setIsBookmarked(false)
+		}
 
-						<View style={styles.btnContainer}>
-							<Pressable
-								onPress={()=>handleKnowMore()}
-								style={({ pressed }) => ({ backgroundColor: pressed ? 'gray' : 'black', ...styles.btnStyle })}
-							>
-								<Text style={{ color: 'white' }}>Know More</Text>
+		!isBookmarked ? ATB() : RFB();
 
-							</Pressable>
+	}
 
-							<Pressable style={({ pressed }) => ({ backgroundColor: pressed ? 'gray' : 'black', ...styles.btnStyle })}>
-								<Text style={{ color: 'white' }}>Add to plan</Text>
-							</Pressable>
 
-						</View>
+return (
+	<View>
+		{/* {renderSkeleton && <MyLoader/>} */}
+		{data ? <View style={styles.outer}>
+
+			<View style={styles.card}>
+				{/* FETCH descriptions and images from db */}
+				<Image source={data.imageLink ? { uri: data.imageLink } : fallbackImage} style={styles.img} />
+
+				<View style={styles.cardText}>
+
+					<Text style={styles.headingText}>{name || data.className} {confidence && `- ${confidence} %`}</Text>
+
+					{data && <Text style={styles.description}>{data.Description && data.Description.slice(0, 150)}...</Text>}
+
+					<View style={styles.btnContainer}>
+						<Pressable
+							onPress={() => handleKnowMore()}
+							style={({ pressed }) => ({ backgroundColor: pressed ? 'gray' : 'black', ...styles.btnStyle })}
+						>
+							<Text style={{ color: 'white' }}>Know More</Text>
+
+						</Pressable>
+
+						<Pressable style={({ pressed }) => ({ backgroundColor: pressed ? 'gray' : 'black', ...styles.btnStyle })} onPress={handleAddToPlan}>
+							<Text style={{ color: 'white', alignSelf: "center" }}>{!isBookmarked ? 'Bookmark' : 'Remove'}</Text>
+						</Pressable>
 
 					</View>
 
 				</View>
+
 			</View>
+		</View>
 			:
 			<MyLoader />}
 
-		</View>
-	)
+	</View>
+)
 }
 
 const styles = StyleSheet.create({
@@ -165,6 +227,7 @@ const styles = StyleSheet.create({
 		paddingLeft: 5,
 		paddingRight: 5,
 		height: 30,
+		minWidth: 90,
 	}
 
 })
