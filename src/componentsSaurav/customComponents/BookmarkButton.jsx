@@ -5,19 +5,19 @@ import COLORS from '../../constants/colors';
 
 const BookmarkButton = ({onPress , active, style}) => {
     const iconName = active ? 'bookmark': 'bookmark-plus-outline'
-    const color = active? COLORS.primary : null;
+    const iconColor = active? COLORS.primary : COLORS.darkGrey;
     const Styles = StyleSheet.create({
         pressable: {
             position: 'absolute',
             top: -5,
-            right: -5,
+            right: -8,
             zIndex: 1,
             ...(style || {}) // destructure style prop only if present
         }
     })
   return (
     <Pressable onPress={onPress} style={Styles.pressable}>
-        <Icon name={iconName} size={30} color={color}/>
+        <Icon name={iconName} size={30} color={iconColor}/>
     </Pressable>
   )
 }
