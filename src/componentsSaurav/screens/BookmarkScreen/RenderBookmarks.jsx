@@ -1,10 +1,11 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { StatusBar, StyleSheet, Text, View } from 'react-native'
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { ScrollView } from 'react-native-gesture-handler';
 import DetectionCard from '../../customComponents/DetectionCard';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { loadExistingBookmark } from "../../redux/features/bookmarkSlice";
+import COLORS from '../../../constants/colors';
 
 const RenderBookmarks = () => {
 
@@ -56,24 +57,27 @@ const RenderBookmarks = () => {
 
         saveBookmarksToLocal();
 
-    },[bookmarks.length]);
+    }, [bookmarks.length]);
 
 
 
 
     return (
-        <ScrollView>
-            {/* <Text style={{color: 'black'}}>this is bookmark screen</Text> */}
-            {
-                bookmarks.length > 0 ? bookmarks.map((item, index) => {
-                    // console.log(item)
-                    // console.log('inside')
-                    // <Text style={{color: 'black'}}>this is bookmark screen</Text>
-                    return <DetectionCard key={index} classNumber={Number(item.classNumber)} fromDetection={false} />
-                })
-                    : <Text style={{ color: 'black', textAlign: 'center', paddingTop: '50%' }}>Add detections to bookmark to  view them here.</Text>
-            }
-        </ScrollView>
+        <View>
+            <StatusBar backgroundColor={COLORS.primary}/>
+            <ScrollView>
+                {/* <Text style={{color: 'black'}}>this is bookmark screen</Text> */}
+                {
+                    bookmarks.length > 0 ? bookmarks.map((item, index) => {
+                        // console.log(item)
+                        // console.log('inside')
+                        // <Text style={{color: 'black'}}>this is bookmark screen</Text>
+                        return <DetectionCard key={index} classNumber={Number(item.classNumber)} fromDetection={false} />
+                    })
+                        : <Text style={{ color: 'black', textAlign: 'center', paddingTop: '50%' }}>Add detections to bookmark to  view them here.</Text>
+                }
+            </ScrollView>
+        </View>
     )
 }
 
