@@ -12,7 +12,7 @@ import DetailsScreen from './src/views/screens/DetailsScreen';
 import HomeScreen from './src/views/screens/HomeScreen';
 
 import RenderDetections from './src/componentsSaurav/screens/RenderDetections';
-import Maps from './src/componentsSaurav/screens/Maps';
+import Maps from './src/ComponentsPrajwol/screens/Maps';
 import BottomDrawer from './src/componentsSaurav/screens/BottomDrawer';
 
 import COLORS from './src/constants/colors';
