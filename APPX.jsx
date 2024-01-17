@@ -37,10 +37,10 @@ const HomeScreenStack = () => {
 
 const ScanScreenStack = () => {
 	return (
-		<ScanStack.Navigator screenOptions={{ headerShown: true, }}>
-			<ScanStack.Screen name='RenderDetections' component={RenderDetections} options={{ title: 'Detections' }} />
-			<ScanStack.Screen name='DetectionDetail' component={DetectionDetail} options={{ headerShown: false }} />
-		</ScanStack.Navigator>
+		<stack.Navigator screenOptions={{ headerShown: true, }}>
+			<stack.Screen name='RenderDetections' component={RenderDetections} options={{ title: 'Detections', headerStyle: {backgroundColor: COLORS.primary} ,headerTitleStyle: {color: 'white', fontWeight: 'bold'} }} />
+			<stack.Screen name='DetectionDetail' component={DetectionDetail} options={{ headerShown: false }} />
+		</stack.Navigator>
 	);
 };
 

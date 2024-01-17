@@ -14,7 +14,7 @@ const RenderBookmarks = () => {
     const bookmarks = useSelector(state => state.bookmark);
 
     // bookmarks.map(item => console.log(item))
-    // console.log(`\n The bookmarks are: \n${bookmarks}\n(from render bookmarks screen)`)
+    console.log(`\n The bookmarks are: \n${bookmarks}\n(from render bookmarks screen)`)
 
     useEffect(() => {
 
@@ -29,17 +29,17 @@ const RenderBookmarks = () => {
         const loadLocalBookmarks = async () => {
             // console.log('\ntrying to dispatch the value')
             const localBookmarks = await AsyncStorage.getItem('bookmark');
-            // console.log('\ninside the function')
+            console.log('\ninside the function')
             console.log(`local bookmark is null? ${localBookmarks}`)
-            // console.log(typeof localBookmarks)
+            console.log(typeof localBookmarks)
             const valueToSend = JSON.parse(localBookmarks)
-            // console.log(typeof valueToSend)
-            // console.log(Array.isArray(valueToSend))
+            console.log(typeof valueToSend)
+            console.log(Array.isArray(valueToSend))
 
             if (localBookmarks !== null) {
-                // console.log('\ntrying to dispatch the value')
+                console.log('\ntrying to dispatch the value')
                 dispatch(loadExistingBookmark(valueToSend))
-                // console.log('\nafter to dispatch the value')
+                console.log('\nafter to dispatch the value')
             }
             else {
                 console.log(`local bookmark is null? ${localBookmarks}`)
@@ -54,10 +54,10 @@ const RenderBookmarks = () => {
     useEffect(() => {
 
         const saveBookmarksToLocal = async () => {
-            // console.log(`\n trying to save bookmark data to local`)
+            console.log(`\n trying to save bookmark data to local`)
             await AsyncStorage.setItem('bookmark', JSON.stringify(bookmarks))
-            // const val = await AsyncStorage.getItem('bookmark')
-            // console.log(`\nChange after trying to save is: ${val}`)
+            const val = await AsyncStorage.getItem('bookmark')
+            console.log(`\nChange after trying to save is: ${val}`)
 
         };
 

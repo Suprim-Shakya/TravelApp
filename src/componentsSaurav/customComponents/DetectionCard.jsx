@@ -130,18 +130,9 @@ const DetectionCard = ({ box, name, confidence, classNumber, fromDetection = tru
 
 						{data && <Text style={styles.description}>{data.Description && data.Description.slice(0, 150)}...</Text>}
 
-					<View style={styles.btnContainer}>
-						<Pressable
-							onPress={() => handleKnowMore()}
-							style={({ pressed }) => ({ backgroundColor: pressed ? 'gray' : 'black', ...styles.btnStyle })}
-						>
-							<Text style={{ color: 'white' }}>Know More</Text>
+						<BookmarkButton onPress={handleAddToPlan} active={isBookmarked} />
 
-						</Pressable>
 
-						<Pressable style={({ pressed }) => ({ backgroundColor: pressed ? 'gray' : 'black', ...styles.btnStyle })} onPress={handleAddToPlan}>
-							<Text style={{ color: 'white' }}>{!isBookmarked ? 'Add to Plan' : 'Remove'}</Text>
-						</Pressable>
 
 					</View>
 
@@ -215,18 +206,6 @@ const styles = StyleSheet.create({
 		// objectFit: 'contain'
 
 	},
-
-	btnStyle: {
-
-		borderRadius: 7,
-		flex: 0,
-		color: 'white',
-		justifyContent: 'center',
-		paddingLeft: 5,
-		paddingRight: 5,
-		height: 30,
-	}
-
 })
 
 export default DetectionCard

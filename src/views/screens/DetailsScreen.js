@@ -1,27 +1,23 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {
- ImageBackground,
- SafeAreaView,
- StatusBar,
- StyleSheet,
- View,
- Text,
- TouchableOpacity,
+  ImageBackground,
+  SafeAreaView,
+  StatusBar,
+  StyleSheet,
+  View,
+  Text,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import COLORS from '../../constants/colors';
 import { ScrollView } from 'react-native-gesture-handler';
 
-
 const DetailsScreen = ({navigation, route}) => {
- const place = route.params;
-
-   
- return (
+  const place = route.params;
+  return (
     
     <SafeAreaView style={{flex: 1, backgroundColor: COLORS.white}}>
       
-      {/* <StatusBar backgroundColor="rgba(0,0,0,0.1)" /> */}
+      <StatusBar translucent backgroundColor="rgba(0,0,0,0)" />
       
       <ImageBackground style={{flex: 0.8}} source={place.image}>
         <View style={style.header}>
@@ -55,12 +51,11 @@ const DetailsScreen = ({navigation, route}) => {
       </ImageBackground>
       <ScrollView style={style.detailsContainer}>
         <View style={style.detailsContainer}>
-          <View style={style.iconContainer}>
-            <FavouritesScreen />
-          {/* <Icon name="favorite" size={30} color={isFavorited ? COLORS.red : COLORS.grey} onPress={toggleFavorite} /> */}
-          </View>
+          {/* <View style={style.iconContainer}>
+            <Icon name="favorite" color={COLORS.red} size={30} />
+          </View> */}
           <View style={{flexDirection: 'row', marginTop: 10}}>
-		 {place.location && <Icon name="place" size={28} color={COLORS.primary} />}
+		  {place.location && <Icon name="place" size={28} color={COLORS.primary} />}
            {place.location && <Text
               style={{
                 marginLeft: 5,
@@ -70,7 +65,7 @@ const DetailsScreen = ({navigation, route}) => {
               }}>
               {place.location}
             </Text>}
-		 {place.foodName && <Icon name="fastfood" size={28} color={COLORS.primary} />}
+		  {place.foodName && <Icon name="fastfood" size={28} color={COLORS.primary} />}
            {place.foodName && <Text
               style={{
                 marginLeft: 5,
@@ -88,51 +83,34 @@ const DetailsScreen = ({navigation, route}) => {
         </View>
         </ScrollView>
     </SafeAreaView>
- );
+  );
 };
 
 const style = StyleSheet.create({
- iconContainer: {
-    height: 60,
-    width: 60,
-    position: 'absolute',
-    top: -10,
-    backgroundColor: COLORS.white,
-    borderRadius: 30,
-    right: 10,
-    elevation: 10,
-    justifyContent: 'center',
-    alignItems: 'center',
- },
-  
- detailsContainer: {
+
+ 
+  detailsContainer: {
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,
     paddingVertical: 18,
     paddingHorizontal: 15,
     backgroundColor: COLORS.white,
     flex: 0.3,
-      },
- header: {
+    },
+  header: {
     marginTop: 60,
     flexDirection: 'row',
     justifyContent: 'space-between',
     paddingHorizontal: 20,
- },
- imageDetails: {
+  },
+  imageDetails: {
     padding: 20,
     flexDirection: 'row',
     justifyContent: 'space-between',
     width: '100%',
     position: 'absolute',
     bottom: 30,
- },
- addButton: {
-    padding: 10,
-    backgroundColor: '#007bff',
-    borderRadius: 5,
-    color: '#fff',
- },
+  },
 });
 
 export default DetailsScreen;
