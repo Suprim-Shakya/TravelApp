@@ -4,6 +4,7 @@ import { addPlace, removePlace, getSavedPlaces, deleteAllPlaces } from '../../mo
 
 const Bookmarks = ({ navigation }) => {
 
+
   const handleAddItem = async () => {
     await addPlace('25')
       .then(response => console.log(`\n update data successful: ${response}`))
@@ -31,5 +32,6 @@ const Bookmarks = ({ navigation }) => {
 }
 
 export default Bookmarks
+
 
 const styles = StyleSheet.create({})

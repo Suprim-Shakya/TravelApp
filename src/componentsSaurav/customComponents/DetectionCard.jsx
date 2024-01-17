@@ -4,11 +4,13 @@ import fallbackImage from '../../assets/onboardImage.jpg'
 import MyLoader from './DetectionLoaderSkeleton'
 import fetchDetailsFromDb from "../apiCalls/fetchDataFromDB";
 import { useNavigation } from "@react-navigation/native";
+
 import { useDispatch, useSelector } from "react-redux";
 import { addToBookmark, removeFromBookmark } from "../redux/features/bookmarkSlice";
 import BookmarkButton from "./BookmarkButton";
 
 const DetectionCard = ({ box, name, confidence, classNumber, fromDetection = true }) => {
+
 	const navigation = useNavigation();
 	const [data, setData] = useState(null);
 
@@ -107,6 +109,24 @@ const DetectionCard = ({ box, name, confidence, classNumber, fromDetection = tru
 
 	}
 
+	const handleAddToPlan = async() => {
+		fromDetection ? await addPlace(String(classNumber))
+		.then((response) => {
+			if (response){
+				Alert.alert(`${name} is successfully saved on Bookmarks.`, `\nNavigate to Bookmarks tab to access it.`)
+			} else {
+				Alert.alert('', `${name} is already saved.\n\nNavigate to Bookmarks tab to access it.`)
+			}
+		}) 
+		: await removePlace(String(classNumber))
+		.then((response)=> {
+			if (response){
+				Alert.alert('',`${data.className} is successfully removed from Bookmarks.`)
+			} else {
+				Alert.alert('', `${data.className} couldn't be removed`)
+			}
+		})
+	}
 
 	return (
 		<View>
@@ -123,11 +143,14 @@ const DetectionCard = ({ box, name, confidence, classNumber, fromDetection = tru
 
 					<View style={styles.cardText}>
 
+
 						<Text style={styles.headingText}>{name || data.className} {confidence && `- ${confidence} %`}</Text>
+
 
 						{data && <Text style={styles.description}>{data.Description && data.Description.slice(0, 150)}...</Text>}
 
 						<BookmarkButton onPress={handleAddToPlan} active={isBookmarked} />
+
 
 
 					</View>

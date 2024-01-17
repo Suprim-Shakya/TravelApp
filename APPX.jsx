@@ -17,6 +17,8 @@ import BottomDrawer from './src/componentsSaurav/screens/BottomDrawer';
 
 import COLORS from './src/constants/colors';
 import DetectionDetail from './src/components/DetectionDetail';
+import Bookmarks from './src/componentsSaurav/screens/BookmarkScreen/Bookmarks';
+import ShowPresentLocations from './src/componentsSaurav/screens/BookmarkScreen/ShowPresentLocations';
 
 import { Provider } from 'react-redux'; //redux
 import store from './src/componentsSaurav/redux/app/store';
@@ -40,6 +42,7 @@ const ScanScreenStack = ({ navigation }) => {
 
 	return (
 		<ScanStack.Navigator screenOptions={{ headerShown: true, }}>
+
 			<ScanStack.Screen name='RenderDetections' component={RenderDetections} options={{ title: 'Detections', headerStyle: {backgroundColor: COLORS.primary} ,headerTitleStyle: {color: 'white', fontWeight: 'bold'} }} />
 			<ScanStack.Screen name='DetectionDetail' component={DetectionDetail} options={{ headerShown: false }} />
 		</ScanStack.Navigator>
@@ -48,13 +51,16 @@ const ScanScreenStack = ({ navigation }) => {
 
 
 const BookmarkStack = createStackNavigator();
+
 const BookmarkScreenStack = ({navigation}) => {
 	return(
 		<BookmarkStack.Navigator>
 			<BookmarkStack.Screen name ='RenderBookmarks' component={RenderBookmarks} options={{headerShown: true, title: "Bookmarks", headerStyle: {backgroundColor: COLORS.primary} ,headerTitleStyle: {color: 'white', fontSize: 20, fontWeight: 'bold', alignSelf: 'center'}}}/>
+
 		</BookmarkStack.Navigator>
 	)
 }
+
 
 
 const App = () => {
@@ -62,6 +68,7 @@ const App = () => {
 	const refRBSheet = useRef();
 	return (//redux provider
 	<Provider store={store}> 
+
 		<NavigationContainer >
 			<StatusBar translucent={false} backgroundColor={COLORS.primary} />
 			<Tab.Navigator screenOptions={{
@@ -82,10 +89,13 @@ const App = () => {
 					options={{
 						tabBarIcon: ({ color, size }) => <Icon name='home' color={color} size={size * 1.3} />,
 					}}
+
 					/>
 				<Tab.Screen
 					name='Scan'
 					component={ScanScreenStack} // this is prevented by listeners
+
+
 					options={{
 						tabBarIcon: ({ color, size }) => <Icon name='camera-alt' color={color} size={size * 1.2} />,
 					}}
@@ -95,7 +105,9 @@ const App = () => {
 							refRBSheet.current.open();
 						}
 					})}
+
 					/>
+
 				<Tab.Screen
 					name='Maps'
 					component={Maps}
@@ -106,11 +118,13 @@ const App = () => {
 					name='Bookmarks'
 					component={BookmarkScreenStack}
 					options={{ tabBarIcon: ({ color, size }) => <IconX name='bookmark' color={color} size={size * 1.2} /> }}
+
 					/>
 			</Tab.Navigator>
 			<BottomDrawer refRBSheet={refRBSheet} />
 		</NavigationContainer>
 	</Provider>
+
 	);
 };
 
