@@ -1,35 +1,9 @@
 import { StyleSheet, Text, View, Button } from 'react-native'
 import React from 'react'
 import { addPlace, removePlace, getSavedPlaces, deleteAllPlaces } from '../../modules/localStore.js'
-import fetchDetailsFromDb from '../../apiCalls/fetchDataFromDB.js'
 
 const Bookmarks = ({ navigation }) => {
-  useEffect(() => {
 
-		const fetchData = async () => {
-			try {
-				const result = await fetchDetailsFromDb(classNumber);
-				// setRenderSkeleton(false)
-                // console.log(result)
-				setData(result)
-
-			} catch (error) {
-				console.error('fetching from db failed', error);
-				//code to handle error in app , display some alert sth else
-			}
-		}
-
-		fetchData();
-
-		return (
-			() => {
-				console.log('clear use effect');
-				setData(null);
-				// setRenderSkeleton(true)
-			}
-		)
-
-	}, [classNumber])
 
   const handleAddItem = async () => {
     await addPlace('25')
@@ -57,6 +31,7 @@ const Bookmarks = ({ navigation }) => {
   )
 }
 
-export default Bookmarks;
+export default Bookmarks
+
 
 const styles = StyleSheet.create({})

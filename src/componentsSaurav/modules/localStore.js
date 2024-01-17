@@ -1,47 +1,37 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import fetchDetailsFromDb from "../apiCalls/fetchDataFromDB";
 
-const key = 'bookmarks';
-
+const key = 'bookmarks'
 
 
 const createData = async (value) => {
-  try {
-    await AsyncStorage.setItem(key, value);
-    console.log(`\nStore creation successful: data is ${value}  `);
-  } catch (error) {
-    console.error("Error occurred while creating data :", error);
-    return false;
-  }
-  return true;
-};
+    try {
+        await AsyncStorage.setItem(key, value)
+        console.log(`\nStore creation successful: data is ${value}  `)
+    } catch (error) {
+        console.error("Error occurred while creating data :", error)
+        return false
+    }
+    return true
+}
 
 const getSavedPlaces = async () => {
+    try {
+        console.log('\n1. Attempting to read data with key: ', key)
+        const dataString = await AsyncStorage.getItem(key);
 
-  try {
-    console.log('\n1. Attempting to read data with key: ', key);
-    const dataString = await AsyncStorage.getItem(key);
-
-    if (dataString !== null) {
-      console.log('\n2. read data string is: ', dataString);
-      const dataArray = dataString.split(',').map((item) => parseFloat(item)); // Parse each element into a number
-      console.log('\n3. Data string to array is: ', dataArray);
-      console.log("---------------");
-
-      // Print each number in the console
-      dataArray.forEach((number) => {
-        console.log(number);
-      });
-
-      return dataArray;
-    } else {
-      console.log(`\n2. No data is present`);
+        if (dataString !== null){
+        console.log('\n2. read data string is: ', dataString)
+        const dataArray = dataString.split(',');
+        console.log('\n3. Data string to array is: ', dataArray)
+        return dataArray 
+        } else {
+            console.log(`\n2. No data is present`);
+        }
+    } catch (error) {
+        console.error(`\n1. Error occurred while reading data with key: ${key} \n Error data:${error}`)
     }
-  } catch (error) {
-    console.error(`\n1. Error occurred while reading data with key: ${key} \n Error data:${error}`);
-  }
-  return null;
-};
+    return null
+}
 
 
 const addPlace = async (value) => {
@@ -121,4 +111,6 @@ async function init() {
 } // anonymous async function runs as soon as declared;
 init();
 
-export {createData, getSavedPlaces, removePlace, addPlace, deleteAllPlaces }
+
+export { createData, getSavedPlaces, removePlace, addPlace, deleteAllPlaces }
+

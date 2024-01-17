@@ -8,6 +8,7 @@ import { MAPS_API_KEY } from '../config';
 import MapViewDirections from 'react-native-maps-directions';
 
 const Maps = () => {
+
   const [mLat, setMLat] = useState(0);
   const [mLong, setMLong] = useState(0);
   const [selectedCoordinates, setSelectedCoordinates] = useState(null);
@@ -218,5 +219,6 @@ export default Maps;
 //     </View>
 //   );
 // };
+
 
 // export default App;
