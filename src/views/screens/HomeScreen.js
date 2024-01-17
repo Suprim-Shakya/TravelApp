@@ -79,6 +79,7 @@ const HomeScreen = ({navigation}) => {
     );
   };
 
+
   const RecommendedCard = ({place}) => {
     return (
       <TouchableOpacity activeOpacity={0.8}
@@ -92,7 +93,7 @@ const HomeScreen = ({navigation}) => {
             fontWeight: 'bold',
             marginTop: 10,
           }}>
-          {place.name}
+          {place.foodName}
         </Text>
         <View
           style={{
@@ -102,24 +103,23 @@ const HomeScreen = ({navigation}) => {
           }}>
           <View style={{width: '100%', flexDirection: 'row', marginTop: 10}}>
             <View style={{flexDirection: 'row'}}>
-              <Icon name="place" size={22} color={COLORS.white} />
-              <Text style={{color: COLORS.white, marginLeft: 5}}>
+              {/* <Icon name="place" size={22} color={COLORS.white} /> */}
+              {/* <Text style={{color: COLORS.white, marginLeft: 5}}>
                 {place.location}
-              </Text>
+              </Text> */}
             </View>
             {/* <View style={{flexDirection: 'row'}}>
               <Icon name="star" size={22} color={COLORS.white} />
               <Text style={{color: COLORS.white, marginLeft: 5}}>5.0</Text>
             </View> */}
           </View>
-          <Text style={{color: COLORS.white, fontSize: 13}}>
-            {place.details}
-          </Text>
+          
         </View>
       </ImageBackground>
-            </TouchableOpacity>
+    </TouchableOpacity>
     );
   };
+
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: COLORS.white}}>
       <StatusBar translucent={false} backgroundColor={COLORS.primary} />
@@ -169,6 +169,7 @@ const HomeScreen = ({navigation}) => {
             renderItem={({item}) => <Card place={item} />}
           />
           <Text style={style.sectionTitle}>Cuisines</Text>
+          
           <FlatList
             snapToInterval={width - 20}
             contentContainerStyle={{paddingLeft: 20, paddingBottom: 20}}

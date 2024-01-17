@@ -12,7 +12,7 @@ import DetailsScreen from './src/views/screens/DetailsScreen';
 import HomeScreen from './src/views/screens/HomeScreen';
 
 import RenderDetections from './src/componentsSaurav/screens/RenderDetections';
-import Maps from './src/componentsSaurav/screens/Maps';
+import Maps from './src/ComponentsPrajwol/screens/Maps';
 import BottomDrawer from './src/componentsSaurav/screens/BottomDrawer';
 
 import COLORS from './src/constants/colors';
@@ -23,45 +23,46 @@ import store from './src/componentsSaurav/redux/app/store';
 import RenderBookmarks from './src/componentsSaurav/screens/BookmarkScreen/RenderBookmarks';
 
 
-const HomeStack = createStackNavigator();
+const stack = createStackNavigator();
+const Tab = createBottomTabNavigator();
+
 const HomeScreenStack = () => {
 	return (
-		<HomeStack.Navigator screenOptions={{ headerShown: false }}>
-			<HomeStack.Screen name='HomeScreen' component={HomeScreen} />
-			<HomeStack.Screen name='DetailsScreen' component={DetailsScreen} />
-		</HomeStack.Navigator>
+		<stack.Navigator screenOptions={{ headerShown: false }}>
+			<stack.Screen name='HomeScreen' component={HomeScreen} />
+			<stack.Screen name='DetailsScreen' component={DetailsScreen} />
+		</stack.Navigator>
 	);
 };
 
-
-const ScanStack = createStackNavigator();
-const ScanScreenStack = ({ navigation }) => {
-	const refRBSheet = useRef();
-
+const ScanScreenStack = () => {
 	return (
 		<ScanStack.Navigator screenOptions={{ headerShown: true, }}>
-			<ScanStack.Screen name='RenderDetections' component={RenderDetections} options={{ title: 'Detections', headerShown: true ,headerTitleStyle: {color: 'white', fontWeight: 'bold'}, headerStyle:{backgroundColor: COLORS.primary} }} />
+			<ScanStack.Screen name='RenderDetections' component={RenderDetections} options={{ title: 'Detections' }} />
 			<ScanStack.Screen name='DetectionDetail' component={DetectionDetail} options={{ headerShown: false }} />
 		</ScanStack.Navigator>
 	);
 };
 
 
-const BookmarkStack = createStackNavigator();
-const BookmarkScreenStack = ({navigation}) => {
+
+const BookmarkScreenStack = () => {
 	return(
-		<BookmarkStack.Navigator>
-			<BookmarkStack.Screen name ='RenderBookmarks' component={RenderBookmarks} options={{headerShown: true, title:'Bookmarks',headerTitleStyle: {color: 'white', fontWeight: 'bold'}, headerStyle:{backgroundColor: COLORS.primary}}}/>
-		</BookmarkStack.Navigator>
+		<stack.Navigator>
+			<stack.Screen name ='RenderBookmarks' component={RenderBookmarks} options={{headerShown: true, title: "Bookmarks", headerStyle: {backgroundColor: COLORS.primary} ,headerTitleStyle: {color: 'white', fontSize: 20, fontWeight: 'bold', alignSelf: 'center'}}}/>
+
+		</stack.Navigator>
 	)
 }
 
 
+
 const App = () => {
-	const Tab = createBottomTabNavigator();
+
 	const refRBSheet = useRef();
 	return (//redux provider
 	<Provider store={store}> 
+
 		<NavigationContainer >
 			<StatusBar translucent={false} backgroundColor={COLORS.primary} />
 			<Tab.Navigator screenOptions={{
@@ -82,10 +83,13 @@ const App = () => {
 					options={{
 						tabBarIcon: ({ color, size }) => <Icon name='home' color={color} size={size * 1.3} />,
 					}}
+
 					/>
 				<Tab.Screen
 					name='Scan'
 					component={ScanScreenStack} // this is prevented by listeners
+
+
 					options={{
 						tabBarIcon: ({ color, size }) => <Icon name='camera-alt' color={color} size={size * 1.2} />,
 					}}
@@ -95,7 +99,9 @@ const App = () => {
 							refRBSheet.current.open();
 						}
 					})}
+
 					/>
+
 				<Tab.Screen
 					name='Maps'
 					component={Maps}
@@ -106,11 +112,13 @@ const App = () => {
 					name='Bookmarks'
 					component={BookmarkScreenStack}
 					options={{ tabBarIcon: ({ color, size }) => <IconX name='bookmark' color={color} size={size * 1.2} /> }}
+
 					/>
 			</Tab.Navigator>
 			<BottomDrawer refRBSheet={refRBSheet} />
 		</NavigationContainer>
 	</Provider>
+
 	);
 };
 

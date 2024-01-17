@@ -67,7 +67,11 @@ yarn-error.log
 
 
 #add
-./src/componentsSaurav/config.js
+
 /src/componentsSaurav/config.js
+
 /src/componentsSaurav/untrackedFiles
 .vscode
+
+/android/app/src/main/AndroidMAnifest.xml
+

@@ -41,6 +41,7 @@ const DetailsScreen = ({navigation, route}) => {
               color: COLORS.white,
               marginBottom: 0,
             }}>
+              
             {place.name}
           </Text>
           {/* <View style={{flexDirection: 'row'}}>
@@ -89,6 +90,7 @@ const DetailsScreen = ({navigation, route}) => {
     </SafeAreaView>
  );
 };
+
 const style = StyleSheet.create({
  iconContainer: {
     height: 60,

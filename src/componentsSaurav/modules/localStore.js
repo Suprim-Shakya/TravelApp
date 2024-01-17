@@ -1,4 +1,5 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
+
 const key = 'bookmarks'
 
 
@@ -31,6 +32,7 @@ const getSavedPlaces = async () => {
     }
     return null
 }
+
 
 const addPlace = async (value) => {
     try {
@@ -109,4 +111,6 @@ async function init() {
 } // anonymous async function runs as soon as declared;
 init();
 
+
 export { createData, getSavedPlaces, removePlace, addPlace, deleteAllPlaces }
+
