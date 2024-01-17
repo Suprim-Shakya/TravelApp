@@ -109,25 +109,6 @@ const DetectionCard = ({ box, name, confidence, classNumber, fromDetection = tru
 
 	}
 
-	const handleAddToPlan = async() => {
-		fromDetection ? await addPlace(String(classNumber))
-		.then((response) => {
-			if (response){
-				Alert.alert(`${name} is successfully saved on Bookmarks.`, `\nNavigate to Bookmarks tab to access it.`)
-			} else {
-				Alert.alert('', `${name} is already saved.\n\nNavigate to Bookmarks tab to access it.`)
-			}
-		}) 
-		: await removePlace(String(classNumber))
-		.then((response)=> {
-			if (response){
-				Alert.alert('',`${data.className} is successfully removed from Bookmarks.`)
-			} else {
-				Alert.alert('', `${data.className} couldn't be removed`)
-			}
-		})
-	}
-
 	return (
 		<View>
 			{/* {renderSkeleton && <MyLoader/>} */}

@@ -9,156 +9,156 @@ import MapViewDirections from 'react-native-maps-directions';
 
 const Maps = () => {
 
-  const [mLat, setMLat] = useState(0);
-  const [mLong, setMLong] = useState(0);
-  const [selectedCoordinates, setSelectedCoordinates] = useState(null);
-  const [originCoordinates, setOriginCoordinates] = useState(null);
-  const [destination, setDestination] = useState(null);
-  const [duration, setDuration] = useState(null);
+	const [mLat, setMLat] = useState(0);
+	const [mLong, setMLong] = useState(0);
+	const [selectedCoordinates, setSelectedCoordinates] = useState(null);
+	const [originCoordinates, setOriginCoordinates] = useState(null);
+	const [destination, setDestination] = useState(null);
+	const [duration, setDuration] = useState(null);
 
-  useEffect(() => {
-    requestLocationPermission();
-    getMyLocation();
+	useEffect(() => {
+		requestLocationPermission();
+		getMyLocation();
 
-    const watchId = Geolocation.watchPosition(
-      (position) => {
-        setMLat(position.coords.latitude);
-        setMLong(position.coords.longitude);
+		const watchId = Geolocation.watchPosition(
+			(position) => {
+				setMLat(position.coords.latitude);
+				setMLong(position.coords.longitude);
 
-        console.log('My Latitude:', position.coords.latitude);
-        console.log('My Longitude:', position.coords.longitude);
-      },
-      (error) => {
-        console.log(error.code, error.message);
-      },
-      { enableHighAccuracy: true, interval: 5000, distanceFilter: 10 }
-    );
+				console.log('My Latitude:', position.coords.latitude);
+				console.log('My Longitude:', position.coords.longitude);
+			},
+			(error) => {
+				console.log(error.code, error.message);
+			},
+			{ enableHighAccuracy: true, interval: 5000, distanceFilter: 10 }
+		);
 
-    return () => {
-      Geolocation.clearWatch(watchId);
-    };
-  }, []);
+		return () => {
+			Geolocation.clearWatch(watchId);
+		};
+	}, []);
 
-  const requestLocationPermission = async () => {
-    try {
-      const granted = await PermissionsAndroid.request(
-        PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
-        {
-          title: 'Location Permission',
-          message: 'Give location permission',
-          buttonNeutral: 'Ask Me Later',
-          buttonNegative: 'Cancel',
-          buttonPositive: 'OK',
-        },
-      );
-      if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-        console.log('You can use the Location');
-      } else {
-        console.log('Location permission denied');
-      }
-    } catch (err) {
-      console.warn(err);
-    }
-  };
+	const requestLocationPermission = async () => {
+		try {
+			const granted = await PermissionsAndroid.request(
+				PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+				{
+					title: 'Location Permission',
+					message: 'Give location permission',
+					buttonNeutral: 'Ask Me Later',
+					buttonNegative: 'Cancel',
+					buttonPositive: 'OK',
+				},
+			);
+			if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+				console.log('You can use the Location');
+			} else {
+				console.log('Location permission denied');
+			}
+		} catch (err) {
+			console.warn(err);
+		}
+	};
 
-  const getMyLocation = () => {
-    Geolocation.getCurrentPosition(
-      (position) => {
-        setMLat(position.coords.latitude);
-        setMLong(position.coords.longitude);
+	const getMyLocation = () => {
+		Geolocation.getCurrentPosition(
+			(position) => {
+				setMLat(position.coords.latitude);
+				setMLong(position.coords.longitude);
 
-        const latitude = position.coords.latitude;
-        const longitude = position.coords.longitude;
+				const latitude = position.coords.latitude;
+				const longitude = position.coords.longitude;
 
-        console.log('My Latitude 1:', latitude);
-        console.log('My Longitude 1:', longitude);
-      },
-      (error) => {
-        console.log(error.code, error.message);
-      },
-      { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 }
-    );
-  };
+				console.log('My Latitude 1:', latitude);
+				console.log('My Longitude 1:', longitude);
+			},
+			(error) => {
+				console.log(error.code, error.message);
+			},
+			{ enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 }
+		);
+	};
 
-  const handlePlaceSelected = (selCoordinates) => {
-    setSelectedCoordinates(selCoordinates);
+	const handlePlaceSelected = (selCoordinates) => {
+		setSelectedCoordinates(selCoordinates);
 
-    const destLatitude = selCoordinates.lat;
-    const destLongitude = selCoordinates.lng;
+		const destLatitude = selCoordinates.lat;
+		const destLongitude = selCoordinates.lng;
 
-    setDestination({
-      latitude: selCoordinates.lat,
-      longitude: selCoordinates.lng,
-    });
-  };
+		setDestination({
+			latitude: selCoordinates.lat,
+			longitude: selCoordinates.lng,
+		});
+	};
 
-  const onDirectionReady = (result) => {
-    setDuration(result.duration);
+	const onDirectionReady = (result) => {
+		setDuration(result.duration);
 
-    console.log('Distance: ', result.distance);
-    console.log('Duration: ', result.duration);
-    // console.log('Fare: ', result.fare);
-  };
+		console.log('Distance: ', result.distance);
+		console.log('Duration: ', result.duration);
+		// console.log('Fare: ', result.fare);
+	};
 
-  const formatDuration = (durationInSeconds) => {
-    const minutes = Math.floor(durationInSeconds / 60);
-    const seconds = durationInSeconds % 60;
-    return `${minutes} min ${seconds} sec`;
-  };
+	const formatDuration = (durationInSeconds) => {
+		const minutes = Math.floor(durationInSeconds / 60);
+		const seconds = durationInSeconds % 60;
+		return `${minutes} min ${seconds} sec`;
+	};
 
-  const waypoints = [
-    {latitude: 27.671980, longitude: 85.312469 },
-    // Add more waypoints as needed
-  ];
-  return (
-    <View style={{ flex: 1 }}>
-      <SearchPlaces onPlaceSelected={handlePlaceSelected} />
+	const waypoints = [
+		{ latitude: 27.671980, longitude: 85.312469 },
+		// Add more waypoints as needed
+	];
+	return (
+		<View style={{ flex: 1 }}>
+			<SearchPlaces onPlaceSelected={handlePlaceSelected} />
 
-      <MapView
-        style={{ flex: 1 }}
-        initialRegion={{
-          latitude: 27.688055,
-          longitude: 85.327595,
-          latitudeDelta: 0.0922,
-          longitudeDelta: 0.0421,
-        }}
-        onRegionChange={(region) => {
-          // console.log(region);
-        }}
-      >
-        <Marker coordinate={{ latitude: mLat, longitude: mLong }} />
+			<MapView
+				style={{ flex: 1 }}
+				initialRegion={{
+					latitude: 27.688055,
+					longitude: 85.327595,
+					latitudeDelta: 0.0922,
+					longitudeDelta: 0.0421,
+				}}
+				onRegionChange={(region) => {
+					// console.log(region);
+				}}
+			>
+				<Marker coordinate={{ latitude: mLat, longitude: mLong }} />
 
-        {selectedCoordinates && (
-          <Marker
-            coordinate={{
-              latitude: 27.671980, longitude: 85.312469 
-            }}
-          />
-        )}
-        {selectedCoordinates && (
-          <Marker
-            coordinate={{
-              latitude: selectedCoordinates.lat,
-              longitude: selectedCoordinates.lng,
-            }}
-          />
-        )}
+				{selectedCoordinates && (
+					<Marker
+						coordinate={{
+							latitude: 27.671980, longitude: 85.312469
+						}}
+					/>
+				)}
+				{selectedCoordinates && (
+					<Marker
+						coordinate={{
+							latitude: selectedCoordinates.lat,
+							longitude: selectedCoordinates.lng,
+						}}
+					/>
+				)}
 
-        {destination && waypoints &&(
-          <MapViewDirections
-            origin={{ latitude: mLat, longitude: mLong }}
-            waypoints={waypoints}
-            optimizeWaypoints={true}
-            destination={destination}
-            apikey={MAPS_API_KEY}
-            // strokeWidth={3}
-            strokeColor="black"
-            onReady={onDirectionReady}
-          />
-        )}
-      </MapView>
+				{destination && waypoints && (
+					<MapViewDirections
+						origin={{ latitude: mLat, longitude: mLong }}
+						waypoints={waypoints}
+						optimizeWaypoints={true}
+						destination={destination}
+						apikey={MAPS_API_KEY}
+						// strokeWidth={3}
+						strokeColor="black"
+						onReady={onDirectionReady}
+					/>
+				)}
+			</MapView>
 
-      {/* <TouchableOpacity
+			{/* <TouchableOpacity
         style={{
           width: '90%',
           height: 50,
@@ -175,8 +175,8 @@ const Maps = () => {
       >
         <Text style={{ color: '#fff' }}>Get Current Location</Text>
       </TouchableOpacity> */}
-    </View>
-  );
+		</View>
+	);
 };
 
 export default Maps;
