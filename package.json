@@ -15,10 +15,7 @@
     "@react-navigation/bottom-tabs": "^6.5.11",
     "@react-navigation/native": "^6.1.9",
     "@react-navigation/stack": "^6.3.20",
-<<<<<<< HEAD
-=======
     "@reduxjs/toolkit": "^2.0.1",
->>>>>>> sauravkhanal-main
     "material-ui-community-icons": "^0.15.0",
     "pod": "^0.9.0",
     "react": "18.2.0",
