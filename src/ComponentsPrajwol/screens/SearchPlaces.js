@@ -35,7 +35,7 @@
 import React from 'react';
 import { View } from 'react-native';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
-import { MAPS_API_KEY } from '../config';
+import { MAPS_API_KEY } from '../../componentsSaurav/config';
 
 const SearchPlaces = ({ onPlaceSelected }) => {
   return (

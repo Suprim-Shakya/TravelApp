@@ -4,7 +4,7 @@ import MapView, { Marker } from 'react-native-maps';
 import Geolocation from 'react-native-geolocation-service';
 import { PermissionsAndroid } from 'react-native';
 import SearchPlaces from './SearchPlaces';
-import { MAPS_API_KEY } from '../config';
+import { MAPS_API_KEY } from '../../componentsSaurav/config';
 import MapViewDirections from 'react-native-maps-directions';
 
 const Maps = () => {
