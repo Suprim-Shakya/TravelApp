@@ -109,6 +109,7 @@ const DetectionCard = ({ box, name, confidence, classNumber, fromDetection = tru
 
 	}
 
+
 	return (
 		<View>
 			{/* {renderSkeleton && <MyLoader/>} */}

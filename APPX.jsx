@@ -17,48 +17,54 @@ import BottomDrawer from './src/componentsSaurav/screens/BottomDrawer';
 
 import COLORS from './src/constants/colors';
 import DetectionDetail from './src/components/DetectionDetail';
+import Bookmarks from './src/componentsSaurav/screens/BookmarkScreen/Bookmarks';
+import ShowPresentLocations from './src/componentsSaurav/screens/BookmarkScreen/ShowPresentLocations';
 
 import { Provider } from 'react-redux'; //redux
 import store from './src/componentsSaurav/redux/app/store';
 import RenderBookmarks from './src/componentsSaurav/screens/BookmarkScreen/RenderBookmarks';
 
 
-const stack = createStackNavigator();
-const Tab = createBottomTabNavigator();
-
+const HomeStack = createStackNavigator();
 const HomeScreenStack = () => {
 	return (
-		<stack.Navigator screenOptions={{ headerShown: false }}>
-			<stack.Screen name='HomeScreen' component={HomeScreen} />
-			<stack.Screen name='DetailsScreen' component={DetailsScreen} />
-		</stack.Navigator>
+		<HomeStack.Navigator screenOptions={{ headerShown: false }}>
+			<HomeStack.Screen name='HomeScreen' component={HomeScreen} />
+			<HomeStack.Screen name='DetailsScreen' component={DetailsScreen} />
+		</HomeStack.Navigator>
 	);
 };
 
-const ScanScreenStack = () => {
+
+const ScanStack = createStackNavigator();
+const ScanScreenStack = ({ navigation }) => {
+	const refRBSheet = useRef();
+
 	return (
-		<stack.Navigator screenOptions={{ headerShown: true, }}>
-			<stack.Screen name='RenderDetections' component={RenderDetections} options={{ title: 'Detections', headerStyle: {backgroundColor: COLORS.primary} ,headerTitleStyle: {color: 'white', fontWeight: 'bold'} }} />
-			<stack.Screen name='DetectionDetail' component={DetectionDetail} options={{ headerShown: false }} />
-		</stack.Navigator>
+		<ScanStack.Navigator screenOptions={{ headerShown: true, }}>
+
+			<ScanStack.Screen name='RenderDetections' component={RenderDetections} options={{ title: 'Detections', headerStyle: {backgroundColor: COLORS.primary} ,headerTitleStyle: {color: 'white', fontWeight: 'bold'} }} />
+			<ScanStack.Screen name='DetectionDetail' component={DetectionDetail} options={{ headerShown: false }} />
+		</ScanStack.Navigator>
 	);
 };
 
 
+const BookmarkStack = createStackNavigator();
 
-const BookmarkScreenStack = () => {
+const BookmarkScreenStack = ({navigation}) => {
 	return(
-		<stack.Navigator>
-			<stack.Screen name ='RenderBookmarks' component={RenderBookmarks} options={{headerShown: true, title: "Bookmarks", headerStyle: {backgroundColor: COLORS.primary} ,headerTitleStyle: {color: 'white', fontSize: 20, fontWeight: 'bold', alignSelf: 'center'}}}/>
+		<BookmarkStack.Navigator>
+			<BookmarkStack.Screen name ='RenderBookmarks' component={RenderBookmarks} options={{headerShown: true, title: "Bookmarks", headerStyle: {backgroundColor: COLORS.primary} ,headerTitleStyle: {color: 'white', fontSize: 20, fontWeight: 'bold', alignSelf: 'center'}}}/>
 
-		</stack.Navigator>
+		</BookmarkStack.Navigator>
 	)
 }
 
 
 
 const App = () => {
-
+	const Tab = createBottomTabNavigator();
 	const refRBSheet = useRef();
 	return (//redux provider
 	<Provider store={store}> 
