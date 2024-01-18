@@ -55,7 +55,7 @@ const ScanScreenStack = () => {
 
 
 
-const BookmarkScreenStack = ({navigation}) => {
+const BookmarkScreenStack = ({ navigation }) => {
 	return (
 		<stack.Navigator>
 			<stack.Screen name='RenderBookmarks' component={RenderBookmarks}
@@ -64,7 +64,7 @@ const BookmarkScreenStack = ({navigation}) => {
 					title: "Bookmarks",
 					headerStyle: { backgroundColor: COLORS.primary },
 					headerTitleStyle: { color: 'white', fontSize: 20, fontWeight: 'bold', alignSelf: 'center' },
-					headerLeft: () => <IconX name="arrow-left" color='white' size={20} onPress={()=> navigation.goBack()}/>
+					headerLeft: () => <IconX name="arrow-left" color='white' size={20} onPress={() => navigation.goBack()} />
 				}}
 			/>
 
@@ -72,7 +72,7 @@ const BookmarkScreenStack = ({navigation}) => {
 		</stack.Navigator>
 	)
 }
-const PlanScreenStack = ({navigation}) => {
+const PlanScreenStack = ({ navigation }) => {
 	return (
 		<stack.Navigator>
 			<stack.Screen name='RenderPlans' component={RenderPlans}
@@ -81,7 +81,7 @@ const PlanScreenStack = ({navigation}) => {
 					title: "Plan",
 					headerStyle: { backgroundColor: COLORS.primary },
 					headerTitleStyle: { color: 'white', fontSize: 20, fontWeight: 'bold', alignSelf: 'center' },
-					headerLeft: () => <IconX name="arrow-left" color='white' size={20} onPress={()=> navigation.goBack()}/>,
+					headerLeft: () => <IconX name="arrow-left" color='white' size={20} onPress={() => navigation.goBack()} />,
 				}}
 			/>
 
@@ -109,7 +109,9 @@ const TabNav = ({ navigation }) => {
 				<Pressable onPress={() => navigation.openDrawer()} style={{ marginLeft: 5 }}>
 					<IconX name='menu' color='white' size={30} />
 				</Pressable>
-			)
+			),
+			tabBarActiveTintColor: COLORS.primary,
+			tabBarActiveBackgroundColor: COLORS.secondary,
 		}}>
 			<Tab.Screen name='Home' component={HomeScreen}
 				options={{
@@ -129,7 +131,13 @@ const TabNav = ({ navigation }) => {
 				}
 			/>
 			<Tab.Screen name='Maps' component={Maps}
-				options={{ tabBarIcon: ({ color, size }) => <Icon name='map' color={color} size={size * 1.2} /> }} />
+				options={{ tabBarIcon: ({ color, size }) => <Icon name='map' color={color} size={size * 1.2} /> }}
+			/>
+			<Tab.Screen name='Plan' component={PlanScreenStack} 
+			options={{
+				headerShown: false,
+				tabBarIcon: ({ color, size }) => <IconX name='clipboard-list-outline' color={color} size={size * 1.2} />
+			}} />
 		</Tab.Navigator>
 		<BottomDrawer refRBSheet={refRBSheet} />
 	</>
