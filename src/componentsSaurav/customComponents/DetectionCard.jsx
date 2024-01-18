@@ -58,8 +58,9 @@ const DetectionCard = ({ box, name, confidence, classNumber, fromDetection = tru
 	const handleKnowMore = () => {
 		// console.log('hello')
 		// navigation.navigate('MainStack', { screen: 'DetectionDetail', params: { ...data } })
-		navigation.navigate('DetectionDetail', { params: { ...data } })
+		navigation.navigate('DetectionDetail', { ...data } )
 		// console.log('hello')
+		console.log('Navigation to DetectionDetail screen complete');
 	}
 
 

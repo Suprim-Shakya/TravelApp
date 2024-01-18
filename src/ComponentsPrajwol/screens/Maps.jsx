@@ -7,7 +7,56 @@ import SearchPlaces from './SearchPlaces';
 import { MAPS_API_KEY } from '../../componentsSaurav/config';
 import MapViewDirections from 'react-native-maps-directions';
 
-const Maps = () => {
+
+const Maps = ({ navigation, route }) => {
+	// if (route.params) {
+	// 	const locations = route.params.locations
+	// 	if (locations) {
+	// 		console.log(`we got an item in map in maps screen: ${locations}`)
+	// 		console.log(Array.isArray(locations))
+	// 		for (items of locations) console.log(items)
+	// 	} else {
+	// 		console.log('no get')
+	// 	}
+
+	// } else {
+	// 	console.log('no route')
+	// }
+	// const waypoints = [
+	// 	{ latitude: 27.671980, longitude: 85.312469 },
+	// 	// Add more waypoints as needed
+	// ];
+
+	let waypoints = [
+		
+		// Add more waypoints as needed
+	];
+
+	if (route.params) {
+		const locations = route.params.locations;
+	
+		if (locations && Array.isArray(locations)) {
+		  console.log(`we got an item in map in maps screen: ${locations}`);
+		  console.log(Array.isArray(locations));
+	
+		  const newLocations = locations.map((item) => ({
+			latitude: item.latitude,
+			longitude: item.longitude,
+		  }));
+
+		  console.log("---------------------------")
+		  console.log(newLocations)
+		  waypoints = waypoints.concat(...newLocations);
+		} else {
+		  console.log('no get');
+		}
+	  } else {
+		console.log('no route');
+	  }
+
+	  console.log("New waypoints issss: ",waypoints)
+	  
+
 
 	const [mLat, setMLat] = useState(0);
 	const [mLong, setMLong] = useState(0);
@@ -18,7 +67,7 @@ const Maps = () => {
 
 	useEffect(() => {
 		requestLocationPermission();
-		getMyLocation();
+		// getMyLocation();
 
 		const watchId = Geolocation.watchPosition(
 			(position) => {
@@ -106,10 +155,7 @@ const Maps = () => {
 		return `${minutes} min ${seconds} sec`;
 	};
 
-	const waypoints = [
-		{ latitude: 27.671980, longitude: 85.312469 },
-		// Add more waypoints as needed
-	];
+	
 	return (
 		<View style={{ flex: 1 }}>
 			<SearchPlaces onPlaceSelected={handlePlaceSelected} />
@@ -128,13 +174,13 @@ const Maps = () => {
 			>
 				<Marker coordinate={{ latitude: mLat, longitude: mLong }} />
 
-				{selectedCoordinates && (
+				{/* {selectedCoordinates && (
 					<Marker
 						coordinate={{
 							latitude: 27.671980, longitude: 85.312469
 						}}
 					/>
-				)}
+				)} */}
 				{selectedCoordinates && (
 					<Marker
 						coordinate={{
@@ -143,6 +189,17 @@ const Maps = () => {
 						}}
 					/>
 				)}
+				{waypoints.map((waypoint, index) => (
+					<Marker
+					key={index}
+					coordinate={{
+						latitude: waypoint.latitude,
+						longitude: waypoint.longitude,
+					}}
+					title={`Marker ${index + 1}`}
+					description={`Latitude: ${waypoint.latitude}, Longitude: ${waypoint.longitude}`}
+					/>
+				))}
 
 				{destination && waypoints && (
 					<MapViewDirections
@@ -151,7 +208,7 @@ const Maps = () => {
 						optimizeWaypoints={true}
 						destination={destination}
 						apikey={MAPS_API_KEY}
-						// strokeWidth={3}
+						strokeWidth={1}
 						strokeColor="black"
 						onReady={onDirectionReady}
 					/>
@@ -179,7 +236,9 @@ const Maps = () => {
 	);
 };
 
+
 export default Maps;
+
 
 
 // import React, { useEffect, useState } from 'react';

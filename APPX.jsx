@@ -130,6 +130,9 @@ const TabNav = ({ navigation }) => {
 			/>
 			<Tab.Screen name='Maps' component={Maps}
 				options={{ tabBarIcon: ({ color, size }) => <Icon name='map' color={color} size={size * 1.2} /> }} />
+			
+			<Tab.Screen name='Plan' component={PlanScreenStack}
+				options={{ tabBarIcon: ({ color, size }) => <Icon name='list' color={color} size={size * 1.2} /> }} />
 		</Tab.Navigator>
 		<BottomDrawer refRBSheet={refRBSheet} />
 	</>
@@ -201,10 +204,10 @@ const App = () => {
 						drawerIcon: () => (<IconX name='bookmark' size={20} />)
 					}} />
 					{/* can add stack of bookmarks */}
-					<Drawer.Screen name='Plan' component={PlanScreenStack} options={{
+					{/* <Drawer.Screen name='Plan' component={PlanScreenStack} options={{
 						headerShown: false,
 						drawerIcon: () => (<IconX name='clipboard-list-outline' size={20} />)
-					}} />
+					}} /> */}
 					{/* can add stack of bookmarks */}
 				</Drawer.Navigator>
 
