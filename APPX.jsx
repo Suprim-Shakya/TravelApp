@@ -25,6 +25,8 @@ import RenderBookmarks from './src/componentsSaurav/screens/BookmarkScreen/Rende
 import ScanScreen from './src/componentsSaurav/screens/BookmarkScreen/ScanScreen';
 import Bookmarks from './src/componentsSaurav/screens/BookmarkScreen/Bookmarks';
 import { createDrawerNavigator } from '@react-navigation/drawer';
+import RenderPlans from './src/componentsSaurav/screens/PlanScreen/RenderPlans';
+import CustomButton from './src/componentsSaurav/customComponents/CustomButton';
 
 
 const stack = createStackNavigator();
@@ -67,6 +69,24 @@ const BookmarkScreenStack = ({navigation}) => {
 			/>
 
 			<stack.Screen name='DetectionDetail' component={DetectionDetail} options={{ headerShown: true }} />
+		</stack.Navigator>
+	)
+}
+const PlanScreenStack = ({navigation}) => {
+	return (
+		<stack.Navigator>
+			<stack.Screen name='RenderPlans' component={RenderPlans}
+				options={{
+					headerShown: true,
+					title: "Plan",
+					headerStyle: { backgroundColor: COLORS.primary },
+					headerTitleStyle: { color: 'white', fontSize: 20, fontWeight: 'bold', alignSelf: 'center' },
+					headerLeft: () => <IconX name="arrow-left" color='white' size={20} onPress={()=> navigation.goBack()}/>,
+				}}
+			/>
+
+			<stack.Screen name='DetectionDetail' component={DetectionDetail} options={{ headerShown: true }} />
+
 		</stack.Navigator>
 	)
 }
@@ -179,6 +199,11 @@ const App = () => {
 					<Drawer.Screen name='Bookmarks' component={BookmarkScreenStack} options={{
 						headerShown: false,
 						drawerIcon: () => (<IconX name='bookmark' size={20} />)
+					}} />
+					{/* can add stack of bookmarks */}
+					<Drawer.Screen name='Plan' component={PlanScreenStack} options={{
+						headerShown: false,
+						drawerIcon: () => (<IconX name='clipboard-list-outline' size={20} />)
 					}} />
 					{/* can add stack of bookmarks */}
 				</Drawer.Navigator>

@@ -8,10 +8,10 @@ const BookmarkButton = ({onPress , active, style}) => {
     const iconColor = active? COLORS.primary : COLORS.darkGrey;
     const Styles = StyleSheet.create({
         pressable: {
-            position: 'absolute',
-            top: -5,
-            right: -8,
-            zIndex: 1,
+            // position: 'absolute',
+            // top: -5,
+            // right: -8,
+            // zIndex: 1,
             ...(style || {}) // destructure style prop only if present
         }
     })
