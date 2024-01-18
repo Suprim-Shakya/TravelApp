@@ -123,7 +123,7 @@ const HomeScreen = ({navigation}) => {
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: COLORS.white}}>
       <StatusBar translucent={false} backgroundColor={COLORS.primary} />
-      <View style={style.header}>
+      {/* <View style={style.header}>
         <TouchableOpacity onPress={() => {}}>
         <Icon name="sort" size={28} color={COLORS.white} />
         </TouchableOpacity>
@@ -138,7 +138,7 @@ const HomeScreen = ({navigation}) => {
     );}}>
         <Icon name="info" size={28} color={COLORS.white} />
       </TouchableOpacity>
-      </View>
+      </View> */}
       <ScrollView showsVerticalScrollIndicator={false}>
         <View
           style={{

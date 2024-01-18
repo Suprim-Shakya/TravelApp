@@ -9,23 +9,23 @@ import CustomButton from '../../customComponents/CustomButton'
 import fetchDetailsFromDb from '../../apiCalls/fetchDataFromDB'
 
 // const arr = ['1', '2', '3', '4', '5']
-// const fetchDataFromDb = async (classNumber) => {
-//     console.log("******")
-//     try {
-//     const result = await fetchDetailsFromDb(classNumber);
-//     // console.log('Fetched data:', result);
-//     console.log('Coordinates Lat:', result.latitude);
-//     console.log('Coordinates Long:', result.longitude);
-//     return result;
-//     } catch (error) {
-//       console.error('Fetching from db failed', error);
-//       // Handle the error in your application (e.g., display an alert)
-//       return null;
-//     }
-//   };
+const fetchDataFromDb = async (classNumber) => {
+    console.log("******")
+    try {
+    const result = await fetchDetailsFromDb(classNumber);
+    // console.log('Fetched data:', result);
+    console.log('Coordinates Lat:', result.latitude);
+    console.log('Coordinates Long:', result.longitude);
+    return result;
+    } catch (error) {
+      console.error('Fetching from db failed', error);
+      // Handle the error in your application (e.g., display an alert)
+      return null;
+    }
+  };
 
-// const classNumber=23;
-// const data = fetchDataFromDb(classNumber); 
+const classNumber=23;
+const data = fetchDataFromDb(classNumber); 
 
 const ShowPresentLocations = ({ navigation }) => {
 

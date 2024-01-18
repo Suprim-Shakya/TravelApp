@@ -7,7 +7,10 @@ import { useNavigation } from "@react-navigation/native";
 
 import { useDispatch, useSelector } from "react-redux";
 import { addToBookmark, removeFromBookmark } from "../redux/features/bookmarkSlice";
+import { addToPlan,removeFromPlan } from "../redux/features/planSlice";
 import BookmarkButton from "./BookmarkButton";
+import PlanButton from "./PlanButton";
+import COLORS from "../../constants/colors";
 
 const DetectionCard = ({ box, name, confidence, classNumber, fromDetection = true }) => {
 
@@ -15,13 +18,15 @@ const DetectionCard = ({ box, name, confidence, classNumber, fromDetection = tru
 	const [data, setData] = useState(null);
 
 	const dispatch = useDispatch();
-	const bookmarks = useSelector(state => state.bookmark);
 
+	const bookmarks = useSelector(state => state.bookmark.bookmark);
 	const classPresentInBookmark = bookmarks.find((item) => item.classNumber == classNumber)
-
 	const [isBookmarked, setIsBookmarked] = useState(classPresentInBookmark)
-	// const [isBookmarked, setIsBookmarked] = useState(useSelector(state => state.bookmark.find((item) => item.classNumber == classNumber)))
-	// fromDetection = !isBookmarked;
+
+	const plans = useSelector(state => state.plan.plan);
+	const classPresentInPlan = plans.find((item) => item.classNumber == classNumber)
+	const [onPlan, setOnPlan] = useState(classPresentInPlan)
+
 
 	useEffect(() => {
 
@@ -52,37 +57,20 @@ const DetectionCard = ({ box, name, confidence, classNumber, fromDetection = tru
 
 	const handleKnowMore = () => {
 		// console.log('hello')
-		navigation.navigate('Scan', { screen: 'DetectionDetail', params: { ...data } })
+		// navigation.navigate('MainStack', { screen: 'DetectionDetail', params: { ...data } })
+		navigation.navigate('DetectionDetail', { params: { ...data } })
 		// console.log('hello')
 	}
 
-	// const handleAddToPlan = async() => {
-	// 	fromDetection ? await addPlace(String(classNumber))
-	// 	.then((response) => {
-	// 		if (response){
-	// 			Alert.alert(`${name} is successfully saved on Bookmarks.`, `\nNavigate to Bookmarks tab to access it.`)
-	// 		} else {
-	// 			Alert.alert('', `${name} is already saved.\n\nNavigate to Bookmarks tab to access it.`)
-	// 		}
-	// 	}) 
-	// 	: await removePlace(String(classNumber))
-	// 	.then((response)=> {
-	// 		if (response){
-	// 			Alert.alert('',`${data.className} is successfully removed from Bookmarks.`)
-	// 		} else {
-	// 			Alert.alert('', `${data.className} couldn't be removed`)
-	// 		}
-	// 	})
-	// }
 
-	const handleAddToPlan = async () => {
+	const handleAddToBookmark = async () => {
 
-		console.log('inside add to plan')
+		console.log('inside add to bookmark')
 
 		const ATB = () => {
 			const dataObj = {
 				classNumber: classNumber,
-				location: { lat: parseFloat(data.latitude), lng: parseFloat(data.longitude) }
+				location: { latitude: parseFloat(data.latitude), longitude: parseFloat(data.longitude) }
 			}
 			// dispatch(addToBookmark({ classNumber: Number(classNumber) })); 
 			dispatch(addToBookmark(dataObj));
@@ -109,6 +97,39 @@ const DetectionCard = ({ box, name, confidence, classNumber, fromDetection = tru
 
 	}
 
+	const handleAddToPlan = async () => {
+
+		console.log('inside add to plan')
+
+		const ATP = () => {
+			const dataObj = {
+				classNumber: classNumber,
+				location: { latitude: parseFloat(data.latitude), longitude: parseFloat(data.longitude) }
+			}
+
+			dispatch(addToPlan(dataObj));
+			console.log("\n\n\n\n\n start add to bookmark function -------------\n")
+			// Alert.alert(`${name} must be saved on Bookmarks.`, `Navigate to Bookmarks tab to access it.`)
+
+			plans.map(item => console.log(item))
+			console.log("\nend add to bookmark function -------------")
+			setOnPlan(true)
+		}
+
+		const RFP = () => {
+			dispatch(removeFromPlan(classNumber))// check datatype 
+
+			// Alert.alert(`${data.name} must be removed.`, `Navigate to Bookmarks tab to access it.`)
+			// const plan = useSelector(state=> state.plan.plan);
+			console.log("\n\n\n\n\n start remove bookmark function**************\n")
+			plans.map(item => console.log(item))
+			console.log("\n\end remove bookmark function***************")
+			setOnPlan(false)
+		}
+
+		!onPlan ? ATP() : RFP(); //add to bookmark or remove from bookmark
+
+	}
 
 	return (
 		<View>
@@ -131,12 +152,13 @@ const DetectionCard = ({ box, name, confidence, classNumber, fromDetection = tru
 
 						{data && <Text style={styles.description}>{data.Description && data.Description.slice(0, 150)}...</Text>}
 
-						<BookmarkButton onPress={handleAddToPlan} active={isBookmarked} />
-
-
-
 					</View>
 
+
+					<View style={styles.btnContainer}>
+						<BookmarkButton onPress={handleAddToBookmark} active={isBookmarked} />
+						<PlanButton onPress={handleAddToPlan} on active={onPlan} />
+					</View>
 				</Pressable>
 			</View>
 				:
@@ -168,11 +190,29 @@ const styles = StyleSheet.create({
 		padding: 8,
 		elevation: 3
 	},
+	img: {
+		padding: 0,
+		margin: 0,
+		width: 110,
+		height: 'auto',
+		borderRadius: 5,
+		// objectFit: 'contain'
+	},
 	cardText: {
 		flex: 3,
 		alignItems: 'center',
 		width: '100%',
 
+	},
+	btnContainer: {
+		maxWidth:30,
+		flex:1,
+		flexDirection: "column",
+		justifyContent: 'space-evenly',
+		backgroundColor: COLORS.secondary,
+		borderRadius: 5,
+		// borderWidth: 1,
+		// borderColor: COLORS.dark,
 	},
 	headingText: {
 		color: 'black',
@@ -187,25 +227,6 @@ const styles = StyleSheet.create({
 		flexGrow: 1,
 		overflow: 'hidden',
 		// fontSize: 14
-	},
-	btn: {
-		backgroundColor: 'black',
-		color: 'white',
-		borderRadius: 7,
-		flex: 0,
-		justifyContent: 'center',
-		paddingLeft: 5,
-		paddingRight: 5,
-		height: 30,
-	},
-	img: {
-		padding: 0,
-		margin: 0,
-		width: 110,
-		height: 'auto',
-		borderRadius: 5,
-		// objectFit: 'contain'
-
 	},
 })
 
