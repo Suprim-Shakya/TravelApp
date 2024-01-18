@@ -58,7 +58,7 @@ const DetectionCard = ({ box, name, confidence, classNumber, fromDetection = tru
 	const handleKnowMore = () => {
 		// console.log('hello')
 		// navigation.navigate('MainStack', { screen: 'DetectionDetail', params: { ...data } })
-		navigation.navigate('DetectionDetail', { params: { ...data } })
+		navigation.navigate('DetectionDetail', { ...data } )
 		// console.log('hello')
 	}
 
@@ -174,7 +174,7 @@ const styles = StyleSheet.create({
 		flexDirection: 'row',
 		justifyContent: 'center',
 		margin: 10,
-		marginBottom: 0,
+		marginBottom: 8,
 		// width:'100%',
 		// backgroundColor:'red'
 		minHeight: 150,
