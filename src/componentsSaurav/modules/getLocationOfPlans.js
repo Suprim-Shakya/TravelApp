@@ -4,7 +4,7 @@ async function getLocationOfPlans() {
     console.log('\n\n inside get loc of plans')
     const plans = await AsyncStorage.getItem('plan');
     const plansArray = JSON.parse(plans)
-    console.log(Array.isArray(plansArray))
+    // console.log(Array.isArray(plansArray))
     // for (items of plansArray) {
     //     // console.log(plansArray[items])
     // }
@@ -22,7 +22,7 @@ async function getLocationOfPlans() {
             locations.push(item.location)
             // console.log(item.location)
         }
-        console.log(locations)
+        // console.log(locations)
         return locations
 
     }
