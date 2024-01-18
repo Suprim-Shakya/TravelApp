@@ -53,11 +53,20 @@ const ScanScreenStack = () => {
 
 
 
-const BookmarkScreenStack = () => {
+const BookmarkScreenStack = ({navigation}) => {
 	return (
 		<stack.Navigator>
-			<stack.Screen name='RenderBookmarks' component={RenderBookmarks} options={{ headerShown: true, title: "Bookmarks", headerStyle: { backgroundColor: COLORS.primary }, headerTitleStyle: { color: 'white', fontSize: 20, fontWeight: 'bold', alignSelf: 'center' } }} />
+			<stack.Screen name='RenderBookmarks' component={RenderBookmarks}
+				options={{
+					headerShown: true,
+					title: "Bookmarks",
+					headerStyle: { backgroundColor: COLORS.primary },
+					headerTitleStyle: { color: 'white', fontSize: 20, fontWeight: 'bold', alignSelf: 'center' },
+					headerLeft: () => <IconX name="arrow-left" color='white' size={20} onPress={()=> navigation.goBack()}/>
+				}}
+			/>
 
+			<stack.Screen name='DetectionDetail' component={DetectionDetail} options={{ headerShown: true }} />
 		</stack.Navigator>
 	)
 }
@@ -87,17 +96,17 @@ const TabNav = ({ navigation }) => {
 					tabBarIcon: ({ color, size }) => <Icon name='home' color={color} size={size * 1.3} />
 				}}
 			/>
-			<Tab.Screen name='Scan' component={ScanScreen}
+			<Tab.Screen name='Scan' component={ScanScreenStack}
 				options={{
 					tabBarIcon: ({ color, size }) => <Icon name='camera-alt' color={color} size={size * 1.2} />,
 				}}
-			listeners={() => ({
-				tabPress: e => {
-					e.preventDefault();
-					refRBSheet.current.open();
+				listeners={() => ({
+					tabPress: e => {
+						e.preventDefault();
+						refRBSheet.current.open();
+					}
+				})
 				}
-			})
-			}
 			/>
 			<Tab.Screen name='Maps' component={Maps}
 				options={{ tabBarIcon: ({ color, size }) => <Icon name='map' color={color} size={size * 1.2} /> }} />
@@ -166,9 +175,11 @@ const App = () => {
 				<StatusBar translucent={false} backgroundColor={COLORS.primary} />
 
 				<Drawer.Navigator screenOptions={{ headerShown: false }}>
-					<Drawer.Screen name='MainStack' component={MainStack} options={{headerTitle: 'Home'}}/>
-					<Drawer.Screen name='Bookmarks' component={RenderBookmarks} options={{headerShown: true,
-						 drawerIcon: () => (<IconX name='bookmark' size={20}/>)}}/>
+					<Drawer.Screen name='MainStack' component={MainStack} options={{ headerTitle: 'Home' }} />
+					<Drawer.Screen name='Bookmarks' component={BookmarkScreenStack} options={{
+						headerShown: false,
+						drawerIcon: () => (<IconX name='bookmark' size={20} />)
+					}} />
 					{/* can add stack of bookmarks */}
 				</Drawer.Navigator>
 
