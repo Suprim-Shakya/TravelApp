@@ -1,9 +1,15 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
 
 import bookmarkReducer from '../features/bookmarkSlice'
+import planReducer from '../features/planSlice'
+
+const rootReducer = combineReducers({
+    bookmark: bookmarkReducer,
+    plan: planReducer
+})
 
 const store = configureStore({
-    reducer: bookmarkReducer
+    reducer: rootReducer
 });
 
 export default store;
