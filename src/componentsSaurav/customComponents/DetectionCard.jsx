@@ -52,7 +52,7 @@ const DetectionCard = ({ box, name, confidence, classNumber, fromDetection = tru
 
 	const handleKnowMore = () => {
 		// console.log('hello')
-		navigation.navigate('Scan', { screen: 'DetectionDetail', params: { ...data } })
+		navigation.navigate('MainStack', { screen: 'DetectionDetail', params: { ...data } })
 		// console.log('hello')
 	}
 
