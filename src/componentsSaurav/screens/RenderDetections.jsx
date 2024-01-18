@@ -1,4 +1,4 @@
-import { View, Text} from 'react-native'
+import { View, Text, StyleSheet} from 'react-native'
 import React from 'react'
 
 import { ScrollView } from 'react-native-gesture-handler'
@@ -7,6 +7,7 @@ import DetectionCard from '../customComponents/DetectionCard'
 
 // import { CommonActions, useFocusEffect, useNavigation } from '@react-navigation/native';
 import MyLoader from '../customComponents/DetectionLoaderSkeleton';
+import COLORS from '../../constants/colors';
 
 const RenderDetections = ({ route }) => {
 
@@ -26,7 +27,7 @@ const RenderDetections = ({ route }) => {
 
 
 	return (
-			<ScrollView >
+			<ScrollView style={styles.scrollView}>
 
 				{
 					detections.length ? (
@@ -52,5 +53,12 @@ const RenderDetections = ({ route }) => {
 }
 
 export default RenderDetections
+
+const styles = StyleSheet.create({
+	scrollView: {
+		minHeight: '100%',
+		backgroundColor: COLORS.background
+	}
+})
 
 //TODO: the skeletion logic also works here ,, but result is not given till recieved from server so now visible, if we can handle server here then skeleton will be visible

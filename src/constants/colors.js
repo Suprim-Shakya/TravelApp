@@ -7,7 +7,9 @@ const COLORS = {
     grey: '#aaaaaa',
     red: 'red',
     orange: '#f5a623',
-    darkGrey: '#555'
+    darkGrey: '#555',
+    aliceBlue: '#F0F8FF',
+    background: '#FFF'
 }
 
 export default COLORS;
