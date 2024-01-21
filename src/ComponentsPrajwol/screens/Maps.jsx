@@ -174,13 +174,7 @@ const Maps = ({ navigation, route }) => {
 			>
 				<Marker coordinate={{ latitude: mLat, longitude: mLong }} />
 
-				{/* {selectedCoordinates && (
-					<Marker
-						coordinate={{
-							latitude: 27.671980, longitude: 85.312469
-						}}
-					/>
-				)} */}
+				
 				{selectedCoordinates && (
 					<Marker
 						coordinate={{
