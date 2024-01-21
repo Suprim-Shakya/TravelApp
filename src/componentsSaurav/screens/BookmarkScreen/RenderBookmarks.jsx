@@ -18,12 +18,12 @@ const RenderBookmarks = () => {
 
     useEffect(() => {
 
-        
-        if (bookmarks.length > 0 ) return
-        
+
+        if (bookmarks.length > 0) return
+
         // if a bookmark exists in redux store that means it has already been loaded from local
         // so don't load again
-        
+
         console.log('inside use effect of bookmarks')
 
         const loadLocalBookmarks = async () => {
@@ -70,8 +70,8 @@ const RenderBookmarks = () => {
 
     return (
         <View>
-            <StatusBar backgroundColor={COLORS.primary}/>
-            <ScrollView>
+            <StatusBar backgroundColor={COLORS.primary} />
+            <ScrollView style={styles.scrollView}>
                 {/* <Text style={{color: 'black'}}>this is bookmark screen</Text> */}
                 {
                     bookmarks.length > 0 ? bookmarks.map((item, index) => {
@@ -89,4 +89,9 @@ const RenderBookmarks = () => {
 
 export default RenderBookmarks
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+    scrollView: {
+        minHeight: '100%',
+        backgroundColor: COLORS.background
+    }
+})

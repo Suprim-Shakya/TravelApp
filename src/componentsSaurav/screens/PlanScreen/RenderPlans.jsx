@@ -121,6 +121,7 @@ const styles = StyleSheet.create({
     },
     scrollView: {
         minHeight: '100%',
+        backgroundColor: COLORS.background
     },
     scrollViewBottom: {
         height: 70
