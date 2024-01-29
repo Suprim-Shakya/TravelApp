@@ -17,6 +17,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import COLORS from '../../constants/colors';
 import places from '../../constants/places';
 import cuisines from '../../constants/cusines';
+import SearchButton from '../../ComponentsPrajwol/screens/SearchButton';
 
 
 const {width} = Dimensions.get('screen');
@@ -248,3 +249,7 @@ const style = StyleSheet.create({
   },
 });
 export default HomeScreen;
+
+
+
+
