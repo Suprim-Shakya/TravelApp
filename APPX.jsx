@@ -152,7 +152,6 @@ const TabNav = ({ navigation }) => {
 	)
 }
 
-
 const MainStack = ({ navigation }) => {
 	return (
 		<stack.Navigator screenOptions={{ headerShown: true }}>

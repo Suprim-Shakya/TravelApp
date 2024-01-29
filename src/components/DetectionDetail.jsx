@@ -9,7 +9,7 @@ import { PermissionsAndroid } from 'react-native';
 
 import { MAPS_API_KEY } from '../componentsSaurav/config';
 import MapViewDirections from 'react-native-maps-directions';
-// import { getDistance } from 'geolib';
+
 
 const FinalDetailsScreen = ({ route }) => {
     const { className, architectureStyle, constructedBy, Ticket, Description, imageLink, constructionDate, latitude, longitude } = route.params;

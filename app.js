@@ -53,17 +53,21 @@ export default function App() {
 
   const renderFilteredData = () => {
     if (searchQuery !== '') {
-      return filteredData.map((item) => (
-        <TouchableOpacity
-          key={item.id}
-          style={styles.listItem}
-          onPress={() => handleListItemPress(item)}
-        >
-          <Text style={styles.listItemText}>{item.title}</Text>
-        </TouchableOpacity>
-      ));
+      return (
+        <View style={styles.overlayContainer}>
+          {filteredData.map((item) => (
+            <TouchableOpacity
+              key={item.id}
+              style={styles.listItem}
+              onPress={() => handleListItemPress(item)}
+            >
+              <Text style={styles.listItemText}>{item.title}</Text>
+            </TouchableOpacity>
+          ))}
+        </View>
+      );
     } else {
-      return null; // You may show a default list if search query is empty
+      return null; // You may show a default list if the search query is empty
     }
   };
 
