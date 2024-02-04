@@ -11,23 +11,6 @@ import {
 } from "react-native"
 
 const data = {
-  activities: [
-    {
-      id: "1",
-      title: "Archery",
-      imageUri:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTunvm-6LiAf3T5usU7wfGzRdJPHqQJTa0MAUnB0X9Ct8V5T1-ECVmnWKkGtc_2Wwlgz8k&usqp=CAU",
-      description:
-        "Interested in bow and arrow? Then you must visit this place."
-    },
-    {
-      id: "2",
-      title: "Zoo",
-      imageUri:
-        "https://www.stunningnepal.com/wp-content/uploads/2022/06/Kathmandu-Fun-Park.jpg",
-      description: "Description for Activity 1"
-    }
-  ],
   cuisines: [
     { id: "1", title: "Cuisine 1", imageUri: "cuisine1.jpg", description: "" },
     {
