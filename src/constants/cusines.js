@@ -1,7 +1,7 @@
 const cuisines = [
     {
       id: '1',
-      foodName: 'Chatamari',
+      name: 'Chatamari',
     //   location: 'Swoyambhu',
       image: require('../assets/chatamari.jpg'),
       location: ('Basantapur'),
@@ -10,7 +10,7 @@ const cuisines = [
     },
     {
         id: '2',
-        foodName: 'Nepali Khana',
+        name: 'Nepali Khana',
         // location: 'Basantapur',
         image: require('../assets/dalbhat.jpg'),
         location: ('Basantapur'),
@@ -18,7 +18,7 @@ const cuisines = [
     },
     {
         id: '3',
-        foodName: 'Dhido',
+        name: 'Dhido',
         // location: 'Patan',
         image: require('../assets/dhido.jpg'),
         location: ('Basantapur'),
@@ -26,7 +26,7 @@ const cuisines = [
     },
     {
         id: '4',
-        foodName: 'Yomari',
+        name: 'Yomari',
         // location: 'Basantapur',
         image: require('../assets/yomari.jpeg'),
         location: ('Basantapur'),
