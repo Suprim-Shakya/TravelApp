@@ -1,6 +1,4 @@
 const places = [
-
-
     {
         id: '3',
         name: 'Patan Durbar Square',
