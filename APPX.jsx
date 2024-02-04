@@ -178,7 +178,7 @@ const MainStack = ({ navigation }) => {
 					)
 				}}
 			/>
-			<stack.Screen name='DetailsScreen' component={DetailsScreen} />
+			<stack.Screen name='DetailsScreen' component={DetailsScreen} options={{headerShown: false}}/>
 			<stack.Screen name='RenderDetections' component={RenderDetections} options={{ title: 'Detections', headerStyle: { backgroundColor: COLORS.primary }, headerTitleStyle: { color: 'white', fontWeight: 'bold' } }} />
 			<stack.Screen name='DetectionDetail' component={DetectionDetail} options={{ headerShown: true }} />
 		</stack.Navigator>
