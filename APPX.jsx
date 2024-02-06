@@ -76,7 +76,7 @@ const BookmarkScreenStack = ({ navigation }) => {
 				}}
 			/>
 
-			<stack.Screen name='DetectionDetail' component={DetectionDetail} options={{ headerShown: true }} />
+			<stack.Screen name='DetectionDetail' component={DetectionDetail} options={{ headerShown: false }} />
 		</stack.Navigator>
 	)
 }
@@ -101,7 +101,7 @@ const PlanScreenStack = ({ navigation }) => {
 				}}
 			/>
 
-			<stack.Screen name='DetectionDetail' component={DetectionDetail} options={{ headerShown: true, headerStyle: { backgroundColor: COLORS.primary } }} />
+			<stack.Screen name='DetectionDetail' component={DetectionDetail} options={{ headerShown: false, headerStyle: { backgroundColor: COLORS.primary } }} />
 
 		</stack.Navigator>
 	)
