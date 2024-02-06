@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
-import { View, TouchableOpacity, Text, TextInput } from 'react-native';
-import MapView, { Marker } from 'react-native-maps';
-import openMap from 'react-native-open-maps';
-
+// import React, { useState } from 'react';
+// import { View, TouchableOpacity, Text, TextInput } from 'react-native';
+// import MapView, { Marker } from 'react-native-maps';
+// import openMap from 'react-native-open-maps';
+/*
 const App = () => {
   const sourceLatitude = 27.6882799;
   const sourceLongitude = 85.3273862;
@@ -31,16 +31,17 @@ const App = () => {
       travelType: 'drive',
       start: source,
       end: destination,
-      waypoints:[{latitude: 27.70479649, longitude: 85.30710951}, {latitude: 27.70422655, longitude: 85.30675981}],
+      // waypoints:[{latitude: 27.70479649, longitude: 85.30710951}, {latitude: 27.70422655, longitude: 85.30675981}],
     //   waypoints:[{"latitude": 27.70479649, "longitude": 85.30710951}, {"latitude": 27.70422655, "longitude": 85.30675981}],
-      // waypoints:["Sundhara","Labim Mall"],
+      waypoints:["Kalimati","Balkhu","Ekantakuna"],
     //   waypoints:["Labim Mall","Sundhara"],
-    //   optimizeWaypoints={true},
+      optimizeWaypoints:true,
       travelMode: 'driving',
       navigate_mode: 'navigate',
       region: routeData,
     });
   };
+    
 
   return (
     <View style={{ flex: 1 }}>
@@ -98,3 +99,75 @@ const App = () => {
 };
 
 export default App;
+*/
+import React from 'react';
+import { TouchableOpacity, Text, StyleSheet, Linking } from 'react-native';
+import { MAPS_API_KEY } from '../../componentsSaurav/config';
+
+const GoogleMapsButton = () => {
+  const openGoogleMapsDirections = async () => {
+    const origin = 'Tinkune';
+    const destination = 'Baneshwor chowk';
+    const waypoints = ['Balkhu'];
+
+    // Replace 'YOUR_GOOGLE_MAPS_API_KEY' with your actual API key
+    const apiKey = MAPS_API_KEY;
+    const apiUrl = `https://maps.googleapis.com/maps/api/directions/json?origin=${origin}&destination=${destination}&waypoints=${waypoints.join(
+      '|'
+    )}&optimize=true&key=${apiKey}`;
+
+    try {
+      const response = await fetch(apiUrl);
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      const data = await response.json();
+
+      if (data.status !== 'OK') {
+        throw new Error(`Google Maps API error! Status: ${data.status}`);
+      }
+
+      if (!data.routes || data.routes.length === 0) {
+        throw new Error('No routes found.');
+      }
+
+      const optimizedWaypoints =
+        data.routes[0].waypoint_order?.map(index => waypoints[index]) || [];
+
+      const mapsDeepLink = `https://www.google.com/maps/dir/?api=1&origin=${origin}&destination=${destination}&waypoints=${optimizedWaypoints.join(
+        '|'
+      )}`;
+
+      // Open the directions in the Google Maps app using Linking
+      Linking.openURL(mapsDeepLink);
+    } catch (error) {
+      console.error('Error fetching directions:', error.message);
+    }
+  };
+
+  return (
+    <TouchableOpacity style={styles.button} onPress={openGoogleMapsDirections}>
+      <Text style={styles.buttonText}>Open Google Maps</Text>
+    </TouchableOpacity>
+  );
+};
+
+const styles = StyleSheet.create({
+  button: {
+    backgroundColor: '#3498db',
+    padding: 10,
+    borderRadius: 5,
+    marginTop: 20,
+    alignItems: 'center',
+  },
+  buttonText: {
+    color: 'white',
+    fontWeight: 'bold',
+  },
+});
+
+export default GoogleMapsButton;
+
+

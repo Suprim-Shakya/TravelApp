@@ -44,7 +44,7 @@ const SearchPlaces = ({ onPlaceSelected }) => {
       <GooglePlacesAutocomplete
       placeholder='Search'
       onPress={(data, details = null) => {
-    // console.log(data, details);
+    console.log(data, details);
     // Check if details contains geometry information
     if (details && details.geometry && details.geometry.location) {
       const selCoordinates = details.geometry.location;
@@ -58,7 +58,7 @@ const SearchPlaces = ({ onPlaceSelected }) => {
       console.error('No geometry information in the response');
     }
   }}
-  fetchDetails={true} // Set this to true
+  fetchDetails={true} 
   query={{
     key:MAPS_API_KEY,
     language: 'en',
