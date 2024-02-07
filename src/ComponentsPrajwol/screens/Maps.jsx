@@ -27,13 +27,10 @@ const Maps = ({ navigation, route }) => {
 	// 	// Add more waypoints as needed
 	// ];
 
-	const waypoints = [
-		{ lat: 27.68544, lng: 85.348868 }, //tinkune
-		{ lat: 27.6830, lng: 85.31899 }, // patan
-		// {lat: 27.6980, lng: 85.30285}, //kalimati
-		// {lat: 27.67272, lng: 85.31}, //zoo
-		// { lat: 27.6925282, lng: 85.3362 }   // eyeplex
-	  ];
+	let waypoints = [
+		
+		// Add more waypoints as needed
+	];
 
 	if (route.params) {
 		const locations = route.params.locations;
@@ -279,3 +276,4 @@ export default Maps;
 
 
 // export default App;
+

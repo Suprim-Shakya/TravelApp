@@ -100,6 +100,8 @@ const App = () => {
 
 export default App;
 */
+
+/*
 import React from 'react';
 import { TouchableOpacity, Text, StyleSheet, Linking } from 'react-native';
 import { MAPS_API_KEY } from '../../componentsSaurav/config';
@@ -169,5 +171,115 @@ const styles = StyleSheet.create({
 });
 
 export default GoogleMapsButton;
+
+2nd try
+*/
+import React, { useEffect, useState } from 'react';
+import { View, Text } from 'react-native';
+import { MAPS_API_KEY } from '../../componentsSaurav/config';
+
+const OptimizedWaypointsExample = () => {
+  const [optimizedWaypointIndices, setOptimizedWaypointIndices] = useState([]);
+  const apiKey = MAPS_API_KEY; // Replace with your actual API key
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('https://routes.googleapis.com/directions/v2:computeRoutes', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-Goog-Api-Key': apiKey,
+            'X-Goog-FieldMask': 'routes.optimizedIntermediateWaypointIndex',
+          },
+          body: JSON.stringify({
+            origin: {
+              location: {
+                latLng: {
+                  latitude: 27.688523,
+                  longitude: 85.327860,
+                },
+              },
+            },
+            intermediates: [
+              {
+                location: {
+                  latLng: {
+                    latitude: 27.694244,
+                    longitude: 85.320329,
+                  },
+                },//mandala
+              },
+              {
+                location: {
+                  latLng: {
+                    latitude: 27.699501,
+                    longitude: 85.315236,
+                  },
+                },//sahidgate
+              },
+              {
+                location: {
+                  latLng: {
+                    latitude: 27.688558,
+                    longitude: 85.315908,
+                  },//kupandole
+                },
+              },
+              
+              
+              
+            ],
+            destination: {
+              location: {
+                latLng: {
+                  latitude: 27.693174,
+                  longitude: 85.282093,
+                },
+              },
+            },
+            travelMode: 'DRIVE',
+            optimizeWaypointOrder: true,
+            routingPreference: 'TRAFFIC_AWARE',
+          }),
+        });
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        console.log(data);
+
+        // Check if routes array and optimizedIntermediateWaypointIndex array exist in the response
+        if (data.routes && data.routes.length > 0 && data.routes[0].optimizedIntermediateWaypointIndex) {
+          const optimizedIndexArray = data.routes[0].optimizedIntermediateWaypointIndex;
+
+          setOptimizedWaypointIndices(optimizedIndexArray);
+        } else {
+          console.error('Invalid response structure:', data);
+        }
+      } catch (error) {
+        console.error('Error fetching optimized waypoints:', error.message);
+      }
+    };
+
+    fetchData();
+  }, [apiKey]);
+
+  return (
+    <View>
+      <Text>Optimized Waypoint Indices:</Text>
+      {optimizedWaypointIndices.map((index, i) => (
+        <Text key={i}>{`Index: ${index}`}</Text>
+      ))}
+    </View>
+  );
+};
+
+export default OptimizedWaypointsExample;
+
+
+
 
 
