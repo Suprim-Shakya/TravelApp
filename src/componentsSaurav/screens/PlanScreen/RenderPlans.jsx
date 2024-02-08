@@ -192,7 +192,9 @@ const styles = StyleSheet.create({
     },
     scrollView: {
         minHeight: '100%',
+
         paddingTop:50,
+
     },
     scrollViewBottom: {
         height: 70

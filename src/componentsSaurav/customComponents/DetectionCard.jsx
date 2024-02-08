@@ -175,7 +175,7 @@ const styles = StyleSheet.create({
 		flexDirection: 'row',
 		justifyContent: 'center',
 		margin: 10,
-		marginBottom: 0,
+		marginBottom: 8,
 		// width:'100%',
 		// backgroundColor:'red'
 		minHeight: 150,

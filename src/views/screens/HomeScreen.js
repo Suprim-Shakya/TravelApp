@@ -1,4 +1,5 @@
 import React, { useState,useEffect } from 'react';
+
 import {
   SafeAreaView,
   ScrollView,
@@ -17,6 +18,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import COLORS from '../../constants/colors';
 import places from '../../constants/places';
 import cuisines from '../../constants/cusines';
+
 import openMap from 'react-native-open-maps';
 import fetchDetailsFromDb from '../../componentsSaurav/apiCalls/fetchDataFromDB';
 
@@ -59,6 +61,7 @@ const data = [
 const {width} = Dimensions.get('screen');
 
 const HomeScreen = ({navigation}) => {
+
   const [searchQuery, setSearchQuery] = useState('');
   const [filteredData, setFilteredData] = useState([]);
 
@@ -136,6 +139,7 @@ const HomeScreen = ({navigation}) => {
     await fetchData();
   };
 
+
   const categoryIcons = [
     <Icon name="restaurant" size={25} color={COLORS.dark}/>, 
     <Icon name="emergency" size={25} color={COLORS.dark} />,
@@ -194,7 +198,6 @@ const HomeScreen = ({navigation}) => {
     );
   };
 
-
   const RecommendedCard = ({place}) => {
     return (
       <TouchableOpacity activeOpacity={0.8}
@@ -208,7 +211,7 @@ const HomeScreen = ({navigation}) => {
             fontWeight: 'bold',
             marginTop: 10,
           }}>
-          {place.foodName}
+          {place.name}
         </Text>
         <View
           style={{
@@ -237,6 +240,7 @@ const HomeScreen = ({navigation}) => {
             <Text style={style.headerTitle}>Discover the Best</Text>
             <Text style={style.headerTitle}>Sites to Travel</Text>
             <View style={style.inputContainer}>
+
             <Icon name="search" size={28} color={COLORS.darkGrey}/>
                   <TextInput
                     placeholder="Search"
@@ -251,6 +255,7 @@ const HomeScreen = ({navigation}) => {
         <ListCategories />
         <Text style={style.sectionTitle}>Places</Text>
         <View style={style.sendBackward}>
+
           <FlatList
             contentContainerStyle={{paddingLeft: 20}}
             horizontal
@@ -258,14 +263,22 @@ const HomeScreen = ({navigation}) => {
             data={places}
             renderItem={({item}) => <Card place={item} />}
           />
+
           <Text style={style.sectionTitle}>Cuisines</Text>
-          
+          <FlatList
+            contentContainerStyle={{paddingLeft: 20}}
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            data={cuisines}
+            renderItem={({item}) => <Card place={item} />}
+          />
+          <Text style={style.sectionTitle}>Activities</Text>
           <FlatList
             snapToInterval={width - 20}
             contentContainerStyle={{paddingLeft: 20, paddingBottom: 20}}
             showsHorizontalScrollIndicator={false}
             horizontal
-            data={cuisines}
+            data={activities}
             renderItem={({item}) => <RecommendedCard place={item} />}
           />
         </View>
@@ -319,11 +332,13 @@ const style = StyleSheet.create({
     marginVertical: 20,
     fontWeight: 'bold',
     fontSize: 20,
+
     color: COLORS.darkGrey,
     zIndex:-1,
   },
   sendBackward:{
     zIndex:-1,
+
   },
   cardImage: {
     height: 220,

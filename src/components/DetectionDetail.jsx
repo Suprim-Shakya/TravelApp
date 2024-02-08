@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, Image, StyleSheet, ImageBackground, StatusBar } from 'react-native';
+import { View, Text, Image, StyleSheet, ImageBackground, StatusBar, Pressable } from 'react-native';
+
 import COLORS from '../constants/colors';
 import { ScrollView } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+
 
 import Geolocation from 'react-native-geolocation-service';
 import { PermissionsAndroid } from 'react-native';
@@ -11,7 +13,8 @@ import { MAPS_API_KEY } from '../componentsSaurav/config';
 import MapViewDirections from 'react-native-maps-directions';
 
 
-const FinalDetailsScreen = ({ route }) => {
+
+const FinalDetailsScreen = ({ navigation, route }) => {
     const { className, architectureStyle, constructedBy, Ticket, Description, imageLink, constructionDate, latitude, longitude } = route.params;
     const [distance, setDistance] = useState(null);
     useEffect(() => {
@@ -79,7 +82,9 @@ const FinalDetailsScreen = ({ route }) => {
     
 
     return (
+
         <ScrollView style={styles.container}>
+
             {/* <StatusBar translucent={true} backgroundColor="rgba(0,0,0,0.2)" /> */}
             {imageLink && <ImageBackground source={{ uri: imageLink }} style={styles.image} >
             </ImageBackground>}
@@ -94,10 +99,12 @@ const FinalDetailsScreen = ({ route }) => {
                 {constructedBy && <Text style={styles.detailText}>Constructed By: {constructedBy}</Text>}
                 {constructionDate && <Text style={styles.detailText}>Constructed in: {constructionDate}</Text>}
                 {Ticket && <Text style={styles.detailText}>Ticket: {Ticket}</Text>}
+
                 <Text style={styles.detailText}>Distance : {distance?.distanceText} </Text>
                 {/* <Text>Distance Value: {distance?.distanceValue}</Text> */}
                 <Text style={styles.detailText}>Duration : {distance?.durationText} </Text>
                 {/* <Text>Duration Value: {distance?.durationValue}</Text> */}
+
                 {Description && <Text style={styles.detailText}>Description: {Description}</Text>}
                 {latitude && longitude && <Text style={styles.detailText}>Location: {latitude},{longitude}</Text>}
                 </View>
@@ -113,6 +120,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: COLORS.white,
+        position: 'relative',
     },
     ScrollView: {
         paddingHorizontal: 15,
@@ -135,6 +143,12 @@ const styles = StyleSheet.create({
         height: 300,
         width: '100%',
     },
+    backBtn: {
+        position: 'absolute',
+        left: 20,
+        top: 20,
+        zIndex: 5,
+    }
 });
 
 export default FinalDetailsScreen;
