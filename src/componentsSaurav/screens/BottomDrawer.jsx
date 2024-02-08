@@ -49,13 +49,13 @@ const BottomDrawer = ({ refRBSheet }) => {
 			<CustomButton
 				title='Open Camera'
 				onPress={handleOpenCamera}
-				iconName='camera-alt'
+				iconName='camera'
 				text='Camera'
 			/>
 			<CustomButton
 				title='Open Gallery'
 				onPress={handleOpenGallery}
-				iconName='photo'
+				iconName='image'
 				text='Gallery'
 			/>
 			<CustomButton title='Cancel' onPress={() => refRBSheet.current.close()} iconName='cancel' text='Cancel' />
