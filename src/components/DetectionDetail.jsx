@@ -13,7 +13,6 @@ import { MAPS_API_KEY } from '../componentsSaurav/config';
 import MapViewDirections from 'react-native-maps-directions';
 
 
-
 const FinalDetailsScreen = ({ navigation, route }) => {
     const { className, architectureStyle, constructedBy, Ticket, Description, imageLink, constructionDate, latitude, longitude } = route.params;
     const [distance, setDistance] = useState(null);
@@ -79,10 +78,9 @@ const FinalDetailsScreen = ({ navigation, route }) => {
   
       fetchData();
     }, [latitude, longitude]);
-    
 
     return (
-
+        
         <ScrollView style={styles.container}>
 
             {/* <StatusBar translucent={true} backgroundColor="rgba(0,0,0,0.2)" /> */}
@@ -93,13 +91,20 @@ const FinalDetailsScreen = ({ navigation, route }) => {
                 <Icon name="place" size={28} color={COLORS.primary} />
                 <Text style={styles.headingText}>{className}</Text>
             </View>
-
+            <Pressable style={styles.backBtn}>
+                <Icon
+                    name="arrow-back-ios"
+                    size={28}
+                    color={COLORS.white}
+                    onPress={navigation.goBack}
+                />
+            </Pressable>
             <View style={{ paddingHorizontal: 15 }}>
                 {architectureStyle && <Text style={styles.detailText}>Architecture Style: {architectureStyle}</Text>}
                 {constructedBy && <Text style={styles.detailText}>Constructed By: {constructedBy}</Text>}
                 {constructionDate && <Text style={styles.detailText}>Constructed in: {constructionDate}</Text>}
                 {Ticket && <Text style={styles.detailText}>Ticket: {Ticket}</Text>}
-
+                
                 <Text style={styles.detailText}>Distance : {distance?.distanceText} </Text>
                 {/* <Text>Distance Value: {distance?.distanceValue}</Text> */}
                 <Text style={styles.detailText}>Duration : {distance?.durationText} </Text>
@@ -110,11 +115,8 @@ const FinalDetailsScreen = ({ navigation, route }) => {
                 </View>
            
         </ScrollView>
-        
     );
 };
-    
-  
 
 const styles = StyleSheet.create({
     container: {
