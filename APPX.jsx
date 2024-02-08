@@ -28,6 +28,8 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import RenderPlans from './src/componentsSaurav/screens/PlanScreen/RenderPlans';
 import CustomButton from './src/componentsSaurav/customComponents/CustomButton';
 
+import GoogleMapScreen from './src/ComponentsPrajwol/screens/GoogleMapScreen';
+
 
 const stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -49,6 +51,14 @@ const ScanScreenStack = () => {
 		<stack.Navigator screenOptions={{ headerShown: true, }}>
 			<stack.Screen name='RenderDetections' component={RenderDetections} options={{ title: 'Detections', headerStyle: { backgroundColor: COLORS.primary }, headerTitleStyle: { color: 'white', fontWeight: 'bold' } }} />
 			<stack.Screen name='DetectionDetail' component={DetectionDetail} options={{ headerShown: false }} />
+		</stack.Navigator>
+	);
+};
+
+const GoogleMapScreenStack = () => {
+	return (
+		<stack.Navigator screenOptions={{ headerShown: true, }}>
+			<stack.Screen name='GoogleMapScreen' component={GoogleMapScreen} options={{ headerShown: false }} />
 		</stack.Navigator>
 	);
 };
@@ -149,22 +159,20 @@ const TabNav = ({ navigation }) => {
 				}
 			/>
 			<Tab.Screen name='Maps' component={Maps}
-				options={{
-					tabBarIcon: ({ color, size }) => <Icon name='map' color={color} size={size * 1.2} />,
-					headerTitle: "Maps"
-				}}
-			/>
+
+				options={{ tabBarIcon: ({ color, size }) => <Icon name='map' color={color} size={size * 1.2} /> }} />
+			
 			<Tab.Screen name='Plan' component={PlanScreenStack}
-				options={{
-					headerShown: false,
-					tabBarIcon: ({ color, size }) => <IconX name='clipboard-list-outline' color={color} size={size * 1.2} />
-				}} />
+				options={{ tabBarIcon: ({ color, size }) => <Icon name='list' color={color} size={size * 1.2} /> }} />
+			
+			<Tab.Screen name='Google Maps' component={GoogleMapScreen}
+				options={{ tabBarIcon: ({ color, size }) => <Icon name='router' color={color} size={size * 1.2} /> }} />
+
 		</Tab.Navigator>
 		<BottomDrawer refRBSheet={refRBSheet} />
 	</>
 	)
 }
-
 
 const MainStack = ({ navigation }) => {
 	return (
@@ -212,9 +220,14 @@ const App = () => {
 						drawerIcon: () => (<IconX name='bookmark' size={20} />)
 					}} />
 					{/* can add stack of bookmarks */}
+
+					{/* <Drawer.Screen name='Plan' component={PlanScreenStack} options={{
+						headerShown: false,
+
 					<Drawer.Screen name='Plan' component={PlanScreenStack} options={{
+
 						drawerIcon: () => (<IconX name='clipboard-list-outline' size={20} />)
-					}} />
+					}} /> */}
 					{/* can add stack of bookmarks */}
 				</Drawer.Navigator>
 

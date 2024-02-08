@@ -1,7 +1,8 @@
 import { Pressable, StatusBar, StyleSheet, Text, View } from 'react-native'
-import React, { useEffect } from 'react'
+import React, { useEffect,useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { ScrollView } from 'react-native-gesture-handler';
+// import { ScrollView } from 'react-native-gesture-handler'; //Googleplaceautocomplete does not work 
+import { ScrollView } from 'react-native-virtualized-view';
 import DetectionCard from '../../customComponents/DetectionCard';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { loadExistingPlan } from "../../redux/features/planSlice";
@@ -10,6 +11,10 @@ import CustomButton from '../../customComponents/CustomButton';
 import getLocationOfPlans from '../../modules/getLocationOfPlans';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import { Colors } from 'react-native/Libraries/NewAppScreen';
+import SearchPlaces from '../../../ComponentsPrajwol/screens/SearchPlaces';
+import { MAPS_API_KEY } from '../../config';
+import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete'; //install
+
 
 const RenderPlans = ({ navigation }) => {
 
@@ -17,8 +22,21 @@ const RenderPlans = ({ navigation }) => {
 
     const plans = useSelector(state => state.plan.plan);
 
+    const [selectedPlace, setSelectedPlace] = useState('');
+    const [selectedLocation, setSelectedLocation] = useState(null);
     // plans.map(item => console.log(item))
     // console.log(`\n The plans are: \n${plans}\n(from render plans screen)`)
+
+    const [waypoints, setWaypoints] = useState([]);
+
+    useEffect(() => {
+        if (selectedPlace !== '') {
+          console.log('Selected Place is:', selectedPlace);
+        }
+        if (selectedLocation !== '') {
+          console.log('Selected location is:', selectedLocation);
+        }
+      }, [selectedPlace,selectedLocation]);
 
     useEffect(() => {
 
@@ -78,20 +96,73 @@ const RenderPlans = ({ navigation }) => {
 
     }
 
+    useEffect(() => {
+        const saveWaypointsToLocal = async () => {
+            // Save waypoints to local storage
+            await AsyncStorage.setItem('waypoints', JSON.stringify(waypoints));
+            console.log('Waypoints saved to local storage:', waypoints);
+        };
+
+        saveWaypointsToLocal();
+    }, [waypoints]);
 
     return (
         <View >
             <StatusBar backgroundColor={COLORS.primary} />
-            <ScrollView style={styles.scrollView}>
+
+            <GooglePlacesAutocomplete
+            placeholder='Search Places to add to plan...'
+            onPress={(data, details = null) => {
+            let name = data.structured_formatting.main_text;
+
+            setSelectedPlace(name);
+            console.log(selectedPlace);
+
+            setWaypoints(prevWaypoints => [...prevWaypoints, name]);
+
+            let location = details.geometry.location;
+            setSelectedLocation(location);
+            }}
+            fetchDetails={true}
+            query={{
+            key: MAPS_API_KEY,
+            language: 'en',
+            components: 'country:np',
+            }}
+            styles={{
+            textInput: { color: 'black' },
+            container: {
+                zIndex: 2,
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                right: 0,
+            },
+            }}
+        />
+                <ScrollView style={styles.scrollView}>
                 {
+                    
                     plans.length > 0 ? plans.map((item, index) => {
 
                         return <DetectionCard key={index} classNumber={Number(item.classNumber)} fromDetection={false} />
                     })
-                        : <Text style={{ color: 'black', textAlign: 'center', paddingTop: '50%' }}>Add detections to plan to  view them here.</Text>
+                        : <Text style={{ color: 'black', textAlign: 'center', paddingTop: '50%' }}>Add detections to plan to view them here.</Text>
                 }
+                
                 <View style={styles.scrollViewBottom}></View>
             </ScrollView>
+            {waypoints.length > 0 && (
+                <View style={styles.selectedPlaceContainer}>
+                    <Text style={styles.selectedPlaceText}>Selected Places:</Text>
+                    {waypoints.map((place, index) => (
+                        <Text key={index} style={styles.selectedPlaceText}>{place}</Text>
+                    ))}
+                </View>
+            )}
+        
+      
+                
             <Pressable style={styles.btn}  onPress={handleGoToMaps}>
                 <Icon name='map' color={COLORS.primary} size={30}/>
                 <Text style={styles.btnText}> Get Directions </Text>
@@ -121,9 +192,22 @@ const styles = StyleSheet.create({
     },
     scrollView: {
         minHeight: '100%',
-        backgroundColor: COLORS.background
+
+        paddingTop:50,
+
     },
     scrollViewBottom: {
         height: 70
-    }
+    },
+    selectedPlaceContainer: {
+        padding: 10,
+        backgroundColor: COLORS.secondary,
+        paddingTop:250,
+        alignItems: 'center',
+      },
+      selectedPlaceText: {
+        fontWeight: 'bold',
+        color: COLORS.primary,
+      },
+    
 })
