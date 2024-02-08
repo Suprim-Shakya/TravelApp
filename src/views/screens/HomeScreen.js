@@ -178,11 +178,12 @@ const HomeScreen = ({navigation}) => {
 
           <Text style={style.sectionTitle}>Cuisines</Text>
           <FlatList
+            snapToInterval={width - 20}
             contentContainerStyle={{paddingLeft: 20}}
             horizontal
             showsHorizontalScrollIndicator={false}
             data={cuisines}
-            renderItem={({item}) => <Card place={item} />}
+            renderItem={({item}) => <RecommendedCard place={item} />}
           />
           <Text style={style.sectionTitle}>Activities</Text>
           <FlatList
