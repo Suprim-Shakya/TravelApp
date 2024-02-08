@@ -49,7 +49,7 @@ const SearchPlaces = ({ onPlaceSelected }) => {
     if (details && details.geometry && details.geometry.location) {
       const selCoordinates = details.geometry.location;
       console.log('----------------');
-      // console.log('Selected coordinates:', selCoordinates);
+      console.log('Selected coordinates:', selCoordinates);
       // console.log('Selected Latitude:', selCoordinates.lat);
       // console.log('Selected Longitude:', selCoordinates.lng);
       onPlaceSelected(selCoordinates)
@@ -58,7 +58,7 @@ const SearchPlaces = ({ onPlaceSelected }) => {
       console.error('No geometry information in the response');
     }
   }}
-  fetchDetails={true} // Set this to true
+  fetchDetails={true} 
   query={{
     key:MAPS_API_KEY,
     language: 'en',
