@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   SafeAreaView,
   ScrollView,
@@ -17,11 +17,16 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import COLORS from '../../constants/colors';
 import places from '../../constants/places';
 import cuisines from '../../constants/cusines';
+import activities from '../../constants/activities';
+
 // import cusines from '../../constants/cusines'
 
 const {width} = Dimensions.get('screen');
 
 const HomeScreen = ({navigation}) => {
+
+  const [searchText, setsearchText] = useState('');
+
   const categoryIcons = [
     <Icon name="restaurant" size={25} color={COLORS.dark}/>, 
     <Icon name="emergency" size={25} color={COLORS.dark} />,
@@ -79,7 +84,6 @@ const HomeScreen = ({navigation}) => {
     );
   };
 
-
   const RecommendedCard = ({place}) => {
     return (
       <TouchableOpacity activeOpacity={0.8}
@@ -93,7 +97,7 @@ const HomeScreen = ({navigation}) => {
             fontWeight: 'bold',
             marginTop: 10,
           }}>
-          {place.foodName}
+          {place.name}
         </Text>
         <View
           style={{
@@ -154,13 +158,16 @@ const HomeScreen = ({navigation}) => {
               <TextInput
                 placeholder=" Search heritage"
                 placeholderTextColor={COLORS.grey}
+                value={searchText}
+                onChangeText={text => setsearchText(text)}
               />
             </View>
           </View>
         </View>
         <ListCategories />
-        <Text style={style.sectionTitle}>Places</Text>
+        
         <View>
+        <Text style={style.sectionTitle}>World Heritage Sites</Text>
           <FlatList
             contentContainerStyle={{paddingLeft: 20}}
             horizontal
@@ -168,14 +175,22 @@ const HomeScreen = ({navigation}) => {
             data={places}
             renderItem={({item}) => <Card place={item} />}
           />
+
           <Text style={style.sectionTitle}>Cuisines</Text>
-          
+          <FlatList
+            contentContainerStyle={{paddingLeft: 20}}
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            data={cuisines}
+            renderItem={({item}) => <Card place={item} />}
+          />
+          <Text style={style.sectionTitle}>Activities</Text>
           <FlatList
             snapToInterval={width - 20}
             contentContainerStyle={{paddingLeft: 20, paddingBottom: 20}}
             showsHorizontalScrollIndicator={false}
             horizontal
-            data={cuisines}
+            data={activities}
             renderItem={({item}) => <RecommendedCard place={item} />}
           />
         </View>
@@ -228,7 +243,7 @@ const style = StyleSheet.create({
     marginVertical: 20,
     fontWeight: 'bold',
     fontSize: 20,
-    color: COLORS.darkGrey
+    color: COLORS.dark,
   },
   cardImage: {
     height: 220,

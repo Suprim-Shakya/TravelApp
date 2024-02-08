@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, FlatList, TextInput } from 'react-native';
-import COLORS from './src/constants/colors';
+import COLORS from '../../constants/colors';
 
 const data = [
   { id: '1', title: 'Akash Bhairab Temple' },
@@ -36,7 +36,7 @@ const data = [
   { id: '31', title: 'Trrailokya Mohan Narayan Temple' },
 ];
 
-export default function App() {
+export default function SearchButton() {
   const [searchQuery, setSearchQuery] = useState('');
   const [filteredData, setFilteredData] = useState(data);
 
