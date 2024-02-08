@@ -1,6 +1,6 @@
 import { View, Text, Pressable, StyleSheet } from 'react-native'
 import React, { useState } from 'react'
-import Icon from 'react-native-vector-icons/MaterialIcons';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import COLORS from '../../constants/colors';
 
 const CustomButton = ({ text, onPress, iconName, iconSize, iconColor, btnBgColor, btnTextColor }) => {
