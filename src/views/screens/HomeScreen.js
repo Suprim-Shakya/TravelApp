@@ -274,14 +274,14 @@ const HomeScreen = ({navigation}) => {
             renderItem={({item}) => <RecommendedCard place={item} />}
           />
           <Text style={style.sectionTitle}>Activities</Text>
-          <FlatList
+          {/* <FlatList
             snapToInterval={width - 20}
             contentContainerStyle={{paddingLeft: 20, paddingBottom: 20}}
             showsHorizontalScrollIndicator={false}
             horizontal
             data={activities}
             renderItem={({item}) => <RecommendedCard place={item} />}
-          />
+          /> */}
         </View>
       </ScrollView>
     </SafeAreaView>
