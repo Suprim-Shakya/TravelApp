@@ -29,7 +29,7 @@ const CustomModal = ({ visible = false, header, text, onPress1, onPress2, title1
                     </View>
 
                     <Pressable style={styles.icon} onPress={closeModal}>
-                        <Icon name='close-circle' size={24} color={COLORS.danger} />
+                        <Icon name='close-circle' size={24} />
                     </Pressable>
                 </View>
             </View>
