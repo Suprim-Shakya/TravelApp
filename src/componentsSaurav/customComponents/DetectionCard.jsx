@@ -24,7 +24,7 @@ const DetectionCard = ({ box, name, confidence, classNumber, fromDetection = tru
 	const [isBookmarked, setIsBookmarked] = useState(classPresentInBookmark)
 
 	const plans = useSelector(state => state.plan.plan);
-	const classPresentInPlan = plans.find((item) => item.classNumber == classNumber)
+	const classPresentInPlan = plans.find((item) => item.name == name)
 	const [onPlan, setOnPlan] = useState(classPresentInPlan)
 
 
@@ -70,7 +70,8 @@ const DetectionCard = ({ box, name, confidence, classNumber, fromDetection = tru
 
 		const ATB = () => {
 			const dataObj = {
-				classNumber: classNumber,
+				classNumber,
+				name,
 				location: { latitude: parseFloat(data.latitude), longitude: parseFloat(data.longitude) }
 			}
 			// dispatch(addToBookmark({ classNumber: Number(classNumber) })); 
@@ -104,11 +105,12 @@ const DetectionCard = ({ box, name, confidence, classNumber, fromDetection = tru
 
 		const ATP = () => {
 			const dataObj = {
-				classNumber: classNumber,
+				name,
 				location: { latitude: parseFloat(data.latitude), longitude: parseFloat(data.longitude) }
 			}
-
+			console.log(name)
 			dispatch(addToPlan(dataObj));
+			
 			console.log("\n\n\n\n\n start add to bookmark function -------------\n")
 			// Alert.alert(`${name} must be saved on Bookmarks.`, `Navigate to Bookmarks tab to access it.`)
 
@@ -118,7 +120,7 @@ const DetectionCard = ({ box, name, confidence, classNumber, fromDetection = tru
 		}
 
 		const RFP = () => {
-			dispatch(removeFromPlan(classNumber))// check datatype 
+			dispatch(removeFromPlan(name))// check datatype 
 
 			// Alert.alert(`${data.name} must be removed.`, `Navigate to Bookmarks tab to access it.`)
 			// const plan = useSelector(state=> state.plan.plan);

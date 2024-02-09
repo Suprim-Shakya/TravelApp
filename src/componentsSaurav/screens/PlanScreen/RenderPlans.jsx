@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { ScrollView } from 'react-native-virtualized-view';
 import DetectionCard from '../../customComponents/DetectionCard';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { loadExistingPlan, removeFromPlan } from "../../redux/features/planSlice";
+import { addToPlan, loadExistingPlan, removeFromPlan } from "../../redux/features/planSlice";
 import COLORS from '../../../constants/colors';
 import CustomButton from '../../customComponents/CustomButton';
 import getLocationOfPlans from '../../modules/getLocationOfPlans';
@@ -29,7 +29,7 @@ const RenderPlans = ({ navigation }) => {
     // plans.map(item => console.log(item))
     // console.log(`\n The plans are: \n${plans}\n(from render plans screen)`)
 
-    const [waypoints, setWaypoints] = useState([]);
+    // const [waypoints, setWaypoints] = useState([]);
 
     const [modalVisible, setModalVisible] = useState(false);
 
@@ -100,22 +100,36 @@ const RenderPlans = ({ navigation }) => {
 
     }
 
-    useEffect(() => {
-        const saveWaypointsToLocal = async () => {
-            // Save waypoints to local storage
-            await AsyncStorage.setItem('waypoints', JSON.stringify(waypoints));
-            console.log('Waypoints saved to local storage:', waypoints);
-        };
+    // useEffect(() => {
+    //     const saveWaypointsToLocal = async () => {
+    //         // Save waypoints to local storage
+    //         await AsyncStorage.setItem('waypoints', JSON.stringify(waypoints));
+    //         console.log('Waypoints saved to local storage:', waypoints);
+    //     };
 
-        saveWaypointsToLocal();
-    }, [waypoints]);
+    //     saveWaypointsToLocal();
+    // }, [waypoints]);
 
     function handleAddToPlan() {
+        const payload = {
+            name: selectedPlace,
+            location: {
+                latitude: parseFloat(selectedLocation.lat),
+                longitude: parseFloat(selectedLocation.lng)
+            }
+        }
+        dispatch(addToPlan(payload))
+        // console.log(selectedLocation.lat)
         setModalVisible(false)
         return null
     }
 
     function handleViewOnMap() {
+        const loc = {
+            latitude: selectedLocation.lat,
+            longitude: selectedLocation.lng,
+        }
+        navigation.navigate('Maps', { locations: loc, title: selectedPlace })
         return null
     }
 
@@ -130,7 +144,8 @@ const RenderPlans = ({ navigation }) => {
                     const location = details.geometry.location;
                     setSelectedPlace(name);
                     setSelectedLocation(location);
-                    console.log(selectedPlace);
+                    // console.log(selectedLocation)
+                    // console.log(selectedPlace);
                     setModalVisible(true)
                     // setWaypoints(prevWaypoints => [...prevWaypoints, name]);
                 }}
@@ -163,15 +178,17 @@ const RenderPlans = ({ navigation }) => {
                 }
 
                 <View style={styles.scrollViewBottom}></View>
+
             </ScrollView>
-            {waypoints.length > 0 && (
+
+            {/* {waypoints.length > 0 && (
                 <View style={styles.selectedPlaceContainer}>
                     <Text style={styles.selectedPlaceText}>Selected Places:</Text>
                     {waypoints.map((place, index) => (
                         <Text key={index} style={styles.selectedPlaceText}>{place}</Text>
                     ))}
                 </View>
-            )}
+            )} */}
 
 
 
