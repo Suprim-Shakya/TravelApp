@@ -7,12 +7,12 @@ const CustomCallout = ({ title, description }) => {
         <View style={styles.outer}>
             {visible &&
                 <View style={styles.container}>
-                    <Icon name="close-circle" size={24} style={styles.close} onPress={() => { setVisible(false); console.log("pressed") }} />
+                    {/* <Icon name="close-circle" size={24} style={styles.close} onPress={() => { setVisible(false); console.log("pressed") }} /> */}
                     <Text style={styles.title}>{title}</Text>
                     <Text style={styles.description}>{description}</Text>
                 </View>
             }
-            <Icon name='map-marker' color={"red"} size={36} style={styles.icon} onPress={() => setVisible(true)} />
+            <Icon name='map-marker' color={"red"} size={36} style={styles.icon} />
         </View>
     );
 };
