@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, FlatList, TextInput, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, FlatList, TextInput } from 'react-native';
 import COLORS from './src/constants/colors';
 
 const data = [
@@ -38,57 +38,38 @@ const data = [
 
 export default function App() {
   const [searchQuery, setSearchQuery] = useState('');
-  const [filteredData, setFilteredData] = useState([]);
+  const [filteredData, setFilteredData] = useState(data);
 
   const searchFilterFunction = (text) => {
     setSearchQuery(text);
     setFilteredData(
-      text
-        ? data.filter((item) =>
-            item.title.toLowerCase().includes(text.toLowerCase())
-          )
-        : []
+      data.filter((item) =>
+        item.title.toLowerCase().includes(text.toLowerCase())
+      )
     );
-  };
-
-  const renderFilteredData = () => {
-    if (searchQuery !== '') {
-      return (
-        <View style={styles.overlayContainer}>
-          {filteredData.map((item) => (
-            <TouchableOpacity
-              key={item.id}
-              style={styles.listItem}
-              onPress={() => handleListItemPress(item)}
-            >
-              <Text style={styles.listItemText}>{item.title}</Text>
-            </TouchableOpacity>
-          ))}
-        </View>
-      );
-    } else {
-      return null; // You may show a default list if the search query is empty
-    }
-  };
-
-  const handleListItemPress = (item) => {
-    // Add your navigation logic here, e.g., navigate to another screen
-    console.log(`Pressed: ${item.title}`);
   };
 
   return (
     <View style={styles.container}>
+      {/* <Text style={styles.text}>Search Implementation</Text> */}
       <TextInput
         style={styles.searchBar}
         placeholder="Search"
         onChangeText={searchFilterFunction}
         value={searchQuery}
       />
-      {renderFilteredData()}
+      <FlatList
+        data={filteredData}
+        keyExtractor={(item) => item.id}
+        renderItem={({ item }) => (
+          <View style={styles.listItem}>
+            <Text style={styles.listItemText}>{item.title}</Text>
+          </View>
+        )}
+      />
     </View>
   );
 }
-
 
 const styles = StyleSheet.create({
   container: {
