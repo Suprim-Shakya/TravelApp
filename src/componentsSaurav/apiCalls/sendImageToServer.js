@@ -18,8 +18,10 @@ const sendImageToServer = async (formData) => {
     } catch (error) {
         if (error.message === 'Network request failed') {
             Alert.alert('Internet unstable', 'Please check your internet connection')
+            return false
         } else {
             console.error('Error occurred on post request send to server: ', error)
+            return false
         }
 
     }

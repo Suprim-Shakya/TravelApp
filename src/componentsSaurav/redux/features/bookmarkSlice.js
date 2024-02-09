@@ -16,13 +16,14 @@ const bookmarkSlice = createSlice({
             // }
             // const newBookmarks = state.bookmark.push(newPlace)
 
-            const { classNumber, location } = action.payload
+            const { classNumber,name,  location, } = action.payload
 
             const existingElement = state.bookmark.find(item => item.classNumber == classNumber)
 
             if (!existingElement) {
                 const newPlace = {
                     classNumber,
+                    name,
                     location,
                 }
                 state.bookmark.push(newPlace)

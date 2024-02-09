@@ -1,28 +1,48 @@
-import { Pressable, StatusBar, StyleSheet, Text, View } from 'react-native'
-import React, { useEffect } from 'react'
+import { Modal, Pressable, StatusBar, StyleSheet, Text, View } from 'react-native'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { ScrollView } from 'react-native-gesture-handler';
+// import { ScrollView } from 'react-native-gesture-handler'; //Googleplaceautocomplete does not work 
+import { ScrollView } from 'react-native-virtualized-view';
 import DetectionCard from '../../customComponents/DetectionCard';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { loadExistingPlan } from "../../redux/features/planSlice";
+import { addToPlan, loadExistingPlan, removeFromPlan } from "../../redux/features/planSlice";
 import COLORS from '../../../constants/colors';
 import CustomButton from '../../customComponents/CustomButton';
 import getLocationOfPlans from '../../modules/getLocationOfPlans';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import { Colors } from 'react-native/Libraries/NewAppScreen';
+import SearchPlaces from '../../../ComponentsPrajwol/screens/SearchPlaces';
+import { MAPS_API_KEY } from '../../config';
+import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete'; //install
+import PlanCard from '../../customComponents/PlanCard';
+import CustomModal from '../../customComponents/CustomModal';
+import SmallButton from '../../customComponents/SmallButton';
+import SearchBar from '../../customComponents/SearchBar';
+import BtnGetDirections from '../../customComponents/BtnGetDirections';
+
+
 
 const RenderPlans = ({ navigation }) => {
 
     const dispatch = useDispatch();
-
     const plans = useSelector(state => state.plan.plan);
 
-    // plans.map(item => console.log(item))
-    // console.log(`\n The plans are: \n${plans}\n(from render plans screen)`)
+    const [selectedPlace, setSelectedPlace] = useState('');
+    const [selectedLocation, setSelectedLocation] = useState(null);
+    const [modalVisible, setModalVisible] = useState(false);
+
 
     useEffect(() => {
+        if (selectedPlace !== '') {
+            console.log('Selected Place is:', selectedPlace);
+        }
+        if (selectedLocation !== '') {
+            console.log('Selected location is:', selectedLocation);
+        }
+    }, [selectedPlace, selectedLocation]);
 
 
+    useEffect(() => {
         if (plans.length > 0) return
 
         // if a plan exists in redux store that means it has already been loaded from local
@@ -55,6 +75,7 @@ const RenderPlans = ({ navigation }) => {
 
     }, []);
 
+
     useEffect(() => {
 
         const savePlansToLocal = async () => {
@@ -70,32 +91,80 @@ const RenderPlans = ({ navigation }) => {
     }, [plans.length]);
 
 
-    async function handleGoToMaps() {
-        const locations = await getLocationOfPlans()
-        if (locations) {
-            navigation.navigate('Maps', { locations: locations, text: 'hello' })
+    useEffect(() => {
+        console.log("inside use effect")
+        if (selectedPlace !== '' && selectedLocation !== null) {
+            setModalVisible(true);
+            console.log("inside use effect")
         }
+    }, [selectedPlace, selectedLocation]);
 
+
+    async function handleGetDirections() {
+        const locations = await getLocationOfPlans()
+        console.log(locations)
     }
 
+
+    function handleAddToPlan() {
+        const payload = {
+            name: selectedPlace,
+            location: {
+                ...selectedLocation
+            }
+        }
+        dispatch(addToPlan(payload))
+        // console.log(selectedLocation.lat)
+        setModalVisible(false)
+        return null
+    }
+
+    function handleViewOnMap() {
+        console.log("inside")
+        navigation.navigate('Maps', { location: { ...selectedLocation }, title: selectedPlace })
+        setModalVisible(false)
+        return null
+    }
+
+    function handlePressSearch() {
+        navigation.navigate("Google Maps")
+    }
 
     return (
         <View >
             <StatusBar backgroundColor={COLORS.primary} />
+
+            <SearchBar text={"Search places and add to plan..."} onPress={handlePressSearch} />
+
             <ScrollView style={styles.scrollView}>
                 {
+
                     plans.length > 0 ? plans.map((item, index) => {
 
-                        return <DetectionCard key={index} classNumber={Number(item.classNumber)} fromDetection={false} />
+                        // return <DetectionCard key={index} classNumber={Number(item.classNumber)} fromDetection={false} />
+                        return <PlanCard key={index} name={item.name} index={index + 1} deleteAction={removeFromPlan} location={{ ...item.location }} />
                     })
-                        : <Text style={{ color: 'black', textAlign: 'center', paddingTop: '50%' }}>Add detections to plan to  view them here.</Text>
+                        : <Text style={{ color: 'black', textAlign: 'center', paddingTop: '50%' }}>Add detections to plan to view them here.</Text>
                 }
+
                 <View style={styles.scrollViewBottom}></View>
+
             </ScrollView>
-            <Pressable style={styles.btn}  onPress={handleGoToMaps}>
-                <Icon name='map' color={COLORS.primary} size={30}/>
-                <Text style={styles.btnText}> Get Directions </Text>
-            </Pressable>
+
+            <BtnGetDirections onPress={handleGetDirections} />
+
+            <CustomModal
+                header={"Please choose an option"}
+                text={`Place: ${selectedPlace}\n Distance: \n Duration`}
+                title1={"Add to Plan"}
+                onPress1={handleAddToPlan}
+                title2={"View on Map"}
+                onPress2={handleViewOnMap}
+                visible={modalVisible}
+                danger1={false}
+                closeModal={() => setModalVisible(false)}
+            />
+
         </View>
     )
 }
@@ -103,27 +172,12 @@ const RenderPlans = ({ navigation }) => {
 export default RenderPlans
 
 const styles = StyleSheet.create({
-    btn: {
-        position: 'absolute',
-        bottom: 8,
-        right: 8,
-        zIndex: 1,
-        borderRadius: 100,
-        backgroundColor: COLORS.secondary,
-        padding: 5,
-        flex: 1,
-        flexDirection: 'row',
-        alignItems: 'center'
-    },
-    btnText: {
-        fontWeight: 'bold',
-        color: COLORS.primary
-    },
+
     scrollView: {
         minHeight: '100%',
-        backgroundColor: COLORS.background
+        // marginBottom: 80
     },
     scrollViewBottom: {
-        height: 70
-    }
+        height: 150
+    },
 })

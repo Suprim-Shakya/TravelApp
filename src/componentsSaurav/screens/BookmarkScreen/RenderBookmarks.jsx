@@ -78,7 +78,7 @@ const RenderBookmarks = () => {
                         // console.log(item)
                         // console.log('inside')
                         // <Text style={{color: 'black'}}>this is bookmark screen</Text>
-                        return <DetectionCard key={index} classNumber={Number(item.classNumber)} fromDetection={false} />
+                        return <DetectionCard key={index} name={item.name} classNumber={Number(item.classNumber)} fromDetection={false} />
                     })
                         : <Text style={{ color: 'black', textAlign: 'center', paddingTop: '50%' }}>Add detections to bookmark to  view them here.</Text>
                 }

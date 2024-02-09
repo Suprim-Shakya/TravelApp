@@ -6,8 +6,24 @@ import CustomButton from '../customComponents/CustomButton';
 import openGallery from '../getImage/openGallery';
 import openCamera from '../getImage/openCamera';
 import sendImageToServer from '../apiCalls/sendImageToServer';
+import { Alert } from 'react-native';
 
-
+async function handleResponse(func, navigation) {
+	const formData = await func();
+	if (formData == 'cancel') {
+		return false
+	} else {
+		navigation.navigate('MainStack', { screen: 'RenderDetections', params: {loading: true} })
+			const response = await sendImageToServer(formData);
+			if (response){
+				navigation.navigate('MainStack', { screen: 'RenderDetections', params: { ...response, loading: false } })
+			}
+			else {
+				Alert.alert("Couldn't process the request", "Image size too large")
+				navigation.goBack()
+			}
+	}
+}
 
 const BottomDrawer = ({ refRBSheet }) => {
 
@@ -15,26 +31,12 @@ const BottomDrawer = ({ refRBSheet }) => {
 
 	const handleOpenGallery = async () => {
 		refRBSheet.current.close();
-		const formData = await openGallery();
-		if (formData == 'cancel') {
-			return
-		} else {
-			navigation.navigate('MainStack', { screen: 'RenderDetections', params: {loading: true} })
-			const response = await sendImageToServer(formData);
-			navigation.navigate('MainStack', { screen: 'RenderDetections', params: { ...response, loading: false } })
-		}
+		await handleResponse(openGallery, navigation)
 	}
 
 	const handleOpenCamera = async () => {
 		refRBSheet.current.close();
-		const formData = await openCamera();
-		if (formData == 'cancel') {
-			return
-		} else {
-			navigation.navigate('MainStack', { screen: 'RenderDetections', params: {loading: true} })
-			const response = await sendImageToServer(formData);
-			navigation.navigate('MainStack', { screen: 'RenderDetections', params: { ...response } })
-		}
+		await handleResponse(openCamera, navigation)
 	}
 
 	return (
@@ -49,13 +51,13 @@ const BottomDrawer = ({ refRBSheet }) => {
 			<CustomButton
 				title='Open Camera'
 				onPress={handleOpenCamera}
-				iconName='camera-alt'
+				iconName='camera'
 				text='Camera'
 			/>
 			<CustomButton
 				title='Open Gallery'
 				onPress={handleOpenGallery}
-				iconName='photo'
+				iconName='image'
 				text='Gallery'
 			/>
 			<CustomButton title='Cancel' onPress={() => refRBSheet.current.close()} iconName='cancel' text='Cancel' />

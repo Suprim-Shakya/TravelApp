@@ -1,6 +1,6 @@
 import 'react-native-gesture-handler';
 import React, { useRef } from 'react';
-import { Pressable, StatusBar } from 'react-native';
+import { Pressable, StatusBar, View } from 'react-native';
 
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -27,6 +27,8 @@ import Bookmarks from './src/componentsSaurav/screens/BookmarkScreen/Bookmarks';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import RenderPlans from './src/componentsSaurav/screens/PlanScreen/RenderPlans';
 import CustomButton from './src/componentsSaurav/customComponents/CustomButton';
+import OptimizedWaypointsExample from './src/ComponentsPrajwol/screens/GoogleMapScreen';
+import GoogleSearch from './src/componentsSaurav/screens/GoogleSearch';
 
 
 const stack = createStackNavigator();
@@ -64,11 +66,19 @@ const BookmarkScreenStack = ({ navigation }) => {
 					title: "Bookmarks",
 					headerStyle: { backgroundColor: COLORS.primary },
 					headerTitleStyle: { color: 'white', fontSize: 20, fontWeight: 'bold', alignSelf: 'center' },
-					headerLeft: () => <IconX name="arrow-left" color='white' size={20} onPress={() => navigation.goBack()} />
+					headerLeft: () =>
+						<View style={{ marginLeft: 16 }} >
+							<IconX
+								name="arrow-left"
+								color='white'
+								size={20}
+								onPress={() => navigation.goBack()}
+							/>
+						</View>
 				}}
 			/>
 
-			<stack.Screen name='DetectionDetail' component={DetectionDetail} options={{ headerShown: true }} />
+			<stack.Screen name='DetectionDetail' component={DetectionDetail} options={{ headerShown: false }} />
 		</stack.Navigator>
 	)
 }
@@ -78,14 +88,22 @@ const PlanScreenStack = ({ navigation }) => {
 			<stack.Screen name='RenderPlans' component={RenderPlans}
 				options={{
 					headerShown: true,
-					title: "Plan",
+					title: "Plans",
 					headerStyle: { backgroundColor: COLORS.primary },
 					headerTitleStyle: { color: 'white', fontSize: 20, fontWeight: 'bold', alignSelf: 'center' },
-					headerLeft: () => <IconX name="arrow-left" color='white' size={20} onPress={() => navigation.goBack()} />,
+					headerLeft: () =>
+						<View style={{ marginLeft: 16 }} >
+							<IconX
+								name="arrow-left"
+								color='white'
+								size={20}
+								onPress={() => navigation.goBack()}
+							/>
+						</View>
 				}}
 			/>
 
-			<stack.Screen name='DetectionDetail' component={DetectionDetail} options={{ headerShown: true }} />
+			<stack.Screen name='DetectionDetail' component={DetectionDetail} options={{ headerShown: false, headerStyle: { backgroundColor: COLORS.primary } }} />
 
 		</stack.Navigator>
 	)
@@ -96,7 +114,6 @@ const TabNav = ({ navigation }) => {
 	return (<>
 		<Tab.Navigator screenOptions={{
 			headerShown: true,
-			// headerTitle: 'Travel Guide',
 			headerTitleAlign: 'center',
 			headerStyle: {
 				backgroundColor: COLORS.primary
@@ -115,7 +132,10 @@ const TabNav = ({ navigation }) => {
 		}}>
 			<Tab.Screen name='Home' component={HomeScreen}
 				options={{
-					tabBarIcon: ({ color, size }) => <Icon name='home' color={color} size={size * 1.3} />
+
+					headerTitle: "Travel Guide",
+					tabBarIcon: ({ color, size }) => <Icon name='home' color={color} size={size * 1.3}
+					/>
 				}}
 			/>
 			<Tab.Screen name='Scan' component={ScanScreenStack}
@@ -131,13 +151,26 @@ const TabNav = ({ navigation }) => {
 				}
 			/>
 			<Tab.Screen name='Maps' component={Maps}
-				options={{ tabBarIcon: ({ color, size }) => <Icon name='map' color={color} size={size * 1.2} /> }}
+				options={{
+					tabBarIcon: ({ color, size }) => <Icon name='map' color={color} size={size * 1.2} />,
+					headerTitle: "Maps"
+				}}
 			/>
-			<Tab.Screen name='Plan' component={PlanScreenStack} 
-			options={{
-				headerShown: false,
-				tabBarIcon: ({ color, size }) => <IconX name='clipboard-list-outline' color={color} size={size * 1.2} />
-			}} />
+			<Tab.Screen name='Bookmarks' component={BookmarkScreenStack}
+				options={{
+					tabBarIcon: ({ color, size }) => <Icon name='bookmark' color={color} size={size * 1.2} />,
+					headerShown: false
+				}}
+			/>
+			<Tab.Screen name='Plan' component={PlanScreenStack}
+				options={{
+					headerShown: false,
+					tabBarIcon: ({ color, size }) => <IconX name='clipboard-list-outline' color={color} size={size * 1.2} />
+				}} />
+
+			<Tab.Screen name='Google Maps' component={GoogleSearch}
+				options={{ tabBarIcon: ({ color, size }) => <Icon name='router' color={color} size={size * 1.2} /> }} />
+
 		</Tab.Navigator>
 		<BottomDrawer refRBSheet={refRBSheet} />
 	</>
@@ -147,10 +180,10 @@ const TabNav = ({ navigation }) => {
 
 const MainStack = ({ navigation }) => {
 	return (
-		<stack.Navigator screenOptions={{ headerShown: true }}>
+		<stack.Navigator screenOptions={{ headerShown: false }}>
 			<stack.Screen name='tab' component={TabNav}
 				options={{
-					headerShown: false,
+					// headerShown: true,
 					headerTitle: 'Travel Guide',
 					headerTitleAlign: 'center',
 					headerStyle: {
@@ -167,28 +200,10 @@ const MainStack = ({ navigation }) => {
 					)
 				}}
 			/>
-			<stack.Screen name='home' component={HomeScreen}
-				options={{
-					headerShown: true,
-					headerTitle: 'Travel Guide',
-					headerTitleAlign: 'center',
-					headerStyle: {
-						backgroundColor: COLORS.primary
-					},
-					headerTitleStyle: {
-						color: 'white',
-						fontWeight: 'bold',
-					},
-					headerLeft: () => (
-						<Pressable onPress={() => navigation.openDrawer()} style={{ marginLeft: 5 }}>
-							<IconX name='menu' color='white' size={30} />
-						</Pressable>
-					)
-				}}
-			/>
-			<stack.Screen name='DetailsScreen' component={DetailsScreen} options={{headerShown: false}}/>
-			<stack.Screen name='RenderDetections' component={RenderDetections} options={{ title: 'Detections', headerStyle: { backgroundColor: COLORS.primary }, headerTitleStyle: { color: 'white', fontWeight: 'bold' } }} />
-			<stack.Screen name='DetectionDetail' component={DetectionDetail} options={{ headerShown: true }} />
+			<stack.Screen name='home' component={HomeScreen} />
+			<stack.Screen name='DetailsScreen' component={DetailsScreen} options={{ headerShown: false }} />
+			<stack.Screen name='RenderDetections' component={RenderDetections} options={{ headerShown: true, title: 'Detections', headerStyle: { backgroundColor: COLORS.primary }, headerTitleStyle: { color: 'white', fontWeight: 'bold' } }} />
+			<stack.Screen name='DetectionDetail' component={DetectionDetail} options={{ headerShown: false }} />
 		</stack.Navigator>
 	)
 }
@@ -203,14 +218,13 @@ const App = () => {
 				<StatusBar translucent={false} backgroundColor={COLORS.primary} />
 
 				<Drawer.Navigator screenOptions={{ headerShown: false }}>
-					<Drawer.Screen name='MainStack' component={MainStack} options={{ headerTitle: 'Home' }} />
+					{/* first one is shown by default */}
+					<Drawer.Screen name='MainStack' component={MainStack} />
 					<Drawer.Screen name='Bookmarks' component={BookmarkScreenStack} options={{
-						headerShown: false,
 						drawerIcon: () => (<IconX name='bookmark' size={20} />)
 					}} />
 					{/* can add stack of bookmarks */}
 					<Drawer.Screen name='Plan' component={PlanScreenStack} options={{
-						headerShown: false,
 						drawerIcon: () => (<IconX name='clipboard-list-outline' size={20} />)
 					}} />
 					{/* can add stack of bookmarks */}
