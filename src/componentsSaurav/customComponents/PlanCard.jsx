@@ -60,7 +60,9 @@ const PlanCard = ({ name, index, deleteAction, location}) => {
                     visible={infoModalVisible}
                     text={`${name}`}
                     title1="Delete"
-                    title2="View on Map(disabled)"
+                    // icon1={"delete"}
+                    // icon2={"map"}
+                    title2="View on Map"
                     onPress1={() => {
                         dispatch(deleteAction(name));
                         setInfoModalVisible(false);
