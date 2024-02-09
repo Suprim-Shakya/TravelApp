@@ -140,8 +140,8 @@ const RenderPlans = ({ navigation }) => {
                     const location = details.geometry.location;
                     setSelectedPlace(name);
                     setSelectedLocation({
-                        latitude: parseFloat(location.latitude),
-                        longitude: parseFloat(location.longitude)
+                        latitude: parseFloat(location.lat),
+                        longitude: parseFloat(location.lmg)
                     });
                     // console.log(selectedLocation)
                     // console.log(selectedPlace);
