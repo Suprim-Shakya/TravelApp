@@ -114,8 +114,7 @@ const RenderPlans = ({ navigation }) => {
         const payload = {
             name: selectedPlace,
             location: {
-                latitude: parseFloat(selectedLocation.lat),
-                longitude: parseFloat(selectedLocation.lng)
+                ...selectedLocation
             }
         }
         dispatch(addToPlan(payload))
@@ -125,11 +124,8 @@ const RenderPlans = ({ navigation }) => {
     }
 
     function handleViewOnMap() {
-        const loc = {
-            latitude: selectedLocation.lat,
-            longitude: selectedLocation.lng,
-        }
-        navigation.navigate('Maps', { locations: loc, title: selectedPlace })
+
+        navigation.navigate('Maps', { ...selectedLocation, title: selectedPlace })
         return null
     }
 
@@ -143,7 +139,10 @@ const RenderPlans = ({ navigation }) => {
                     const name = data.structured_formatting.main_text;
                     const location = details.geometry.location;
                     setSelectedPlace(name);
-                    setSelectedLocation(location);
+                    setSelectedLocation({
+                        latitude: parseFloat(location.latitude),
+                        longitude: parseFloat(location.longitude)
+                    });
                     // console.log(selectedLocation)
                     // console.log(selectedPlace);
                     setModalVisible(true)
@@ -172,7 +171,7 @@ const RenderPlans = ({ navigation }) => {
                     plans.length > 0 ? plans.map((item, index) => {
 
                         // return <DetectionCard key={index} classNumber={Number(item.classNumber)} fromDetection={false} />
-                        return <PlanCard key={index} name={item.name} index={index + 1} deleteAction={removeFromPlan} />
+                        return <PlanCard key={index} name={item.name} index={index + 1} deleteAction={removeFromPlan}  location={{...selectedLocation}}/>
                     })
                         : <Text style={{ color: 'black', textAlign: 'center', paddingTop: '50%' }}>Add detections to plan to view them here.</Text>
                 }

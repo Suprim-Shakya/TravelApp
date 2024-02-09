@@ -4,14 +4,25 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useDispatch } from 'react-redux';
 import CustomModal from './CustomModal';
 import COLORS from '../../constants/colors';
+import { useNavigation } from '@react-navigation/native';
 
-const PlanCard = ({ name, index, deleteAction, onPress = ()=> null }) => {
-    const [modalVisible, setModalVisible] = useState(false);
+const PlanCard = ({ name, index, deleteAction, location}) => {
+    const [deleteModalVisible, setDeleteModalVisible] = useState(false);
+    const [infoModalVisible, setInfoModalVisible] = useState(false);
     const dispatch = useDispatch();
-
+    const navigation = useNavigation();
     const handleDelete = () => {
-        setModalVisible(true);
+        setDeleteModalVisible(true);
     };
+
+    const handlePlanPress = () => {
+        setInfoModalVisible(true)
+    }
+
+    function handleViewOnMap () {
+        // navigation.navigate('Maps', { ...location, title: name })
+        return null
+    }
 
     return (
         <View style={styles.container}>
@@ -19,7 +30,7 @@ const PlanCard = ({ name, index, deleteAction, onPress = ()=> null }) => {
             <Pressable 
             style={styles.content} 
             android_ripple={{ radius: 200, color: "rgba(0,0,0,0.2)" }}
-            onPress={onPress}
+            onPress={handlePlanPress}
             >
                 <Text style={styles.text}>{index}. {name}</Text>
                 <Icon
@@ -30,16 +41,29 @@ const PlanCard = ({ name, index, deleteAction, onPress = ()=> null }) => {
                     onPress={handleDelete}
                 />
                 <CustomModal
-                    visible={modalVisible}
+                    visible={deleteModalVisible}
                     text={`${name} will be removed from plan`}
                     title1="Ok"
                     title2="Cancel"
                     onPress1={() => {
                         dispatch(deleteAction(name));
-                        setModalVisible(false);
+                        setDeleteModalVisible(false);
                     }}
-                    onPress2={() => setModalVisible(false)}
-                    closeModal={() => setModalVisible(false)}
+                    onPress2={() => setDeleteModalVisible(false)}
+                    closeModal={() => setDeleteModalVisible(false)}
+                    danger1={true}
+                />
+                <CustomModal
+                    visible={infoModalVisible}
+                    text={`${name}`}
+                    title1="Delete"
+                    title2="View on Map(disabled)"
+                    onPress1={() => {
+                        dispatch(deleteAction(name));
+                        setInfoModalVisible(false);
+                    }}
+                    onPress2={handleViewOnMap}
+                    closeModal={() => setInfoModalVisible(false)}
                     danger1={true}
                 />
             </Pressable>
