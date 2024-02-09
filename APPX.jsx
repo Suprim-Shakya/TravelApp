@@ -155,6 +155,12 @@ const TabNav = ({ navigation }) => {
 					headerTitle: "Maps"
 				}}
 			/>
+			<Tab.Screen name='Bookmarks' component={BookmarkScreenStack}
+				options={{
+					tabBarIcon: ({ color, size }) => <Icon name='bookmark' color={color} size={size * 1.2} />,
+					headerShown: false
+				}}
+			/>
 			<Tab.Screen name='Plan' component={PlanScreenStack}
 				options={{
 					headerShown: false,

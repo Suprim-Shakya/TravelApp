@@ -91,6 +91,13 @@ const RenderPlans = ({ navigation }) => {
 
     }, [plans.length]);
 
+    useEffect(() => {
+        console.log("inside use effect")
+        if (selectedPlace !== '' && selectedLocation !== null) {
+            setModalVisible(true);
+            console.log("inside use effect")
+        }
+    }, [selectedPlace, selectedLocation]);
 
     async function handleGoToMaps() {
         const locations = await getLocationOfPlans()
@@ -125,7 +132,7 @@ const RenderPlans = ({ navigation }) => {
 
     function handleViewOnMap() {
 
-        navigation.navigate('Maps', { ...selectedLocation, title: selectedPlace })
+        navigation.navigate('Maps', { location: {...selectedLocation}, title: selectedPlace })
         return null
     }
 
@@ -141,11 +148,11 @@ const RenderPlans = ({ navigation }) => {
                     setSelectedPlace(name);
                     setSelectedLocation({
                         latitude: parseFloat(location.lat),
-                        longitude: parseFloat(location.lmg)
+                        longitude: parseFloat(location.lng)
                     });
                     // console.log(selectedLocation)
                     // console.log(selectedPlace);
-                    setModalVisible(true)
+                    // setModalVisible(true)
                     // setWaypoints(prevWaypoints => [...prevWaypoints, name]);
                 }}
                 fetchDetails={true}
@@ -171,7 +178,7 @@ const RenderPlans = ({ navigation }) => {
                     plans.length > 0 ? plans.map((item, index) => {
 
                         // return <DetectionCard key={index} classNumber={Number(item.classNumber)} fromDetection={false} />
-                        return <PlanCard key={index} name={item.name} index={index + 1} deleteAction={removeFromPlan}  location={{...selectedLocation}}/>
+                        return <PlanCard key={index} name={item.name} index={index + 1} deleteAction={removeFromPlan}  location={{...item.location}}/>
                     })
                         : <Text style={{ color: 'black', textAlign: 'center', paddingTop: '50%' }}>Add detections to plan to view them here.</Text>
                 }

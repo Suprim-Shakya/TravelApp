@@ -20,7 +20,9 @@ const PlanCard = ({ name, index, deleteAction, location}) => {
     }
 
     function handleViewOnMap () {
-        // navigation.navigate('Maps', { ...location, title: name })
+        console.log(location.latitude)
+        console.log(location.longitude)
+        navigation.navigate('Maps', { location: {...location}, title: name })
         return null
     }
 

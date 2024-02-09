@@ -5,7 +5,7 @@ import COLORS from '../../constants/colors';
 import Icon from "react-native-vector-icons/MaterialCommunityIcons"
 
 
-const CustomModal = ({ visible = false, header, text, onPress1, onPress2, title1, title2, danger1 = true, closeModal }) => {
+const CustomModal = ({ visible , header, text, onPress1, onPress2, title1, title2, danger1 = true, closeModal }) => {
     return (
         <Modal
             animationType="fade"
