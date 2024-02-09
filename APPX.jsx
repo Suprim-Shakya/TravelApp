@@ -28,6 +28,7 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import RenderPlans from './src/componentsSaurav/screens/PlanScreen/RenderPlans';
 import CustomButton from './src/componentsSaurav/customComponents/CustomButton';
 import OptimizedWaypointsExample from './src/ComponentsPrajwol/screens/GoogleMapScreen';
+import GoogleSearch from './src/componentsSaurav/screens/GoogleSearch';
 
 
 const stack = createStackNavigator();
@@ -65,8 +66,8 @@ const BookmarkScreenStack = ({ navigation }) => {
 					title: "Bookmarks",
 					headerStyle: { backgroundColor: COLORS.primary },
 					headerTitleStyle: { color: 'white', fontSize: 20, fontWeight: 'bold', alignSelf: 'center' },
-					headerLeft: () => 
-						<View style={{marginLeft: 16}} > 
+					headerLeft: () =>
+						<View style={{ marginLeft: 16 }} >
 							<IconX
 								name="arrow-left"
 								color='white'
@@ -90,8 +91,8 @@ const PlanScreenStack = ({ navigation }) => {
 					title: "Plans",
 					headerStyle: { backgroundColor: COLORS.primary },
 					headerTitleStyle: { color: 'white', fontSize: 20, fontWeight: 'bold', alignSelf: 'center' },
-					headerLeft: () => 
-						<View style={{marginLeft: 16}} > 
+					headerLeft: () =>
+						<View style={{ marginLeft: 16 }} >
 							<IconX
 								name="arrow-left"
 								color='white'
@@ -167,7 +168,7 @@ const TabNav = ({ navigation }) => {
 					tabBarIcon: ({ color, size }) => <IconX name='clipboard-list-outline' color={color} size={size * 1.2} />
 				}} />
 
-<Tab.Screen name='Google Maps' component={OptimizedWaypointsExample}
+			<Tab.Screen name='Google Maps' component={GoogleSearch}
 				options={{ tabBarIcon: ({ color, size }) => <Icon name='router' color={color} size={size * 1.2} /> }} />
 
 		</Tab.Navigator>
