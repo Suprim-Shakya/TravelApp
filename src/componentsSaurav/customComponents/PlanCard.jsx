@@ -18,11 +18,12 @@ const PlanCard = ({ name, index, deleteAction, location}) => {
     const handlePlanPress = () => {
         setInfoModalVisible(true)
     }
-
+    
     function handleViewOnMap () {
         console.log(location.latitude)
         console.log(location.longitude)
         navigation.navigate('Maps', { location: {...location}, title: name })
+        setInfoModalVisible(false)
         return null
     }
 

@@ -16,6 +16,7 @@ import { MAPS_API_KEY } from '../../config';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete'; //install
 import PlanCard from '../../customComponents/PlanCard';
 import CustomModal from '../../customComponents/CustomModal';
+import SmallButton from '../../customComponents/SmallButton';
 
 
 const RenderPlans = ({ navigation }) => {
@@ -99,12 +100,9 @@ const RenderPlans = ({ navigation }) => {
         }
     }, [selectedPlace, selectedLocation]);
 
-    async function handleGoToMaps() {
+    async function handleGetDirections() {
         const locations = await getLocationOfPlans()
-        if (locations) {
-            navigation.navigate('Maps', { locations: locations, text: 'hello' })
-        }
-
+        console.log(locations)
     }
 
     // useEffect(() => {
@@ -129,10 +127,11 @@ const RenderPlans = ({ navigation }) => {
         setModalVisible(false)
         return null
     }
-
+    
     function handleViewOnMap() {
-
-        navigation.navigate('Maps', { location: {...selectedLocation}, title: selectedPlace })
+        console.log("inside")
+        navigation.navigate('Maps', { location: { ...selectedLocation }, title: selectedPlace })
+        setModalVisible(false)
         return null
     }
 
@@ -178,7 +177,7 @@ const RenderPlans = ({ navigation }) => {
                     plans.length > 0 ? plans.map((item, index) => {
 
                         // return <DetectionCard key={index} classNumber={Number(item.classNumber)} fromDetection={false} />
-                        return <PlanCard key={index} name={item.name} index={index + 1} deleteAction={removeFromPlan}  location={{...item.location}}/>
+                        return <PlanCard key={index} name={item.name} index={index + 1} deleteAction={removeFromPlan} location={{ ...item.location }} />
                     })
                         : <Text style={{ color: 'black', textAlign: 'center', paddingTop: '50%' }}>Add detections to plan to view them here.</Text>
                 }
@@ -198,11 +197,26 @@ const RenderPlans = ({ navigation }) => {
 
 
 
-            <Pressable style={styles.btn} onPress={handleGoToMaps}>
-                <Icon name='map' color={COLORS.primary} size={30} />
-                <Text style={styles.btnText}> Get Directions </Text>
-            </Pressable>
+            <Pressable style={styles.btn}>
+                <Pressable
+                    onPress={handleGetDirections}
+                    android_ripple={{
+                        foreground: true,
+                        radius: 100,
+                        color: "rgba(0,0,0,0.2)",
+                        borderless: false,
+                    }}
+                    style={styles.content}
+                >
 
+                    <Icon name='map' color={COLORS.primary} size={30} />
+                    <Text style={styles.btnText}> Get Directions </Text>
+                </Pressable>
+            </Pressable>
+            {/* <View style={{ position: 'absolute', bottom: 50 }}>
+
+                <CustomButton text={"Get Directions"} iconName={"map"} btnBgColor={COLORS.secondary} btnTextColor={COLORS.primary} />
+            </View> */}
             <CustomModal
                 header={"Please choose an option"}
                 text={`Place: ${selectedPlace}\n Distance: \n Duration`}
@@ -231,6 +245,9 @@ const styles = StyleSheet.create({
         zIndex: 1,
         borderRadius: 100,
         backgroundColor: COLORS.secondary,
+        overflow: 'hidden'
+    },
+    content: {
         padding: 5,
         flex: 1,
         flexDirection: 'row',
