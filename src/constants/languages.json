@@ -1,0 +1,9 @@
+[
+    { "id": 0, "name": "नेपाली", "code": "np", "available": true },
+    { "id": 1, "name": "English", "code": "gb", "available": true },
+    { "id": 2, "name": "Français", "code": "fr", "available": true },
+    { "id": 3, "name": "Español", "code": "es", "available": false },
+    { "id": 4, "name": "Deutsch", "code": "de", "available": true },
+    { "id": 5, "name": "हिन्दी", "code": "in", "available": true },
+    { "id": 6, "name": "русский", "code": "ru", "available": true }
+]
