@@ -29,6 +29,8 @@ import RenderPlans from './src/componentsSaurav/screens/PlanScreen/RenderPlans';
 import CustomButton from './src/componentsSaurav/customComponents/CustomButton';
 import OptimizedWaypointsExample from './src/ComponentsPrajwol/screens/GoogleMapScreen';
 import GoogleSearch from './src/componentsSaurav/screens/GoogleSearch';
+import LanguageSelectionScreen from './src/componentsSaurav/screens/LanguageSelectionScreen';
+import { useTranslation } from 'react-i18next';
 
 
 const stack = createStackNavigator();
@@ -227,7 +229,11 @@ const App = () => {
 					<Drawer.Screen name='Plan' component={PlanScreenStack} options={{
 						drawerIcon: () => (<IconX name='clipboard-list-outline' size={20} />)
 					}} />
-					{/* can add stack of bookmarks */}
+
+					<Drawer.Screen name='Language' component={LanguageSelectionScreen} options={{
+						drawerIcon: () => (<IconX name='earth' size={20} />)
+					}} />
+
 				</Drawer.Navigator>
 
 			</NavigationContainer>

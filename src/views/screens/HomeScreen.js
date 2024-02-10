@@ -1,4 +1,5 @@
 import React, { useState,useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import {
   SafeAreaView,
@@ -224,6 +225,13 @@ const HomeScreen = ({navigation}) => {
     </TouchableOpacity>
     );
   };
+  const {t,i18n}=useTranslation();
+    function handlePress(code){
+        if (i18n.language !== code) {
+            i18n.changeLanguage(code);
+        }
+        console.log(code);
+    }
 
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: COLORS.white}}>
@@ -237,7 +245,7 @@ const HomeScreen = ({navigation}) => {
             paddingHorizontal: 20,
           }}>
           <View style={{flex: 1}}>
-            <Text style={style.headerTitle}>Discover the Best</Text>
+            <Text style={style.headerTitle}>{t('Discover')} the Best</Text>
             <Text style={style.headerTitle}>Sites to Travel</Text>
             <View style={style.inputContainer}>
 
