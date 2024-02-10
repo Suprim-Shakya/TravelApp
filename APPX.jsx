@@ -30,6 +30,7 @@ import CustomButton from './src/componentsSaurav/customComponents/CustomButton';
 import OptimizedWaypointsExample from './src/ComponentsPrajwol/screens/GoogleMapScreen';
 import GoogleSearch from './src/componentsSaurav/screens/GoogleSearch';
 import LanguageSelectionScreen from './src/componentsSaurav/screens/LanguageSelectionScreen';
+import { useTranslation } from 'react-i18next';
 
 
 const stack = createStackNavigator();

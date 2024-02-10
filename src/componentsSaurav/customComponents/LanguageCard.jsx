@@ -1,7 +1,9 @@
 import { Pressable, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import CountryFlag from "react-native-country-flag";
-
+import { useTranslation } from 'react-i18next';
+import i18next from 'i18next';
+import i18n from 'i18next';
 
 const LanguageCard = ({ language, code, enabled = true, onPress }) => {
 
@@ -32,8 +34,28 @@ const LanguageCard = ({ language, code, enabled = true, onPress }) => {
         },
     })
 
+    // const {t,i18n}=useTranslation();
+
+    // const changeLanguage=()=>{
+    //     if (i18n.language ==='en') {
+    //         i18n.changeLanguage('fr')
+    //         } 
+    //         else {
+    //         i18n.changeLanguage=('en')
+    //     }
+    // }
+    // const changeLanguage = () => {
+    //     // i18n.changeLanguage('fr')
+    //     if (i18n.language !== code) {
+    //         i18n.changeLanguage(code);
+    //     }
+    //     console.log(code);
+    // };
+
+
     return (
         <View style={styles.container}>
+             {/* <Text>{t('greet')} </Text> */}
             <Pressable
                 onPress={onPress}
                 style={styles.content}
