@@ -1,5 +1,6 @@
 import express from "express"
 import { baseReply } from "./controllers/base.controllers.js";
+import { register } from "./controllers/auth.controller.js";
 
 
 const app = express();
@@ -14,6 +15,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 app.route("/").get(baseReply)
+
+app.route("/api/v1/auth/register").post(register)
 
 
 

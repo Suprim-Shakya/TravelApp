@@ -2,15 +2,14 @@ import mongoose from "mongoose"
 
 
 const userSchema = new mongoose.Schema({
-    name: {
-        firstName: {
-            type: String,
-            required: [true, "first name is required"]
-        },
-        lastName: {
-            type: String,
-            required: [true, "last name is required"]
-        }
+
+    firstName: {
+        type: String,
+        required: [true, "first name is required"]
+    },
+    lastName: {
+        type: String,
+        required: [true, "last name is required"]
     },
     userName: {
         type: String,
