@@ -3,6 +3,7 @@ import { View, Text, TextInput, ScrollView, StyleSheet, Pressable, Image, Switch
 import COLORS from '../../../constants/colors';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import getLocalImage from '../../../componentsSaurav/getImage/getLocalImage';
+import addUserContribution from '../../../componentsSaurav/apiCalls/addUserContribution';
 
 
 
@@ -14,7 +15,9 @@ export default function ContributeScreen() {
 	const [ticketPrice, setTicketPrice] = useState('');
 	const [description, setDescription] = useState('');
 	const [imageUri, setImageUri] = useState(null);
+	const [imageFile, setImageFile] = useState();
 	const [errors, setErrors] = useState({})
+	const [loading, setLoading] = useState(false)
 
 	const validateForm = () => {
 		let errors = {}
@@ -38,25 +41,41 @@ export default function ContributeScreen() {
 		setErrors({});
 	};
 
-	const handleSubmit = () => {
+	function createFormData () {
+		const formData = new FormData();
+		name.trim() !== '' && formData.append('name', name);
+		// coordinates.trim() !== '' && formData.append('coordinates', coordinates);
+		hasTicket && formData.append("ticketRequired", true)
+		hasTicket && ticketPrice.trim() !== '' && formData.append('ticketPrice', ticketPrice);
+		description.trim() !== '' && formData.append('description', description);
+		imageFile && formData.append('placeImage', imageFile);
+		return formData
+	}
+
+	async function handleSubmit() {
 
 		if (validateForm()) {
-			// You can perform any actions with the input values here
-			console.log('Name:', name);
-			console.log('Coordinates:', coordinates);
-			console.log('Has Ticket:', hasTicket);
-			console.log('Has Ticket:', ticketPrice);
-			console.log('Description:', description);
-			console.log('image:', imageUri);
-			resetForm();
+			setLoading(true)
+	
+			const res = await addUserContribution(createFormData())
+			console.log(res)
+			setLoading(false)
+			// console.log('Name:', name);
+			// console.log('Coordinates:', coordinates);
+			// console.log('Has Ticket:', hasTicket);
+			// console.log('Has Ticket:', ticketPrice);
+			// console.log('Description:', description);
+			// console.log('image:', imageUri);
+			// resetForm();
 		}
 	};
 
 	async function handleAddImage() {
-		const image = await getLocalImage();
-		if (image) {
-			setImageUri(image)
+		const {imageFile, uri} = await getLocalImage();
+		if (uri) {
+			setImageUri(uri)
 		}
+		setImageFile(imageFile)
 	}
 
 	function clearImage() {
@@ -102,7 +121,7 @@ export default function ContributeScreen() {
 					</View>
 				)}
 			</Pressable>
-				{errors?.image && <Text style={[styles.headingText, styles.errorText]}>{errors.image}</Text>}
+			{errors?.image && <Text style={[styles.headingText, styles.errorText]}>{errors.image}</Text>}
 
 			<View style={styles.collection}>
 				<Text style={styles.headingText}>Name</Text>
@@ -175,8 +194,10 @@ export default function ContributeScreen() {
 						radius: 500,
 						color: "rgba(255,255,255,0.2)",
 						borderless: false,
-					}}>
-					<Text style={styles.btnTxt}>Contribute</Text>
+					}}
+					disabled={loading}
+				>
+					<Text style={styles.btnTxt}>{loading ? "Adding..." : "contribute"}</Text>
 				</Pressable>
 			</View>
 
