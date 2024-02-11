@@ -25,8 +25,9 @@ app.use(cors({
 
 
 //middlewares 
-app.use(express.urlencoded({ extended: true })); //parse form data 
 app.use(express.json());//parse JSON data
+app.use(express.urlencoded({ extended: true })); //parse form data 
+app.use(express.static("public")) //store some assets in public
 app.use(cookieParser())//parse cookies(access token)
 
 
