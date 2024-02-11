@@ -4,10 +4,15 @@ import { getAccessToken } from "../modules/handleAccessToken";
 
 export default async function addUserContribution(formData) {
 
-    console.log(1)
     const accessToken = await getAccessToken()
     
-    if (!accessToken) return false
+    if (!accessToken) {
+        console.error("access token not found")
+        Alert.alert("Oops", "You must be logged in to contribute.")
+        return false
+    }
+
+    
     try {
         const res = await fetch(CONTRIBUTION_ENDPOINT, {
             method: "POST",
@@ -26,7 +31,7 @@ export default async function addUserContribution(formData) {
             Alert.alert("Success", `${message} \nThe place is now discoverable.`)
             return true
         } else {
-            Alert.alert("Oops", `${message} \n Be sure to check places before adding.`)
+            Alert.alert("Oops", `${message} \nBe sure to check places before adding.`)
             return false
         }
 

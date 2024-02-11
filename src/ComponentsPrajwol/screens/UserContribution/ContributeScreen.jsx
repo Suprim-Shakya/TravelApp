@@ -10,7 +10,7 @@ import addUserContribution from '../../../componentsSaurav/apiCalls/addUserContr
 export default function ContributeScreen() {
 
 	const [name, setName] = useState('');
-	const [coordinates, setCoordinates] = useState('');
+	const [location, setLocation] = useState('');
 	const [hasTicket, setHasTicket] = useState(false);
 	const [ticketPrice, setTicketPrice] = useState('');
 	const [description, setDescription] = useState('');
@@ -22,7 +22,7 @@ export default function ContributeScreen() {
 	const validateForm = () => {
 		let errors = {}
 		if (!name) errors.name = "Name is required"
-		if (!coordinates) errors.coordinates = "Location is required"
+		if (!location) errors.location = "Location is required"
 		if (!imageUri) errors.image = "Image is required"
 		if (hasTicket && !ticketPrice) errors.ticketPrice = "Ticket Price is required"
 
@@ -33,7 +33,7 @@ export default function ContributeScreen() {
 
 	const resetForm = () => {
 		setName('');
-		setCoordinates('');
+		setLocation('');
 		setHasTicket(false);
 		setTicketPrice('');
 		setDescription('');
@@ -43,8 +43,8 @@ export default function ContributeScreen() {
 
 	function createFormData () {
 		const formData = new FormData();
-		name.trim() !== '' && formData.append('name', name);
-		// coordinates.trim() !== '' && formData.append('coordinates', coordinates);
+		name.trim() !== '' && formData.append('name', name.toLocaleLowerCase());
+		location.trim() !== '' && formData.append('location', location);
 		hasTicket && formData.append("ticketRequired", true)
 		hasTicket && ticketPrice.trim() !== '' && formData.append('ticketPrice', ticketPrice);
 		description.trim() !== '' && formData.append('description', description);
@@ -56,12 +56,11 @@ export default function ContributeScreen() {
 
 		if (validateForm()) {
 			setLoading(true)
-	
 			const res = await addUserContribution(createFormData())
-			console.log(res)
+			if (res) resetForm();
 			setLoading(false)
 			// console.log('Name:', name);
-			// console.log('Coordinates:', coordinates);
+			// console.log('location:', location);
 			// console.log('Has Ticket:', hasTicket);
 			// console.log('Has Ticket:', ticketPrice);
 			// console.log('Description:', description);
@@ -85,6 +84,13 @@ export default function ContributeScreen() {
 	function toggleTicket() {
 		setHasTicket(v => !v)
 	}
+
+	const handleTicketPriceChange = (text) => {
+		// Remove any non-numeric characters from the input text
+		const numericText = text.replace(/[^0-9]/g, '');
+		setTicketPrice(numericText);
+	  };
+
 	return (
 		<ScrollView style={styles.container}>
 
@@ -129,7 +135,7 @@ export default function ContributeScreen() {
 					placeholder='Name of the place'
 					style={[styles.inputField, errors?.name && { borderColor: COLORS.error }]}
 					value={name}
-					onChangeText={text => setName(text)}
+					onChangeText={text => setName(text.toLocaleLowerCase())}
 				/>
 			</View>
 
@@ -139,13 +145,13 @@ export default function ContributeScreen() {
 				<Text style={styles.headingText}>Location</Text>
 				<TextInput
 					placeholder='location of the site'
-					style={[styles.inputField, errors?.coordinates && { borderColor: COLORS.error }]}
-					value={coordinates}
-					onChangeText={text => setCoordinates(text)}
+					style={[styles.inputField, errors?.location && { borderColor: COLORS.error }]}
+					value={location}
+					onChangeText={text => setLocation(text)}
 				/>
 			</View>
 
-			{errors?.coordinates && <Text style={[styles.headingText, styles.errorText]}>{errors.coordinates}</Text>}
+			{errors?.location && <Text style={[styles.headingText, styles.errorText]}>{errors.location}</Text>}
 
 
 			<View style={[styles.collection, styles.ticketContainer]}>
@@ -164,7 +170,7 @@ export default function ContributeScreen() {
 							placeholder='Ticket Price'
 							style={[styles.inputField, errors?.ticketPrice && { borderColor: COLORS.error }]}
 							value={ticketPrice}
-							onChangeText={text => setTicketPrice(text)}
+							onChangeText={text => handleTicketPriceChange(text)}
 							keyboardType='numeric'
 						/>
 					</View>
