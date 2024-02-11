@@ -1,11 +1,10 @@
 import { Router } from "express";
-import { createUserContribution } from "../controllers/userContribution.controller.js";
-
+import { createUserContribution, getAllUserContribution } from "../controllers/userContribution.controller.js";
 
 
 const userContributionRouter = Router();
 
-userContributionRouter.route("/add").post(createUserContribution)
-
+userContributionRouter.route("/create").post(createUserContribution)
+userContributionRouter.route("/list").get(getAllUserContribution)
 
 export default userContributionRouter
