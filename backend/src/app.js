@@ -2,9 +2,19 @@ import express from "express"
 import { baseReply } from "./controllers/base.controllers.js";
 import cookieParser from "cookie-parser";
 import cors from "cors"
+import moment from "moment-timezone";
 
 const app = express();
 app.on("error", error => console.log(`Error occurred on creating express app: ${error}`))
+
+
+// middleware to set nepali time
+app.use((req, res, next) => {
+    // Set the timezone to Nepali  
+    moment.tz.setDefault('Asia\Kathmandu');
+    // Proceed to the next middleware  
+    next();
+});
 
 
 //handle CORS access
@@ -27,5 +37,11 @@ app.route("/").get(baseReply)
 import authRoutes from "./routes/auth.routes.js";
 app.use("/api/v1/auth", authRoutes)
 
+
+import { verifyAccessToken } from "./middlewares/auth.middleware.js";
+import secretRouter from "./routes/protected.routes.js";
+
+app.use(verifyAccessToken)
+app.use("/api/v1/protected", secretRouter)
 
 export default app
