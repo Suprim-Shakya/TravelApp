@@ -6,23 +6,50 @@ import getLocalImage from '../../../componentsSaurav/getImage/getLocalImage';
 
 
 
+export default function ContributeScreen() {
 
-
-const ContributeScreen = () => {
 	const [name, setName] = useState('');
 	const [coordinates, setCoordinates] = useState('');
 	const [hasTicket, setHasTicket] = useState(false);
 	const [ticketPrice, setTicketPrice] = useState('');
 	const [description, setDescription] = useState('');
 	const [imageUri, setImageUri] = useState(null);
+	const [errors, setErrors] = useState({})
 
-	const handleSave = () => {
-		// You can perform any actions with the input values here
-		console.log('Name:', name);
-		console.log('Coordinates:', coordinates);
-		console.log('Has Ticket:', hasTicket);
-		console.log('Description:', description);
-		console.log('image:', imageUri);
+	const validateForm = () => {
+		let errors = {}
+		if (!name) errors.name = "Name is required"
+		if (!coordinates) errors.coordinates = "Location is required"
+		if (!imageUri) errors.image = "Image is required"
+		if (hasTicket && !ticketPrice) errors.ticketPrice = "Ticket Price is required"
+
+		setErrors(errors)
+
+		return Object.keys(errors).length === 0; //true if no error messages
+	}
+
+	const resetForm = () => {
+		setName('');
+		setCoordinates('');
+		setHasTicket(false);
+		setTicketPrice('');
+		setDescription('');
+		setImageUri(null);
+		setErrors({});
+	};
+
+	const handleSubmit = () => {
+
+		if (validateForm()) {
+			// You can perform any actions with the input values here
+			console.log('Name:', name);
+			console.log('Coordinates:', coordinates);
+			console.log('Has Ticket:', hasTicket);
+			console.log('Has Ticket:', ticketPrice);
+			console.log('Description:', description);
+			console.log('image:', imageUri);
+			resetForm();
+		}
 	};
 
 	async function handleAddImage() {
@@ -44,7 +71,7 @@ const ContributeScreen = () => {
 
 			<Pressable
 				onPress={handleAddImage}
-				style={styles.imageContainer}
+				style={[styles.imageContainer, errors?.image && { borderColor: 'red' }]}
 				android_ripple={{
 					foreground: true,
 					radius: 500,
@@ -75,26 +102,32 @@ const ContributeScreen = () => {
 					</View>
 				)}
 			</Pressable>
+				{errors?.image && <Text style={[styles.headingText, styles.errorText]}>{errors.image}</Text>}
 
 			<View style={styles.collection}>
 				<Text style={styles.headingText}>Name</Text>
 				<TextInput
 					placeholder='Name of the place'
-					style={styles.inputField}
+					style={[styles.inputField, errors?.name && { borderColor: COLORS.error }]}
 					value={name}
 					onChangeText={text => setName(text)}
 				/>
 			</View>
 
+			{errors?.name && <Text style={[styles.headingText, styles.errorText]}>{errors.name}</Text>}
+
 			<View style={styles.collection}>
 				<Text style={styles.headingText}>Location</Text>
 				<TextInput
-					placeholder='Coordinates'
-					style={styles.inputField}
+					placeholder='location of the site'
+					style={[styles.inputField, errors?.coordinates && { borderColor: COLORS.error }]}
 					value={coordinates}
 					onChangeText={text => setCoordinates(text)}
 				/>
 			</View>
+
+			{errors?.coordinates && <Text style={[styles.headingText, styles.errorText]}>{errors.coordinates}</Text>}
+
 
 			<View style={[styles.collection, styles.ticketContainer]}>
 				<Switch
@@ -105,17 +138,21 @@ const ContributeScreen = () => {
 			</View>
 
 			{hasTicket &&
-				<View style={styles.collection}>
-					<Text style={styles.headingText}>Ticket Price</Text>
-					<TextInput
-						placeholder='Ticket Price'
-						style={styles.inputField}
-						value={ticketPrice}
-						onChangeText={text => setTicketPrice(text)}
-						keyboardType='numeric'
-					/>
-				</View>
+				<>
+					<View style={styles.collection}>
+						<Text style={styles.headingText}>Ticket Price</Text>
+						<TextInput
+							placeholder='Ticket Price'
+							style={[styles.inputField, errors?.ticketPrice && { borderColor: COLORS.error }]}
+							value={ticketPrice}
+							onChangeText={text => setTicketPrice(text)}
+							keyboardType='numeric'
+						/>
+					</View>
+					{errors?.ticketPrice && <Text style={[styles.headingText, styles.errorText]}>{errors.ticketPrice}</Text>}
+				</>
 			}
+
 
 			<View style={styles.collection}>
 				<Text style={styles.headingText}>Description</Text>
@@ -132,7 +169,7 @@ const ContributeScreen = () => {
 			<View style={styles.collection}>
 				<Pressable
 					style={styles.btn}
-					onPress={handleSave}
+					onPress={handleSubmit}
 					android_ripple={{
 						foreground: true,
 						radius: 500,
@@ -147,7 +184,6 @@ const ContributeScreen = () => {
 	);
 };
 
-export default ContributeScreen;
 
 const styles = StyleSheet.create({
 	container: {
@@ -214,6 +250,10 @@ const styles = StyleSheet.create({
 	ticketContainer: {
 		flexDirection: 'row',
 		justifyContent: "flex-end"
+	},
+	errorText: {
+		marginTop: 0,
+		color: COLORS.error
 	}
 })
 
