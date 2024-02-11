@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, ScrollView, StyleSheet, Pressable, Image, Switch } from 'react-native';
+import { View, Text, TextInput, ScrollView, StyleSheet, Pressable, Image, Switch, Alert } from 'react-native';
 import COLORS from '../../../constants/colors';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import getLocalImage from '../../../componentsSaurav/getImage/getLocalImage';
@@ -53,21 +53,21 @@ export default function ContributeScreen() {
 	}
 
 	async function handleSubmit() {
-
 		if (validateForm()) {
-			setLoading(true)
-			const res = await addUserContribution(createFormData())
-			if (res) resetForm();
-			setLoading(false)
-			// console.log('Name:', name);
-			// console.log('location:', location);
-			// console.log('Has Ticket:', hasTicket);
-			// console.log('Has Ticket:', ticketPrice);
-			// console.log('Description:', description);
-			// console.log('image:', imageUri);
-			// resetForm();
+			setLoading(true);
+			setTimeout(async () => {
+				try {
+					const res = await addUserContribution(createFormData());
+					if (res) resetForm();
+				} catch (error) {
+					Alert.alert('Timeout', 'Form submission timed out. Please try again later.');
+				} finally {
+					setLoading(false);
+				}
+			}, 30000); // 30 seconds timeout
 		}
 	};
+	
 
 	async function handleAddImage() {
 		const { imageFile, uri } = await getLocalImage();
