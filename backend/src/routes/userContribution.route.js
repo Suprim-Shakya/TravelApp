@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { createUserContribution, getAllUserContribution, getCurrentUserContribution } from "../controllers/userContribution.controller.js";
+import { createUserContribution, getAllUserContribution, getCurrentUserContribution, modifyUserContribution } from "../controllers/userContribution.controller.js";
 
 
 const userContributionRouter = Router();
@@ -7,5 +7,6 @@ const userContributionRouter = Router();
 userContributionRouter.route("/create").post(createUserContribution)
 userContributionRouter.route("/list").get(getAllUserContribution)
 userContributionRouter.route("/current").get(getCurrentUserContribution)
+userContributionRouter.route("/modify").patch(modifyUserContribution)
 
 export default userContributionRouter
