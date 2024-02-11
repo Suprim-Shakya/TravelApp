@@ -25,7 +25,7 @@ export default async function addUserContribution(formData) {
 
 
         const responseData = await res.json();
-        console.log(responseData)
+        // console.log(responseData)
         const message = responseData.message || "Contribution added successfully!";
         if (res.ok) {
             Alert.alert("Success", `${message} \nThe place is now discoverable.`)

@@ -41,7 +41,7 @@ export default function ContributeScreen() {
 		setErrors({});
 	};
 
-	function createFormData () {
+	function createFormData() {
 		const formData = new FormData();
 		name.trim() !== '' && formData.append('name', name.toLocaleLowerCase());
 		location.trim() !== '' && formData.append('location', location);
@@ -70,7 +70,7 @@ export default function ContributeScreen() {
 	};
 
 	async function handleAddImage() {
-		const {imageFile, uri} = await getLocalImage();
+		const { imageFile, uri } = await getLocalImage();
 		if (uri) {
 			setImageUri(uri)
 		}
@@ -89,7 +89,7 @@ export default function ContributeScreen() {
 		// Remove any non-numeric characters from the input text
 		const numericText = text.replace(/[^0-9]/g, '');
 		setTicketPrice(numericText);
-	  };
+	};
 
 	return (
 		<ScrollView style={styles.container}>
@@ -235,7 +235,7 @@ const styles = StyleSheet.create({
 		verticalAlign: "top"
 	},
 	btn: {
-		backgroundColor: COLORS.primary, // Use your preferred color
+		backgroundColor: COLORS.primary,
 		padding: 10,
 		alignItems: 'center',
 		borderRadius: 5,
