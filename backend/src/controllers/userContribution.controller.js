@@ -115,3 +115,27 @@ export const modifyUserContribution = asyncHandler(async (req, res) => {
     // Send the modified item as a response
     return res.status(200).json(new ApiResponse(200, "Item modified successfully", modifiedItem));
 });
+
+
+export const deleteUserContribution = asyncHandler(async (req, res) => {
+    // Extract the contribution ID from the request parameters
+    const { _id } = req.query;
+
+    // Check if the ID is provided
+    if (!_id) return res.status(400).json(new ApiResponse(400, "Contribution ID is required"));
+
+    // Find the contribution by ID
+    const contribution = await UserContribution.findById(_id);
+
+    // Check if the contribution exists
+    if (!contribution) return res.status(404).json(new ApiResponse(404, "Contribution not found"));
+
+    // Check if the current user is authorized to delete the contribution
+    if (contribution.userId.toString() !== req.user._id.toString()) return res.status(403).json(new ApiResponse(403, "Unauthorized: You do not have permission to delete this contribution"));
+
+    // Delete the contribution
+    await contribution.deleteOne({_id});
+
+    // Send a success response
+    return res.status(200).json(new ApiResponse(200, "Contribution deleted successfully", contribution));
+});
