@@ -75,3 +75,4 @@ yarn-error.log
 
 /android/app/src/main/AndroidMAnifest.xml
 
+/backend/.env
