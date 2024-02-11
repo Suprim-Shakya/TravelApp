@@ -31,6 +31,8 @@ import OptimizedWaypointsExample from './src/ComponentsPrajwol/screens/GoogleMap
 import GoogleSearch from './src/componentsSaurav/screens/GoogleSearch';
 import LanguageSelectionScreen from './src/componentsSaurav/screens/LanguageSelectionScreen';
 import { useTranslation } from 'react-i18next';
+import BackButton from './src/componentsSaurav/customComponents/BackButton';
+import MenuButton from './src/componentsSaurav/customComponents/MenuButton';
 
 
 const stack = createStackNavigator();
@@ -68,15 +70,7 @@ const BookmarkScreenStack = ({ navigation }) => {
 					title: "Bookmarks",
 					headerStyle: { backgroundColor: COLORS.primary },
 					headerTitleStyle: { color: 'white', fontSize: 20, fontWeight: 'bold', alignSelf: 'center' },
-					headerLeft: () =>
-						<View style={{ marginLeft: 16 }} >
-							<IconX
-								name="arrow-left"
-								color='white'
-								size={20}
-								onPress={() => navigation.goBack()}
-							/>
-						</View>
+					headerLeft: () => <BackButton />
 				}}
 			/>
 
@@ -84,6 +78,8 @@ const BookmarkScreenStack = ({ navigation }) => {
 		</stack.Navigator>
 	)
 }
+
+
 const PlanScreenStack = ({ navigation }) => {
 	return (
 		<stack.Navigator>
@@ -93,15 +89,7 @@ const PlanScreenStack = ({ navigation }) => {
 					title: "Plans",
 					headerStyle: { backgroundColor: COLORS.primary },
 					headerTitleStyle: { color: 'white', fontSize: 20, fontWeight: 'bold', alignSelf: 'center' },
-					headerLeft: () =>
-						<View style={{ marginLeft: 16 }} >
-							<IconX
-								name="arrow-left"
-								color='white'
-								size={20}
-								onPress={() => navigation.goBack()}
-							/>
-						</View>
+					headerLeft: () => <BackButton />
 				}}
 			/>
 
@@ -110,6 +98,29 @@ const PlanScreenStack = ({ navigation }) => {
 		</stack.Navigator>
 	)
 }
+
+
+const LanguageSelectionScreenStack = ({ navigation }) => {
+	return (
+		<stack.Navigator>
+			<stack.Screen name='changeLanguage' component={LanguageSelectionScreen}
+				options={{
+					headerShown: true,
+					title: "Select Language",
+					headerStyle: { backgroundColor: COLORS.primary },
+					headerTitleStyle: { color: 'white', fontSize: 20, fontWeight: 'bold', alignSelf: 'center' },
+					headerLeft: () => <BackButton />
+				}}
+			/>
+
+			{/* TODO:make back button a custom component and add to every element necessary add paddings accordingly */}
+			{/* TODO: REname main stack to home and add home icon */}
+
+		</stack.Navigator>
+	)
+}
+
+
 
 const TabNav = ({ navigation }) => {
 	const refRBSheet = useRef();
@@ -124,11 +135,7 @@ const TabNav = ({ navigation }) => {
 				color: 'white',
 				fontWeight: 'bold',
 			},
-			headerLeft: () => (
-				<Pressable onPress={() => navigation.openDrawer()} style={{ marginLeft: 5 }}>
-					<IconX name='menu' color='white' size={30} />
-				</Pressable>
-			),
+			headerLeft: () => <MenuButton/>,
 			tabBarActiveTintColor: COLORS.primary,
 			tabBarActiveBackgroundColor: COLORS.secondary,
 		}}>
@@ -195,11 +202,7 @@ const MainStack = ({ navigation }) => {
 						color: 'white',
 						fontWeight: 'bold',
 					},
-					headerLeft: () => (
-						<Pressable onPress={() => navigation.openDrawer()} style={{ marginLeft: 5 }}>
-							<IconX name='menu' color='white' size={30} />
-						</Pressable>
-					)
+					headerLeft: () => <MenuButton/>
 				}}
 			/>
 			<stack.Screen name='home' component={HomeScreen} />
@@ -230,7 +233,7 @@ const App = () => {
 						drawerIcon: () => (<IconX name='clipboard-list-outline' size={20} />)
 					}} />
 
-					<Drawer.Screen name='Language' component={LanguageSelectionScreen} options={{
+					<Drawer.Screen name='Language' component={LanguageSelectionScreenStack} options={{
 						drawerIcon: () => (<IconX name='earth' size={20} />)
 					}} />
 
