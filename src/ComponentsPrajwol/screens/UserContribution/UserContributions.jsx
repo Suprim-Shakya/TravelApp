@@ -1,54 +1,45 @@
-// import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-// import React from 'react'
-// import fetchUserContribution from './fetchUserContribution'
+// UserContributions.js
 
-// async function handleFetchUserContribution(){
-//     // console.log('PRessed contriv');
-//     const contribDetails= await fetchUserContribution();
-//     console.log("Inside SCreen");
-//     console.log(contribDetails);
-// }
-// const UserContributions = () => {
-//   return (
-//     <View>
-//       <TouchableOpacity onPress={handleFetchUserContribution}>
-//         <Text>Fetch details</Text>
-//       </TouchableOpacity>
-//     </View>
-//   )
-// }
-
-// export default UserContributions
-
-// const styles = StyleSheet.create({})
-
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { View, Text, TouchableOpacity, Image, StyleSheet } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import fetchUserContribution from './fetchUserContribution';
 
 const UserContributions = () => {
   const [contribDetails, setContribDetails] = useState(null);
+  const navigation = useNavigation();
 
-  const handleFetchUserContribution = async () => {
-    try {
-      const details = await fetchUserContribution();
-      setContribDetails(details);
-    } catch (error) {
-      console.error('Error fetching user contributions:', error);
-    }
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const details = await fetchUserContribution();
+        setContribDetails(details);
+      } catch (error) {
+        console.error('Error fetching user contributions:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  const navigateToDetails = (item) => {
+    // navigation.navigate('DetailsScreen', { details: item });
+    console.log('Pressed',item);
   };
 
   return (
     <View>
-      <TouchableOpacity onPress={handleFetchUserContribution}>
-        <Text>Fetch details</Text>
-      </TouchableOpacity>
-
       {contribDetails && contribDetails.documents && (
         <View>
-          <Text>Names:</Text>
           {contribDetails.documents.map((item) => (
-            <Text key={item.id}>{item.Name}</Text>
+            <TouchableOpacity
+              key={item.id}
+              style={styles.card}
+              onPress={() => navigateToDetails(item)}
+            >
+              <Image source={{ uri: item.imageurl }} style={styles.image} />
+              <Text style={styles.name}>{item.name}</Text>
+            </TouchableOpacity>
           ))}
         </View>
       )}
@@ -58,4 +49,22 @@ const UserContributions = () => {
 
 export default UserContributions;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  card: {
+    borderRadius: 10,
+    backgroundColor: '#ffffff',
+    margin: 10,
+    padding: 10,
+    alignItems: 'center',
+  },
+  image: {
+    width: 200,
+    height: 150,
+    borderRadius: 8,
+    marginBottom: 10,
+  },
+  name: {
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+});
