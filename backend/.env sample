@@ -1,0 +1,16 @@
+PORT = 1234
+MONGODB_URI = mongodb+srv://<user>:{passoword}@cluster0.aucbg0d.mongodb.net
+BASE_DB_Name = travelGuide
+
+CORS_ORIGIN = *
+
+ACCESS_TOKEN_SECRET_KEY = {placeaccesstokensecred}
+ACCESS_TOKEN_EXPIRY_PERIOD = "300000"
+
+REFRESH_TOKEN_SECRET_KEY = {placerefreshtokensecret}
+REFRESH_TOKEN_EXPIRY_PERIOD = 1h
+
+
+CLOUDINARY_CLOUD_NAME = {cloudinaryname}
+CLOUDINARY_API_KEY = {apikey}
+CLOUDINARY_API_SECRET = {apisecret}
