@@ -31,6 +31,10 @@ import OptimizedWaypointsExample from './src/ComponentsPrajwol/screens/GoogleMap
 import GoogleSearch from './src/componentsSaurav/screens/GoogleSearch';
 import LanguageSelectionScreen from './src/componentsSaurav/screens/LanguageSelectionScreen';
 import { useTranslation } from 'react-i18next';
+import ContributeScreen from './src/ComponentsPrajwol/screens/UserContribution/ContributeScreen'
+import UserContributions from './src/ComponentsPrajwol/screens/UserContribution/UserContributions';
+
+
 import BackButton from './src/componentsSaurav/customComponents/BackButton';
 import MenuButton from './src/componentsSaurav/customComponents/MenuButton';
 
@@ -159,18 +163,18 @@ const TabNav = ({ navigation }) => {
 				})
 				}
 			/>
-			<Tab.Screen name='Maps' component={Maps}
+			{/* <Tab.Screen name='Maps' component={Maps}
 				options={{
 					tabBarIcon: ({ color, size }) => <Icon name='map' color={color} size={size * 1.2} />,
 					headerTitle: "Maps"
 				}}
-			/>
-			<Tab.Screen name='Bookmarks' component={BookmarkScreenStack}
+			/> */}
+			{/* <Tab.Screen name='Bookmarks' component={BookmarkScreenStack}
 				options={{
 					tabBarIcon: ({ color, size }) => <Icon name='bookmark' color={color} size={size * 1.2} />,
 					headerShown: false
 				}}
-			/>
+			/> */}
 			<Tab.Screen name='Plan' component={PlanScreenStack}
 				options={{
 					headerShown: false,
@@ -178,7 +182,7 @@ const TabNav = ({ navigation }) => {
 				}} />
 
 			<Tab.Screen name='Google Maps' component={GoogleSearch}
-				options={{ tabBarIcon: ({ color, size }) => <Icon name='router' color={color} size={size * 1.2} /> }} />
+				options={{ tabBarIcon: ({ color, size }) => <Icon name='map' color={color} size={size * 1.2} /> }} />
 
 		</Tab.Navigator>
 		<BottomDrawer refRBSheet={refRBSheet} />
@@ -232,9 +236,15 @@ const App = () => {
 					<Drawer.Screen name='Plan' component={PlanScreenStack} options={{
 						drawerIcon: () => (<IconX name='clipboard-list-outline' size={20} />)
 					}} />
-
 					<Drawer.Screen name='Language' component={LanguageSelectionScreenStack} options={{
 						drawerIcon: () => (<IconX name='earth' size={20} />)
+					}} />
+
+					<Drawer.Screen name='Contribute' component={ContributeScreen} options={{
+						drawerIcon: () => (<IconX name='hand-heart-outline' size={20} />)
+					}} />
+					<Drawer.Screen name='User Contributions' component={UserContributions} options={{
+						drawerIcon: () => (<IconX name='attachment' size={20} />)
 					}} />
 
 				</Drawer.Navigator>
