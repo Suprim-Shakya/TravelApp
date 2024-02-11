@@ -38,6 +38,9 @@ import UserContributions from './src/ComponentsPrajwol/screens/UserContribution/
 import BackButton from './src/componentsSaurav/customComponents/BackButton';
 import MenuButton from './src/componentsSaurav/customComponents/MenuButton';
 
+import ActivitiesScreen from './src/ComponentsPrajwol/screens/ActivitiesScreen'
+import ActivitiesDetails from './src/ComponentsPrajwol/screens/ActivitiesDetails';
+
 
 const stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -111,6 +114,34 @@ const LanguageSelectionScreenStack = ({ navigation }) => {
 				options={{
 					headerShown: true,
 					title: "Select Language",
+					headerStyle: { backgroundColor: COLORS.primary },
+					headerTitleStyle: { color: 'white', fontSize: 20, fontWeight: 'bold', alignSelf: 'center' },
+					headerLeft: () => <BackButton />
+				}}
+			/>
+
+			{/* TODO:make back button a custom component and add to every element necessary add paddings accordingly */}
+			{/* TODO: REname main stack to home and add home icon */}
+
+		</stack.Navigator>
+	)
+}
+const ActivitiesScreenStack = ({ navigation }) => {
+	return (
+		<stack.Navigator>
+			<stack.Screen name='ActivitiesScreen' component={ActivitiesScreen}
+				options={{
+					headerShown: true,
+					title: "Activities",
+					headerStyle: { backgroundColor: COLORS.primary },
+					headerTitleStyle: { color: 'white', fontSize: 20, fontWeight: 'bold', alignSelf: 'center' },
+					headerLeft: () => <BackButton />
+				}}
+			/>
+			<stack.Screen name='ActivitiesDetails' component={ActivitiesDetails}
+				options={{
+					headerShown: true,
+					title: "Activities",
 					headerStyle: { backgroundColor: COLORS.primary },
 					headerTitleStyle: { color: 'white', fontSize: 20, fontWeight: 'bold', alignSelf: 'center' },
 					headerLeft: () => <BackButton />
@@ -246,6 +277,10 @@ const App = () => {
 					<Drawer.Screen name='User Contributions' component={UserContributions} options={{
 						drawerIcon: () => (<IconX name='attachment' size={20} />)
 					}} />
+					<Drawer.Screen name='Activities' component={ActivitiesScreenStack} options={{
+						drawerIcon: () => (<IconX name='ferris-wheel' size={20} />)
+					}} />
+
 
 				</Drawer.Navigator>
 

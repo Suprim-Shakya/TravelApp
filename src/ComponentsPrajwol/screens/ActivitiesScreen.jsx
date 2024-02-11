@@ -1,13 +1,19 @@
 import React from 'react';
 import { View, Text, Image, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 import activities from '../../constants/activities';
 import COLORS from '../../constants/colors';
+import ActivitiesDetails from './ActivitiesDetails';
 
 const Card = ({ activity }) => {
+  const navigation = useNavigation();
+
   const handlePress = () => {
-    console.log(`Pressed: ${activity.name}`);
-    
+    console.log('Pressed:',activity);
+    console.log('Pressed:',activity.plusCode);
+    // navigation.navigate('ActivitiesDetails'); // Change 'DetailsScreen' to the name of your target screen
+    navigation.navigate('ActivitiesDetails', { activity }); // Change 'DetailsScreen' to the name of your target screen
   };
 
   return (

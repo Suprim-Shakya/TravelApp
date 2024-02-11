@@ -1,5 +1,3 @@
-// UserContributions.js
-
 import React, { useState, useEffect } from 'react';
 import { View, Text, TouchableOpacity, Image, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
@@ -37,7 +35,7 @@ const UserContributions = () => {
               style={styles.card}
               onPress={() => navigateToDetails(item)}
             >
-              <Image source={{ uri: item.imageurl }} style={styles.image} />
+              <Image source={{ uri: item.imageUrl }} style={styles.image} />
               <Text style={styles.name}>{item.name}</Text>
             </TouchableOpacity>
           ))}
