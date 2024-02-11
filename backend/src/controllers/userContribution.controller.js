@@ -54,3 +54,16 @@ export const getAllUserContribution = asyncHandler(async (req, res) => {
 
     return res.json(new ApiResponse(200, "Existing places retrieved successfully", existingPlaces));
 })
+
+
+export const getCurrentUserContribution = asyncHandler(async (req, res)=> {
+    const currentUser = req.user._id;
+
+    const retrievedPlaces = await UserContribution.find({
+        userId: currentUser
+    })
+
+    if(retrievedPlaces.length === 0 ) return res.status(404).json(new ApiError(400, "No contributions found for the current user"));
+
+    return res.status(200).json(new ApiResponse(200, "Current user's contributions retrieved successfully", retrievedPlaces))
+})
