@@ -123,6 +123,24 @@ const LanguageSelectionScreenStack = ({ navigation }) => {
 		</stack.Navigator>
 	)
 }
+const ContributeScreenStack = ({ navigation }) => {
+	return (
+		<stack.Navigator>
+			<stack.Screen name='contribute' component={ContributeScreen}
+				options={{
+					headerShown: true,
+					title: "Make a Contribution",
+					headerStyle: { backgroundColor: COLORS.primary },
+					headerTitleStyle: { color: 'white', fontSize: 20, fontWeight: 'bold', alignSelf: 'center' },
+					headerLeft: () => <BackButton />
+				}}
+			/>
+
+
+
+		</stack.Navigator>
+	)
+}
 
 
 
@@ -240,7 +258,7 @@ const App = () => {
 						drawerIcon: () => (<IconX name='earth' size={20} />)
 					}} />
 
-					<Drawer.Screen name='Contribute' component={ContributeScreen} options={{
+					<Drawer.Screen name='Contribute' component={ContributeScreenStack} options={{
 						drawerIcon: () => (<IconX name='hand-heart-outline' size={20} />)
 					}} />
 					<Drawer.Screen name='User Contributions' component={UserContributions} options={{
