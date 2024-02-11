@@ -4,10 +4,10 @@ import { createUserContribution, deleteUserContribution, getAllUserContribution,
 
 const userContributionRouter = Router();
 
-userContributionRouter.route("/create").post(createUserContribution)
-userContributionRouter.route("/list").get(getAllUserContribution)
+userContributionRouter.route("/").post(createUserContribution)
+userContributionRouter.route("/").get(getAllUserContribution)
 userContributionRouter.route("/current").get(getCurrentUserContribution)
-userContributionRouter.route("/modify").patch(modifyUserContribution)
+userContributionRouter.route("/").patch(modifyUserContribution)
 userContributionRouter.route("/").delete(deleteUserContribution)
 
 export default userContributionRouter
