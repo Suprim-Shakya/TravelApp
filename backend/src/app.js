@@ -44,4 +44,8 @@ import secretRouter from "./routes/protected.routes.js";
 app.use(verifyAccessToken)
 app.use("/api/v1/protected", secretRouter)
 
+
+import userContributionRouter from "./routes/userContribution.route.js"; 
+app.use("/api/v1/contribution", userContributionRouter)
+
 export default app

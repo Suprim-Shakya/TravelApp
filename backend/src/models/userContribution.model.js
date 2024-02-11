@@ -2,6 +2,10 @@ import { Schema, model } from "mongoose"
 
 
 const userContributionSchema = new Schema({
+    userId: {
+        type: String,
+        required: [true, "Id of contributor is required"]
+    },
     imageUrl: {
         type: String,
         required: [true, "image is required"]
@@ -13,18 +17,30 @@ const userContributionSchema = new Schema({
     },
     description: {
         type: String,
+        default: "No description Given"
     },
     ticketRequired: {
         type: Boolean,
     },
     ticketPrice: {
         type: Number,
+        validate: {
+            validator: function(value) {
+                // Custom validation to ensure ticketPrice is provided when ticketRequired is true
+                return !this.ticketRequired || (this.ticketRequired && value != null);
+            },
+            message: "Ticket price is required when ticket is required"
+        }
     },
     restrictions: {
         type: String,
+    },
+    isVerified: {
+        type: Boolean,
+        default: false
     }
 })
 
 
 
-export const userContribution = model(userContribution, userContributionSchema)
+export const UserContribution = model("UserContribution", userContributionSchema)
