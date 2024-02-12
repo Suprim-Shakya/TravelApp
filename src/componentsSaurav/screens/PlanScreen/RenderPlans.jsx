@@ -1,29 +1,18 @@
-import { Modal, Pressable, StatusBar, StyleSheet, Text, View } from 'react-native'
+import { StatusBar, StyleSheet, Text, View } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-// import { ScrollView } from 'react-native-gesture-handler'; //Googleplaceautocomplete does not work 
 import { ScrollView } from 'react-native-virtualized-view';
-import DetectionCard from '../../customComponents/DetectionCard';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { addToPlan, loadExistingPlan, removeFromPlan } from "../../redux/features/planSlice";
 import COLORS from '../../../constants/colors';
-import CustomButton from '../../customComponents/CustomButton';
 import getLocationOfPlans from '../../modules/getLocationOfPlans';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
-import { Colors } from 'react-native/Libraries/NewAppScreen';
-import SearchPlaces from '../../../ComponentsPrajwol/screens/SearchPlaces';
-import { MAPS_API_KEY } from '../../config';
-import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete'; //install
 import PlanCard from '../../customComponents/PlanCard';
 import CustomModal from '../../customComponents/CustomModal';
-import SmallButton from '../../customComponents/SmallButton';
 import SearchBar from '../../customComponents/SearchBar';
 import BtnGetDirections from '../../customComponents/BtnGetDirections';
 import OptimizeWayPoints from '../../../ComponentsPrajwol/modules/OptimizeWayPoints';
 import openMap from 'react-native-open-maps';
 import { PureWaypointsConverter } from '../../../ComponentsPrajwol/modules/PureWaypointsCoverter';
-
-import { getmyLocation } from '../../../ComponentsPrajwol/modules/getMyLocation';
 
 
 
@@ -86,7 +75,7 @@ const RenderPlans = ({ navigation }) => {
         const savePlansToLocal = async () => {
             // console.log(`\n trying to save plan data to local`)
             await AsyncStorage.setItem('plan', JSON.stringify(plans))
-            const val = await AsyncStorage.getItem('plan')
+            // const val = await AsyncStorage.getItem('plan')
             // console.log(`\nChange after trying to save is: ${val}`)
 
         };
@@ -100,7 +89,7 @@ const RenderPlans = ({ navigation }) => {
         // console.log("inside use effect")
         if (selectedPlace !== '' && selectedLocation !== null) {
             setModalVisible(true);
-            console.log("inside use effect")
+            // console.log("inside use effect")
         }
     }, [selectedPlace, selectedLocation]);
 
@@ -110,24 +99,24 @@ const RenderPlans = ({ navigation }) => {
     //    const {latitude,longitude}=await getmyLocation();
     //    console.log('You are standing at',latitude,longitude);
     // }
-    
+
     async function handleGetDirections() {
         try {
             const locations = await getLocationOfPlans();
-            console.log('Planned locations:', locations);
+            // console.log('Planned locations:', locations);
 
             let pureWaypoints;
-    
+
             if (locations.length < 4) {
                 pureWaypoints = PureWaypointsConverter(locations);
             } else {
                 // Pass optimized_locations to PureWaypointsConverter
                 const optimized_locations = await OptimizeWayPoints(locations);
-                console.log('optimized locations:', optimized_locations);
+                // console.log('optimized locations:', optimized_locations);
                 pureWaypoints = PureWaypointsConverter(optimized_locations);
-                console.log(pureWaypoints);
+                // console.log(pureWaypoints);
             }
-    
+
             openMap({
                 travelType: 'drive',
                 // start: pureWaypoints[0],
@@ -141,27 +130,27 @@ const RenderPlans = ({ navigation }) => {
             console.error('Error:', error);
         }
     }
-    
 
-    function handleAddToPlan() {
-        const payload = {
-            name: selectedPlace,
-            location: {
-                ...selectedLocation
-            }
-        }
-        dispatch(addToPlan(payload))
-        // console.log(selectedLocation.lat)
-        setModalVisible(false)
-        return null
-    }
 
-    function handleViewOnMap() {
-        console.log("inside")
-        navigation.navigate('Maps', { location: { ...selectedLocation }, title: selectedPlace })
-        setModalVisible(false)
-        return null
-    }
+    // function handleAddToPlan() {
+    //     const payload = {
+    //         name: selectedPlace,
+    //         location: {
+    //             ...selectedLocation
+    //         }
+    //     }
+    //     dispatch(addToPlan(payload))
+    //     // console.log(selectedLocation.lat)
+    //     setModalVisible(false)
+    //     return null
+    // }
+
+    // function handleViewOnMap() {
+    //     // console.log("inside")
+    //     navigation.navigate('Maps', { location: { ...selectedLocation }, title: selectedPlace })
+    //     setModalVisible(false)
+    //     return null
+    // }
 
     function handlePressSearch() {
         navigation.navigate("Google Maps")
@@ -171,7 +160,7 @@ const RenderPlans = ({ navigation }) => {
         <View >
             <StatusBar backgroundColor={COLORS.primary} />
 
-            <SearchBar text={"Search places and add to plan..."} onPress={handlePressSearch} />
+            <SearchBar text={"Search and add to plan..."} onPress={handlePressSearch} />
 
             <ScrollView style={styles.scrollView}>
                 {
@@ -190,7 +179,7 @@ const RenderPlans = ({ navigation }) => {
 
             <BtnGetDirections onPress={handleGetDirections} />
 
-            <CustomModal
+            {/* <CustomModal
                 header={"Please choose an option"}
                 text={`Place: ${selectedPlace}\n Distance: \n Duration`}
                 title1={"Add to Plan"}
@@ -200,7 +189,7 @@ const RenderPlans = ({ navigation }) => {
                 visible={modalVisible}
                 danger1={false}
                 closeModal={() => setModalVisible(false)}
-            />
+            /> */}
 
         </View>
     )

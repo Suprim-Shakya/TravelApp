@@ -41,7 +41,7 @@ export async function getmyLocation() {
 async function example() {
   try {
     const userCoordinates = await getmyLocation();
-    console.log('User Coordinates:', userCoordinates);
+    // console.log('User Coordinates:', userCoordinates);
     // Now you can use the user's coordinates as needed
   } catch (error) {
     console.error(error.message);
