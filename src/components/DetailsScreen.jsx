@@ -50,7 +50,6 @@ import COLORS from '../constants/colors';
 import { ScrollView } from 'react-native-virtualized-view';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-
 import Geolocation from 'react-native-geolocation-service';
 import { PermissionsAndroid } from 'react-native';
 
@@ -137,33 +136,46 @@ const SemiFinalDetailsScreen = ({ navigation, route }) => {
 
     async function fetchInsideHeritage(){
       // console.log('inside the unesco');
-      console.log('inside the unesco',_id);
+      // console.log('inside the unesco',_id);
       const insideKDS=await fetchKDS();
       // const insideKDS=await fetchDetailsFromDb(12);
       // console.log(insideKDS);
       // const insideKDSData = insideKDS.document.className;
       // const insideKDSData = insideKDS.documents[0].className;
       const insideKDSData = insideKDS.documents;
-      console.log(insideKDSData);
-      setFinalData(insideKDSData);
+      // console.log(insideKDSData);
+      setFinalData(insideKDSData.slice(0,30));
       console.log('-------------------------------------------')
       console.log(finalData)
     }
     async function handleClassItemPress(item){
       console.log('You pressed',item.className)
       const info= await fetchDetailsFromDb(item.classNumber)
-      console.log("Finally, aaaaaaaa",info.classNumber)
+      console.log(typeof(info))
+      // console.log("Finally, aaaaaaaa",info.classNumber)
       // navigationn.navigate('FinalDetailsScreen',{});
       navigationn.navigate('FinalDetailsScreen', {...info});
 
     }
-    const renderItem = ({ item }) => (
-      <TouchableOpacity onPress={() => handleClassItemPress(item)}>
-          <View style={styles.listItem}>
-              <Text style={styles.listItemText}>{item.className}</Text>
-          </View>
-      </TouchableOpacity>
-  );
+  //   const renderItem = ({ item }) => (
+  //     <TouchableOpacity onPress={() => handleClassItemPress(item)}>
+  //         <View style={styles.listItem}>
+  //             <Text style={styles.listItemText}>{item.className}</Text>
+  //         </View>
+  //     </TouchableOpacity>
+  // );
+  const renderItem = ({ item }) => (
+    <View style={styles.cardContainer}>
+    <TouchableOpacity onPress={() => handleClassItemPress(item)}>
+        <View style={styles.smallCard}>
+            <Image source={{ uri: item.imageLink}} style={styles.cardImage} />
+            <View style={styles.cardContent}>
+                <Text style={styles.cardTitle}>{item.className}</Text>
+            </View>
+        </View>
+    </TouchableOpacity>
+    </View>
+);
   
 
     return (
@@ -202,8 +214,8 @@ const SemiFinalDetailsScreen = ({ navigation, route }) => {
                 {latitude && longitude && <Text style={styles.detailText}>Location: {latitude},{longitude}</Text>}
               </View>
               <View>
-                <TouchableOpacity onPress={fetchInsideHeritage}>
-                  <Text>Press for More info</Text></TouchableOpacity>
+                <TouchableOpacity onPress={fetchInsideHeritage} style={styles.btn}>
+                  <Text style={styles.btnTxt}>Explore Inside {className}</Text></TouchableOpacity>
                   <FlatList
                 data={finalData}
                 keyExtractor={(item) => item._id}
@@ -216,6 +228,51 @@ const SemiFinalDetailsScreen = ({ navigation, route }) => {
 };
 
 const styles = StyleSheet.create({
+  cardContainer:{
+    alignContent:'center',
+    // backgroundColor:'red',
+    alignItems:'center'
+  },
+  smallCard: {
+    flexDirection: 'row',
+    backgroundColor: 'white',
+    borderRadius: 10,
+    margin: 10,
+    elevation: 3, // for shadow on Android
+    shadowColor: '#000', // for shadow on iOS
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.3,
+    shadowRadius: 2,
+    width:'80%',
+},
+cardImage: {
+    width: 80,
+    height: 80,
+    borderTopLeftRadius: 10,
+    borderBottomLeftRadius: 10,
+    resizeMode: 'cover',
+},
+cardContent: {
+    flex: 1,
+    padding: 10,
+    alignItems: 'center', // Align text in the center horizontally
+    justifyContent: 'center', // Align text in the center vertically
+},
+cardTitle: {
+    fontSize: 16,
+    fontWeight: 'bold',
+},
+  btn:{
+    backgroundColor: COLORS.primary, // Use your preferred color
+          padding: 10,
+          marginTop:10,
+          marginHorizontal:60,
+          alignItems: 'center',
+          borderRadius: 5,
+},
+btnTxt:{
+    color:COLORS.white,
+},
     container: {
         flex: 1,
         backgroundColor: COLORS.white,

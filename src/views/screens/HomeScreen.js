@@ -250,11 +250,12 @@ const HomeScreen = ({navigation}) => {
 
   const navigateToWorldHeritageDetails = (item) => {
     navigationn.navigate('SemiFinalDetailsScreen',{...item});
+    // console.log(typeof(item))
     // navigationn.navigate('DetailsScreen',{...item});
     // navigationn.navigate('DetailsScreen', { worldheritageResponse: item });
     // navigationn.navigate('FinalDetailsScreen',{...item});
 
-    console.log('Pressed in homescreen',item);
+    // console.log('Pressed in homescreen',item);
     // console.log(`Coordinate is ${item.latitude},${item.longitude}`);
   };
 
@@ -469,23 +470,28 @@ const styles = StyleSheet.create({
   },
   cardWh: {
     width: 200,
-    height:200,
+    height: 200,
     borderRadius: 10,
-    backgroundColor: 'red',
-    marginLeft:20,
-    padding:0,
+    backgroundColor: '#fff',
+    marginLeft: 20,
+    padding: 0,
     alignItems: 'center',
+    overflow: 'hidden', 
   },
   imagewh: {
     width: '100%',
-    height: '80%',
+    height: '100%', 
     borderRadius: 8,
-    marginBottom: 0,
+    resizeMode: 'cover',
   },
   nameWh: {
-    fontSize: 14,
+    position: 'absolute', 
+    bottom: 10, 
+    fontSize: 20,
     fontWeight: 'bold',
     textAlign: 'center',
+    color: 'white', 
+    width: '100%', 
   },
 });
 
