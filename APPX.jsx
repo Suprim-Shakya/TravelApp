@@ -25,12 +25,10 @@ import DetectionDetail from './src/components/DetectionDetail';
 import { Provider } from 'react-redux'; //redux
 import store from './src/componentsSaurav/redux/app/store';
 import RenderBookmarks from './src/componentsSaurav/screens/BookmarkScreen/RenderBookmarks';
-import ScanScreen from './src/componentsSaurav/screens/BookmarkScreen/ScanScreen';
-import Bookmarks from './src/componentsSaurav/screens/BookmarkScreen/Bookmarks';
+
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import RenderPlans from './src/componentsSaurav/screens/PlanScreen/RenderPlans';
-import CustomButton from './src/componentsSaurav/customComponents/CustomButton';
-import OptimizedWaypointsExample from './src/ComponentsPrajwol/screens/GoogleMapScreen';
+
 import GoogleSearch from './src/componentsSaurav/screens/GoogleSearch';
 import LanguageSelectionScreen from './src/componentsSaurav/screens/LanguageSelectionScreen';
 import { useTranslation } from 'react-i18next';
@@ -40,18 +38,15 @@ import UserContributions from './src/ComponentsPrajwol/screens/UserContribution/
 
 import BackButton from './src/componentsSaurav/customComponents/BackButton';
 import MenuButton from './src/componentsSaurav/customComponents/MenuButton';
-import RegisterPage from './src/components/RegisterPage';
-import LoginPage from './src/components/LoginPage';
-import { getAccessToken } from './src/componentsSaurav/modules/handleAccessToken';
 import OnBoardScreen from './src/views/screens/OnBoardScreen';
 import RegisterScreen from './src/components/RegisterScreen';
 import LoginScreen from './src/components/LoginScreen';
 import { AuthProvider, useAuth } from './src/components/AuthContext';
-import CustomDrawerContent from './src/components/CustomDrawerContent';
+
 
 import ActivitiesScreen from './src/ComponentsPrajwol/screens/ActivitiesScreen'
 import ActivitiesDetails from './src/ComponentsPrajwol/screens/ActivitiesDetails';
-import WorldHeritage from './src/ComponentsPrajwol/screens/WorldHeritage/WorldHeritage';
+
 import SemiFinalDetailsScreen from './src/components/DetailsScreen';
 import DetailsScreenCuisine from './src/views/screens/DetailsScreenCuisine';
 // import { useAuth } from './src/components/AuthContext'
@@ -72,7 +67,7 @@ const HomeScreenStack = () => {
 			<stack.Screen name='DetailsScreen' component={DetailsScreen} />
 			<stack.Screen name='SemiFinalDetailsScreen' component={SemiFinalDetailsScreen} />
 			<stack.Screen name='FinalDetailsScreen' component={FinalDetailsScreen} />
-			
+
 		</stack.Navigator>
 	);
 };
@@ -305,7 +300,7 @@ const TabNav = ({ navigation }) => {
 					tabBarIcon: ({ color, size }) => <IconX name='clipboard-list-outline' color={color} size={size * 1.2} />
 				}} />
 
-			<Tab.Screen name='Google Maps' component={GoogleSearch}
+			<Tab.Screen name='Maps' component={GoogleSearch}
 				options={{ tabBarIcon: ({ color, size }) => <Icon name='map' color={color} size={size * 1.2} /> }} />
 
 		</Tab.Navigator>
@@ -347,21 +342,8 @@ const MainStack = ({ navigation }) => {
 
 const MainApp = () => {
 
-	// const AuthContext = createContext();
 
-	// // const [isLoggedIn, setIsLoggedIn] = useState(false)
-
-	// useEffect(() => {
-	// 	const checkLoginStatus = async () => {
-	// 		const status = await getAccessToken();
-	// 		console.log(`logged in status = ${status}`)
-	// 		setIsLoggedIn(status);
-	// 	};
-
-	// 	checkLoginStatus();
-	// }, [])
-
-	const {isLoggedIn} = useAuth();
+	const { isLoggedIn } = useAuth();
 
 	const { logout } = useAuth();
 	const Logout = () => {
@@ -378,43 +360,51 @@ const MainApp = () => {
 				{
 					!isLoggedIn ? <LoginStack /> :
 
-						<Drawer.Navigator screenOptions={{ headerShown: false }}
-							drawerContent={(props)=> <CustomDrawerContent {...props}/>}
-						>
+						<Drawer.Navigator screenOptions={{ headerShown: false }}>
 							{/* first one is shown by default */}
-							<Drawer.Screen name='MainStack' component={MainStack} />
+							<Drawer.Screen name='MainStack' component={MainStack}
+								options={{
+									drawerLabel: "Travel Guide",
+									drawerLabelStyle: {
+										fontWeight: '900', // Make the title bold
+										fontSize: 24,
+										color: 'black',
+										alignSelf: 'center'
+									},
+									
+									// drawerIcon: () => (<IconX name='home' size={24} color={COLORS.placeholder} />)
+								}}
+							/>
 							<Drawer.Screen name='Bookmarks' component={BookmarkScreenStack} options={{
-								drawerIcon: () => (<IconX name='bookmark' size={20} color={COLORS.placeholder}/>)
+								drawerIcon: () => (<IconX name='bookmark' size={24} color={COLORS.placeholder} />)
 							}} />
 							{/* can add stack of bookmarks */}
 							<Drawer.Screen name='Plan' component={PlanScreenStack} options={{
-								drawerIcon: () => (<IconX name='clipboard-list-outline' size={20} color={COLORS.placeholder}/>)
+								drawerIcon: () => (<IconX name='clipboard-list-outline' size={24} color={COLORS.placeholder} />)
 							}} />
 							<Drawer.Screen name='Language' component={LanguageSelectionScreenStack} options={{
-								drawerIcon: () => (<IconX name='earth' size={20} color={COLORS.placeholder}/>)
+								drawerIcon: () => (<IconX name='earth' size={24} color={COLORS.placeholder} />)
 							}} />
 
 							<Drawer.Screen name='Contribute' component={ContributeScreenStack} options={{
-								drawerIcon: () => (<IconX name='hand-heart-outline' size={20} color={COLORS.placeholder}/>)
-							}} 
+								drawerIcon: () => (<IconX name='hand-heart-outline' size={24} color={COLORS.placeholder} />)
+							}}
 							/>
 							<Drawer.Screen name='User Contributions' component={UserContributionStack} options={{
-								drawerIcon: () => (<IconX name='attachment' size={20} color={COLORS.placeholder}/>)
+								drawerIcon: () => (<IconX name='attachment' size={24} color={COLORS.placeholder} />)
 							}} />
 
-		
-					<Drawer.Screen name='Activities' component={ActivitiesScreenStack} options={{
-						drawerIcon: () => (<IconX name='ferris-wheel' size={20} />)
-					}} />
-					{/* <Drawer.Screen name='WH' component={WorldHeritage} options={{
-						drawerIcon: () => (<IconX name='ferris-wheel' size={20} />)
-					}} /> */}
-					<Drawer.Screen name='Logout' component={Logout} options={{
-						drawerIcon: () => (<IconX name='logout' size={20} />)
-					}} />
-					</Drawer.Navigator>
+
+							<Drawer.Screen name='Activities' component={ActivitiesScreenStack} options={{
+								drawerIcon: () => (<IconX name='ferris-wheel' size={24} color={COLORS.placeholder} />)
+							}} />
+
+							<Drawer.Screen name='Logout' component={Logout} options={{
+								drawerIcon: () => (<IconX name='logout' size={24} color={COLORS.placeholder} />)
+							}} />
+						</Drawer.Navigator>
 				}
-				
+
 			</NavigationContainer>
 		</Provider>
 
@@ -423,9 +413,9 @@ const MainApp = () => {
 
 
 const App = () => {
-	return(
+	return (
 		<AuthProvider>
-			<MainApp/>
+			<MainApp />
 		</AuthProvider>
 	)
 }

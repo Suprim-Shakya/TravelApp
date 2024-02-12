@@ -52,7 +52,7 @@ async function OptimizeWayPoints(route) {
     // const waypoints = route.slice(1, route.length - 1)
     const optimizedWayPoints = optimizedWaypointsIndex.map(item => route[item])
     optimizedWayPoints.push(route[route.length - 1])
-    optimizedWayPoints.unshift(route[0]) //optimized route
+    // optimizedWayPoints.unshift(route[0]) //optimized route
     // console.log('Optimized waypoints:',optimizedWayPoints);
     
     return(optimizedWayPoints)

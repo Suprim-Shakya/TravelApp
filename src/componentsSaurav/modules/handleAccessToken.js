@@ -23,3 +23,12 @@ export async function getAccessToken() {
         return false; // Indicate failure
     }
 }
+
+export async function removeAccessToken() {
+    try {
+         await AsyncStorage.removeItem("accessToken");
+    } catch (error) {
+        console.log("Error removing access token:", error);
+        return false; // Indicate failure
+    }
+}

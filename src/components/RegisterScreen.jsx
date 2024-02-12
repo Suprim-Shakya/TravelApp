@@ -1,10 +1,8 @@
-import { Pressable, ActivityIndicator, StatusBar, StyleSheet, Text, View, Switch } from 'react-native';
+import { Pressable, ActivityIndicator, StatusBar, StyleSheet, Text, View } from 'react-native';
 import React, { useState } from 'react';
 import COLORS from '../constants/colors';
 import { ScrollView, TextInput } from 'react-native-gesture-handler';
-import SmallButton from '../componentsSaurav/customComponents/SmallButton';
 import Icon from "react-native-vector-icons/MaterialCommunityIcons"
-import userLogin from '../componentsSaurav/apiCalls/userLogin';
 import userRegister from '../componentsSaurav/apiCalls/userRegister';
 
 const RegisterScreen = ({ navigation }) => {
@@ -23,12 +21,12 @@ const RegisterScreen = ({ navigation }) => {
         const data = new URLSearchParams();
         firstName.trim() !== '' && data.append('firstName', firstName);
         lastName.trim() !== '' && data.append('lastName', lastName);
-        userName.trim().toLowerCase() !== '' && data.append('userName', userName);
-        email.trim() !== '' && data.append('email', email);
+        userName.trim() !== '' && data.append('userName', userName.toLowerCase());
+        email.trim() !== '' && data.append('email', email.toLowerCase());
         password.trim() !== '' && data.append('password', password);
         return data;
     };
-    
+
 
     const validateForm = () => {
         let errors = {};
@@ -37,8 +35,16 @@ const RegisterScreen = ({ navigation }) => {
         if (!lastName) errors.lastName = "Last name is required";
         if (!userName) {
             errors.userName = "Username is required";
-        } else if (userName.length < 5) {
-            errors.userName = "Username must be at least 5 characters long";
+        } else {
+            if (/[A-Z]/.test(userName)) {
+                errors.userName = "Username must have small letters";
+            } else if (userName.length < 5) {
+                errors.userName = "Username must be at least 5 characters long";
+            } else if (/\W/.test(userName)) {
+                errors.userName = "Username cannot contain symbols";
+            } else if (/\d/.test(userName[0])) {
+                errors.userName = "Username cannot start with a number";
+            }
         }
         if (!email) {
             errors.email = "Email is required";
@@ -59,7 +65,7 @@ const RegisterScreen = ({ navigation }) => {
             setLoading(true)
             const data = createRegisterData();
             const response = await userRegister(data)
-            if (response){
+            if (response) {
                 setLoading(false)
                 navigation.navigate("Login")
             }
@@ -68,12 +74,15 @@ const RegisterScreen = ({ navigation }) => {
     };
 
     const handleFirstNameChange = (text) => {
-        setFirstName(text);
+        const lettersOnly = text.replace(/[^a-zA-Z]/g, ''); // Replace non-letter characters with an empty string
+        setFirstName(lettersOnly);
         // validateForm();
     };
+    
 
     const handleLastNameChange = (text) => {
-        setLastName(text);
+        const lettersOnly = text.replace(/[^a-zA-Z]/g, ''); // Replace non-letter characters with an empty string
+        setLastName(lettersOnly);
         // validateForm();
     };
 
@@ -167,7 +176,7 @@ const RegisterScreen = ({ navigation }) => {
 					trackColor={COLORS.placeholder}
 					thumbColor={COLORS.primary}
 				/> */}
-                <Icon color={COLORS.placeholder} size={30} name= {showPassword? 'eye' : 'eye-off'} onPress={togglePasswordVisibility}/>
+                    <Icon color={COLORS.placeholder} size={30} name={showPassword ? 'eye' : 'eye-off'} onPress={togglePasswordVisibility} />
                 </View>
             </View>
             {errors?.password && <Text style={[styles.headingText, styles.errorText]}>{errors.password}</Text>}

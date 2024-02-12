@@ -7,7 +7,6 @@ import { addToPlan, loadExistingPlan, removeFromPlan } from "../../redux/feature
 import COLORS from '../../../constants/colors';
 import getLocationOfPlans from '../../modules/getLocationOfPlans';
 import PlanCard from '../../customComponents/PlanCard';
-import CustomModal from '../../customComponents/CustomModal';
 import SearchBar from '../../customComponents/SearchBar';
 import BtnGetDirections from '../../customComponents/BtnGetDirections';
 import OptimizeWayPoints from '../../../ComponentsPrajwol/modules/OptimizeWayPoints';
@@ -21,10 +20,10 @@ const RenderPlans = ({ navigation }) => {
     const dispatch = useDispatch();
     const plans = useSelector(state => state.plan.plan);
 
-    const [selectedPlace, setSelectedPlace] = useState('');
-    const [selectedLocation, setSelectedLocation] = useState(null);
-    const [modalVisible, setModalVisible] = useState(false);
-
+    // const [selectedPlace, setSelectedPlace] = useState('');
+    // const [selectedLocation, setSelectedLocation] = useState(null);
+    // const [modalVisible, setModalVisible] = useState(false);
+    const [loading, setLoading] = useState(false);
 
     // useEffect(() => {
     //     if (selectedPlace !== '') {
@@ -85,13 +84,13 @@ const RenderPlans = ({ navigation }) => {
     }, [plans.length]);
 
 
-    useEffect(() => {
-        // console.log("inside use effect")
-        if (selectedPlace !== '' && selectedLocation !== null) {
-            setModalVisible(true);
-            // console.log("inside use effect")
-        }
-    }, [selectedPlace, selectedLocation]);
+    // useEffect(() => {
+    //     // console.log("inside use effect")
+    //     if (selectedPlace !== '' && selectedLocation !== null) {
+    //         setModalVisible(true);
+    //         // console.log("inside use effect")
+    //     }
+    // }, [selectedPlace, selectedLocation]);
 
 
     // async function handleGetDirections() {
@@ -102,12 +101,13 @@ const RenderPlans = ({ navigation }) => {
 
     async function handleGetDirections() {
         try {
+            setLoading(true)
             const locations = await getLocationOfPlans();
             // console.log('Planned locations:', locations);
 
             let pureWaypoints;
 
-            if (locations.length < 4) {
+            if (locations.length < 3) {
                 pureWaypoints = PureWaypointsConverter(locations);
             } else {
                 // Pass optimized_locations to PureWaypointsConverter
@@ -126,6 +126,7 @@ const RenderPlans = ({ navigation }) => {
                 navigate_mode: 'navigate',
                 // region: routeData,
             });
+            setLoading(false)
         } catch (error) {
             console.error('Error:', error);
         }
@@ -153,7 +154,7 @@ const RenderPlans = ({ navigation }) => {
     // }
 
     function handlePressSearch() {
-        navigation.navigate("Google Maps")
+        navigation.navigate("Maps")
     }
 
     return (
@@ -177,7 +178,7 @@ const RenderPlans = ({ navigation }) => {
 
             </ScrollView>
 
-            <BtnGetDirections onPress={handleGetDirections} />
+            <BtnGetDirections onPress={handleGetDirections} isLoading={loading} />
 
             {/* <CustomModal
                 header={"Please choose an option"}
