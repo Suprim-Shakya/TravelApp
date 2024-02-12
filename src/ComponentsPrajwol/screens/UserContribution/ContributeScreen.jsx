@@ -122,8 +122,8 @@ export default function ContributeScreen() {
 				) : (
 					<View style={styles.placeholder}>
 						{/* Placeholder content */}
-						<Icon name='add-a-photo' size={50} />
-						<Text>Add an image</Text>
+						<Icon name='add-a-photo' size={50} color={COLORS.placeholder}/>
+						<Text style={styles.text}>Add an image</Text>
 					</View>
 				)}
 			</Pressable>
@@ -133,6 +133,7 @@ export default function ContributeScreen() {
 				<Text style={styles.headingText}>Name</Text>
 				<TextInput
 					placeholder='Name of the place'
+					placeholderTextColor={COLORS.placeholder}
 					style={[styles.inputField, errors?.name && { borderColor: COLORS.error }]}
 					value={name}
 					onChangeText={text => setName(text.toLocaleLowerCase())}
@@ -145,6 +146,7 @@ export default function ContributeScreen() {
 				<Text style={styles.headingText}>Location</Text>
 				<TextInput
 					placeholder='location of the site'
+					placeholderTextColor={COLORS.placeholder}
 					style={[styles.inputField, errors?.location && { borderColor: COLORS.error }]}
 					value={location}
 					onChangeText={text => setLocation(text)}
@@ -158,6 +160,8 @@ export default function ContributeScreen() {
 				<Switch
 					value={hasTicket}
 					onChange={toggleTicket}
+					trackColor={COLORS.placeholder}
+					thumbColor={COLORS.primary}
 				/>
 				<Text style={styles.text}>Needs Ticket?</Text>
 			</View>
@@ -168,6 +172,7 @@ export default function ContributeScreen() {
 						<Text style={styles.headingText}>Ticket Price</Text>
 						<TextInput
 							placeholder='Ticket Price'
+							placeholderTextColor={COLORS.placeholder}
 							style={[styles.inputField, errors?.ticketPrice && { borderColor: COLORS.error }]}
 							value={ticketPrice}
 							onChangeText={text => handleTicketPriceChange(text)}
@@ -183,6 +188,7 @@ export default function ContributeScreen() {
 				<Text style={styles.headingText}>Description</Text>
 				<TextInput
 					placeholder='Description'
+					placeholderTextColor={COLORS.placeholder}
 					style={[styles.inputField, styles.description]}
 					multiline
 					numberOfLines={4}
@@ -215,6 +221,7 @@ export default function ContributeScreen() {
 const styles = StyleSheet.create({
 	container: {
 		paddingHorizontal: 15,
+		backgroundColor: COLORS.background
 	},
 	collection: {
 		marginTop: 20
@@ -229,7 +236,8 @@ const styles = StyleSheet.create({
 		borderWidth: 1.5,
 		borderRadius: 6,
 		fontSize: 16,
-		paddingLeft: 10
+		paddingLeft: 10,
+		color: 'black'
 	},
 	description: {
 		verticalAlign: "top"
@@ -250,8 +258,9 @@ const styles = StyleSheet.create({
 		alignItems: 'center',
 		backgroundColor: '#f2f2f2',
 		borderWidth: 2,
-		borderColor: '#999999',
+		borderColor: COLORS.placeholder,
 		borderStyle: 'dotted',
+		
 	},
 	placeholder: {
 		width: '100%',
