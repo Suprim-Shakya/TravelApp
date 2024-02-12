@@ -13,11 +13,11 @@ const CustomDrawerContent = (props) => {
     return (
         <DrawerContentScrollView {...props}>
             <View style={styles.drawerContent}>
-                <Image source={require("../assets/location2.jpg")} 
+                {/* <Image source={require("../assets/location2.jpg")} 
                 style={styles.image}
-                />
+                /> */}
                 <DrawerItemList {...props} />
-                <SmallButton title={"Logout"} onPress={handleLogout} />
+                {/* <SmallButton title={"Logout"} onPress={handleLogout} /> */}
             </View>
         </DrawerContentScrollView>
     );

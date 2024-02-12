@@ -1,4 +1,5 @@
 import SortWaypoints from "./SortWaypoints";
+import { getmyLocation } from "./getMyLocation";
 
 async function OptimizeWayPoints(route) {
 
@@ -16,6 +17,17 @@ async function OptimizeWayPoints(route) {
     //     { "latitude": 27.7509152, "longitude": 85.34558349999999 }
     // ]
     console.log('Optimizing...',route);
+    const{latitude : mylat,longitude: mylng}=await getmyLocation();
+    // console.log("Starting From",mylat,mylng)
+    const origin_google_format = {
+            location: {
+                latLng: {
+                    latitude: mylat,
+                    longitude: mylng,
+                },
+            },
+        };
+
     const waypoints_google_format = route.map(waypoint => {
         return {
             location: {
@@ -28,8 +40,8 @@ async function OptimizeWayPoints(route) {
     });
 
     const optimizedWaypointsIndex = await SortWaypoints(
-        waypoints_google_format[0],
-        waypoints_google_format.slice(1, waypoints_google_format.length - 1),
+        origin_google_format,
+        waypoints_google_format.slice(0, waypoints_google_format.length - 1),
         waypoints_google_format[waypoints_google_format.length - 1]
     )
     

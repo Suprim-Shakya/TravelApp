@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, TouchableOpacity, Image, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import fetchUserContribution from './fetchUserContribution';
+import { ScrollView } from 'react-native-virtualized-view';
 
 const UserContributions = () => {
   const [contribDetails, setContribDetails] = useState(null);
@@ -26,7 +27,7 @@ const UserContributions = () => {
   };
 
   return (
-    <View>
+    <ScrollView>
       {contribDetails && contribDetails.documents && (
         <View>
           {contribDetails.documents.map((item) => (
@@ -41,7 +42,7 @@ const UserContributions = () => {
           ))}
         </View>
       )}
-    </View>
+    </ScrollView>
   );
 };
 

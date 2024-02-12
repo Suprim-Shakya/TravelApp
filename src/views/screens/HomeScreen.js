@@ -31,7 +31,7 @@ import DetailsScreen from '../../components/DetailsScreen'
 import FinalDetailsScreen from '../../components/DetectionDetail';
 import SemiFinalDetailsScreen from '../../components/DetailsScreen';
 import DetailsScreenCuisine from './DetailsScreenCuisine';
-
+import Iconx from 'react-native-vector-icons/MaterialCommunityIcons'
 const data = [
   { id: '0', title: 'Akash Bhairab Temple' },
   { id: '1', title: 'Bhagwati Temple' },
@@ -152,7 +152,7 @@ const HomeScreen = ({navigation}) => {
 
   const categoryIcons = [
     <Icon name="restaurant" size={25} color={COLORS.dark}/>, 
-    <Icon name="emergency" size={25} color={COLORS.dark} />,
+    <Iconx name="hospital" size={25} color={COLORS.dark} />,
     <Icon name="wc" size={25} color={COLORS.dark} />,
     <Icon name="atm" size={25} color={COLORS.dark} />,
   ];
@@ -341,7 +341,7 @@ const HomeScreen = ({navigation}) => {
             data={cuisines}
             renderItem={({item}) => <RecommendedCard place={item} />}
           />
-          <Text style={style.sectionTitle}>Activities</Text>
+          {/* <Text style={style.sectionTitle}>Activities</Text>
           <FlatList
             snapToInterval={width - 20}
             contentContainerStyle={{paddingLeft: 20, paddingBottom: 20}}
@@ -349,8 +349,8 @@ const HomeScreen = ({navigation}) => {
             horizontal
             data={activities}
             renderItem={({item}) => <RecommendedCard place={item} />}
-          />
-        </View>
+          /> */}
+        
       </ScrollView>
     </SafeAreaView>
   );
@@ -382,7 +382,7 @@ const style = StyleSheet.create({
     elevation: 12,
   },
   categoryContainer: {
-    marginTop: 60,
+    marginTop: 50,
     marginHorizontal: 20,
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -398,7 +398,7 @@ const style = StyleSheet.create({
   },
   sectionTitle: {
     marginHorizontal: 20,
-    marginVertical: 20,
+    marginVertical: 10,
     fontWeight: 'bold',
     fontSize: 20,
 
@@ -478,6 +478,7 @@ const styles = StyleSheet.create({
   },
   containerWh: {
     flexDirection: 'row',
+    zIndex:-1,
   },
   cardWh: {
     width: 200,
@@ -488,6 +489,7 @@ const styles = StyleSheet.create({
     padding: 0,
     alignItems: 'center',
     overflow: 'hidden', 
+    zIndex:-1,
   },
   imagewh: {
     width: '100%',
