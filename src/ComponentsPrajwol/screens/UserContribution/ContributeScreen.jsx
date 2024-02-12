@@ -4,6 +4,7 @@ import COLORS from '../../../constants/colors';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import getLocalImage from '../../../componentsSaurav/getImage/getLocalImage';
 import addUserContribution from '../../../componentsSaurav/apiCalls/addUserContribution';
+import { ActivityIndicator } from 'react-native';
 
 
 
@@ -55,19 +56,14 @@ export default function ContributeScreen() {
 	async function handleSubmit() {
 		if (validateForm()) {
 			setLoading(true);
-			setTimeout(async () => {
-				try {
-					const res = await addUserContribution(createFormData());
-					if (res) resetForm();
-				} catch (error) {
-					Alert.alert('Timeout', 'Form submission timed out. Please try again later.');
-				} finally {
-					setLoading(false);
-				}
-			}, 30000); // 30 seconds timeout
+			const res = await addUserContribution(createFormData());
+			if (res) {
+				resetForm();
+			}
+			setLoading(false);
 		}
 	};
-	
+
 
 	async function handleAddImage() {
 		const { imageFile, uri } = await getLocalImage();
@@ -122,7 +118,7 @@ export default function ContributeScreen() {
 				) : (
 					<View style={styles.placeholder}>
 						{/* Placeholder content */}
-						<Icon name='add-a-photo' size={50} color={COLORS.placeholder}/>
+						<Icon name='add-a-photo' size={50} color={COLORS.placeholder} />
 						<Text style={styles.text}>Add an image</Text>
 					</View>
 				)}
@@ -209,7 +205,15 @@ export default function ContributeScreen() {
 					}}
 					disabled={loading}
 				>
-					<Text style={styles.btnTxt}>{loading ? "Adding..." : "contribute"}</Text>
+					<View >
+						{loading ?
+							<View style={styles.btnContent}>
+								<Text style={styles.btnTxt}>Adding..</Text>
+								<ActivityIndicator color={COLORS.white} />
+							</View>
+							: <Text style={styles.btnTxt}>Contribute</Text>
+						}
+					</View>
 				</Pressable>
 			</View>
 
@@ -260,7 +264,7 @@ const styles = StyleSheet.create({
 		borderWidth: 2,
 		borderColor: COLORS.placeholder,
 		borderStyle: 'dotted',
-		
+
 	},
 	placeholder: {
 		width: '100%',
@@ -290,6 +294,9 @@ const styles = StyleSheet.create({
 	errorText: {
 		marginTop: 0,
 		color: COLORS.error
+	},
+	btnContent: {
+		flexDirection: 'row'
 	}
 })
 
