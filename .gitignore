@@ -70,8 +70,11 @@ yarn-error.log
 
 /src/componentsSaurav/config.js
 
+/src/ComponentsPrajwol/screens/UserContribution/UserContributionConfig.js
+
 /src/componentsSaurav/untrackedFiles
 .vscode
 
 /android/app/src/main/AndroidMAnifest.xml
 
+.env

@@ -22,6 +22,7 @@ import cuisines from '../../constants/cusines';
 
 import openMap from 'react-native-open-maps';
 import fetchDetailsFromDb from '../../componentsSaurav/apiCalls/fetchDataFromDB';
+import activities from '../../constants/activities';
 
 const data = [
   { id: '0', title: 'Akash Bhairab Temple' },
@@ -282,14 +283,14 @@ const HomeScreen = ({navigation}) => {
             renderItem={({item}) => <RecommendedCard place={item} />}
           />
           <Text style={style.sectionTitle}>Activities</Text>
-          {/* <FlatList
+          <FlatList
             snapToInterval={width - 20}
             contentContainerStyle={{paddingLeft: 20, paddingBottom: 20}}
             showsHorizontalScrollIndicator={false}
             horizontal
             data={activities}
             renderItem={({item}) => <RecommendedCard place={item} />}
-          /> */}
+          />
         </View>
       </ScrollView>
     </SafeAreaView>

@@ -3,7 +3,7 @@ import React from 'react'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import COLORS from '../../constants/colors';
 
-const CustomButton = ({ text, onPress, iconName, iconSize, iconColor, btnBgColor, btnTextColor }) => {
+const CustomButton = ({ text, onPress, iconName, iconSize, iconColor, btnBgColor, btnTextColor, fontSize = 16, fontWeight = 'normal' }, rippleColor = "white" ) => {
 
     const styles = StyleSheet.create({
         button: {
@@ -23,7 +23,8 @@ const CustomButton = ({ text, onPress, iconName, iconSize, iconColor, btnBgColor
         },
         text: {
             color: 'white',
-            fontSize: 16,
+            fontSize: fontSize,
+            fontWeight: fontWeight,
         }
     })
     return (
@@ -33,7 +34,7 @@ const CustomButton = ({ text, onPress, iconName, iconSize, iconColor, btnBgColor
             android_ripple={{
                 foreground: true, 
                 radius:100, 
-                color:"rgba(255,255,255,0.2)",
+                color: (rippleColor == "white")  ? "rgba(255,255,255,0.2)" : "rgba(0,0,0,0.3)",
                 borderless: false,
             }}
         >
