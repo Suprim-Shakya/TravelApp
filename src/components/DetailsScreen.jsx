@@ -1,10 +1,54 @@
+// // DetailsScreen.js
+
+// import React from 'react';
+// import { View, Text, Image, StyleSheet } from 'react-native';
+
+// const DetailsScreen = ({ route }) => {
+//   const { details } = route.params;
+
+//   return (
+//     <View style={styles.container}>
+//       <Image source={{ uri: details.imageurl }} style={styles.image} />
+//       <Text style={styles.name}>{details.Name}</Text>
+//       <Text style={styles.description}>{details.Description}</Text>
+//       {/* Add more details as needed */}
+//     </View>
+//   );
+// };
+
+// export default DetailsScreen;
+
+// const styles = StyleSheet.create({
+//   container: {
+//     flex: 1,
+//     alignItems: 'center',
+//     justifyContent: 'center',
+//   },
+//   image: {
+//     width: 300,
+//     height: 200,
+//     borderRadius: 10,
+//     marginBottom: 10,
+//   },
+//   name: {
+//     fontSize: 20,
+//     fontWeight: 'bold',
+//     marginBottom: 5,
+//   },
+//   description: {
+//     fontSize: 16,
+//     textAlign: 'center',
+//     marginHorizontal: 20,
+//   },
+// });
+
 import React, { useEffect, useState } from 'react';
-import { View, Text, Image, StyleSheet, ImageBackground, StatusBar, Pressable, TouchableOpacity } from 'react-native';
+import { View, Text, Image, StyleSheet, ImageBackground, StatusBar, Pressable, TouchableOpacity ,FlatList} from 'react-native';
 
 import COLORS from '../constants/colors';
-import { ScrollView } from 'react-native-gesture-handler';
+// import { ScrollView } from 'react-native-gesture-handler';
+import { ScrollView } from 'react-native-virtualized-view';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-
 
 import Geolocation from 'react-native-geolocation-service';
 import { PermissionsAndroid } from 'react-native';
@@ -12,11 +56,19 @@ import { PermissionsAndroid } from 'react-native';
 import { MAPS_API_KEY } from '../componentsSaurav/config';
 import MapViewDirections from 'react-native-maps-directions';
 import fetchWH from '../ComponentsPrajwol/screens/WorldHeritage/fetchWH';
+import fetchDetailsFromDb from '../componentsSaurav/apiCalls/fetchDataFromDB';
+import fetchKDS from './fetchKDS';
+import { useNavigation } from '@react-navigation/native';
+import FinalDetailsScreen from './DetectionDetail';
 
 
-const FinalDetailsScreen = ({ navigation, route }) => {
-    const { _id,className, architectureStyle, constructedBy, Ticket, Description, imageLink, constructionDate, latitude, longitude, Location,Year} = route.params;
+
+
+const SemiFinalDetailsScreen = ({ navigation, route }) => {
+    const { _id,className, architectureStyle, constructedBy, Ticket, Description, imageLink, constructionDate, latitude, longitude } = route.params;
     const [distance, setDistance] = useState(null);
+    const [finalData,setFinalData]=useState(null);
+    const navigationn = useNavigation();
     useEffect(() => {
       const fetchData = async () => {
         try {
@@ -82,9 +134,49 @@ const FinalDetailsScreen = ({ navigation, route }) => {
 
     console.log(latitude,longitude)
 
-    function fetchInsideHeritage(){
-      console.log('inside the unesco',_id);
+    async function fetchInsideHeritage(){
+      // console.log('inside the unesco');
+      // console.log('inside the unesco',_id);
+      const insideKDS=await fetchKDS();
+      // const insideKDS=await fetchDetailsFromDb(12);
+      // console.log(insideKDS);
+      // const insideKDSData = insideKDS.document.className;
+      // const insideKDSData = insideKDS.documents[0].className;
+      const insideKDSData = insideKDS.documents;
+      // console.log(insideKDSData);
+      setFinalData(insideKDSData.slice(0,30));
+      console.log('-------------------------------------------')
+      console.log(finalData)
     }
+    async function handleClassItemPress(item){
+      console.log('You pressed',item.className)
+      const info= await fetchDetailsFromDb(item.classNumber)
+      console.log(typeof(info))
+      // console.log("Finally, aaaaaaaa",info.classNumber)
+      // navigationn.navigate('FinalDetailsScreen',{});
+      navigationn.navigate('FinalDetailsScreen', {...info});
+
+    }
+  //   const renderItem = ({ item }) => (
+  //     <TouchableOpacity onPress={() => handleClassItemPress(item)}>
+  //         <View style={styles.listItem}>
+  //             <Text style={styles.listItemText}>{item.className}</Text>
+  //         </View>
+  //     </TouchableOpacity>
+  // );
+  const renderItem = ({ item }) => (
+    <View style={styles.cardContainer}>
+    <TouchableOpacity onPress={() => handleClassItemPress(item)}>
+        <View style={styles.smallCard}>
+            <Image source={{ uri: item.imageLink}} style={styles.cardImage} />
+            <View style={styles.cardContent}>
+                <Text style={styles.cardTitle}>{item.className}</Text>
+            </View>
+        </View>
+    </TouchableOpacity>
+    </View>
+);
+  
 
     return (
         
@@ -106,6 +198,7 @@ const FinalDetailsScreen = ({ navigation, route }) => {
                     onPress={navigation.goBack}
                 />
             </Pressable>
+            
             <View style={{ paddingHorizontal: 15 }}>
                 {architectureStyle && <Text style={styles.detailText}>Architecture Style: {architectureStyle}</Text>}
                 {constructedBy && <Text style={styles.detailText}>Constructed By: {constructedBy}</Text>}
@@ -120,16 +213,66 @@ const FinalDetailsScreen = ({ navigation, route }) => {
                 {Description && <Text style={styles.detailText}>Description: {Description}</Text>}
                 {latitude && longitude && <Text style={styles.detailText}>Location: {latitude},{longitude}</Text>}
               </View>
-              {/* <View>
-                <TouchableOpacity onPress={fetchInsideHeritage}>
-                  <Text>Press for More info</Text></TouchableOpacity>
-              </View> */}
+              <View>
+                <TouchableOpacity onPress={fetchInsideHeritage} style={styles.btn}>
+                  <Text style={styles.btnTxt}>Explore Inside {className}</Text></TouchableOpacity>
+                  <FlatList
+                data={finalData}
+                keyExtractor={(item) => item._id}
+                renderItem={renderItem}
+            />
+              </View>
            
         </ScrollView>
     );
 };
 
 const styles = StyleSheet.create({
+  cardContainer:{
+    alignContent:'center',
+    // backgroundColor:'red',
+    alignItems:'center'
+  },
+  smallCard: {
+    flexDirection: 'row',
+    backgroundColor: 'white',
+    borderRadius: 10,
+    margin: 10,
+    elevation: 3, // for shadow on Android
+    shadowColor: '#000', // for shadow on iOS
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.3,
+    shadowRadius: 2,
+    width:'80%',
+},
+cardImage: {
+    width: 80,
+    height: 80,
+    borderTopLeftRadius: 10,
+    borderBottomLeftRadius: 10,
+    resizeMode: 'cover',
+},
+cardContent: {
+    flex: 1,
+    padding: 10,
+    alignItems: 'center', // Align text in the center horizontally
+    justifyContent: 'center', // Align text in the center vertically
+},
+cardTitle: {
+    fontSize: 16,
+    fontWeight: 'bold',
+},
+  btn:{
+    backgroundColor: COLORS.primary, // Use your preferred color
+          padding: 10,
+          marginTop:10,
+          marginHorizontal:60,
+          alignItems: 'center',
+          borderRadius: 5,
+},
+btnTxt:{
+    color:COLORS.white,
+},
     container: {
         flex: 1,
         backgroundColor: COLORS.white,
@@ -164,6 +307,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default FinalDetailsScreen;
-
-//last one in the stack
+export default SemiFinalDetailsScreen;

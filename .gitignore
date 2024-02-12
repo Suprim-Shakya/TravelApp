@@ -71,6 +71,8 @@ yarn-error.log
 /src/componentsSaurav/config.js
 
 /src/ComponentsPrajwol/screens/UserContribution/UserContributionConfig.js
+/src/ComponentsPrajwol/screens/WorldHeritage/WHconfig.js
+/src/components/kdsConfig.js
 
 /src/componentsSaurav/untrackedFiles
 .vscode
