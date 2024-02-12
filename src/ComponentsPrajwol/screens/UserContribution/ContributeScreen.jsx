@@ -132,7 +132,7 @@ export default function ContributeScreen() {
 					placeholderTextColor={COLORS.placeholder}
 					style={[styles.inputField, errors?.name && { borderColor: COLORS.error }]}
 					value={name}
-					onChangeText={text => setName(text.toLocaleLowerCase())}
+					onChangeText={text => setName(text)}
 				/>
 			</View>
 

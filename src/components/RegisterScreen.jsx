@@ -78,7 +78,7 @@ const RegisterScreen = ({ navigation }) => {
     };
 
     const handleUserNameChange = (text) => {
-        setUserName(text.toLocaleLowerCase());
+        setUserName(text);
         // validateForm();
     };
 
