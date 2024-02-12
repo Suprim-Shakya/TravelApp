@@ -23,6 +23,8 @@ import OptimizeWayPoints from '../../../ComponentsPrajwol/modules/OptimizeWayPoi
 import openMap from 'react-native-open-maps';
 import { PureWaypointsConverter } from '../../../ComponentsPrajwol/modules/PureWaypointsCoverter';
 
+import { getmyLocation } from '../../../ComponentsPrajwol/modules/getMyLocation';
+
 
 
 const RenderPlans = ({ navigation }) => {
@@ -35,14 +37,14 @@ const RenderPlans = ({ navigation }) => {
     const [modalVisible, setModalVisible] = useState(false);
 
 
-    useEffect(() => {
-        if (selectedPlace !== '') {
-            console.log('Selected Place is:', selectedPlace);
-        }
-        if (selectedLocation !== '') {
-            console.log('Selected location is:', selectedLocation);
-        }
-    }, [selectedPlace, selectedLocation]);
+    // useEffect(() => {
+    //     if (selectedPlace !== '') {
+    //         console.log('Selected Place is:', selectedPlace);
+    //     }
+    //     if (selectedLocation !== '') {
+    //         console.log('Selected location is:', selectedLocation);
+    //     }
+    // }, [selectedPlace, selectedLocation]);
 
 
     useEffect(() => {
@@ -104,32 +106,16 @@ const RenderPlans = ({ navigation }) => {
 
 
     // async function handleGetDirections() {
-    //     const locations = await getLocationOfPlans()
-    //     console.log('Planned locations:',locations);
-
-    //     const optimized_locations =  await OptimizeWayPoints(locations);
-    //     console.log('optimized locations:',optimized_locations);
-
-    //     const pureWaypoints=PureWaypointsConverter(optimized_locations);
-        
-    //     // console.log('Pure Waypoints',pureWaypoints);
-
-    //     openMap({
-    //         travelType: 'drive',
-    //         start: pureWaypoints[0],
-    //         end: pureWaypoints[pureWaypoints.length-1],
-    //         waypoints:pureWaypoints.slice(1,pureWaypoints.length-1),
-    //         travelMode: 'driving',
-    //         navigate_mode: 'navigate',
-    //         // region: routeData,
-    //       });
+    //    console.log('Hello');
+    //    const {latitude,longitude}=await getmyLocation();
+    //    console.log('You are standing at',latitude,longitude);
     // }
-
+    
     async function handleGetDirections() {
         try {
             const locations = await getLocationOfPlans();
             console.log('Planned locations:', locations);
-    
+
             let pureWaypoints;
     
             if (locations.length < 4) {
@@ -139,13 +125,14 @@ const RenderPlans = ({ navigation }) => {
                 const optimized_locations = await OptimizeWayPoints(locations);
                 console.log('optimized locations:', optimized_locations);
                 pureWaypoints = PureWaypointsConverter(optimized_locations);
+                console.log(pureWaypoints);
             }
     
             openMap({
                 travelType: 'drive',
-                start: pureWaypoints[0],
+                // start: pureWaypoints[0],
                 end: pureWaypoints[pureWaypoints.length - 1],
-                waypoints: pureWaypoints.slice(1, pureWaypoints.length - 1),
+                waypoints: pureWaypoints.slice(0, pureWaypoints.length - 1),
                 travelMode: 'driving',
                 navigate_mode: 'navigate',
                 // region: routeData,

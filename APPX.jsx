@@ -54,11 +54,14 @@ import ActivitiesDetails from './src/ComponentsPrajwol/screens/ActivitiesDetails
 import WorldHeritage from './src/ComponentsPrajwol/screens/WorldHeritage/WorldHeritage';
 import SemiFinalDetailsScreen from './src/components/DetailsScreen';
 import DetailsScreenCuisine from './src/views/screens/DetailsScreenCuisine';
-
+// import { useAuth } from './src/components/AuthContext'
 
 const stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 const Drawer = createDrawerNavigator();
+
+
+
 
 
 
@@ -360,6 +363,11 @@ const MainApp = () => {
 
 	const {isLoggedIn} = useAuth();
 
+	const { logout } = useAuth();
+	const Logout = () => {
+		logout();
+	};
+
 	return (//redux provider
 		<Provider store={store}>
 
@@ -398,10 +406,15 @@ const MainApp = () => {
 					<Drawer.Screen name='Activities' component={ActivitiesScreenStack} options={{
 						drawerIcon: () => (<IconX name='ferris-wheel' size={20} />)
 					}} />
-					<Drawer.Screen name='WH' component={WorldHeritage} options={{
+					{/* <Drawer.Screen name='WH' component={WorldHeritage} options={{
 						drawerIcon: () => (<IconX name='ferris-wheel' size={20} />)
+					}} /> */}
+					<Drawer.Screen name='Logout' component={Logout} options={{
+						drawerIcon: () => (<IconX name='logout' size={20} />)
 					}} />
-
+					</Drawer.Navigator>
+				}
+				
 			</NavigationContainer>
 		</Provider>
 
