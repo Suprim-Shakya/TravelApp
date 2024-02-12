@@ -11,7 +11,8 @@ const COLORS = {
     aliceBlue: '#F0F8FF',
     background: '#FFF',
     danger: "#7A0012",
-    error: '#B00020'
+    error: '#B00020',
+    placeholder: "#666"
 }
 
 export default COLORS;
