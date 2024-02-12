@@ -4,6 +4,8 @@ import COLORS from '../constants/colors';
 import { ScrollView, TextInput } from 'react-native-gesture-handler';
 import SmallButton from '../componentsSaurav/customComponents/SmallButton';
 import Icon from "react-native-vector-icons/MaterialCommunityIcons"
+import userLogin from '../componentsSaurav/apiCalls/userLogin';
+import userRegister from '../componentsSaurav/apiCalls/userRegister';
 
 const RegisterScreen = ({ navigation }) => {
 
@@ -15,6 +17,18 @@ const RegisterScreen = ({ navigation }) => {
     const [showPassword, setShowPassword] = useState(false);
     const [errors, setErrors] = useState({})
     const [loading, setLoading] = useState(false)
+
+
+    const createRegisterData = () => {
+        const data = new URLSearchParams();
+        firstName.trim() !== '' && data.append('firstName', firstName);
+        lastName.trim() !== '' && data.append('lastName', lastName);
+        userName.trim() !== '' && data.append('userName', userName);
+        email.trim() !== '' && data.append('email', email);
+        password.trim() !== '' && data.append('password', password);
+        return data;
+    };
+    
 
     const validateForm = () => {
         let errors = {};
@@ -38,6 +52,19 @@ const RegisterScreen = ({ navigation }) => {
         setErrors(errors);
 
         return Object.keys(errors).length === 0; // true if no error messages
+    };
+
+    const handleSubmit = async () => {
+        if (validateForm()) {
+            setLoading(true)
+            const data = createRegisterData();
+            const response = await userRegister(data)
+            if (response){
+                setLoading(false)
+                navigation.navigate("Login")
+            }
+            setLoading(false)
+        }
     };
 
     const handleFirstNameChange = (text) => {
@@ -67,11 +94,7 @@ const RegisterScreen = ({ navigation }) => {
     const togglePasswordVisibility = () => {
         setShowPassword(!showPassword);
     };
-    const handleSubmit = async () => {
-        if (validateForm()) {
-            // Proceed with registration
-        }
-    };
+
 
     return (
         <ScrollView style={styles.container}>

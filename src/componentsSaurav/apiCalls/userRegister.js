@@ -1,18 +1,7 @@
 import { Alert } from "react-native";
-import { LOGIN_ENDPOINT } from "../config";
-import { setAccessToken } from "../modules/handleAccessToken";
-import { useAuth } from "../../components/AuthContext";
+import { REGISTER_ENDPOINT } from "../config";
 
-export default async function userLogin(data) {
-
-    // const accessToken = await getAccessToken()
-
-    // if (accessToken) {
-    //     console.error("access token not found")
-    //     Alert.alert("Oops", "You must be logged in to contribute.")
-    //     return false
-    // }
-
+export default async function userRegister(data) {
 
     try {
 
@@ -23,7 +12,7 @@ export default async function userLogin(data) {
             controller.abort();
         }, 30000)
 
-        const res = await fetch(LOGIN_ENDPOINT, {
+        const res = await fetch(REGISTER_ENDPOINT, {
             method: "POST",
             body: data.toString(),
             headers: {
@@ -35,10 +24,9 @@ export default async function userLogin(data) {
         clearTimeout(timer)
         const responseData = await res.json();
         console.log(responseData)
-        const message = responseData.message || "logged in successfully";
+        const message = responseData.message || "User Registration Successful";
         if (res.ok) {
-            // Alert.alert("Success", `${message} \nYou can now contribute.`)
-            await setAccessToken(responseData.data?.accessToken)
+            Alert.alert("Success", `${message} \nYou can now login.`)
             return true
         } else {
             Alert.alert("oops", `${message}`)
@@ -51,8 +39,8 @@ export default async function userLogin(data) {
             Alert.alert('Timeout', 'Form submission timed out. Please try again later')
             return false;
         }
-        console.error("Error adding contribution:", error);
-        Alert.alert("Oops!", "An error occurred while adding the contribution.");
+        console.error("Error registering:", error);
+        Alert.alert("Oops!", "An error occurred while registering.");
         return false;
     }
 }
