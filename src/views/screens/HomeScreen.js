@@ -303,6 +303,7 @@ const HomeScreen = ({navigation}) => {
                     placeholder="Search"
                     onChangeText={searchFilterFunction}
                     value={searchQuery}
+                    placeholderTextColor={COLORS.placeholder}
                   />
                   {renderFilteredData()}
                   
@@ -370,16 +371,16 @@ const style = StyleSheet.create({
     fontSize: 23,
   },
   inputContainer: {
-    height: 60,
+    height: 50,
     width: '100%',
     backgroundColor: COLORS.white,
-    borderRadius: 50,
+    borderRadius: 8,
     position: 'absolute',
     top: 90,
     flexDirection: 'row',
     paddingHorizontal: 20,
     alignItems: 'center',
-    elevation: 12,
+    elevation: 16,
   },
   categoryContainer: {
     marginTop: 50,

@@ -343,9 +343,7 @@ const MainStack = ({ navigation }) => {
 const MainApp = () => {
 
 
-	const { isLoggedIn } = useAuth();
-
-	const { logout } = useAuth();
+	const { isLoggedIn, logout } = useAuth();
 	const Logout = () => {
 		logout();
 	};

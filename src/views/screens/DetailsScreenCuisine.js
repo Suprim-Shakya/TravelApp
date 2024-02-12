@@ -17,7 +17,7 @@ const DetailsScreenCuisine = ({navigation, route}) => {
     
     <SafeAreaView style={{flex: 1, backgroundColor: COLORS.white}}>
       
-      <StatusBar translucent backgroundColor="rgba(0,0,0,0)" />
+      {/* <StatusBar translucent backgroundColor="rgba(0,0,0,0)" /> */}
       
       <ImageBackground style={{flex: 0.8}} source={place.image}>
         <View style={style.header}>

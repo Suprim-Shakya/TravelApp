@@ -25,9 +25,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   image: {
-    ...StyleSheet.absoluteFillObject, 
+    // ...StyleSheet.absoluteFillObject, 
     justifyContent: 'center',
     alignItems: 'center',
+    width: "100%",
+    height: "100%"
   },
   loading: {
     backgroundColor: "rgba(0,0,0,0.9)",
