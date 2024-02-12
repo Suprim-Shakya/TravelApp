@@ -1,5 +1,5 @@
 import 'react-native-gesture-handler';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { createContext, useEffect, useRef, useState } from 'react';
 import { Pressable, StatusBar, View } from 'react-native';
 
 import { createStackNavigator } from '@react-navigation/stack';
@@ -43,6 +43,7 @@ import { getAccessToken } from './src/componentsSaurav/modules/handleAccessToken
 import OnBoardScreen from './src/views/screens/OnBoardScreen';
 import RegisterScreen from './src/components/RegisterScreen';
 import LoginScreen from './src/components/LoginScreen';
+import { AuthProvider, useAuth } from './src/components/AuthContext';
 
 
 const stack = createStackNavigator();
@@ -297,19 +298,23 @@ const MainStack = ({ navigation }) => {
 }
 
 
-const App = () => {
+const MainApp = () => {
 
-	const [isLoggedIn, setIsLoggedIn] = useState(false)
+	// const AuthContext = createContext();
 
-	useEffect(() => {
-		const checkLoginStatus = async () => {
-			const status = await getAccessToken();
-			console.log(`logged in status = ${status}`)
-			setIsLoggedIn(status);
-		};
+	// // const [isLoggedIn, setIsLoggedIn] = useState(false)
 
-		checkLoginStatus();
-	}, [])
+	// useEffect(() => {
+	// 	const checkLoginStatus = async () => {
+	// 		const status = await getAccessToken();
+	// 		console.log(`logged in status = ${status}`)
+	// 		setIsLoggedIn(status);
+	// 	};
+
+	// 	checkLoginStatus();
+	// }, [])
+
+	const {isLoggedIn} = useAuth();
 
 	return (//redux provider
 		<Provider store={store}>
@@ -349,5 +354,13 @@ const App = () => {
 	);
 };
 
+
+const App = () => {
+	return(
+		<AuthProvider>
+			<MainApp/>
+		</AuthProvider>
+	)
+}
 
 export default App;

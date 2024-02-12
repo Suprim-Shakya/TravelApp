@@ -2,9 +2,14 @@ import { Pressable, ActivityIndicator, TextInput, StyleSheet, Text, View } from 
 import React, { useState } from 'react';
 import COLORS from '../constants/colors';
 import Icon from "react-native-vector-icons/MaterialCommunityIcons"
+import userLogin from '../componentsSaurav/apiCalls/userLogin';
+import { useAuth } from './AuthContext';
 
 export default function LoginScreen({ navigation }) {
-    const [emailOrUsername, setEmailOrUsername] = useState('');
+
+    const {login} = useAuth()
+
+    const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
     const [errors, setErrors] = useState({});
@@ -13,8 +18,8 @@ export default function LoginScreen({ navigation }) {
     const validateForm = () => {
         let errors = {};
 
-        if (!emailOrUsername) {
-            errors.emailOrUsername = "Email or username is required";
+        if (!email) {
+            errors.email = "Email is required";
         }
         if (!password) {
             errors.password = "Password is required";
@@ -25,8 +30,8 @@ export default function LoginScreen({ navigation }) {
         return Object.keys(errors).length === 0; // true if no error messages
     };
 
-    const handleEmailOrUsernameChange = (text) => {
-        setEmailOrUsername(text);
+    const handleEmailChange = (text) => {
+        setEmail(text);
         // validateForm();
     };
 
@@ -39,9 +44,32 @@ export default function LoginScreen({ navigation }) {
         setShowPassword(!showPassword);
     };
 
-    const handleSubmit = () => {
+    
+    const resetLoginForm = () => {
+        setEmail('');
+        setPassword('');
+        setErrors({});
+        
+    };
+    
+    const createLoginData = () => {
+        const data = new URLSearchParams();
+        email.trim() !== '' && data.append('email', email);
+        password.trim() !== '' && data.append('password', password);
+        return data;
+    };
+    
+    const handleSubmit = async () => {
         if (validateForm()) {
             // Proceed with login
+            const data = createLoginData()
+            setLoading(true)
+            const response = await userLogin(data);
+            if(response) {
+                setLoading(false)
+                await login();
+            }
+            setLoading(false)
         }
     };
 
@@ -52,14 +80,14 @@ export default function LoginScreen({ navigation }) {
             <View style={styles.collection}>
                 <Text style={styles.headingText}>Email or Username</Text>
                 <TextInput
-                    placeholder='Enter your email or username'
+                    placeholder='Enter your email'
                     placeholderTextColor={COLORS.placeholder}
-                    style={[styles.inputField, errors?.emailOrUsername && { borderColor: COLORS.error }]}
-                    value={emailOrUsername}
-                    onChangeText={handleEmailOrUsernameChange}
+                    style={[styles.inputField, errors?.email && { borderColor: COLORS.error }]}
+                    value={email}
+                    onChangeText={handleEmailChange}
                     />
             </View>
-            {errors?.emailOrUsername && <Text style={[styles.headingText, styles.errorText]}>{errors.emailOrUsername}</Text>}
+            {errors?.email && <Text style={[styles.headingText, styles.errorText]}>{errors.email}</Text>}
 
             <View style={styles.collection}>
                 <Text style={styles.headingText}>Password</Text>
