@@ -44,6 +44,7 @@ import OnBoardScreen from './src/views/screens/OnBoardScreen';
 import RegisterScreen from './src/components/RegisterScreen';
 import LoginScreen from './src/components/LoginScreen';
 import { AuthProvider, useAuth } from './src/components/AuthContext';
+import CustomDrawerContent from './src/components/CustomDrawerContent';
 
 
 const stack = createStackNavigator();
@@ -325,25 +326,28 @@ const MainApp = () => {
 				{
 					!isLoggedIn ? <LoginStack /> :
 
-						<Drawer.Navigator screenOptions={{ headerShown: false }}>
+						<Drawer.Navigator screenOptions={{ headerShown: false }}
+							drawerContent={(props)=> <CustomDrawerContent {...props}/>}
+						>
 							{/* first one is shown by default */}
 							<Drawer.Screen name='MainStack' component={MainStack} />
 							<Drawer.Screen name='Bookmarks' component={BookmarkScreenStack} options={{
-								drawerIcon: () => (<IconX name='bookmark' size={20} />)
+								drawerIcon: () => (<IconX name='bookmark' size={20} color={COLORS.placeholder}/>)
 							}} />
 							{/* can add stack of bookmarks */}
 							<Drawer.Screen name='Plan' component={PlanScreenStack} options={{
-								drawerIcon: () => (<IconX name='clipboard-list-outline' size={20} />)
+								drawerIcon: () => (<IconX name='clipboard-list-outline' size={20} color={COLORS.placeholder}/>)
 							}} />
 							<Drawer.Screen name='Language' component={LanguageSelectionScreenStack} options={{
-								drawerIcon: () => (<IconX name='earth' size={20} />)
+								drawerIcon: () => (<IconX name='earth' size={20} color={COLORS.placeholder}/>)
 							}} />
 
 							<Drawer.Screen name='Contribute' component={ContributeScreenStack} options={{
-								drawerIcon: () => (<IconX name='hand-heart-outline' size={20} />)
-							}} />
+								drawerIcon: () => (<IconX name='hand-heart-outline' size={20} color={COLORS.placeholder}/>)
+							}} 
+							/>
 							<Drawer.Screen name='User Contributions' component={UserContributionStack} options={{
-								drawerIcon: () => (<IconX name='attachment' size={20} />)
+								drawerIcon: () => (<IconX name='attachment' size={20} color={COLORS.placeholder}/>)
 							}} />
 
 						</Drawer.Navigator>
