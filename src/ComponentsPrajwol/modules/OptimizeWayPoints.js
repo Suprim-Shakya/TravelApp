@@ -16,7 +16,7 @@ async function OptimizeWayPoints(route) {
         
     //     { "latitude": 27.7509152, "longitude": 85.34558349999999 }
     // ]
-    console.log('Optimizing...',route);
+    // console.log('Optimizing...',route);
     const{latitude : mylat,longitude: mylng}=await getmyLocation();
     // console.log("Starting From",mylat,mylng)
     const origin_google_format = {
@@ -45,15 +45,15 @@ async function OptimizeWayPoints(route) {
         waypoints_google_format[waypoints_google_format.length - 1]
     )
     
-    console.log('Optimized index:',optimizedWaypointsIndex);
+    // console.log('Optimized index:',optimizedWaypointsIndex);
    
     
 
     // const waypoints = route.slice(1, route.length - 1)
-    const optimizedWayPoints = optimizedWaypointsIndex.map(item => route[item+1])
+    const optimizedWayPoints = optimizedWaypointsIndex.map(item => route[item])
     optimizedWayPoints.push(route[route.length - 1])
     optimizedWayPoints.unshift(route[0]) //optimized route
-    console.log('Optimized waypoints:',optimizedWayPoints);
+    // console.log('Optimized waypoints:',optimizedWayPoints);
     
     return(optimizedWayPoints)
 }
