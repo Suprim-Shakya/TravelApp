@@ -44,7 +44,7 @@ export default function ContributeScreen() {
 
 	function createFormData() {
 		const formData = new FormData();
-		name.trim() !== '' && formData.append('name', name.toLocaleLowerCase());
+		name.trim() !== '' && formData.append('name', name.toLowerCase());
 		location.trim() !== '' && formData.append('location', location);
 		hasTicket && formData.append("ticketRequired", true)
 		hasTicket && ticketPrice.trim() !== '' && formData.append('ticketPrice', ticketPrice);

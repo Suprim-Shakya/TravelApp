@@ -23,7 +23,7 @@ const RegisterScreen = ({ navigation }) => {
         const data = new URLSearchParams();
         firstName.trim() !== '' && data.append('firstName', firstName);
         lastName.trim() !== '' && data.append('lastName', lastName);
-        userName.trim() !== '' && data.append('userName', userName);
+        userName.trim().toLowerCase() !== '' && data.append('userName', userName);
         email.trim() !== '' && data.append('email', email);
         password.trim() !== '' && data.append('password', password);
         return data;
