@@ -24,8 +24,11 @@ import cuisines from '../../constants/cusines';
 import openMap from 'react-native-open-maps';
 import fetchDetailsFromDb from '../../componentsSaurav/apiCalls/fetchDataFromDB';
 import fetchWH from '../../ComponentsPrajwol/screens/WorldHeritage/fetchWH';
-import DetailsScreen from '../../ComponentsPrajwol/screens/UserContribution/DetailsScreen';
+// import DetailsScreen from '../../ComponentsPrajwol/screens/UserContribution/DetailsScreen';
+import DetailsScreen from '../../components/DetailsScreen'
 import FinalDetailsScreen from '../../components/DetectionDetail';
+import SemiFinalDetailsScreen from '../../components/DetailsScreen';
+import DetailsScreenCuisine from './DetailsScreenCuisine';
 
 const data = [
   { id: '0', title: 'Akash Bhairab Temple' },
@@ -206,7 +209,7 @@ const HomeScreen = ({navigation}) => {
   const RecommendedCard = ({place}) => {
     return (
       <TouchableOpacity activeOpacity={0.8}
-      onPress={() => navigation.navigate('DetailsScreen',place)}>
+      onPress={() => navigation.navigate('DetailsScreenCuisine',place)}>
 
       <ImageBackground style={style.rmCardImage} source={place.image}>
         <Text
@@ -246,10 +249,13 @@ const HomeScreen = ({navigation}) => {
   }, []);
 
   const navigateToWorldHeritageDetails = (item) => {
+    navigationn.navigate('SemiFinalDetailsScreen',{...item});
+    // navigationn.navigate('DetailsScreen',{...item});
     // navigationn.navigate('DetailsScreen', { worldheritageResponse: item });
     // navigationn.navigate('FinalDetailsScreen',{...item});
 
-    console.log('Pressed', item._id);
+    console.log('Pressed in homescreen',item);
+    // console.log(`Coordinate is ${item.latitude},${item.longitude}`);
   };
 
   const renderCard = ({ item }) => (
@@ -462,18 +468,19 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   cardWh: {
-    width: 150,
+    width: 200,
+    height:200,
     borderRadius: 10,
-    backgroundColor: '#ffffff',
-    margin: 10,
-    padding: 10,
+    backgroundColor: 'red',
+    marginLeft:20,
+    padding:0,
     alignItems: 'center',
   },
   imagewh: {
-    width: 120,
-    height: 90,
+    width: '100%',
+    height: '80%',
     borderRadius: 8,
-    marginBottom: 10,
+    marginBottom: 0,
   },
   nameWh: {
     fontSize: 14,
@@ -481,4 +488,5 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
 });
+
 export default HomeScreen;
