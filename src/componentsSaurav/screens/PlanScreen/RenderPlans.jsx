@@ -154,7 +154,7 @@ const RenderPlans = ({ navigation }) => {
     // }
 
     function handlePressSearch() {
-        navigation.navigate("Google Maps")
+        navigation.navigate("Maps")
     }
 
     return (
