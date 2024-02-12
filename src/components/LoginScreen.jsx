@@ -58,13 +58,12 @@ export default function LoginScreen({ navigation }) {
             // Check if input resembles an email format using regex
             const isEmail = /^\S+@\S+\.\S+$/.test(email);
             if (isEmail) {
-                data.append('email', email);
+                data.append('email', email.trim().toLowerCase());
             } else {
                 // If input doesn't resemble an email format, assume it's a username
-                data.append('userName', email.toLowerCase());
+                data.append('userName', email.trim().toLowerCase());
             }
         }
-        email.trim() !== '' && data.append('email', email.toLowerCase());
         password.trim() !== '' && data.append('password', password);
         return data;
     };
