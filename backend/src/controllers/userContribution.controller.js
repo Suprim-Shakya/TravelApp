@@ -11,7 +11,9 @@ export const createUserContribution = asyncHandler(async (req, res, next) => {
 
     // Extract data from request body
 
+
     const imageLocalPath = req.file?.path;
+
     if (!imageLocalPath) return res.status(400).json(new ApiError(400, "Image is required"));
     
     const {  name, description, ticketRequired, ticketPrice, restrictions, isVerified } = req.body;
