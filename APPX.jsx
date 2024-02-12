@@ -9,7 +9,10 @@ import { NavigationContainer } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import IconX from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import DetailsScreen from './src/views/screens/DetailsScreen';
+// import DetailsScreen from './src/views/screens/DetailsScreen'; //suprim
+// import DetailsScreen from './src/ComponentsPrajwol/screens/UserContribution/DetailsScreen';
+import DetailsScreen from './src/components/DetailsScreen';
+import FinalDetailsScreen from './src/components/DetectionDetail';
 import HomeScreen from './src/views/screens/HomeScreen';
 
 import RenderDetections from './src/componentsSaurav/screens/RenderDetections';
@@ -46,6 +49,12 @@ import LoginScreen from './src/components/LoginScreen';
 import { AuthProvider, useAuth } from './src/components/AuthContext';
 import CustomDrawerContent from './src/components/CustomDrawerContent';
 
+import ActivitiesScreen from './src/ComponentsPrajwol/screens/ActivitiesScreen'
+import ActivitiesDetails from './src/ComponentsPrajwol/screens/ActivitiesDetails';
+import WorldHeritage from './src/ComponentsPrajwol/screens/WorldHeritage/WorldHeritage';
+import SemiFinalDetailsScreen from './src/components/DetailsScreen';
+import DetailsScreenCuisine from './src/views/screens/DetailsScreenCuisine';
+
 
 const stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -58,6 +67,9 @@ const HomeScreenStack = () => {
 		<stack.Navigator screenOptions={{ headerShown: false }}>
 			<stack.Screen name='HomeScreen' component={HomeScreen} />
 			<stack.Screen name='DetailsScreen' component={DetailsScreen} />
+			<stack.Screen name='SemiFinalDetailsScreen' component={SemiFinalDetailsScreen} />
+			<stack.Screen name='FinalDetailsScreen' component={FinalDetailsScreen} />
+			
 		</stack.Navigator>
 	);
 };
@@ -119,6 +131,34 @@ const LanguageSelectionScreenStack = ({ navigation }) => {
 				options={{
 					headerShown: true,
 					title: "Select Language",
+					headerStyle: { backgroundColor: COLORS.primary },
+					headerTitleStyle: { color: 'white', fontSize: 20, fontWeight: 'bold', alignSelf: 'center' },
+					headerLeft: () => <BackButton />
+				}}
+			/>
+
+			{/* TODO:make back button a custom component and add to every element necessary add paddings accordingly */}
+			{/* TODO: REname main stack to home and add home icon */}
+
+		</stack.Navigator>
+	)
+}
+const ActivitiesScreenStack = ({ navigation }) => {
+	return (
+		<stack.Navigator>
+			<stack.Screen name='ActivitiesScreen' component={ActivitiesScreen}
+				options={{
+					headerShown: true,
+					title: "Activities",
+					headerStyle: { backgroundColor: COLORS.primary },
+					headerTitleStyle: { color: 'white', fontSize: 20, fontWeight: 'bold', alignSelf: 'center' },
+					headerLeft: () => <BackButton />
+				}}
+			/>
+			<stack.Screen name='ActivitiesDetails' component={ActivitiesDetails}
+				options={{
+					headerShown: true,
+					title: "Activities",
 					headerStyle: { backgroundColor: COLORS.primary },
 					headerTitleStyle: { color: 'white', fontSize: 20, fontWeight: 'bold', alignSelf: 'center' },
 					headerLeft: () => <BackButton />
@@ -292,6 +332,9 @@ const MainStack = ({ navigation }) => {
 			/>
 			<stack.Screen name='home' component={HomeScreen} />
 			<stack.Screen name='DetailsScreen' component={DetailsScreen} options={{ headerShown: false }} />
+			<stack.Screen name='DetailsScreenCuisine' component={DetailsScreenCuisine} options={{ headerShown: false }} />
+			<stack.Screen name='SemiFinalDetailsScreen' component={SemiFinalDetailsScreen} />
+			<stack.Screen name='FinalDetailsScreen' component={FinalDetailsScreen} options={{ headerShown: false }} />
 			<stack.Screen name='RenderDetections' component={RenderDetections} options={{ headerShown: true, title: 'Detections', headerStyle: { backgroundColor: COLORS.primary }, headerTitleStyle: { color: 'white', fontWeight: 'bold' } }} />
 			<stack.Screen name='DetectionDetail' component={DetectionDetail} options={{ headerShown: false }} />
 		</stack.Navigator>
@@ -323,6 +366,7 @@ const MainApp = () => {
 			<NavigationContainer >
 				<StatusBar translucent={false} backgroundColor={COLORS.primary} />
 
+
 				{
 					!isLoggedIn ? <LoginStack /> :
 
@@ -350,8 +394,14 @@ const MainApp = () => {
 								drawerIcon: () => (<IconX name='attachment' size={20} color={COLORS.placeholder}/>)
 							}} />
 
-						</Drawer.Navigator>
-				}
+		
+					<Drawer.Screen name='Activities' component={ActivitiesScreenStack} options={{
+						drawerIcon: () => (<IconX name='ferris-wheel' size={20} />)
+					}} />
+					<Drawer.Screen name='WH' component={WorldHeritage} options={{
+						drawerIcon: () => (<IconX name='ferris-wheel' size={20} />)
+					}} />
+
 			</NavigationContainer>
 		</Provider>
 
