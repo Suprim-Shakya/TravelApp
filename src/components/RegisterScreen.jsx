@@ -42,27 +42,27 @@ const RegisterScreen = ({ navigation }) => {
 
     const handleFirstNameChange = (text) => {
         setFirstName(text);
-        validateForm();
+        // validateForm();
     };
 
     const handleLastNameChange = (text) => {
         setLastName(text);
-        validateForm();
+        // validateForm();
     };
 
     const handleUserNameChange = (text) => {
         setUserName(text.toLocaleLowerCase());
-        validateForm();
+        // validateForm();
     };
 
     const handleEmailChange = (text) => {
         setEmail(text);
-        validateForm();
+        // validateForm();
     };
 
     const handlePasswordChange = (text) => {
         setPassword(text);
-        validateForm();
+        // validateForm();
     };
     const togglePasswordVisibility = () => {
         setShowPassword(!showPassword);

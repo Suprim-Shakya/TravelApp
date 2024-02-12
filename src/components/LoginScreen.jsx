@@ -1,8 +1,6 @@
-import { Pressable, ActivityIndicator, StatusBar, StyleSheet, Text, View, Switch } from 'react-native';
+import { Pressable, ActivityIndicator, TextInput, StyleSheet, Text, View } from 'react-native';
 import React, { useState } from 'react';
 import COLORS from '../constants/colors';
-import { ScrollView, TextInput } from 'react-native-gesture-handler';
-import SmallButton from '../componentsSaurav/customComponents/SmallButton';
 import Icon from "react-native-vector-icons/MaterialCommunityIcons"
 
 export default function LoginScreen({ navigation }) {
@@ -29,12 +27,12 @@ export default function LoginScreen({ navigation }) {
 
     const handleEmailOrUsernameChange = (text) => {
         setEmailOrUsername(text);
-        validateForm();
+        // validateForm();
     };
 
     const handlePasswordChange = (text) => {
         setPassword(text);
-        validateForm();
+        // validateForm();
     };
 
     const togglePasswordVisibility = () => {
@@ -112,8 +110,6 @@ const styles = StyleSheet.create({
         width: '100%',
         height: '100%',
         backgroundColor: COLORS.background,
-
-        
     },
     content: {
         paddingHorizontal: 15,
