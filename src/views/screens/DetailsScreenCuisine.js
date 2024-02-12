@@ -11,7 +11,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import COLORS from '../../constants/colors';
 import { ScrollView } from 'react-native-gesture-handler';
 
-const DetailsScreen = ({navigation, route}) => {
+const DetailsScreenCuisine = ({navigation, route}) => {
   const place = route.params;
   return (
     
@@ -113,4 +113,4 @@ const style = StyleSheet.create({
   },
 });
 
-export default DetailsScreen;
+export default DetailsScreenCuisine;
