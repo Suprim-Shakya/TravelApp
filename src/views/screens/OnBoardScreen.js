@@ -1,48 +1,68 @@
 import { ImageBackground, StatusBar, StyleSheet, Text, View } from 'react-native';
 import React from 'react';
 import COLORS from '../../constants/colors';
-import { GestureHandlerRootView, TouchableOpacity } from 'react-native-gesture-handler';
+import CustomButton from '../../componentsSaurav/customComponents/CustomButton';
 
-const OnBoardScreen = ({navigation}) => {
-    return(
-        <View style={{flex:1}}>
+const OnBoardScreen = ({ navigation }) => {
+    return (
+        <View style={{ flex: 1 }}>
             <StatusBar translucent backgroundColor="rgba(0,0,0,0)" />
             <ImageBackground
-            style={{flex:1}}
-            source={require('../../assets/onboardImage.jpg')}>
+                style={{ flex: 1 }}
+                source={require('../../assets/onboardImage.jpg')}>
 
-            <View style={styles.details}>
-                <Text style={{color: COLORS.white, fontSize: 30, fontWeight: 'bold'}}>Let's Enjoy The </Text>
-                <Text style={{color: COLORS.white, fontSize: 30, fontWeight: 'bold'}}>Beautiful Heritages</Text>
-                <Text style={{color: COLORS.white, lineHeight: 25, marginTop: 15, fontSize:18}}>Explore new places in Nepal and gain experience.</Text>
-                <TouchableOpacity activeOpacity={0.8} onPress={() => navigation.navigate('HomeScreen')}>
-                <View style={styles.btn}>
-                    <Text style={{fontWeight: 'bold',color:'red'}}>Get Started</Text>
+                <View style={styles.content}>
+                    <View style={styles.textContainer}>
+
+                        <Text style={styles.header}>Let's Enjoy{'\n'}The Beautiful{'\n'}Heritages of Nepal</Text>
+                        <Text style={styles.body}>Explore new places in Nepal and gain experience.</Text>
+                    </View>
+
+
+                    <View style={styles.btnContainer}>
+                        <CustomButton text={"Register"} btnBgColor={COLORS.light} btnTextColor={COLORS.primary} rippleColor={'black'} fontWeight='700' fontSize={17} onPress={()=> navigation.navigate('Register')}/>
+                        <CustomButton text={"Login"} btnBgColor={'white'} btnTextColor={COLORS.primary} rippleColor={'black'} fontWeight='700' fontSize={17} onPress={()=> navigation.navigate('Login')}/>
+                    </View>
+
                 </View>
-                </TouchableOpacity>
-            </View>
-            </ImageBackground>     
+            </ImageBackground>
         </View>
     );
 };
 
 const styles = StyleSheet.create({
-    details: {
-        height: '45%',
-        marginLeft: 10,
-        bottom: 0,
+    content: {
+        backgroundColor: "rgba(0,0,0,0.5)",
         position: 'absolute',
-        paddingHorizontal: 50, 
+        paddingLeft: 10,
+        bottom: 0,
+        paddingBottom: 50,
+        borderTopLeftRadius: 20,
+        borderTopRightRadius: 20,
+        width: "100%"
     },
-    btn: {
-        height: 50,
-        width: 120,
-        backgroundColor: COLORS.white,
-        marginTop: 20,
+    btnContainer: {
+        paddingTop: 20,
+        flexDirection: "row",
         justifyContent: 'center',
-        alignItems: 'center',
-        borderRadius: 50,
-    }
+        gap: 20
+    },
+    header: {
+        color: COLORS.white,
+        fontSize: 30,
+        fontWeight: 'bold',
+        paddingTop: 10,
+    },
+    body: {
+        color: COLORS.white,
+        lineHeight: 25,
+        marginTop: 15,
+        fontSize: 18
+    },
+    textContainer: {
+        paddingHorizontal: 10,
+        paddingVertical: 10
+    },
 });
 
 export default OnBoardScreen;

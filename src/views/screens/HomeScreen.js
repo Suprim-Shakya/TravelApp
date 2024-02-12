@@ -23,6 +23,8 @@ import cuisines from '../../constants/cusines';
 
 import openMap from 'react-native-open-maps';
 import fetchDetailsFromDb from '../../componentsSaurav/apiCalls/fetchDataFromDB';
+
+import activities from '../../constants/activities';
 import fetchWH from '../../ComponentsPrajwol/screens/WorldHeritage/fetchWH';
 // import DetailsScreen from '../../ComponentsPrajwol/screens/UserContribution/DetailsScreen';
 import DetailsScreen from '../../components/DetailsScreen'
@@ -339,7 +341,16 @@ const HomeScreen = ({navigation}) => {
             data={cuisines}
             renderItem={({item}) => <RecommendedCard place={item} />}
           />
-          
+          <Text style={style.sectionTitle}>Activities</Text>
+          <FlatList
+            snapToInterval={width - 20}
+            contentContainerStyle={{paddingLeft: 20, paddingBottom: 20}}
+            showsHorizontalScrollIndicator={false}
+            horizontal
+            data={activities}
+            renderItem={({item}) => <RecommendedCard place={item} />}
+          />
+        </View>
       </ScrollView>
     </SafeAreaView>
   );

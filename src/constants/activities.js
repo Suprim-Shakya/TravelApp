@@ -61,6 +61,7 @@
 // export default activities;
 
 const activities = [
+
   {
     id: "1",
     name: "Skywalk Tower",
@@ -150,3 +151,4 @@ const activities = [
   }
 ];
 export default activities;
+
