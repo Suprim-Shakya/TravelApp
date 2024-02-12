@@ -12,7 +12,8 @@ const COLORS = {
     background: '#FFF',
     danger: "#7A0012",
     error: '#B00020',
-    placeholder: "#666"
+    placeholder: "#666",
+    transparent: "rgba(0,0,0,0)"
 }
 
 export default COLORS;

@@ -1,5 +1,5 @@
 import 'react-native-gesture-handler';
-import React, { useRef } from 'react';
+import React, { createContext, useEffect, useRef, useState } from 'react';
 import { Pressable, StatusBar, View } from 'react-native';
 
 import { createStackNavigator } from '@react-navigation/stack';
@@ -37,6 +37,14 @@ import UserContributions from './src/ComponentsPrajwol/screens/UserContribution/
 
 import BackButton from './src/componentsSaurav/customComponents/BackButton';
 import MenuButton from './src/componentsSaurav/customComponents/MenuButton';
+import RegisterPage from './src/components/RegisterPage';
+import LoginPage from './src/components/LoginPage';
+import { getAccessToken } from './src/componentsSaurav/modules/handleAccessToken';
+import OnBoardScreen from './src/views/screens/OnBoardScreen';
+import RegisterScreen from './src/components/RegisterScreen';
+import LoginScreen from './src/components/LoginScreen';
+import { AuthProvider, useAuth } from './src/components/AuthContext';
+import CustomDrawerContent from './src/components/CustomDrawerContent';
 
 
 const stack = createStackNavigator();
@@ -123,6 +131,42 @@ const LanguageSelectionScreenStack = ({ navigation }) => {
 		</stack.Navigator>
 	)
 }
+
+const LoginStack = ({ navigation }) => {
+	return (
+		<stack.Navigator>
+			<stack.Screen name='onBoard' component={OnBoardScreen}
+				options={{
+					headerShown: false,
+					// title: "Create an account",
+					// headerStyle: { backgroundColor: COLORS.primary },
+					headerTitleStyle: { color: 'white', fontSize: 20, fontWeight: 'bold', alignSelf: 'center' },
+					// headerLeft: () => <BackButton />
+				}}
+			/>
+			<stack.Screen name='Register' component={RegisterScreen}
+				options={{
+					headerShown: true,
+					title: "Create an account",
+					headerStyle: { backgroundColor: COLORS.primary },
+					headerTitleStyle: { color: 'white', fontSize: 20, fontWeight: 'bold', alignSelf: 'center' },
+					headerLeft: () => <BackButton />
+				}}
+			/>
+			<stack.Screen name='Login' component={LoginScreen}
+				options={{
+					headerShown: true,
+					title: "Enter your credentials",
+					headerStyle: { backgroundColor: COLORS.primary },
+					headerTitleStyle: { color: 'white', fontSize: 20, fontWeight: 'bold', alignSelf: 'center' },
+					headerLeft: () => <BackButton />
+				}}
+			/>
+
+		</stack.Navigator>
+	)
+}
+
 const ContributeScreenStack = ({ navigation }) => {
 	return (
 		<stack.Navigator>
@@ -130,6 +174,25 @@ const ContributeScreenStack = ({ navigation }) => {
 				options={{
 					headerShown: true,
 					title: "Make a Contribution",
+					headerStyle: { backgroundColor: COLORS.primary },
+					headerTitleStyle: { color: 'white', fontSize: 20, fontWeight: 'bold', alignSelf: 'center' },
+					headerLeft: () => <BackButton />
+				}}
+			/>
+
+
+
+		</stack.Navigator>
+	)
+}
+
+const UserContributionStack = ({ navigation }) => {
+	return (
+		<stack.Navigator>
+			<stack.Screen name='contribute' component={UserContributions}
+				options={{
+					headerShown: true,
+					title: "User Contributions",
 					headerStyle: { backgroundColor: COLORS.primary },
 					headerTitleStyle: { color: 'white', fontSize: 20, fontWeight: 'bold', alignSelf: 'center' },
 					headerLeft: () => <BackButton />
@@ -157,7 +220,7 @@ const TabNav = ({ navigation }) => {
 				color: 'white',
 				fontWeight: 'bold',
 			},
-			headerLeft: () => <MenuButton/>,
+			headerLeft: () => <MenuButton />,
 			tabBarActiveTintColor: COLORS.primary,
 			tabBarActiveBackgroundColor: COLORS.secondary,
 		}}>
@@ -224,7 +287,7 @@ const MainStack = ({ navigation }) => {
 						color: 'white',
 						fontWeight: 'bold',
 					},
-					headerLeft: () => <MenuButton/>
+					headerLeft: () => <MenuButton />
 				}}
 			/>
 			<stack.Screen name='home' component={HomeScreen} />
@@ -236,7 +299,23 @@ const MainStack = ({ navigation }) => {
 }
 
 
-const App = () => {
+const MainApp = () => {
+
+	// const AuthContext = createContext();
+
+	// // const [isLoggedIn, setIsLoggedIn] = useState(false)
+
+	// useEffect(() => {
+	// 	const checkLoginStatus = async () => {
+	// 		const status = await getAccessToken();
+	// 		console.log(`logged in status = ${status}`)
+	// 		setIsLoggedIn(status);
+	// 	};
+
+	// 	checkLoginStatus();
+	// }, [])
+
+	const {isLoggedIn} = useAuth();
 
 	return (//redux provider
 		<Provider store={store}>
@@ -244,34 +323,48 @@ const App = () => {
 			<NavigationContainer >
 				<StatusBar translucent={false} backgroundColor={COLORS.primary} />
 
-				<Drawer.Navigator screenOptions={{ headerShown: false }}>
-					{/* first one is shown by default */}
-					<Drawer.Screen name='MainStack' component={MainStack} />
-					<Drawer.Screen name='Bookmarks' component={BookmarkScreenStack} options={{
-						drawerIcon: () => (<IconX name='bookmark' size={20} />)
-					}} />
-					{/* can add stack of bookmarks */}
-					<Drawer.Screen name='Plan' component={PlanScreenStack} options={{
-						drawerIcon: () => (<IconX name='clipboard-list-outline' size={20} />)
-					}} />
-					<Drawer.Screen name='Language' component={LanguageSelectionScreenStack} options={{
-						drawerIcon: () => (<IconX name='earth' size={20} />)
-					}} />
+				{
+					!isLoggedIn ? <LoginStack /> :
 
-					<Drawer.Screen name='Contribute' component={ContributeScreenStack} options={{
-						drawerIcon: () => (<IconX name='hand-heart-outline' size={20} />)
-					}} />
-					<Drawer.Screen name='User Contributions' component={UserContributions} options={{
-						drawerIcon: () => (<IconX name='attachment' size={20} />)
-					}} />
+						<Drawer.Navigator screenOptions={{ headerShown: false }}
+							drawerContent={(props)=> <CustomDrawerContent {...props}/>}
+						>
+							{/* first one is shown by default */}
+							<Drawer.Screen name='MainStack' component={MainStack} />
+							<Drawer.Screen name='Bookmarks' component={BookmarkScreenStack} options={{
+								drawerIcon: () => (<IconX name='bookmark' size={20} color={COLORS.placeholder}/>)
+							}} />
+							{/* can add stack of bookmarks */}
+							<Drawer.Screen name='Plan' component={PlanScreenStack} options={{
+								drawerIcon: () => (<IconX name='clipboard-list-outline' size={20} color={COLORS.placeholder}/>)
+							}} />
+							<Drawer.Screen name='Language' component={LanguageSelectionScreenStack} options={{
+								drawerIcon: () => (<IconX name='earth' size={20} color={COLORS.placeholder}/>)
+							}} />
 
-				</Drawer.Navigator>
+							<Drawer.Screen name='Contribute' component={ContributeScreenStack} options={{
+								drawerIcon: () => (<IconX name='hand-heart-outline' size={20} color={COLORS.placeholder}/>)
+							}} 
+							/>
+							<Drawer.Screen name='User Contributions' component={UserContributionStack} options={{
+								drawerIcon: () => (<IconX name='attachment' size={20} color={COLORS.placeholder}/>)
+							}} />
 
+						</Drawer.Navigator>
+				}
 			</NavigationContainer>
 		</Provider>
 
 	);
 };
 
+
+const App = () => {
+	return(
+		<AuthProvider>
+			<MainApp/>
+		</AuthProvider>
+	)
+}
 
 export default App;
