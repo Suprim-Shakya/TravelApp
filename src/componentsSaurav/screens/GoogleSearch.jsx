@@ -11,13 +11,24 @@ import Icon from "react-native-vector-icons/MaterialIcons"
 import COLORS from '../../constants/colors';
 import { getmyLocation } from '../../ComponentsPrajwol/modules/getMyLocation';
 
-const GoogleSearch = ({ navigation }) => {
+const GoogleSearch = ({ navigation, route }) => {
+
+
     const [currentLocation, setCurrentLocation] = useState({})
     const [selectedPlace, setSelectedPlace] = useState('Asan Bazar')
     const [selectedLocation, setSelectedLocation] = useState({ latitude: 27.707468684803366, longitude: 85.31217887531085 });
     const mapRef = useRef();
     const dispatch = useDispatch();
     const [calloutVisible, setCalloutVisible] = useState(true)
+
+    useEffect(() => {
+        if (route?.params) {
+            const { latitude, longitude } = route.params.location
+            setSelectedPlace(route.params.name)
+            setSelectedLocation({ latitude, longitude })
+        }
+
+    }, [route.params])
 
 
     async function afterMapLoads() { // go to current location
@@ -54,9 +65,9 @@ const GoogleSearch = ({ navigation }) => {
 
     const toggleCallout = () => setCalloutVisible(v => !v)
 
-    function handleGoToMyLocation  () {
+    function handleGoToMyLocation() {
         setSelectedPlace("You are here")
-        setSelectedLocation({...currentLocation})
+        setSelectedLocation({ ...currentLocation })
     }
 
     async function handleLongPress(event) {
@@ -105,7 +116,7 @@ const GoogleSearch = ({ navigation }) => {
                 }}
                 onPress={handleGoToMyLocation}
             >
-                    <Icon name='my-location' size={24} color={'black'} />
+                <Icon name='my-location' size={24} color={'black'} />
             </Pressable>
             <GooglePlacesAutocomplete
                 placeholder='Search Places to add to plan...'
