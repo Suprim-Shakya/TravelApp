@@ -13,10 +13,9 @@ import { getmyLocation } from '../../ComponentsPrajwol/modules/getMyLocation';
 
 const GoogleSearch = ({ navigation, route }) => {
 
-
-    const [currentLocation, setCurrentLocation] = useState({})
-    const [selectedPlace, setSelectedPlace] = useState('Asan Bazar')
-    const [selectedLocation, setSelectedLocation] = useState({ latitude: 27.707468684803366, longitude: 85.31217887531085 });
+    // const [currentLocation, setCurrentLocation] = useState({})
+    const [selectedPlace, setSelectedPlace] = useState('Kathmandu Engineering College')
+    const [selectedLocation, setSelectedLocation] = useState({ latitude: 27.699119143463104, longitude: 85.29716794206476 });
     const mapRef = useRef();
     const dispatch = useDispatch();
     const [calloutVisible, setCalloutVisible] = useState(true)
@@ -31,12 +30,12 @@ const GoogleSearch = ({ navigation, route }) => {
     }, [route.params])
 
 
-    async function afterMapLoads() { // go to current location
-        (async () => {
-            const { latitude, longitude } = await getmyLocation()
-            setCurrentLocation({ latitude, longitude })
-        })();
-    }
+    // async function afterMapLoads() { // go to current location
+    //     (async () => {
+    //         const { latitude, longitude } = await getmyLocation()
+    //         setCurrentLocation({ latitude, longitude })
+    //     })();
+    // }
 
     useEffect(() => {
         // Pan the map to the new marker location when selectedPlace changes
@@ -65,25 +64,25 @@ const GoogleSearch = ({ navigation, route }) => {
 
     const toggleCallout = () => setCalloutVisible(v => !v)
 
-    function handleGoToMyLocation() {
-        setSelectedPlace("You are here")
-        setSelectedLocation({ ...currentLocation })
-    }
+    // function handleGoToMyLocation() {
+    //     setSelectedPlace("You are here")
+    //     setSelectedLocation({ ...currentLocation })
+    // }
 
     async function handleLongPress(event) {
         const { latitude, longitude } = (event.nativeEvent.coordinate)
         setSelectedLocation({ latitude, longitude })
-        console.log(latitude, " ", longitude)
+        // console.log(latitude, " ", longitude)
         try {
             const response = await fetch(
                 `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${MAPS_API_KEY}`
             );
             const data = await response.json();
             if (data.results.length > 0) {
-                console.log(data)
+                // console.log(data)
                 const placeName = data.results[0].formatted_address;
-                console.log('Place name:', placeName);
-                // You can use the place name here or update your component state
+                // console.log('Place name:', placeName);
+
                 function modifyName(placeName) {
                     const parts = placeName.split(",");
                     if (parts.length >= 3) {
@@ -107,7 +106,7 @@ const GoogleSearch = ({ navigation, route }) => {
     return (
         <View style={{ flex: 1 }}>
             <Icon name='search' size={24} color={'black'} style={styles.icon} />
-            <Pressable style={styles.myLocation}
+            {/* <Pressable style={styles.myLocation}
                 android_ripple={{
                     foreground: true,
                     radius: 20,
@@ -117,7 +116,7 @@ const GoogleSearch = ({ navigation, route }) => {
                 onPress={handleGoToMyLocation}
             >
                 <Icon name='my-location' size={24} color={'black'} />
-            </Pressable>
+            </Pressable> */}
             <GooglePlacesAutocomplete
                 placeholder='Search Places to add to plan...'
                 onPress={(data, details = null) => {
@@ -154,7 +153,7 @@ const GoogleSearch = ({ navigation, route }) => {
                     latitudeDelta: 0.0922,
                     longitudeDelta: 0.0421,
                 }}
-                onMapReady={afterMapLoads}
+                // onMapReady={afterMapLoads}
                 onLongPress={handleLongPress}
             >
 
