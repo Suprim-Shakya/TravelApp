@@ -66,6 +66,10 @@ const GoogleSearch = ({ navigation }) => {
                     components: 'country:np',
                 }}
                 styles={styles.map}
+                // currentLocation = {true}
+                enablePoweredByContainer= {false}
+                placeholderTextColor= {'red'}
+                isRowScrollable = {true}
             />
             <MapView
                 ref={mapRef}
@@ -121,6 +125,8 @@ styles = StyleSheet.create({
             color: 'black',
             borderColor: "gray",
             borderWidth: 1,
+            paddingLeft:20,
+            backgroundColor: 'grey',
         },
         separator: {
             height: 1,
@@ -129,6 +135,13 @@ styles = StyleSheet.create({
         description: {
             color: 'grey',
         },
+        listView: {
+            borderColor: 'grey',
+            borderWidth: 1,
+        },
+        row: {
+            // backgroundColor: "red",
+        }
     },
     bottomText: {
         color: "black",

@@ -101,32 +101,64 @@ const RenderPlans = ({ navigation }) => {
 
     async function handleGetDirections() {
         try {
-            setLoading(true)
+
+//             console.log('============================================================================');
             const locations = await getLocationOfPlans();
-            // console.log('Planned locations:', locations);
+            const destination = locations[locations.length-1]
 
             let pureWaypoints;
+    
+
+            setLoading(true)
 
             if (locations.length < 3) {
                 pureWaypoints = PureWaypointsConverter(locations);
             } else {
                 // Pass optimized_locations to PureWaypointsConverter
-                const optimized_locations = await OptimizeWayPoints(locations);
-                // console.log('optimized locations:', optimized_locations);
+                const optimized_locations = await OptimizeWayPoints(locations)
+                
+                console.log('Optimized ============:', optimized_locations);
+                
                 pureWaypoints = PureWaypointsConverter(optimized_locations);
+                dest=locations[locations.length-1];
+                console.log('Dest is ',dest);
+                // pureDestination=pureDestinationConverter(dest);
+                // console.log(pureDestination)
+                
+                console.log('Pure waypoints:',pureWaypoints);
+                
+                // // console.log('Pure dest:',pureDestination);
+                // console.log('Yo chai dest:',pureWaypoints[pureWaypoints.length - 1],);
+
+                // console.log('optimized locations:', optimized_locations);
+//                 pureWaypoints = PureWaypointsConverter(optimized_locations);
                 // console.log(pureWaypoints);
+
             }
 
             openMap({
                 travelType: 'drive',
                 // start: pureWaypoints[0],
-                end: pureWaypoints[pureWaypoints.length - 1],
-                waypoints: pureWaypoints.slice(0, pureWaypoints.length - 1),
+                end: `${destination.latitude},${destination.longitude}`,//zoo
+                // waypoints: pureWaypoints.slice(0, pureWaypoints.length - 1),
+                waypoints: pureWaypoints,
                 travelMode: 'driving',
                 navigate_mode: 'navigate',
                 // region: routeData,
             });
+
+            // openMap({
+            //     travelType: 'drive',
+            //     // start: pureWaypoints[0],
+            //     end: pureWaypoints[pureWaypoints.length - 2],
+            //     waypoints: pureWaypoints.slice(0, pureWaypoints.length - 2),
+            //     travelMode: 'driving',
+            //     navigate_mode: 'navigate',
+            //     // region: routeData,
+            // });
+
             setLoading(false)
+
         } catch (error) {
             console.error('Error:', error);
         }

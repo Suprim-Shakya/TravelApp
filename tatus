@@ -1,0 +1,257 @@
+[33mcommit b55e3f4ab71659bf3979f641d9d8c168d0a73e55[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m
+Merge: a6c5bbdb 3ad0bd81
+Author: sauravkhanal <85009481+sauravkhanal@users.noreply.github.com>
+Date:   Mon Feb 12 20:24:40 2024 +0545
+
+    Merge pull request #18 from prajwol-stha/main
+    
+    logout button, hospital icon, homescreen padding, map with user's own location
+
+[33mcommit 3ad0bd81a49417566a88b780a2f409c9b084b563[m
+Author: Prajwol Shrestha <prajwol.stha777@gmail.com>
+Date:   Mon Feb 12 20:21:14 2024 +0545
+
+    logout hospital icon and maps from origin
+
+[33mcommit a6c5bbdb192df880c546d8904600380a300b86dd[m
+Merge: c5094c95 4d4efcd9
+Author: sauravkhanal <sauravkhanal635@gmail.com>
+Date:   Mon Feb 12 17:42:03 2024 +0545
+
+    Merge branch 'main' of https://www.github.com/sauravkhanal/TravelGuide
+
+[33mcommit c5094c957472b32a40f2c11f17011dc374a0b5ac[m
+Author: sauravkhanal <sauravkhanal635@gmail.com>
+Date:   Mon Feb 12 15:29:36 2024 +0545
+
+    fix lowercase username and name of place
+
+[33mcommit aa62eeb216bc3b7fd19ed0e6d7d6e58fb1704a2d[m
+Merge: b70b83d2 4d4efcd9
+Author: prajwol-stha <140768328+prajwol-stha@users.noreply.github.com>
+Date:   Mon Feb 12 15:27:03 2024 +0545
+
+    Merge pull request #6 from sauravkhanal/main
+    
+    login / register / user contrib
+
+[33mcommit 4d4efcd952a3ef538e533baab5e7d29004261e27[m
+Merge: 51f72860 b70b83d2
+Author: prajwol-stha <140768328+prajwol-stha@users.noreply.github.com>
+Date:   Mon Feb 12 15:25:01 2024 +0545
+
+    Merge branch 'main' into main
+
+[33mcommit 51f72860919a5277ba2f88f407111e57f3d054f1[m
+Author: sauravkhanal <sauravkhanal635@gmail.com>
+Date:   Mon Feb 12 15:14:44 2024 +0545
+
+    remove lowercase from username field
+    
+    convert to lowercase while uploading
+
+[33mcommit c55451e49af6314ffc995f68485acafa5777b68c[m
+Merge: f7251285 091f868c
+Author: sauravkhanal <85009481+sauravkhanal@users.noreply.github.com>
+Date:   Mon Feb 12 15:06:33 2024 +0545
+
+    Merge branch 'main' into main
+
+[33mcommit f72512852628ee0a457b7fb4dc8d967f00fab1ef[m
+Author: sauravkhanal <sauravkhanal635@gmail.com>
+Date:   Mon Feb 12 15:02:39 2024 +0545
+
+    add activity data
+
+[33mcommit 78506f3ea0cd0b87454fb9f6e453f5fb1bfee310[m
+Merge: 76079d93 6b7d47f0
+Author: sauravkhanal <85009481+sauravkhanal@users.noreply.github.com>
+Date:   Mon Feb 12 14:59:04 2024 +0545
+
+    Merge pull request #17 from sauravkhanal/feat/login
+    
+    Feat/login (register/login/logout)
+
+[33mcommit 6b7d47f0fe76e66078d9f561794ab7628abf4281[m
+Author: sauravkhanal <sauravkhanal635@gmail.com>
+Date:   Mon Feb 12 14:52:20 2024 +0545
+
+    add logout button
+
+[33mcommit b70b83d27b745dd6a3cd107dc79f4a01c3fa1619[m[33m ([m[1;32mmainBackup[m[33m)[m
+Merge: c9796489 2f765910
+Author: prajwol-stha <140768328+prajwol-stha@users.noreply.github.com>
+Date:   Mon Feb 12 14:51:39 2024 +0545
+
+    Merge pull request #5 from prajwol-stha/worldHeritage
+    
+    World heritage
+
+[33mcommit 2f7659105923967591d198be8cd7508b7e425275[m[33m ([m[1;31morigin/worldHeritage[m[33m, [m[1;32mworldHeritage[m[33m)[m
+Author: Prajwol Shrestha <prajwol.stha777@gmail.com>
+Date:   Mon Feb 12 14:48:13 2024 +0545
+
+    world heritage screen complete
+
+[33mcommit 8683f0c737c56abfec075e8ae43845dffa1004b4[m
+Author: sauravkhanal <sauravkhanal635@gmail.com>
+Date:   Mon Feb 12 14:33:30 2024 +0545
+
+    add register functionality
+
+[33mcommit 965d339ce3bd89acc6f061b71ec4a66c4e04958f[m
+Author: sauravkhanal <sauravkhanal635@gmail.com>
+Date:   Mon Feb 12 13:57:05 2024 +0545
+
+    add activity indicator while checking auth state
+
+[33mcommit 8fd6194e8fd6dd924064337ee4481cf1fee2db5b[m
+Author: sauravkhanal <sauravkhanal635@gmail.com>
+Date:   Mon Feb 12 13:40:54 2024 +0545
+
+    implement login functionality
+
+[33mcommit 0cdc882ee0d3ca54837246488784da5f9d1f3313[m
+Author: sauravkhanal <sauravkhanal635@gmail.com>
+Date:   Mon Feb 12 13:05:35 2024 +0545
+
+    add login and register ui
+
+[33mcommit dcdfce7b98a8f95caf8ced33120c357080566827[m
+Author: sauravkhanal <sauravkhanal635@gmail.com>
+Date:   Mon Feb 12 13:03:16 2024 +0545
+
+    add login screen
+
+[33mcommit b80dc722c52ebe001abcf7fc0f94080729e0861c[m
+Author: sauravkhanal <sauravkhanal635@gmail.com>
+Date:   Mon Feb 12 12:51:27 2024 +0545
+
+    add onboard screen
+
+[33mcommit 9bab79b0b5682adcef1919eb837ba5c2cc4003ce[m
+Author: sauravkhanal <sauravkhanal635@gmail.com>
+Date:   Mon Feb 12 12:51:14 2024 +0545
+
+    add register screen
+
+[33mcommit 32cc45d662f85f33d6dc0d951cf4be71d38b46b3[m
+Author: Prajwol Shrestha <prajwol.stha777@gmail.com>
+Date:   Mon Feb 12 12:45:31 2024 +0545
+
+    project navigattion complete
+
+[33mcommit 76079d9316aaffe338362816078b6f249128a1d1[m
+Author: sauravkhanal <sauravkhanal635@gmail.com>
+Date:   Mon Feb 12 10:24:29 2024 +0545
+
+    add color constants
+
+[33mcommit 49d450568c297218fbf78168e722a713f7906577[m
+Author: sauravkhanal <sauravkhanal635@gmail.com>
+Date:   Mon Feb 12 10:12:51 2024 +0545
+
+    add spinner on submit btn
+
+[33mcommit df651dbc0bea8ec7a5a802d767de00cecb681f99[m
+Author: sauravkhanal <sauravkhanal635@gmail.com>
+Date:   Mon Feb 12 10:06:49 2024 +0545
+
+    add timeout for 30s
+
+[33mcommit 8a94cc0c5bdd20d42deb39d5c024ced76183d939[m
+Author: sauravkhanal <sauravkhanal635@gmail.com>
+Date:   Mon Feb 12 09:32:31 2024 +0545
+
+    set colors for input fields
+
+[33mcommit a25016fa14b030d8c1ab7cac8762f7830df393f0[m
+Merge: ab6daf89 22db1587
+Author: sauravkhanal <85009481+sauravkhanal@users.noreply.github.com>
+Date:   Mon Feb 12 00:45:01 2024 +0545
+
+    Merge pull request #16 from sauravkhanal/feature/userContribution
+    
+    - add user contribution form
+    - validate form on submit
+    - prevent resubmit until response is received
+    - add 20s timeout
+
+[33mcommit 22db1587da5e553106f7f90b1ef9c7eda75b0907[m
+Author: sauravkhanal <sauravkhanal635@gmail.com>
+Date:   Mon Feb 12 00:43:21 2024 +0545
+
+    add 20s timeout on request
+
+[33mcommit 36537c3459214a72960cd8860e01801ac7e2ef38[m
+Author: Prajwol Shrestha <prajwol.stha777@gmail.com>
+Date:   Mon Feb 12 00:41:18 2024 +0545
+
+    world heritage in homescreen
+
+[33mcommit d73a09fa38e789af63b260f789a59f1c3ccf04da[m
+Author: sauravkhanal <sauravkhanal635@gmail.com>
+Date:   Mon Feb 12 00:36:53 2024 +0545
+
+    create loading screen component.
+
+[33mcommit 665518b8526f4b7f3d81564607e0639dd3fe5e5c[m
+Author: sauravkhanal <sauravkhanal635@gmail.com>
+Date:   Mon Feb 12 00:18:41 2024 +0545
+
+    completes userContribution
+
+[33mcommit 28e8b3a85cc6386449accae5e37cd89dd6c3cee5[m
+Author: sauravkhanal <sauravkhanal635@gmail.com>
+Date:   Sun Feb 11 23:57:31 2024 +0545
+
+    implement user contribution functionality
+
+[33mcommit 83bf1b339a23ddad6a415120fc530d563db1f087[m
+Author: sauravkhanal <sauravkhanal635@gmail.com>
+Date:   Sun Feb 11 22:30:15 2024 +0545
+
+    add form validation to contribute screen
+
+[33mcommit 1834c6eb446f9d5c1bbfbfe5ad4545ead39c2a34[m
+Author: sauravkhanal <sauravkhanal635@gmail.com>
+Date:   Sun Feb 11 22:02:09 2024 +0545
+
+    add module to get/set access token
+
+[33mcommit 7c008a30ca8fc0a92ce7466e7146b1e30f155358[m
+Author: sauravkhanal <sauravkhanal635@gmail.com>
+Date:   Sun Feb 11 21:44:22 2024 +0545
+
+    add ui for contribution
+
+[33mcommit c97964898558e8af3e94ee460cef8fb8c3615818[m[33m ([m[1;32ma[m[33m)[m
+Author: Prajwol Shrestha <prajwol.stha777@gmail.com>
+Date:   Sun Feb 11 21:28:26 2024 +0545
+
+    activities completed
+
+[33mcommit 091f868c83ea944ba543cb178529b98fa9d9d389[m
+Author: Suprim Shakya <121931537+Suprim-Shakya@users.noreply.github.com>
+Date:   Sun Feb 11 21:20:12 2024 +0545
+
+    Update activities.js
+
+[33mcommit 51ad26ab4d5ee9b1164112a6ed989514a4aa5ac5[m
+Author: sauravkhanal <sauravkhanal635@gmail.com>
+Date:   Sun Feb 11 19:14:34 2024 +0545
+
+    add header to contribution stack
+
+[33mcommit ab6daf89bb3b3b1988b2c5363bf435b41833e31e[m
+Merge: f3f4b9ee af6e6778
+Author: sauravkhanal <85009481+sauravkhanal@users.noreply.github.com>
+Date:   Sun Feb 11 17:59:23 2024 +0545
+
+    Merge pull request #15 from prajwol-stha/main
+    
+    Added contributescreen, show users contributions
+
+[33mcommit af6e6778f2b85aa8105a68b991cb69c6a0329652[m
+Merge: f3f4b9ee e3edfe3b
+Author: prajwol-st
