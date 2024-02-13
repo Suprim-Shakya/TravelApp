@@ -1,5 +1,5 @@
 import express from "express"
-import { baseReply } from "./controllers/base.controllers.js";
+import { baseApiReply, baseReply } from "./controllers/base.controllers.js";
 import cookieParser from "cookie-parser";
 import cors from "cors"
 import moment from "moment-timezone";
@@ -33,6 +33,7 @@ app.use(cookieParser())//parse cookies(access token)
 
 //routes
 app.route("/").get(baseReply)
+app.route("/api/v1").get(baseApiReply)
 // app.route("/api/v1/auth/register").post(register)
 
 import authRoutes from "./routes/auth.routes.js";
