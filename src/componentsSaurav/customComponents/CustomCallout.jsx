@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, Pressable } from 'react-native';
 import Icon from "react-native-vector-icons/MaterialCommunityIcons"
-const CustomCallout = ({ title, description }) => {
-    const [visible, setVisible] = useState(true)
+const CustomCallout = ({ title, description, visible=true }) => {
+    // const [visible, setVisible] = useState(calloutVisible)
     return (
         <View style={styles.outer}>
             {visible &&
                 <View style={styles.container}>
-                    {/* <Icon name="close-circle" size={24} style={styles.close} onPress={() => { setVisible(false); console.log("pressed") }} /> */}
+                    <Icon name="close-circle" size={16} style={styles.close}/>
                     <Text style={styles.title}>{title}</Text>
-                    <Text style={styles.description}>{description}</Text>
+                    {description && <Text style={styles.description}>{description}</Text>}
                 </View>
             }
             <Icon name='map-marker' color={"red"} size={36} style={styles.icon} />
@@ -43,8 +43,8 @@ const styles = StyleSheet.create({
     },
     close: {
         position: 'absolute',
-        top: -5,
-        right: -5,
+        top: -0,
+        right: -0,
     }
 });
 
