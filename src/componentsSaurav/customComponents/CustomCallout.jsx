@@ -33,7 +33,8 @@ const styles = StyleSheet.create({
     title: {
         fontWeight: 'bold',
         marginBottom: 5,
-        color: 'black'
+        color: 'black',
+        maxWidth: 150,
     },
     description: {
         maxWidth: 150,
