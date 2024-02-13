@@ -19,7 +19,7 @@ export default function LoginScreen({ navigation }) {
         let errors = {};
 
         if (!email) {
-            errors.email = "Email is required";
+            errors.email = "Email or username is required";
         }
         if (!password) {
             errors.password = "Password is required";
@@ -54,7 +54,16 @@ export default function LoginScreen({ navigation }) {
     
     const createLoginData = () => {
         const data = new URLSearchParams();
-        email.trim() !== '' && data.append('email', email);
+        if (email.trim() !== '') {
+            // Check if input resembles an email format using regex
+            const isEmail = /^\S+@\S+\.\S+$/.test(email);
+            if (isEmail) {
+                data.append('email', email.trim().toLowerCase());
+            } else {
+                // If input doesn't resemble an email format, assume it's a username
+                data.append('userName', email.trim().toLowerCase());
+            }
+        }
         password.trim() !== '' && data.append('password', password);
         return data;
     };
@@ -64,10 +73,10 @@ export default function LoginScreen({ navigation }) {
             // Proceed with login
             const data = createLoginData()
             setLoading(true)
-            const response = await userLogin(data);
-            if(response) {
+            const accessToken = await userLogin(data);
+            if(accessToken) {
                 setLoading(false)
-                await login();
+                await login(accessToken);
             }
             setLoading(false)
         }
@@ -78,9 +87,9 @@ export default function LoginScreen({ navigation }) {
         <View style={styles.content}>
 
             <View style={styles.collection}>
-                <Text style={styles.headingText}>Email or Username</Text>
+                <Text style={styles.headingText}>Email or username</Text>
                 <TextInput
-                    placeholder='Enter your email'
+                    placeholder='Enter your email or username'
                     placeholderTextColor={COLORS.placeholder}
                     style={[styles.inputField, errors?.email && { borderColor: COLORS.error }]}
                     value={email}

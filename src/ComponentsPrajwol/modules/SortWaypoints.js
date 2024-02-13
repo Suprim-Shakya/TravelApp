@@ -1,5 +1,6 @@
 import { MAPS_API_KEY } from "../../componentsSaurav/config";
 
+
 const SortWaypoints = async (origin, waypoints, destination) => {
     // console.log('User location 0:',origin)
     // console.log('User location 1:',...waypoints)
@@ -29,7 +30,6 @@ const SortWaypoints = async (origin, waypoints, destination) => {
         
         const data = await response.json();
         const sortedIndex = data.routes[0].optimizedIntermediateWaypointIndex
-        // git bash khola ta khole , sorted index nai undefined cha aayo ayyyoooo
         // console.log(sortedIndex)
         return sortedIndex;
 

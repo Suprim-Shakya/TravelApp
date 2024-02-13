@@ -101,17 +101,22 @@ const RenderPlans = ({ navigation }) => {
 
     async function handleGetDirections() {
         try {
-            console.log('============================================================================');
+
+//             console.log('============================================================================');
             const locations = await getLocationOfPlans();
             const destination = locations[locations.length-1]
 
             let pureWaypoints;
     
+
+            setLoading(true)
+
             if (locations.length < 3) {
                 pureWaypoints = PureWaypointsConverter(locations);
             } else {
                 // Pass optimized_locations to PureWaypointsConverter
-                const optimized_locations = await OptimizeWayPoints(locations);
+                const optimized_locations = await OptimizeWayPoints(locations)
+                
                 console.log('Optimized ============:', optimized_locations);
                 
                 pureWaypoints = PureWaypointsConverter(optimized_locations);
@@ -124,9 +129,13 @@ const RenderPlans = ({ navigation }) => {
                 
                 // // console.log('Pure dest:',pureDestination);
                 // console.log('Yo chai dest:',pureWaypoints[pureWaypoints.length - 1],);
-                
+
+                // console.log('optimized locations:', optimized_locations);
+//                 pureWaypoints = PureWaypointsConverter(optimized_locations);
+                // console.log(pureWaypoints);
+
             }
-    
+
             openMap({
                 travelType: 'drive',
                 // start: pureWaypoints[0],
@@ -137,6 +146,7 @@ const RenderPlans = ({ navigation }) => {
                 navigate_mode: 'navigate',
                 // region: routeData,
             });
+
             // openMap({
             //     travelType: 'drive',
             //     // start: pureWaypoints[0],
@@ -146,6 +156,9 @@ const RenderPlans = ({ navigation }) => {
             //     navigate_mode: 'navigate',
             //     // region: routeData,
             // });
+
+            setLoading(false)
+
         } catch (error) {
             console.error('Error:', error);
         }

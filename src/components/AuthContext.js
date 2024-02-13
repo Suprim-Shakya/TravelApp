@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
-import { getAccessToken, setAccessToken } from '../componentsSaurav/modules/handleAccessToken';
+import { getAccessToken, removeAccessToken, setAccessToken } from '../componentsSaurav/modules/handleAccessToken';
 import LoadingScreen from '../componentsSaurav/screens/LoadingScreen';
 
 
@@ -20,12 +20,13 @@ export const AuthProvider = ({ children }) => {
         checkAccessToken();
     },[])
 
-    const login = () => {
+    const login = async(accessToken) => {
+        await setAccessToken(accessToken)
         setIsLoggedIn(true);
     };
 
     const logout = async () => {
-        await setAccessToken(null)
+        await removeAccessToken(null)
         setIsLoggedIn(false);
     };
 

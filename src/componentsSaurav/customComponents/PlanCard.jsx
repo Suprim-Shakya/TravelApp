@@ -45,7 +45,7 @@ const PlanCard = ({ name, index, deleteAction, location}) => {
                 />
                 <CustomModal
                     visible={deleteModalVisible}
-                    text={`${name} will be removed from plan`}
+                    text={`"${name}" will be removed from plan`}
                     title1="Ok"
                     title2="Cancel"
                     onPress1={() => {
