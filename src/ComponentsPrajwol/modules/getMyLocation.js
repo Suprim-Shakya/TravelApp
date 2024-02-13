@@ -3,7 +3,7 @@ import { PermissionsAndroid } from 'react-native';
 
 export async function getmyLocation() {
   try {
-    // Request location permission
+    
     const granted = await PermissionsAndroid.request(
       PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
       {
@@ -16,7 +16,6 @@ export async function getmyLocation() {
     );
 
     if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-      // If permission granted, get user coordinates
       return new Promise((resolve, reject) => {
         Geolocation.getCurrentPosition(
           (position) => {
@@ -37,17 +36,17 @@ export async function getmyLocation() {
   }
 }
 
-// Example usage
-async function example() {
-  try {
-    const userCoordinates = await getmyLocation();
-    console.log('User Coordinates:', userCoordinates);
-    // Now you can use the user's coordinates as needed
-  } catch (error) {
-    console.error(error.message);
-    // Handle the error as needed
-  }
-}
+// // Example usage
+// async function example() {
+//   try {
+//     const userCoordinates = await getmyLocation();
+//     console.log('User Coordinates:', userCoordinates);
+//     // Now you can use the user's coordinates as needed
+//   } catch (error) {
+//     console.error(error.message);
+//     // Handle the error as needed
+//   }
+// }
 
-// Call the example function to see the result
-example();
+// // Call the example function to see the result
+// example();

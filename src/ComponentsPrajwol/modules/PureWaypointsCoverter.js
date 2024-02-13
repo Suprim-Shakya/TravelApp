@@ -5,6 +5,6 @@ export function PureWaypointsConverter(inputs){
         return `${item.latitude},${item.longitude}`
     })
 
-        console.log('Pure format',pureFormat)
+        // console.log('Pure format',pureFormat)
         return pureFormat
 }

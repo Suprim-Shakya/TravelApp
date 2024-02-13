@@ -1,10 +1,10 @@
 import { MAPS_API_KEY } from "../../componentsSaurav/config";
 
-
-
-
 const SortWaypoints = async (origin, waypoints, destination) => {
-    console.log('User location is',origin)
+    // console.log('User location 0:',origin)
+    // console.log('User location 1:',...waypoints)
+    // console.log('User location 2:',destination)
+
     try {
         const response = await fetch('https://routes.googleapis.com/directions/v2:computeRoutes', {
             method: 'POST',

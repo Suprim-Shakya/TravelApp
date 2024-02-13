@@ -34,8 +34,8 @@ const GoogleSearch = ({ navigation }) => {
 
     function handleAddToPlan() {
         const payload = {
-            name : selectedPlace,
-            location: {...selectedLocation}
+            name: selectedPlace,
+            location: { ...selectedLocation }
         }
 
         dispatch(addToPlan(payload))
@@ -66,6 +66,10 @@ const GoogleSearch = ({ navigation }) => {
                     components: 'country:np',
                 }}
                 styles={styles.map}
+                // currentLocation = {true}
+                enablePoweredByContainer= {false}
+                placeholderTextColor= {'red'}
+                isRowScrollable = {true}
             />
             <MapView
                 ref={mapRef}
@@ -95,8 +99,8 @@ const GoogleSearch = ({ navigation }) => {
                 <Text style={styles.bottomText}>{selectedPlace}</Text>
 
                 <View style={styles.btnContainer}>
-                    <SmallButton title={"View Plans"} onPress={handleViewPlans}/>
-                    <SmallButton title={"Add to Plan"} onPress={handleAddToPlan}/>
+                    <SmallButton title={"View Plans"} onPress={handleViewPlans} />
+                    <SmallButton title={"Add to Plan"} onPress={handleAddToPlan} />
                 </View>
             </View>
 
@@ -110,14 +114,34 @@ styles = StyleSheet.create({
 
     },
     map: {
-        textInput: { color: 'black' },
         container: {
             zIndex: 2,
             position: 'absolute',
+            width: "100%",
             top: 0,
-            left: 0,
-            right: 0,
+            padding: 10,
         },
+        textInput: {
+            color: 'black',
+            borderColor: "gray",
+            borderWidth: 1,
+            paddingLeft:20,
+            backgroundColor: 'grey',
+        },
+        separator: {
+            height: 1,
+            backgroundColor: "grey"
+        },
+        description: {
+            color: 'grey',
+        },
+        listView: {
+            borderColor: 'grey',
+            borderWidth: 1,
+        },
+        row: {
+            // backgroundColor: "red",
+        }
     },
     bottomText: {
         color: "black",
