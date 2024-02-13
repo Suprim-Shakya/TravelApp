@@ -15,15 +15,15 @@ export const createUserContribution = asyncHandler(async (req, res, next) => {
     const imageLocalPath = req.file?.path;
 
     if (!imageLocalPath) return res.status(400).json(new ApiError(400, "Image is required"));
-    
-    const {  name, description, ticketRequired, ticketPrice, restrictions, isVerified } = req.body;
-    
+
+    const { name, description, ticketRequired, ticketPrice, restrictions, isVerified } = req.body;
+
     // Validate data
     if (!name) return res.status(400).json(new ApiResponse(400, "Name is required"));
-    
+
     const existingPlace = await UserContribution.findOne({ name })
     if (existingPlace) return res.status(409).json(new ApiError(409, "place with name already exists", existingPlace))
-    
+
     const image = await uploadOnCloudinary(imageLocalPath)
     // Create a new UserContribution object with validated details
     const userContribution = new UserContribution({
@@ -50,16 +50,47 @@ export const createUserContribution = asyncHandler(async (req, res, next) => {
 //     const {contributedPlace} = req.body
 // })
 
-
 export const getAllUserContribution = asyncHandler(async (req, res) => {
-    const existingPlaces = await UserContribution.find()
-
-    // If no places are found, return a 404 Not Found response
-    if (existingPlaces.length === 0) {
-        return res.status(404).json(new ApiResponse(404, "No existing places found"));
+    
+    const page = parseInt(req.query?.page) || 1;
+    const limit = parseInt(req.query?.limit) || 5;
+    if (isNaN(page) || page < 1) {
+        return res.status(400).json(new ApiError(400, 'Invalid page number. Page must be a positive integer.'))
+    }
+    if (isNaN(limit) || limit < 1 || limit > 100) {
+        return res.status(400).json(new ApiError(400, 'Invalid limit value. Limit must be a positive integer between 1 and 100.'))
     }
 
-    return res.json(new ApiResponse(200, "Existing places retrieved successfully", existingPlaces));
+    const count = await UserContribution.countDocuments()
+    // If no places are found, return a 404 Not Found response
+    if (count === 0) {
+        return res.status(404).json(new ApiResponse(404, "No places found"));
+    }
+
+
+
+    const totalPages = Math.ceil(count / limit);
+    const hasNextPage = page < totalPages;
+
+    if (page > totalPages) {
+        return res.json(new ApiResponse(200, "No items found on this page", { userContribution: [], pageInfo: { totalItems: count, totalPages, currentPage: page, hasNextPage: false } }));
+    }
+
+    const userContribution = await UserContribution.find()
+        .skip((page - 1) * limit)
+        .limit(limit);
+
+    const responseData = {
+        userContribution,
+        pageInfo: {
+            totalItems: count,
+            totalPages,
+            currentPage: page,
+            hasNextPage,
+        }
+    }
+
+    return res.json(new ApiResponse(200, "Places retrieved successfully", responseData));
 })
 
 
@@ -100,7 +131,7 @@ export const modifyUserContribution = asyncHandler(async (req, res) => {
     const imageLocalPath = req.file.path;
     let image
 
-    if(imageLocalPath){
+    if (imageLocalPath) {
         image = await uploadOnCloudinary(imageLocalPath)
     }
 
@@ -148,7 +179,7 @@ export const deleteUserContribution = asyncHandler(async (req, res) => {
     if (contribution.userId.toString() !== req.user._id.toString()) return res.status(403).json(new ApiResponse(403, "Unauthorized: You do not have permission to delete this contribution"));
 
     // Delete the contribution
-    await contribution.deleteOne({_id});
+    await contribution.deleteOne({ _id });
 
     // Send a success response
     return res.status(200).json(new ApiResponse(200, "Contribution deleted successfully", contribution));
