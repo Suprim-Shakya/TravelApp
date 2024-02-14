@@ -1,6 +1,7 @@
 import { Pressable, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import Icon from "react-native-vector-icons/MaterialIcons"
+import COLORS from '../../constants/colors'
 
 const SearchBar = ({ text, onPress }) => {
     return (
@@ -15,7 +16,7 @@ const SearchBar = ({ text, onPress }) => {
                     borderless: false,
                 }}
             >
-                <Icon name='search' size={24} />
+                <Icon name='search' size={24} color={COLORS.placeholder}/>
                 <Text style={styles.text}>{text || "Search..."}</Text>
             </Pressable>
         </View>
@@ -40,5 +41,8 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         gap: 5,
         alignItems: 'center',
+    },
+    text: {
+        color:COLORS.placeholder
     }
 })

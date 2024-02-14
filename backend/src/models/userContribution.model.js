@@ -15,6 +15,9 @@ const userContributionSchema = new Schema({
         required: [true, "name is required"],
         unique: [true, "A site with same name already exists."]
     },
+    location: {
+	type: String
+    },
     description: {
         type: String,
         default: "No description Given"
@@ -24,13 +27,6 @@ const userContributionSchema = new Schema({
     },
     ticketPrice: {
         type: Number,
-        validate: {
-            validator: function(value) {
-                // Custom validation to ensure ticketPrice is provided when ticketRequired is true
-                return !this.ticketRequired || (this.ticketRequired && value != null);
-            },
-            message: "Ticket price is required when ticket is required"
-        }
     },
     restrictions: {
         type: String,
@@ -38,6 +34,9 @@ const userContributionSchema = new Schema({
     isVerified: {
         type: Boolean,
         default: false
+    },
+    category: {
+        type: String
     }
 }, {timestamps: true})
 

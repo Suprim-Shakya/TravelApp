@@ -26,6 +26,10 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: [true, "password cannot be empty"]
     },
+    emailVerified: {
+        type: Boolean,
+        default: false
+    }
 }, { timestamps: true });
 
 

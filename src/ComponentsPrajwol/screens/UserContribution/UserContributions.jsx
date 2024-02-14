@@ -1,9 +1,10 @@
-// UserContributions.js
-
 import React, { useState, useEffect } from 'react';
 import { View, Text, TouchableOpacity, Image, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import fetchUserContribution from './fetchUserContribution';
+import { ScrollView } from 'react-native-virtualized-view';
+import FinalDetailsScreen from '../../../components/DetectionDetail';
+
 
 const UserContributions = () => {
   const [contribDetails, setContribDetails] = useState(null);
@@ -23,17 +24,27 @@ const UserContributions = () => {
   }, []);
 
   const navigateToDetails = (item) => {
-    // navigation.navigate('DetailsScreen', { details: item });
-    console.log('Pressed',item);
+    const { location } = item;
+const [latitude, longitude] = location.split(',').map(coord => coord.trim());
+
+console.log(latitude,longitude);
+
+
+    navigation.navigate('DetectionDetail', {
+      latitude: parseFloat(latitude),
+      longitude: parseFloat(longitude),
+      ...item,
+    });
+    console.log('Pressed', item);
   };
 
   return (
-    <View>
+    <ScrollView>
       {contribDetails && contribDetails.documents && (
         <View>
           {contribDetails.documents.map((item) => (
             <TouchableOpacity
-              key={item.id}
+              key={item._id}
               style={styles.card}
               onPress={() => navigateToDetails(item)}
             >
@@ -43,7 +54,7 @@ const UserContributions = () => {
           ))}
         </View>
       )}
-    </View>
+    </ScrollView>
   );
 };
 

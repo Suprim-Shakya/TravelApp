@@ -1,20 +1,20 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, Image, StyleSheet, ImageBackground, StatusBar, Pressable } from 'react-native';
+import { View, Text, Image, StyleSheet, ImageBackground, StatusBar, Pressable, TouchableOpacity } from 'react-native';
 
 import COLORS from '../constants/colors';
 import { ScrollView } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-
 
 import Geolocation from 'react-native-geolocation-service';
 import { PermissionsAndroid } from 'react-native';
 
 import { MAPS_API_KEY } from '../componentsSaurav/config';
 import MapViewDirections from 'react-native-maps-directions';
+import fetchWH from '../ComponentsPrajwol/screens/WorldHeritage/fetchWH';
 
 
 const FinalDetailsScreen = ({ navigation, route }) => {
-    const { className, architectureStyle, constructedBy, Ticket, Description, imageLink, constructionDate, latitude, longitude } = route.params;
+    const { _id,className, architectureStyle, constructedBy, Ticket, Description, imageLink, constructionDate, latitude, longitude, Location,Year,imageUrl,name,description} = route.params;
     const [distance, setDistance] = useState(null);
     useEffect(() => {
       const fetchData = async () => {
@@ -79,17 +79,34 @@ const FinalDetailsScreen = ({ navigation, route }) => {
       fetchData();
     }, [latitude, longitude]);
 
+    console.log(latitude,longitude)
+
+    function fetchInsideHeritage(){
+      console.log('inside the unesco',_id);
+    }
+    
+
     return (
         
         <ScrollView style={styles.container}>
 
             {/* <StatusBar translucent={true} backgroundColor="rgba(0,0,0,0.2)" /> */}
-            {imageLink && <ImageBackground source={{ uri: imageLink }} style={styles.image} >
-            </ImageBackground>}
+            {/* {imageLink && <ImageBackground source={{ uri: imageLink }} style={styles.image} >
+            </ImageBackground>} */}
+            {imageLink || imageUrl ? (
+  <ImageBackground source={{ uri: imageLink || imageUrl }} style={styles.image}>
+    {/* Your ImageBackground content goes here */}
+  </ImageBackground>
+) : null}
+
 
             <View style={styles.headingView}>
                 <Icon name="place" size={28} color={COLORS.primary} />
-                <Text style={styles.headingText}>{className}</Text>
+                
+                {(name || className) && (
+                <Text style={styles.headingText}> {name || className}</Text>
+                )}
+
             </View>
             <Pressable style={styles.backBtn}>
                 <Icon
@@ -110,9 +127,17 @@ const FinalDetailsScreen = ({ navigation, route }) => {
                 <Text style={styles.detailText}>Duration : {distance?.durationText} </Text>
                 {/* <Text>Duration Value: {distance?.durationValue}</Text> */}
 
-                {Description && <Text style={styles.detailText}>Description: {Description}</Text>}
+                {/* {Description && <Text style={styles.detailText}>Description: {Description}</Text>} */}
+                {(Description || description) && (
+  <Text style={styles.detailText}>Description: {Description || description}</Text>
+)}
+
                 {latitude && longitude && <Text style={styles.detailText}>Location: {latitude},{longitude}</Text>}
-                </View>
+              </View>
+              {/* <View>
+                <TouchableOpacity onPress={fetchInsideHeritage}>
+                  <Text>Press for More info</Text></TouchableOpacity>
+              </View> */}
            
         </ScrollView>
     );
@@ -154,3 +179,5 @@ const styles = StyleSheet.create({
 });
 
 export default FinalDetailsScreen;
+
+//last one in the stack

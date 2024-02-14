@@ -1,7 +1,6 @@
 import { Alert } from "react-native";
 import { LOGIN_ENDPOINT } from "../config";
 import { setAccessToken } from "../modules/handleAccessToken";
-import { useAuth } from "../../components/AuthContext";
 
 export default async function userLogin(data) {
 
@@ -38,8 +37,8 @@ export default async function userLogin(data) {
         const message = responseData.message || "logged in successfully";
         if (res.ok) {
             // Alert.alert("Success", `${message} \nYou can now contribute.`)
-            await setAccessToken(responseData.data?.accessToken)
-            return true
+            // await setAccessToken(responseData.data?.accessToken)
+            return responseData.data?.accessToken
         } else {
             Alert.alert("oops", `${message}`)
             return false

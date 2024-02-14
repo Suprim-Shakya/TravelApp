@@ -29,7 +29,7 @@ const CustomModal = ({ visible , header, text, onPress1, onPress2, title1, title
                     </View>
 
                     <Pressable style={styles.icon} onPress={closeModal}>
-                        <Icon name='close-circle' size={24} />
+                        <Icon name='close-circle' size={24} color={COLORS.placeholder}/>
                     </Pressable>
                 </View>
             </View>
@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: 'rgba(0, 0, 0, 0.6)',
         position: 'relative',
-
+        
     },
     icon: {
         position: "absolute",
@@ -53,6 +53,7 @@ const styles = StyleSheet.create({
         zIndex: 2
     },
     view: {
+        maxWidth: "80%",
         backgroundColor: 'white',
         paddingHorizontal: 20,
         paddingVertical: 8,

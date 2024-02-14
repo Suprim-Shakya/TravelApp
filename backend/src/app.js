@@ -1,5 +1,5 @@
 import express from "express"
-import { baseReply } from "./controllers/base.controllers.js";
+import { baseApiReply, baseReply, endpointNotFound } from "./controllers/base.controllers.js";
 import cookieParser from "cookie-parser";
 import cors from "cors"
 import moment from "moment-timezone";
@@ -33,6 +33,7 @@ app.use(cookieParser())//parse cookies(access token)
 
 //routes
 app.route("/").get(baseReply)
+app.route("/api/v1").get(baseApiReply)
 // app.route("/api/v1/auth/register").post(register)
 
 import authRoutes from "./routes/auth.routes.js";
@@ -45,8 +46,18 @@ import secretRouter from "./routes/protected.routes.js";
 app.use(verifyAccessToken)
 app.use("/api/v1/protected", secretRouter)
 
-
 import userContributionRouter from "./routes/userContribution.route.js"; 
 app.use("/api/v1/contribution", userContributionRouter)
+
+
+// import listRouter from "./routes/list.routes.js";
+// app.use("/api/v1/list/", listRouter)
+
+app.route("/*")
+  .get(endpointNotFound)
+  .post(endpointNotFound)
+  .patch(endpointNotFound)
+  .put(endpointNotFound)
+  .delete(endpointNotFound);
 
 export default app

@@ -3,11 +3,15 @@ import ApiError from "../utils/ApiError.js"
 import bcryptjs from "bcryptjs"
 import User from "../models/user.model.js";
 import asyncHandler from "../utils/asyncHandler.js";
-
+import {trimObj} from "../utils/formatText.js"
 
 
 export const register = asyncHandler(async(req, res) => {
-    const { firstName, lastName, userName, email, password } = req.body;
+    let { firstName, lastName, userName, email, password } = trimObj(req.body);
+    userName = userName.toLowerCase()
+    email = email.toLowerCase()
+
+    //TODO:Validate email, username 
 
     const requiredFields = ['firstName', 'lastName', 'userName', 'email', 'password'];
     const missingOrEmptyFields = requiredFields.filter(field => !(field in req.body) || req.body[field]?.trim() == "");
@@ -20,6 +24,11 @@ export const register = asyncHandler(async(req, res) => {
     if (password.length < 8) {
         return res.status(400).json(
             new ApiError(400, "Password must be at least 8 characters long")
+        );
+    }
+    if (userName.length < 8) {
+        return res.status(400).json(
+            new ApiError(400, "Username must be at least 8 characters long")
         );
     }
 
@@ -39,7 +48,7 @@ export const register = asyncHandler(async(req, res) => {
         firstName,
         lastName,
         userName: userName.toLowerCase(),
-        email,
+        email: email.toLowerCase(),
         password: hashedPassword,
     })
 
@@ -68,7 +77,9 @@ export async function generateTokens(userId) {
 
 
 export const login = asyncHandler(async (req, res) => {
-    const { userName, email, password } = req.body;
+    let { userName, email, password } = trimObj(req.body);
+    userName = userName?.toLowerCase()
+    email = email?.toLowerCase()
 
     if (!userName && !email) return res.status(400).json(new ApiError(400, "Email or username is required"));
 

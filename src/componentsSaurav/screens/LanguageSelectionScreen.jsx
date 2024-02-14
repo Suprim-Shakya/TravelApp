@@ -1,26 +1,36 @@
-import { Text, StyleSheet, FlatList, SafeAreaView } from 'react-native';
+import { StyleSheet, FlatList, SafeAreaView } from 'react-native';
 import LanguageCard from '../customComponents/LanguageCard';
-import languages from "../../constants/languages.json"
+import languages from "../../i18n/languagesAvailable.json"
 import { useTranslation } from 'react-i18next';
+import { useAuth } from '../../components/AuthContext';
+import { useState, useEffect } from 'react';
 
 const LanguageSelectionScreen = () => {
-    const { t, i18n } = useTranslation();
-    function handlePress(code) {
-        if (i18n.language !== code) {
-            i18n.changeLanguage(code);
+    const [currentLanguage, setCurrentLanguage] = useState()
+    const { t } = useTranslation();
+    const { changeLanguage, getCurrentLanguage } = useAuth()
+
+    useEffect(()=> {
+        async function loadLanguage() {
+            const lang = await getCurrentLanguage();
+            setCurrentLanguage(lang)
         }
-        console.log(code);
+        loadLanguage()
+    }, [])
+
+    async function handlePress(code) {
+        setCurrentLanguage(code)
+        await changeLanguage(code)
     }
 
 
 
     return (
         <SafeAreaView style={styles.container}>
-            {/* <Text style={styles.title}>{t('Select')} Language</Text> */}
+            {/* <Text style={styles.title}>{t('language')} Language</Text> */}
 
             <FlatList
                 data={languages}
-
                 keyExtractor={item => item.id}
                 renderItem={({ item }) =>
                     <LanguageCard
@@ -28,6 +38,7 @@ const LanguageSelectionScreen = () => {
                         language={item.name}
                         code={item.code}
                         enabled={item.available}
+                        current = {currentLanguage === item.code}
                     />
                 }
             />

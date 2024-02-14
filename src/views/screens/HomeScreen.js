@@ -1,6 +1,6 @@
 import React, { useState,useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-
+import { useNavigation } from '@react-navigation/native';
 import {
   SafeAreaView,
   ScrollView,
@@ -14,6 +14,7 @@ import {
   Dimensions,
   TouchableOpacity,
   Alert,
+  Image,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import COLORS from '../../constants/colors';
@@ -22,8 +23,15 @@ import cuisines from '../../constants/cusines';
 
 import openMap from 'react-native-open-maps';
 import fetchDetailsFromDb from '../../componentsSaurav/apiCalls/fetchDataFromDB';
-import activities from '../../constants/activities';
 
+import activities from '../../constants/activities';
+import fetchWH from '../../ComponentsPrajwol/screens/WorldHeritage/fetchWH';
+// import DetailsScreen from '../../ComponentsPrajwol/screens/UserContribution/DetailsScreen';
+import DetailsScreen from '../../components/DetailsScreen'
+import FinalDetailsScreen from '../../components/DetectionDetail';
+import SemiFinalDetailsScreen from '../../components/DetailsScreen';
+import DetailsScreenCuisine from './DetailsScreenCuisine';
+import Iconx from 'react-native-vector-icons/MaterialCommunityIcons'
 const data = [
   { id: '0', title: 'Akash Bhairab Temple' },
   { id: '1', title: 'Bhagwati Temple' },
@@ -144,7 +152,7 @@ const HomeScreen = ({navigation}) => {
 
   const categoryIcons = [
     <Icon name="restaurant" size={25} color={COLORS.dark}/>, 
-    <Icon name="emergency" size={25} color={COLORS.dark} />,
+    <Iconx name="hospital" size={25} color={COLORS.dark} />,
     <Icon name="wc" size={25} color={COLORS.dark} />,
     <Icon name="atm" size={25} color={COLORS.dark} />,
   ];
@@ -203,7 +211,7 @@ const HomeScreen = ({navigation}) => {
   const RecommendedCard = ({place}) => {
     return (
       <TouchableOpacity activeOpacity={0.8}
-      onPress={() => navigation.navigate('DetailsScreen',place)}>
+      onPress={() => navigation.navigate('DetailsScreenCuisine',place)}>
 
       <ImageBackground style={style.rmCardImage} source={place.image}>
         <Text
@@ -226,6 +234,44 @@ const HomeScreen = ({navigation}) => {
     </TouchableOpacity>
     );
   };
+//world heritage
+  const [worldheritageDetails, setWorldheritageDetails] = useState(null);
+  const navigationn = useNavigation();
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const worldheritageResponse = await fetchWH();
+        setWorldheritageDetails(worldheritageResponse);
+      } catch (error) {
+        console.error('Error fetching user contributions:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  const navigateToWorldHeritageDetails = (item) => {
+    navigationn.navigate('SemiFinalDetailsScreen',{...item});
+    // console.log(typeof(item))
+    // navigationn.navigate('DetailsScreen',{...item});
+    // navigationn.navigate('DetailsScreen', { worldheritageResponse: item });
+    // navigationn.navigate('FinalDetailsScreen',{...item});
+
+    // console.log('Pressed in homescreen',item);
+    // console.log(`Coordinate is ${item.latitude},${item.longitude}`);
+  };
+
+  const renderCard = ({ item }) => (
+    <TouchableOpacity
+      key={item.id}
+      style={styles.cardWh}
+      onPress={() => navigateToWorldHeritageDetails(item)}
+    >
+      <Image source={{ uri: item.imageLink }} style={styles.imagewh} />
+      <Text style={styles.nameWh}>{item.className}</Text>
+    </TouchableOpacity>
+  );
+
   const {t,i18n}=useTranslation();
     function handlePress(code){
         if (i18n.language !== code) {
@@ -233,6 +279,8 @@ const HomeScreen = ({navigation}) => {
         }
         console.log(code);
     }
+
+
 
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: COLORS.white}}>
@@ -255,6 +303,7 @@ const HomeScreen = ({navigation}) => {
                     placeholder="Search"
                     onChangeText={searchFilterFunction}
                     value={searchQuery}
+                    placeholderTextColor={COLORS.placeholder}
                   />
                   {renderFilteredData()}
                   
@@ -263,15 +312,26 @@ const HomeScreen = ({navigation}) => {
         </View>
         <ListCategories />
         <Text style={style.sectionTitle}>Places</Text>
-        <View style={style.sendBackward}>
+        <View style={styles.containerWh}>
+      {worldheritageDetails && worldheritageDetails.documents && (
+        <FlatList
+          data={worldheritageDetails.documents}
+          keyExtractor={(item) => item.classNumber}
+          renderItem={renderCard}
+          horizontal
+          showsHorizontalScrollIndicator={false}
+        />
+      )}
+    </View>
+        {/* <View style={style.sendBackward}> */}
 
-          <FlatList
+          {/* <FlatList
             contentContainerStyle={{paddingLeft: 20}}
             horizontal
             showsHorizontalScrollIndicator={false}
             data={places}
             renderItem={({item}) => <Card place={item} />}
-          />
+          /> */}
 
           <Text style={style.sectionTitle}>Cuisines</Text>
           <FlatList
@@ -282,7 +342,7 @@ const HomeScreen = ({navigation}) => {
             data={cuisines}
             renderItem={({item}) => <RecommendedCard place={item} />}
           />
-          <Text style={style.sectionTitle}>Activities</Text>
+          {/* <Text style={style.sectionTitle}>Activities</Text>
           <FlatList
             snapToInterval={width - 20}
             contentContainerStyle={{paddingLeft: 20, paddingBottom: 20}}
@@ -290,8 +350,8 @@ const HomeScreen = ({navigation}) => {
             horizontal
             data={activities}
             renderItem={({item}) => <RecommendedCard place={item} />}
-          />
-        </View>
+          /> */}
+        
       </ScrollView>
     </SafeAreaView>
   );
@@ -311,19 +371,19 @@ const style = StyleSheet.create({
     fontSize: 23,
   },
   inputContainer: {
-    height: 60,
+    height: 50,
     width: '100%',
     backgroundColor: COLORS.white,
-    borderRadius: 50,
+    borderRadius: 8,
     position: 'absolute',
     top: 90,
     flexDirection: 'row',
     paddingHorizontal: 20,
     alignItems: 'center',
-    elevation: 12,
+    elevation: 16,
   },
   categoryContainer: {
-    marginTop: 60,
+    marginTop: 50,
     marginHorizontal: 20,
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -339,7 +399,7 @@ const style = StyleSheet.create({
   },
   sectionTitle: {
     marginHorizontal: 20,
-    marginVertical: 20,
+    marginVertical: 10,
     fontWeight: 'bold',
     fontSize: 20,
 
@@ -376,9 +436,9 @@ const styles = StyleSheet.create({
   },
   overlayContainer: {
     position: 'absolute',
-    top: 60, // Adjust this value based on your layout
-    right: '5%', // Adjust this value based on your layout
-    left: '5%', // Adjust this value based on your layout
+    top: 60, 
+    right: '5%', 
+    left: '5%', 
     width: '90%',
     backgroundColor: '#fff',
     borderRadius: 5,
@@ -417,5 +477,36 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 5,
   },
+  containerWh: {
+    flexDirection: 'row',
+    zIndex:-1,
+  },
+  cardWh: {
+    width: 200,
+    height: 200,
+    borderRadius: 10,
+    backgroundColor: '#fff',
+    marginLeft: 20,
+    padding: 0,
+    alignItems: 'center',
+    overflow: 'hidden', 
+    zIndex:-1,
+  },
+  imagewh: {
+    width: '100%',
+    height: '100%', 
+    borderRadius: 8,
+    resizeMode: 'cover',
+  },
+  nameWh: {
+    position: 'absolute', 
+    bottom: 10, 
+    fontSize: 20,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    color: 'white', 
+    width: '100%', 
+  },
 });
+
 export default HomeScreen;

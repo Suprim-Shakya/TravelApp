@@ -22,7 +22,7 @@ const PlanCard = ({ name, index, deleteAction, location}) => {
     function handleViewOnMap () {
         console.log(location.latitude)
         console.log(location.longitude)
-        navigation.navigate('Maps', { location: {...location}, title: name })
+        navigation.navigate('Maps', { location: {...location}, name })
         setInfoModalVisible(false)
         return null
     }
@@ -45,7 +45,7 @@ const PlanCard = ({ name, index, deleteAction, location}) => {
                 />
                 <CustomModal
                     visible={deleteModalVisible}
-                    text={`${name} will be removed from plan`}
+                    text={`"${name}" will be removed from plan`}
                     title1="Ok"
                     title2="Cancel"
                     onPress1={() => {
@@ -90,7 +90,8 @@ const styles = StyleSheet.create({
     },
     content: {
         minHeight: 50,
-        paddingHorizontal: 10,
+        paddingHorizontal: 20,
+        paddingVertical: 2,
         height: 'auto',
         display: 'flex',
         flexDirection: "row",

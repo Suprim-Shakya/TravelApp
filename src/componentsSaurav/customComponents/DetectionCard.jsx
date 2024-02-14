@@ -47,7 +47,7 @@ const DetectionCard = ({ box, name, confidence, classNumber, fromDetection = tru
 
 		return (
 			() => {
-				console.log('clear use effect');
+				// console.log('clear use effect');
 				setData(null);
 				// setRenderSkeleton(true)
 			}
@@ -57,16 +57,16 @@ const DetectionCard = ({ box, name, confidence, classNumber, fromDetection = tru
 
 	const handleKnowMore = () => {
 		// console.log('hello')
-		// navigation.navigate('MainStack', { screen: 'DetectionDetail', params: { ...data } })
-		navigation.navigate('DetectionDetail', { ...data } )
+		navigation.navigate('MainStack', { screen: 'DetectionDetail', params: { ...data } })
+		// navigation.navigate('DetectionDetail', { ...data } )
 		// console.log('hello')
-		console.log('Navigation to DetectionDetail screen complete');
+		// console.log('Navigation to DetectionDetail screen complete');
 	}
 
 
 	const handleAddToBookmark = async () => {
 
-		console.log('inside add to bookmark')
+		// console.log('inside add to bookmark')
 
 		const ATB = () => {
 			const dataObj = {
@@ -101,21 +101,21 @@ const DetectionCard = ({ box, name, confidence, classNumber, fromDetection = tru
 
 	const handleAddToPlan = async () => {
 
-		console.log('inside add to plan')
+		// console.log('inside add to plan')
 
 		const ATP = () => {
 			const dataObj = {
 				name,
 				location: { latitude: parseFloat(data.latitude), longitude: parseFloat(data.longitude) }
 			}
-			console.log(name)
+			// console.log(name)
 			dispatch(addToPlan(dataObj));
 			
-			console.log("\n\n\n\n\n start add to bookmark function -------------\n")
+			// console.log("\n\n\n\n\n start add to bookmark function -------------\n")
 			// Alert.alert(`${name} must be saved on Bookmarks.`, `Navigate to Bookmarks tab to access it.`)
 
 			plans.map(item => console.log(item))
-			console.log("\nend add to bookmark function -------------")
+			// console.log("\nend add to bookmark function -------------")
 			setOnPlan(true)
 		}
 
@@ -124,9 +124,9 @@ const DetectionCard = ({ box, name, confidence, classNumber, fromDetection = tru
 
 			// Alert.alert(`${data.name} must be removed.`, `Navigate to Bookmarks tab to access it.`)
 			// const plan = useSelector(state=> state.plan.plan);
-			console.log("\n\n\n\n\n start remove bookmark function**************\n")
-			plans.map(item => console.log(item))
-			console.log("\n\end remove bookmark function***************")
+			// console.log("\n\n\n\n\n start remove bookmark function**************\n")
+			// plans.map(item => console.log(item))
+			// console.log("\n\end remove bookmark function***************")
 			setOnPlan(false)
 		}
 

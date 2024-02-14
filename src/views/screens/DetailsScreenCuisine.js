@@ -11,13 +11,13 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import COLORS from '../../constants/colors';
 import { ScrollView } from 'react-native-gesture-handler';
 
-const DetailsScreen = ({navigation, route}) => {
+const DetailsScreenCuisine = ({navigation, route}) => {
   const place = route.params;
   return (
     
     <SafeAreaView style={{flex: 1, backgroundColor: COLORS.white}}>
       
-      <StatusBar translucent backgroundColor="rgba(0,0,0,0)" />
+      {/* <StatusBar translucent backgroundColor="rgba(0,0,0,0)" /> */}
       
       <ImageBackground style={{flex: 0.8}} source={place.image}>
         <View style={style.header}>
@@ -38,7 +38,7 @@ const DetailsScreen = ({navigation, route}) => {
               marginBottom: 0,
             }}>
               
-            {place.name}
+            {/* {place.name} */}
           </Text>
           {/* <View style={{flexDirection: 'row'}}>
             <Icon name="star" size={30} color={COLORS.orange} />
@@ -55,7 +55,7 @@ const DetailsScreen = ({navigation, route}) => {
             <Icon name="favorite" color={COLORS.red} size={30} />
           </View> */}
           <View style={{flexDirection: 'row', marginTop: 10}}>
-		  {place.location && <Icon name="place" size={28} color={COLORS.primary} />}
+		  {/* {place.location && <Icon name="place" size={28} color={COLORS.primary} />} */}
            {place.location && <Text
               style={{
                 marginLeft: 5,
@@ -63,7 +63,7 @@ const DetailsScreen = ({navigation, route}) => {
                 fontWeight: 'bold',
                 color: COLORS.primary,
               }}>
-              {place.location}
+              {place.name}
             </Text>}
 		  {place.foodName && <Icon name="fastfood" size={28} color={COLORS.primary} />}
            {place.foodName && <Text
@@ -113,4 +113,4 @@ const style = StyleSheet.create({
   },
 });
 
-export default DetailsScreen;
+export default DetailsScreenCuisine;

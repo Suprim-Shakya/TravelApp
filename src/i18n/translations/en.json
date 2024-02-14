@@ -1,7 +1,9 @@
 {
-    "greet": "Hello, world",
-    "name": "Name",
-    "Discover":"Discover",
-    "Places":"Places",
-    "Select":"Select"
+  "greet": "Hello",
+  "name": "Name",
+  "Discover": "Explore",
+  "Places": "Places",
+  "Select": "Select",
+  "language": "Language",
+  "Language": "Language"
 }
