@@ -10,10 +10,10 @@ const Card = ({ activity }) => {
   const navigation = useNavigation();
 
   const handlePress = () => {
-    console.log('Pressed:',activity);
-    console.log('Pressed:',activity.plusCode);
-    // navigation.navigate('ActivitiesDetails'); // Change 'DetailsScreen' to the name of your target screen
-    navigation.navigate('ActivitiesDetails', { activity }); // Change 'DetailsScreen' to the name of your target screen
+
+    
+    // navigation.navigate('ActivitiesDetails', { activity });
+    navigation.navigate('MainStack', { screen: 'ActivitiesDetails', params:{activity} })
   };
 
   return (

@@ -40,9 +40,9 @@ const bookmarkSlice = createSlice({
         },
 
         loadExistingBookmark: (state, action) => {
-            console.log('yeta ayo hai')
+            // console.log('yeta ayo hai')
             state.bookmark = state.bookmark.concat(action.payload);
-            console.log(`/n loaded existing value: ${action.payload}\n new value is: \n${state.bookmark}`)
+            // console.log(`/n loaded existing value: ${action.payload}\n new value is: \n${state.bookmark}`)
         }
     }
 })
