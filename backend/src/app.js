@@ -1,5 +1,5 @@
 import express from "express"
-import { baseApiReply, baseReply } from "./controllers/base.controllers.js";
+import { baseApiReply, baseReply, endpointNotFound } from "./controllers/base.controllers.js";
 import cookieParser from "cookie-parser";
 import cors from "cors"
 import moment from "moment-timezone";
@@ -50,7 +50,14 @@ import userContributionRouter from "./routes/userContribution.route.js";
 app.use("/api/v1/contribution", userContributionRouter)
 
 
-import listRouter from "./routes/list.routes.js";
-app.use("/api/v1/list/", listRouter)
+// import listRouter from "./routes/list.routes.js";
+// app.use("/api/v1/list/", listRouter)
+
+app.route("/*")
+  .get(endpointNotFound)
+  .post(endpointNotFound)
+  .patch(endpointNotFound)
+  .put(endpointNotFound)
+  .delete(endpointNotFound);
 
 export default app

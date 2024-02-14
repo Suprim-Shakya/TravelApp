@@ -78,8 +78,8 @@ export async function generateTokens(userId) {
 
 export const login = asyncHandler(async (req, res) => {
     let { userName, email, password } = trimObj(req.body);
-    userName = userName.toLowerCase()
-    email = email.toLowerCase()
+    userName = userName?.toLowerCase()
+    email = email?.toLowerCase()
 
     if (!userName && !email) return res.status(400).json(new ApiError(400, "Email or username is required"));
 
