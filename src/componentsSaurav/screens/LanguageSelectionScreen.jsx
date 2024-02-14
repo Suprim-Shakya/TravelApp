@@ -1,17 +1,25 @@
-import { Text, StyleSheet, FlatList, SafeAreaView } from 'react-native';
+import { StyleSheet, FlatList, SafeAreaView } from 'react-native';
 import LanguageCard from '../customComponents/LanguageCard';
 import languages from "../../constants/languages.json"
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '../../components/AuthContext';
+import { useState, useEffect } from 'react';
 
 const LanguageSelectionScreen = () => {
+    const [currentLanguage, setCurrentLanguage] = useState()
     const { t } = useTranslation();
+    const { changeLanguage, getCurrentLanguage } = useAuth()
 
-    const { changeLanguage } = useAuth()
+    useEffect(()=> {
+        async function loadLanguage() {
+            const lang = await getCurrentLanguage();
+            setCurrentLanguage(lang)
+        }
+        loadLanguage()
+    }, [])
 
-    function handlePress(code) {
-        changeLanguage('np')
-        console.log(code)
+    async function handlePress(code) {
+        await changeLanguage(code)
     }
 
 
@@ -22,7 +30,6 @@ const LanguageSelectionScreen = () => {
 
             <FlatList
                 data={languages}
-
                 keyExtractor={item => item.id}
                 renderItem={({ item }) =>
                     <LanguageCard
@@ -30,6 +37,7 @@ const LanguageSelectionScreen = () => {
                         language={item.name}
                         code={item.code}
                         enabled={item.available}
+                        current = {currentLanguage === item.code}
                     />
                 }
             />

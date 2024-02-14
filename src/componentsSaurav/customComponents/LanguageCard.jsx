@@ -2,7 +2,7 @@ import { Pressable, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import CountryFlag from "react-native-country-flag";
 
-const LanguageCard = ({ language, code, enabled = true, onPress }) => {
+const LanguageCard = ({ language, code, enabled = true, onPress,current }) => {
 
     const styles = StyleSheet.create({
         container: {
@@ -10,7 +10,7 @@ const LanguageCard = ({ language, code, enabled = true, onPress }) => {
             borderColor: "gray",
             justifyContent: "center",
             alignContent: "center",
-            backgroundColor: enabled ? 'white' : "rgba(0,0,0,0.1)",
+            backgroundColor: current && enabled ? 'white' : "rgba(0,0,0,0.1)",
             borderRadius: 20,
             borderWidth: 2,
             overflow: 'hidden',

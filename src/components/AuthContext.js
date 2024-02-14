@@ -51,6 +51,10 @@ export const AuthProvider = ({ children }) => {
             setLang(language)
         }
     }
+    async function getCurrentLanguage() {
+        const current = await getLanguage();
+        return current
+    }
 
     if (loading) {
         // Display loading indicator or screen until the authentication status is determined
@@ -58,7 +62,7 @@ export const AuthProvider = ({ children }) => {
     }
 
     return (
-        <AuthContext.Provider value={{ isLoggedIn, login, logout, changeLanguage }}>
+        <AuthContext.Provider value={{ isLoggedIn, login, logout, changeLanguage, getCurrentLanguage }}>
             {children}
         </AuthContext.Provider>
     );

@@ -7,6 +7,7 @@ export async function getLanguage() {
         if (language !== null) {
             return language
         }
+        // else {return 'en'}
     } catch (error) {
         console.error("Error occurred while retrieving language: ", error)
         return false
