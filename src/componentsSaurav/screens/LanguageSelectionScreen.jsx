@@ -19,6 +19,7 @@ const LanguageSelectionScreen = () => {
     }, [])
 
     async function handlePress(code) {
+        setCurrentLanguage(code)
         await changeLanguage(code)
     }
 
