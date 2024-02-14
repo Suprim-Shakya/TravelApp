@@ -1,17 +1,11 @@
 import i18next from "i18next";
 import { initReactI18next } from "react-i18next";
-// import { en, fr,gb,de,np,ru } from "./translations";
-import { en, fr, np} from "./translations";
+import { en, np, in as hindi} from "./translations";
 const resources = {
-    en: {
-        translation: en,
-    },
-    fr: {
-        translation: fr,
-},
-    np: {
-        translation: np,
-},
+    en: {translation: en,},
+    gb: {translation: en,},
+    np: {translation: np,},
+    in: {translation: hindi}
 }
 
 i18next.use(initReactI18next).init({

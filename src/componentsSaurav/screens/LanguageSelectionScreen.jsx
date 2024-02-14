@@ -1,6 +1,6 @@
 import { StyleSheet, FlatList, SafeAreaView } from 'react-native';
 import LanguageCard from '../customComponents/LanguageCard';
-import languages from "../../constants/languages.json"
+import languages from "../../i18n/languagesAvailable.json"
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '../../components/AuthContext';
 import { useState, useEffect } from 'react';
