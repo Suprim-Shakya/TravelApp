@@ -3,6 +3,7 @@ import ApiError from "../utils/ApiError.js";
 import ApiResponse from "../utils/ApiResponse.js";
 import asyncHandler from "../utils/asyncHandler.js";
 import { uploadOnCloudinary } from "../utils/cloudinary.js";
+import { trimObj } from "../utils/formatText.js";
 
 export const createUserContribution = asyncHandler(async (req, res, next) => {
     // const userContribution = new userContribution(req.body);
@@ -16,7 +17,7 @@ export const createUserContribution = asyncHandler(async (req, res, next) => {
 
     if (!imageLocalPath) return res.status(400).json(new ApiError(400, "Image is required"));
 
-    const { name, description, ticketRequired, ticketPrice, restrictions, isVerified } = req.body;
+    const { name, description, ticketRequired, ticketPrice, restrictions, isVerified, location, category } = trimObj(req.body);
 
     // Validate data
     if (!name) return res.status(400).json(new ApiResponse(400, "Name is required"));
@@ -34,7 +35,9 @@ export const createUserContribution = asyncHandler(async (req, res, next) => {
         ticketRequired: ticketRequired || false,
         ticketPrice,
         restrictions,
-        isVerified: isVerified || false
+        isVerified: isVerified || false,
+        location,
+        category
     });
 
     // Save the user contribution to the database
@@ -50,7 +53,7 @@ export const createUserContribution = asyncHandler(async (req, res, next) => {
 //     const {contributedPlace} = req.body
 // })
 
-export const getAllUserContribution = asyncHandler(async (req, res) => {
+export const getUserContribution = asyncHandler(async (req, res) => {
     
     const page = parseInt(req.query?.page) || 1;
     const limit = parseInt(req.query?.limit) || 5;
@@ -184,3 +187,15 @@ export const deleteUserContribution = asyncHandler(async (req, res) => {
     // Send a success response
     return res.status(200).json(new ApiResponse(200, "Contribution deleted successfully", contribution));
 });
+
+
+export const getAllContribution = asyncHandler(async(req,res)=> {
+    const data = await UserContribution.find({})
+    return res.status(200).json(new ApiResponse(200, "list retrieved successfully", data))
+})
+
+
+export const getAllContributionName = asyncHandler(async(req,res)=> {
+    const data = await UserContribution.find({}, 'name _id')
+    return res.status(200).json(new ApiResponse(200, "list retrieved successfully", data))
+})
