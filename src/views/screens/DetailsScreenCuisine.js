@@ -38,7 +38,7 @@ const DetailsScreenCuisine = ({navigation, route}) => {
               marginBottom: 0,
             }}>
               
-            {place.name}
+            {/* {place.name} */}
           </Text>
           {/* <View style={{flexDirection: 'row'}}>
             <Icon name="star" size={30} color={COLORS.orange} />
@@ -55,7 +55,7 @@ const DetailsScreenCuisine = ({navigation, route}) => {
             <Icon name="favorite" color={COLORS.red} size={30} />
           </View> */}
           <View style={{flexDirection: 'row', marginTop: 10}}>
-		  {place.location && <Icon name="place" size={28} color={COLORS.primary} />}
+		  {/* {place.location && <Icon name="place" size={28} color={COLORS.primary} />} */}
            {place.location && <Text
               style={{
                 marginLeft: 5,
@@ -63,7 +63,7 @@ const DetailsScreenCuisine = ({navigation, route}) => {
                 fontWeight: 'bold',
                 color: COLORS.primary,
               }}>
-              {place.location}
+              {place.name}
             </Text>}
 		  {place.foodName && <Icon name="fastfood" size={28} color={COLORS.primary} />}
            {place.foodName && <Text
