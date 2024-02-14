@@ -14,7 +14,7 @@ const RenderBookmarks = () => {
     const bookmarks = useSelector(state => state.bookmark.bookmark);
 
     // bookmarks.map(item => console.log(item))
-    console.log(`\n The bookmarks are: \n${bookmarks}\n(from render bookmarks screen)`)
+    // console.log(`\n The bookmarks are: \n${bookmarks}\n(from render bookmarks screen)`)
 
     useEffect(() => {
 
@@ -24,7 +24,7 @@ const RenderBookmarks = () => {
         // if a bookmark exists in redux store that means it has already been loaded from local
         // so don't load again
 
-        console.log('inside use effect of bookmarks')
+        // console.log('inside use effect of bookmarks')
 
         const loadLocalBookmarks = async () => {
             // console.log('\ntrying to dispatch the value')

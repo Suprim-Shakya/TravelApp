@@ -54,12 +54,11 @@ import Geolocation from 'react-native-geolocation-service';
 import { PermissionsAndroid } from 'react-native';
 
 import { MAPS_API_KEY } from '../componentsSaurav/config';
-import MapViewDirections from 'react-native-maps-directions';
-import fetchWH from '../ComponentsPrajwol/screens/WorldHeritage/fetchWH';
+
 import fetchDetailsFromDb from '../componentsSaurav/apiCalls/fetchDataFromDB';
 import fetchKDS from './fetchKDS';
 import { useNavigation } from '@react-navigation/native';
-import FinalDetailsScreen from './DetectionDetail';
+
 
 
 
@@ -84,7 +83,7 @@ const SemiFinalDetailsScreen = ({ navigation, route }) => {
           );
   
           if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-            console.log('Location permission granted');
+            // console.log('Location permission granted');
   
             Geolocation.getCurrentPosition(
               (position) => {
@@ -104,12 +103,12 @@ const SemiFinalDetailsScreen = ({ navigation, route }) => {
                 fetch(url)
                   .then((response) => response.json())
                   .then((data) => {
-                    console.log('Data from API:', data);
+                    // console.log('Data from API:', data);
                     const distanceText = data.rows[0].elements[0].distance.text;
                     const durationText = data.rows[0].elements[0].duration.text;
-                    console.log("******************")
-                    console.log(distanceText);
-                    console.log(durationText);
+                    // console.log("******************")
+                    // console.log(distanceText);
+                    // console.log(durationText);
   
                     setDistance({ distanceText, durationText });
                   })
@@ -132,7 +131,7 @@ const SemiFinalDetailsScreen = ({ navigation, route }) => {
       fetchData();
     }, [latitude, longitude]);
 
-    console.log(latitude,longitude)
+    // console.log(latitude,longitude)
 
     async function fetchInsideHeritage(){
       // console.log('inside the unesco');
@@ -145,16 +144,16 @@ const SemiFinalDetailsScreen = ({ navigation, route }) => {
       const insideKDSData = insideKDS.documents;
       // console.log(insideKDSData);
       setFinalData(insideKDSData.slice(0,30));
-      console.log('-------------------------------------------')
-      console.log(finalData)
+      // console.log('-------------------------------------------')
+      // console.log(finalData)
     }
     async function handleClassItemPress(item){
-      console.log('You pressed',item.className)
+      // console.log('You pressed',item.className)
       const info= await fetchDetailsFromDb(item.classNumber)
-      console.log(typeof(info))
+      // console.log(typeof(info))
       // console.log("Finally, aaaaaaaa",info.classNumber)
       // navigationn.navigate('FinalDetailsScreen',{});
-      navigationn.navigate('FinalDetailsScreen', {...info});
+      navigationn.navigate('DetailsScreen', {...info});
 
     }
   //   const renderItem = ({ item }) => (
