@@ -114,7 +114,7 @@ const MainStack = () => {
 const MainApp = () => {
 
 	const { isLoggedIn, logout } = useAuth();
-	const Logout = () => logout();
+	const Logout = () => {logout()};
 
 	return (
 		<NavigationContainer >

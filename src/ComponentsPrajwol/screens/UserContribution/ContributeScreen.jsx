@@ -12,6 +12,7 @@ export default function ContributeScreen() {
 
 	const [name, setName] = useState('');
 	const [location, setLocation] = useState('');
+	const [category, setCategory] = useState('');
 	const [hasTicket, setHasTicket] = useState(false);
 	const [ticketPrice, setTicketPrice] = useState('');
 	const [description, setDescription] = useState('');
@@ -46,6 +47,7 @@ export default function ContributeScreen() {
 		const formData = new FormData();
 		name.trim() !== '' && formData.append('name', name.toLowerCase());
 		location.trim() !== '' && formData.append('location', location);
+		category.trim() !== '' && formData.append('category', category);
 		hasTicket && formData.append("ticketRequired", true)
 		hasTicket && ticketPrice.trim() !== '' && formData.append('ticketPrice', ticketPrice);
 		description.trim() !== '' && formData.append('description', description);
@@ -119,7 +121,7 @@ export default function ContributeScreen() {
 					<View style={styles.placeholder}>
 						{/* Placeholder content */}
 						<Icon name='add-a-photo' size={50} color={COLORS.placeholder} />
-						<Text style={styles.text}>Add an image</Text>
+						<Text style={styles.text}>Add an image*</Text>
 					</View>
 				)}
 			</Pressable>
@@ -128,7 +130,7 @@ export default function ContributeScreen() {
 			<View style={styles.collection}>
 				<Text style={styles.headingText}>Name</Text>
 				<TextInput
-					placeholder='Name of the place'
+					placeholder='Name of the place*'
 					placeholderTextColor={COLORS.placeholder}
 					style={[styles.inputField, errors?.name && { borderColor: COLORS.error }]}
 					value={name}
@@ -141,7 +143,7 @@ export default function ContributeScreen() {
 			<View style={styles.collection}>
 				<Text style={styles.headingText}>Location</Text>
 				<TextInput
-					placeholder='location of the site'
+					placeholder='Location of the site*'
 					placeholderTextColor={COLORS.placeholder}
 					style={[styles.inputField, errors?.location && { borderColor: COLORS.error }]}
 					value={location}
@@ -167,7 +169,7 @@ export default function ContributeScreen() {
 					<View style={styles.collection}>
 						<Text style={styles.headingText}>Ticket Price</Text>
 						<TextInput
-							placeholder='Ticket Price'
+							placeholder='Ticket Price in Rupees*'
 							placeholderTextColor={COLORS.placeholder}
 							style={[styles.inputField, errors?.ticketPrice && { borderColor: COLORS.error }]}
 							value={ticketPrice}
@@ -178,6 +180,18 @@ export default function ContributeScreen() {
 					{errors?.ticketPrice && <Text style={[styles.headingText, styles.errorText]}>{errors.ticketPrice}</Text>}
 				</>
 			}
+
+
+			<View style={styles.collection}>
+				<Text style={styles.headingText}>Category</Text>
+				<TextInput
+					placeholder='Category'
+					placeholderTextColor={COLORS.placeholder}
+					style={styles.inputField}
+					value={category}
+					onChangeText={text => setCategory(text)}
+				/>
+			</View>
 
 
 			<View style={styles.collection}>
