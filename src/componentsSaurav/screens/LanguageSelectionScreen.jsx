@@ -2,21 +2,23 @@ import { Text, StyleSheet, FlatList, SafeAreaView } from 'react-native';
 import LanguageCard from '../customComponents/LanguageCard';
 import languages from "../../constants/languages.json"
 import { useTranslation } from 'react-i18next';
+import { useAuth } from '../../components/AuthContext';
 
 const LanguageSelectionScreen = () => {
-    const { t, i18n } = useTranslation();
+    const { t } = useTranslation();
+
+    const { changeLanguage } = useAuth()
+
     function handlePress(code) {
-        if (i18n.language !== code) {
-            i18n.changeLanguage(code);
-        }
-        console.log(code);
+        changeLanguage('np')
+        console.log(code)
     }
 
 
 
     return (
         <SafeAreaView style={styles.container}>
-            {/* <Text style={styles.title}>{t('Select')} Language</Text> */}
+            {/* <Text style={styles.title}>{t('language')} Language</Text> */}
 
             <FlatList
                 data={languages}

@@ -38,6 +38,7 @@ import DetailsScreenCuisine from './src/views/screens/DetailsScreenCuisine';
 import HomeScreen from './src/views/screens/HomeScreen';
 import COLORS from './src/constants/colors';
 import OnBoardScreen from './src/views/screens/OnBoardScreen';
+import { useTranslation } from 'react-i18next';
 
 
 const stack = createStackNavigator();
@@ -116,6 +117,8 @@ const MainApp = () => {
 	const { isLoggedIn, logout } = useAuth();
 	const Logout = () => {logout()};
 
+	const {t} = useTranslation();
+
 	return (
 		<NavigationContainer >
 			<StatusBar translucent={false} backgroundColor={COLORS.primary} />
@@ -134,7 +137,7 @@ const MainApp = () => {
 							}} />
 						<Drawer.Screen name='Bookmarks' component={RenderBookmarks}
 							options={{ drawerIcon: () => (<Icon name='bookmark' size={24} color={COLORS.placeholder} />) }} />
-						<Drawer.Screen name='Language' component={LanguageSelectionScreen}
+						<Drawer.Screen name={t('Language')} component={LanguageSelectionScreen}
 							options={{ drawerIcon: () => (<Icon name='earth' size={24} color={COLORS.placeholder} />) }} />
 						<Drawer.Screen name='Contribute' component={ContributeScreen}
 							options={{ drawerIcon: () => (<Icon name='hand-heart-outline' size={24} color={COLORS.placeholder} />) }} />
