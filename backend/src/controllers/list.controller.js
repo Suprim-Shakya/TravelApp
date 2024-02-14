@@ -10,3 +10,8 @@ export const listContributions = asyncHandler(async(req, res)=> {
     }))
     return res.status(200).json(new ApiResponse(200, "list retrieved successfully", contributions))
 })
+
+export const listContributionsDetails = asyncHandler(async(req, res)=> {
+    const data = await UserContribution.find({}, 'name _id')
+    return res.status(200).json(new ApiResponse(200, "list retrieved successfully", data))
+})
