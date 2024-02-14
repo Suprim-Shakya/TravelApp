@@ -213,8 +213,12 @@ const SemiFinalDetailsScreen = ({ navigation, route }) => {
                 {latitude && longitude && <Text style={styles.detailText}>Location: {latitude},{longitude}</Text>}
               </View>
               <View>
-                <TouchableOpacity onPress={fetchInsideHeritage} style={styles.btn}>
-                  <Text style={styles.btnTxt}>Explore Inside {className}</Text></TouchableOpacity>
+              {className === "Kathmandu Durbar Square" ? (
+  <TouchableOpacity onPress={fetchInsideHeritage} style={styles.btn}>
+    <Text style={styles.btnTxt}>Explore Inside {className}</Text>
+  </TouchableOpacity>
+) : null}
+
                   <FlatList
                 data={finalData}
                 keyExtractor={(item) => item._id}
