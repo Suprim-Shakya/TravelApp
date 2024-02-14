@@ -107,6 +107,7 @@ const MainStack = () => {
 			<stack.Screen name='SemiFinalDetailsScreen' component={SemiFinalDetailsScreen} options={{ headerShown: false }} />
 			<stack.Screen name='DetectionDetail' component={DetectionDetail} options={{ headerShown: false }} />
 			<stack.Screen name='ActivitiesDetails' component={ActivitiesDetails} options={{ headerTitle: "Activity" }} />
+			<stack.Screen name='Maps' component={GoogleSearch} options={{ headerTitle: "Maps" }} />
 		</stack.Navigator>
 	)
 }
