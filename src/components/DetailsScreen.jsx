@@ -249,12 +249,7 @@ const SemiFinalDetailsScreen = ({ navigation, route }) => {
 					{/* {latitude && longitude && <Text style={styles.detailText}>Location: {latitude},{longitude}</Text>} */}
 
 					{/* {latitude && longitude && <Icon name='map' color={COLORS.primary} size={30} style={styles.icon} onPress={() => navigation.navigate('Maps', { location: { latitude, longitude }, name: className })} />} */}
-				</ScrollView>
-				{/* <View>
-                <TouchableOpacity onPress={fetchInsideHeritage}>
-				<Text>Press for More info</Text></TouchableOpacity>
-			</View> */}
-				{className === "Kathmandu Durbar Square" ? (
+					{className === "Kathmandu Durbar Square" ? (
 					<TouchableOpacity onPress={fetchInsideHeritage} style={styles.btn}>
 						<Text style={styles.btnTxt}>Explore Inside {className}</Text>
 					</TouchableOpacity>
@@ -265,6 +260,12 @@ const SemiFinalDetailsScreen = ({ navigation, route }) => {
 					keyExtractor={(item) => item._id}
 					renderItem={renderItem}
 				/>
+				</ScrollView>
+				{/* <View>
+                <TouchableOpacity onPress={fetchInsideHeritage}>
+				<Text>Press for More info</Text></TouchableOpacity>
+			</View> */}
+
 			</View>
 		</>
 	);
@@ -311,7 +312,8 @@ const styles = StyleSheet.create({
 	},
 	cardTitle: {
 		fontSize: 16,
-		fontWeight: 'bold',
+		fontWeight: '600',
+		color: "black"
 	},
 	btn: {
 		backgroundColor: COLORS.primary, // Use your preferred color
@@ -320,6 +322,7 @@ const styles = StyleSheet.create({
 		marginHorizontal: 60,
 		alignItems: 'center',
 		borderRadius: 5,
+		marginBottom: 20
 	},
 	btnTxt: {
 		color: COLORS.white,

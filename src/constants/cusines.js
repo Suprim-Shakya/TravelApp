@@ -22,7 +22,7 @@ const cuisines = [
         // location: 'Patan',
         image: require('../assets/dhido.jpg'),
         location: ('Basantapur'),
-        details: `A crispy and sweet munching treat, Sel Roti is a marriage between a doughnut and a bagel. One of the most relished Nepalese food item, Sel Roti is made during the festivals of Tihar and Dashain religious festivals. The circular rice flour bread is deep fried which gives it a crunchy texture from the outside and soft and doughy from the inside. It is usually had during the breakfast with the dippings made with yogurt and along with vegetables.`
+        details: `Dhindo is a meal prepared in Nepal. It is prepared by gradually adding flour to boiling water while stirring. It is a staple meal in various parts of Nepal, specially Tamangs in the Hilly Region of Nepaland the Sikkim and Darjeeling regions of India. Though it is a staple food in Nepal, dhindo has previously been seen as an inferior food compared to rice, and was associated with low status.The inclusion of dhindo on urban restaurant menus has coincided with a rise in the food's prestige,possibly attributable to the changing perception of Nepal's indigenous crops, which are now recognized for their nutritional advantage`
     },
     {
         id: '4',
