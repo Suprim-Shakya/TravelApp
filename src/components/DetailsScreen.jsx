@@ -43,35 +43,32 @@
 // });
 
 import React, { useEffect, useState } from 'react';
-import { View, Text, Image, StyleSheet, ImageBackground, StatusBar, Pressable, TouchableOpacity, FlatList } from 'react-native';
+import { View, Text, Image, StyleSheet, TouchableOpacity, FlatList } from 'react-native';
 
 import COLORS from '../constants/colors';
-// import { ScrollView } from 'react-native-gesture-handler';
-import { ScrollView } from 'react-native-virtualized-view';
+import { ScrollView } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import IconM from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import Geolocation from 'react-native-geolocation-service';
-import { PermissionsAndroid } from 'react-native';
-
-import { MAPS_API_KEY } from '../componentsSaurav/config';
-
 import fetchDetailsFromDb from '../componentsSaurav/apiCalls/fetchDataFromDB';
 import fetchKDS from './fetchKDS';
-import { useNavigation } from '@react-navigation/native';
+
+import ExpandableCard from '../componentsSaurav/customComponents/ExpandableCard';
 import CustomHeader from '../componentsSaurav/customComponents/CustomHeader';
 import ActionCard from '../componentsSaurav/customComponents/ActionCard';
-import ExpandableCard from '../componentsSaurav/customComponents/ExpandableCard';
-
+import { getmyLocation } from '../ComponentsPrajwol/modules/getMyLocation';
+import calculateDistanceDuration from '../ComponentsPrajwol/modules/calculateDistanceDuration';
 
 
 
 
 const SemiFinalDetailsScreen = ({ navigation, route }) => {
-	const { _id, className, architectureStyle, constructedBy, Ticket, Description, imageLink, constructionDate, latitude, longitude } = route.params;
+	const { _id, className, architectureStyle, constructedBy, Ticket, Description, imageLink, constructionDate, latitude, longitude, Location, Year, imageUrl, name, description } = route.params;
 	const [distance, setDistance] = useState(null);
+	const [myLocation, setMyLocation] = useState({})
+	const [distanceDuration, setDistanceDuration] = useState({})
 	const [finalData, setFinalData] = useState(null);
-	const navigationn = useNavigation();
+
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
@@ -156,8 +153,8 @@ const SemiFinalDetailsScreen = ({ navigation, route }) => {
 		const info = await fetchDetailsFromDb(item.classNumber)
 		// console.log(typeof(info))
 		// console.log("Finally, aaaaaaaa",info.classNumber)
-		// navigationn.navigate('FinalDetailsScreen',{});
-		navigationn.navigate('DetectionDetail', { ...info });
+		// navigation.navigate('FinalDetailsScreen',{});
+		navigation.navigate('DetectionDetail', { ...info });
 
 	}
 	//   const renderItem = ({ item }) => (
@@ -181,14 +178,34 @@ const SemiFinalDetailsScreen = ({ navigation, route }) => {
 	);
 
 
-	return (
+	useEffect(() => {
+		async function updateMyLocation() {
+			const { latitude, longitude } = await getmyLocation()
+			setMyLocation({ latitude, longitude })
+		}
 
+		async function updateDistanceDuration() {
+			const { distanceText, durationText } = await calculateDistanceDuration({ myLocation }, { latitude, longitude })
+			// distanceDuration.distance = distanceText
+			// distanceDuration.drivingDuration = durationText
+
+			const { durationText: walkingDuration } = await calculateDistanceDuration({ myLocation }, { latitude, longitude }, "walking")
+			// distanceDuration.walkingDuration = walkingDuration
+			setDistanceDuration({ distance, drivingDuration: durationText, walkingDuration })
+		}
+
+		updateMyLocation();
+		updateDistanceDuration();
+	}, [])
+
+	// async function addToBookmark() {
+	// 	dispatch(addToPlan({}))
+	// }
+
+	return (
 		<>
 			<CustomHeader title={className} />
 			<View style={styles.container}>
-				{/* <StatusBar translucent={true} backgroundColor="rgba(0,0,0,0.2)" /> */}
-				{/* {imageLink && <ImageBackground source={{ uri: imageLink }} style={styles.image} >
-            </ImageBackground>} */}
 				{imageLink || imageUrl ? (
 					<Image source={{ uri: imageLink || imageUrl }} style={styles.image} />
 
@@ -196,19 +213,26 @@ const SemiFinalDetailsScreen = ({ navigation, route }) => {
 
 				<ActionCard>
 					<TouchableOpacity style={styles.group}>
-						<IconM name='map-marker-distance' color={COLORS.primary} size={30} />
-						<Text style={styles.actionText}>{distance?.distanceText || "distance"}</Text>
+						<IconM name='map-marker-distance' color={COLORS.primary} size={30} style={styles.actionIcon} />
+						<Text style={styles.actionText}>{distanceDuration?.distance || "Distance"}</Text>
 					</TouchableOpacity>
 					<TouchableOpacity style={styles.group}>
-						<Icon name='time-to-leave' color={COLORS.primary} size={30} />
-						<Text style={styles.actionText}>{distance?.durationText || "duration "}</Text>
+						<Icon name='directions-bus' color={COLORS.primary} size={30} style={styles.actionIcon} />
+						<Text style={styles.actionText}>{distanceDuration?.drivingDuration || "Drive"}</Text>
 					</TouchableOpacity>
 					<TouchableOpacity style={styles.group}>
-						{latitude && longitude && <Icon name='map' color={COLORS.primary} size={30} style={styles.icon} onPress={() => navigation.navigate('Maps', { location: { latitude: Number(latitude), longitude:Number(longitude) }, name: className })} />}
-						<Text style={styles.actionText}>View on map</Text>
+						<Icon name='directions-walk' color={COLORS.primary} size={30} style={styles.actionIcon} />
+						<Text style={styles.actionText}>{distanceDuration?.walkingDuration || "Walk"}</Text>
 					</TouchableOpacity>
+					<TouchableOpacity style={styles.group} onPress={() => navigation.navigate('Maps', { location: { latitude, longitude }, name: className })} >
+						{latitude && longitude && <Icon name='map' color={COLORS.primary} size={30} style={styles.actionIcon} />}
+						<Text style={styles.actionText}>View map</Text>
+					</TouchableOpacity>
+					{/* <TouchableOpacity style={styles.group} onP>
+						<Icon name='bookmark' color={COLORS.primary} size={30} />
+						<Text style={styles.actionText}>plan</Text>
+					</TouchableOpacity> */}
 				</ActionCard>
-
 
 				{/* <View style={styles.headingView}>
 					<Icon name="place" size={28} color={COLORS.primary} />
@@ -227,12 +251,13 @@ const SemiFinalDetailsScreen = ({ navigation, route }) => {
 					/>
 			</Pressable> */}
 				<ScrollView style={styles.content}>
-					{/* <TouchableOpacity style={styles.topCard}>
+					{ (architectureStyle || constructedBy || constructionDate || Ticket) && <TouchableOpacity style={styles.topCard}>
 						{architectureStyle && <Text style={styles.detailText}>Architecture Style: {architectureStyle}</Text>}
+						{/* {constructedBy && <ExpandableCard title={"constructed By"} details={constructedBy} />} */}
 						{constructedBy && <Text style={styles.detailText}>Constructed By: {constructedBy}</Text>}
 						{constructionDate && <Text style={styles.detailText}>Constructed in: {constructionDate}</Text>}
 						{Ticket && <Text style={styles.detailText}>Ticket Required: {Ticket}</Text>}
-					</TouchableOpacity> */}
+					</TouchableOpacity>}
 
 					{/* <Text style={styles.detailText}>Distance : {distance?.distanceText} </Text> */}
 					{/* <Text>Distance Value: {distance?.distanceValue}</Text> */}
@@ -319,9 +344,9 @@ const styles = StyleSheet.create({
 		backgroundColor: COLORS.primary, // Use your preferred color
 		padding: 10,
 		marginTop: 10,
-		marginHorizontal: 60,
+		// marginHorizontal: 10,
 		alignItems: 'center',
-		borderRadius: 5,
+		borderRadius:5,
 		marginBottom: 20
 	},
 	btnTxt: {
@@ -412,6 +437,12 @@ const styles = StyleSheet.create({
 	},
 	group: {
 		alignItems: 'center'
+	},
+	actionIcon: {
+		backgroundColor: COLORS.secondary,
+		padding: 5,
+		borderRadius: 100,
+
 	}
 });
 

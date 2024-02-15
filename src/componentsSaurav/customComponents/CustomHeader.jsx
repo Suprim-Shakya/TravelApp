@@ -6,7 +6,7 @@ import COLORS from '../../constants/colors'
 const CustomHeader = ({title}) => {
   return (
     <View style={styles.header}>
-        <StatusBar backgroundColor={COLORS.primary}/>
+        <StatusBar backgroundColor={COLORS.black}/>
         <BackButton/>
       <Text style={styles.title}>{title}</Text>
     </View>
@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
     header:{
         width: '100%',
         height: 50,
-        backgroundColor: COLORS.primary,
+        backgroundColor: COLORS.danger,
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
