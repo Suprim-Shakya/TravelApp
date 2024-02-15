@@ -10,24 +10,27 @@ import {
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import COLORS from '../../constants/colors';
 import { ScrollView } from 'react-native-gesture-handler';
+import CustomHeader from '../../componentsSaurav/customComponents/CustomHeader';
+import ExpandableCard from '../../componentsSaurav/customComponents/ExpandableCard';
 
 const DetailsScreenCuisine = ({navigation, route}) => {
   const place = route.params;
+  console.log(place)
   return (
     
     <SafeAreaView style={{flex: 1, backgroundColor: COLORS.white}}>
-      
+      <CustomHeader title={place.name}/>
       {/* <StatusBar translucent backgroundColor="rgba(0,0,0,0)" /> */}
       
       <ImageBackground style={{flex: 0.8}} source={place.image}>
-        <View style={style.header}>
+        {/* <View style={style.header}>
           <Icon
             name="arrow-back-ios"
             size={28}
             color={COLORS.white}
             onPress={navigation.goBack}
           />
-        </View>
+        </View> */}
         <View style={style.imageDetails}>
           <Text
             style={{
@@ -56,7 +59,7 @@ const DetailsScreenCuisine = ({navigation, route}) => {
           </View> */}
           <View style={{flexDirection: 'row', marginTop: 10}}>
 		  {/* {place.location && <Icon name="place" size={28} color={COLORS.primary} />} */}
-           {place.location && <Text
+           {/* {place.location && <Text
               style={{
                 marginLeft: 5,
                 fontSize: 20,
@@ -74,12 +77,13 @@ const DetailsScreenCuisine = ({navigation, route}) => {
                 color: COLORS.primary,
               }}>
               {place.foodName}
-            </Text>}
+            </Text>} */}
           </View>
           {/* <Text style={{marginTop: 20, fontWeight: 'bold', fontSize: 20,color: COLORS.dark}}>
             About the heritage
           </Text> */}
-          <Text style={{marginTop: 20, lineHeight: 22, color:COLORS.dark}}>{place.details}</Text>
+          {/* <Text style={{marginTop: 20, lineHeight: 22, color:COLORS.dark}}>{place.details}</Text> */}
+          <ExpandableCard details={place.details} title={"Description"}/>
         </View>
         </ScrollView>
     </SafeAreaView>

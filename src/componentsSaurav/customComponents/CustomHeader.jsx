@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
     header:{
         width: '100%',
         height: 50,
-        backgroundColor: COLORS.danger,
+        backgroundColor: COLORS.primary,
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
