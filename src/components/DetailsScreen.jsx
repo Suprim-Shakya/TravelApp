@@ -297,13 +297,13 @@ const styles = StyleSheet.create({
 		shadowRadius: 2,
 		width: '80%',
 	},
-	// cardImage: {
-	// 	width: 80,
-	// 	height: 80,
-	// 	borderTopLeftRadius: 10,
-	// 	borderBottomLeftRadius: 10,
-	// 	resizeMode: 'cover',
-	// },
+	cardImage: {
+		width: 80,
+		height: 80,
+		borderTopLeftRadius: 10,
+		borderBottomLeftRadius: 10,
+		resizeMode: 'cover',
+	},
 	cardContent: {
 		flex: 1,
 		padding: 10,
