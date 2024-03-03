@@ -24,22 +24,22 @@ const FinalDetailsScreen = ({ navigation, route }) => {
 
 	useEffect(() => {
 		async function updateMyLocation() {
-			const { latitude, longitude } = await getmyLocation()
-			setMyLocation({ latitude, longitude })
-		}
+			const { latitude: mlat, longitude:mlng } = await getmyLocation()
+			// setMyLocation({ latitude, longitude })
+		// }
 
-		async function updateDistanceDuration() {
-			const { distanceText, durationText } = await calculateDistanceDuration({ myLocation }, { latitude, longitude })
+		// async function updateDistanceDuration() {
+			const { distanceText, durationText } = await calculateDistanceDuration({ latitude: mlat, longitude:mlng }, { latitude, longitude })
 			// distanceDuration.distance = distanceText
 			// distanceDuration.drivingDuration = durationText
 
-			const { durationText: walkingDuration } = await calculateDistanceDuration({ myLocation }, { latitude, longitude }, "walking")
+			const { durationText: walkingDuration } = await calculateDistanceDuration({ latitude: mlat, longitude:mlng }, { latitude, longitude }, "walking")
 			// distanceDuration.walkingDuration = walkingDuration
-			setDistanceDuration({ distance, drivingDuration: durationText, walkingDuration })
-		}
+			setDistanceDuration({ distance: distanceText, drivingDuration: durationText, walkingDuration })
+			}
 
 		updateMyLocation();
-		updateDistanceDuration();
+		// updateDistanceDuration();
 	}, [])
 
 	// async function addToBookmark() {
