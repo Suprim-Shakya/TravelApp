@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { useTranslation } from 'react-i18next';
-import { useNavigation } from '@react-navigation/native';
 import {
   SafeAreaView,
   ScrollView,
@@ -8,12 +6,10 @@ import {
   StyleSheet,
   View,
   Text,
-  TextInput,
   ImageBackground,
   FlatList,
   Dimensions,
   TouchableOpacity,
-  Alert,
   Image,
   Pressable,
 } from 'react-native';
@@ -27,55 +23,20 @@ import fetchWH from '../../ComponentsPrajwol/screens/WorldHeritage/fetchWH';
 import Iconx from 'react-native-vector-icons/MaterialCommunityIcons'
 const { width } = Dimensions.get('screen');
 
+const categoryIcons = [
+  <Icon name="restaurant" size={25} color={COLORS.dark} />,
+  <Iconx name="hospital" size={25} color={COLORS.dark} />,
+  <Icon name="wc" size={25} color={COLORS.dark} />,
+  <Icon name="atm" size={25} color={COLORS.dark} />,
+];
+
 const HomeScreen = ({ navigation }) => {
-
-
-
-  const [classNumber, setclassNumber] = useState('');
-
-  const [datam, setDatam] = useState(null);
-
-  useEffect(() => {
-
-    const fetchData = async () => {
-
-      try {
-
-        const result = await fetchDetailsFromDb(classNumber);
-        // setRenderSkeleton(false)
-        // console.log(result)
-        setDatam(result)
-
-      } catch (error) {
-        console.error('fetching from db failed', error);
-        //code to handle error in app , display some alert sth else
-      }
-    }
-
-    fetchData(classNumber);
-
-    return (
-      () => {
-        // console.log('clear use effect');
-        setDatam(null);
-        // setRenderSkeleton(true)
-      }
-    )
-
-  }, [classNumber])
-
-
-  const categoryIcons = [
-    <Icon name="restaurant" size={25} color={COLORS.dark} />,
-    <Iconx name="hospital" size={25} color={COLORS.dark} />,
-    <Icon name="wc" size={25} color={COLORS.dark} />,
-    <Icon name="atm" size={25} color={COLORS.dark} />,
-  ];
 
   const handleCategoryPress = (iconName) => {
     console.log(`Pressed category ${iconName}`);
     openMap({ query: iconName == "wc" ? "Toilet" : iconName, provider: 'google' });
   };
+
   const ListCategories = () => {
     return (
       <View style={style.categoryContainer}>
@@ -115,9 +76,10 @@ const HomeScreen = ({ navigation }) => {
       </TouchableOpacity>
     );
   };
+
+  
   //world heritage
   const [worldheritageDetails, setWorldheritageDetails] = useState(null);
-  const navigationn = useNavigation();
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -132,7 +94,7 @@ const HomeScreen = ({ navigation }) => {
   }, []);
 
   const navigateToWorldHeritageDetails = (item) => {
-    navigationn.navigate('SemiFinalDetailsScreen', { ...item }); F
+    navigation.navigate('DetailsScreen', { ...item });
   };
 
   const renderCard = ({ item }) => (
