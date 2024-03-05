@@ -68,7 +68,6 @@ const HomeScreen = ({ navigation }) => {
 							right:0,
 						}}>
 						{place.className}
-						{place.className}
 					</Text>
 					<View
 						style={{
