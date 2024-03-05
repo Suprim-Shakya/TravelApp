@@ -3,7 +3,7 @@ import React from 'react'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import COLORS from '../../constants/colors';
 
-const SmallButton = ({ title, onPress, iconName, iconSize, iconColor, btnBgColor, btnTextColor }) => {
+const SmallButton = ({ title, onPress, iconName, iconSize, iconColor, btnBgColor, btnTextColor, style }) => {
 
     const styles = StyleSheet.create({
         button: {
@@ -30,7 +30,7 @@ const SmallButton = ({ title, onPress, iconName, iconSize, iconColor, btnBgColor
     return (
         <Pressable
             onPress={onPress}
-            style={[styles.button, btnBgColor && { backgroundColor: btnBgColor }]}
+            style={[styles.button, btnBgColor && { backgroundColor: btnBgColor }, style]}
             android_ripple={{
                 foreground: true, 
                 radius:100, 
