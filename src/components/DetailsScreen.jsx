@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, Image, StyleSheet, TouchableOpacity, FlatList } from 'react-native';
+import { View, Text, Image, StyleSheet, TouchableOpacity, FlatList, Pressable } from 'react-native';
 
 import COLORS from '../constants/colors';
 import { ScrollView } from 'react-native-gesture-handler';
@@ -17,7 +17,7 @@ import calculateDistanceDuration from '../ComponentsPrajwol/modules/calculateDis
 
 
 const SemiFinalDetailsScreen = ({ navigation, route }) => {
-	const { _id, className, architectureStyle, constructedBy, Ticket, Description, imageLink, constructionDate, latitude, longitude, Location, Year, imageUrl, name, description } = route.params;
+	const { _id, className, architectureStyle, constructedBy, Ticket, Description, imageLink, constructionDate, latitude, longitude, Location, Year, imageUrl, name, description, TicketPrice } = route.params;
 	const [distance, setDistance] = useState(null);
 	const [myLocation, setMyLocation] = useState({})
 	const [distanceDuration, setDistanceDuration] = useState({})
@@ -37,14 +37,21 @@ const SemiFinalDetailsScreen = ({ navigation, route }) => {
 
 	const renderItem = ({ item }) => (
 		<View style={styles.cardContainer}>
-			<TouchableOpacity onPress={() => handleClassItemPress(item)}>
-				<View style={styles.smallCard}>
+			<Pressable>
+				<Pressable style={styles.smallCard}
+					onPress={() => handleClassItemPress(item)}
+					android_ripple={{
+						foreground: true,
+						radius: 500,
+						color: "rgba(0,0,0,0.3)",
+						borderless: false,
+					}}>
 					<Image source={{ uri: item.imageLink }} style={styles.cardImage} />
 					<View style={styles.cardContent}>
 						<Text style={styles.cardTitle}>{item.className}</Text>
 					</View>
-				</View>
-			</TouchableOpacity>
+				</Pressable>
+			</Pressable>
 		</View>
 	);
 
@@ -103,13 +110,14 @@ const SemiFinalDetailsScreen = ({ navigation, route }) => {
 
 				</ActionCard>
 
-				<View style={styles.content}>
+				<ScrollView style={styles.content}>
 					{(architectureStyle || constructedBy || constructionDate || Ticket) && <TouchableOpacity style={styles.topCard}>
 						{architectureStyle && <Text style={styles.detailText}>Architecture Style: {architectureStyle}</Text>}
 						{/* {constructedBy && <ExpandableCard title={"constructed By"} details={constructedBy} />} */}
 						{constructedBy && <Text style={styles.detailText}>Constructed By: {constructedBy}</Text>}
 						{constructionDate && <Text style={styles.detailText}>Constructed in: {constructionDate}</Text>}
 						{Ticket && <Text style={styles.detailText}>Ticket Required: {Ticket}</Text>}
+						{TicketPrice && <Text style={styles.detailText}>Ticket Price: {TicketPrice}</Text>}
 					</TouchableOpacity>}
 
 					{(Description || description) && (<>
@@ -129,8 +137,9 @@ const SemiFinalDetailsScreen = ({ navigation, route }) => {
 						data={finalData}
 						keyExtractor={(item) => item._id}
 						renderItem={renderItem}
+						horizontal={true}
 					/>
-				</View>
+				</ScrollView>
 
 
 			</View>
@@ -149,26 +158,27 @@ const styles = StyleSheet.create({
 	},
 	cardContainer: {
 		alignContent: 'center',
-		// backgroundColor:'red',
-		alignItems: 'center'
+		alignItems: 'center',
+		maxHeight: 315,
+		// paddingBottom: 20,
+		paddingRight: 10,
+		marginBottom: 50,
+		width: "auto"
 	},
 	smallCard: {
-		flexDirection: 'row',
+		flexDirection: 'column',
 		backgroundColor: 'white',
 		borderRadius: 10,
-		margin: 10,
-		elevation: 3, // for shadow on Android
-		shadowColor: '#000', // for shadow on iOS
-		shadowOffset: { width: 0, height: 1 },
-		shadowOpacity: 0.3,
-		shadowRadius: 2,
-		width: '80%',
+		// borderColor: "gray",
+		// borderWidth: 1,
+		elevation: 2,
+		overflow: "hidden",
+		alignItems: "center",
+		alignContent: "center",
 	},
 	cardImage: {
-		width: 80,
-		height: 80,
-		borderTopLeftRadius: 10,
-		borderBottomLeftRadius: 10,
+		width: "100%",
+		height: 250,
 		resizeMode: 'cover',
 	},
 	cardContent: {
