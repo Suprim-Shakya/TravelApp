@@ -61,6 +61,10 @@ const SemiFinalDetailsScreen = ({ navigation, route }) => {
 
 	}, [])
 
+	async function handleViewMap() {
+		// console.log(`Navigating to ${latitude},${longitude}, ${className}`)
+		navigation.navigate('Maps', { location: { latitude: Number(latitude), longitude: Number(longitude)}, name: `${className}` })
+	}
 
 	return (
 		<>
@@ -78,13 +82,13 @@ const SemiFinalDetailsScreen = ({ navigation, route }) => {
 					</TouchableOpacity>
 					<TouchableOpacity style={styles.group}>
 						<Icon name='directions-bus' color={COLORS.primary} size={30} style={styles.actionIcon} />
-						<Text style={styles.actionText}>{distanceDuration?.drivingDuration || "Drive"}</Text>
+						<Text style={styles.actionText}>{distanceDuration?.drivingDuration?.replace(/days?/g, "D")?.replace(/hours?/g, "H")?.replace(/mins?/g, "M") || "Drive"}</Text>
 					</TouchableOpacity>
 					<TouchableOpacity style={styles.group}>
 						<Icon name='directions-walk' color={COLORS.primary} size={30} style={styles.actionIcon} />
-						<Text style={styles.actionText}>{distanceDuration?.walkingDuration || "Walk"}</Text>
+						<Text style={styles.actionText}>{distanceDuration?.walkingDuration?.replace("day", "D")?.replace(/hours?/g, "H")?.replace(/mins?/g, "M") || "Walk"}</Text>
 					</TouchableOpacity>
-					<TouchableOpacity style={styles.group} onPress={() => navigation.navigate('Maps', { location: { latitude, longitude }, name: className })} >
+					<TouchableOpacity style={styles.group} onPress={handleViewMap} >
 						{latitude && longitude && <Icon name='map' color={COLORS.primary} size={30} style={styles.actionIcon} />}
 						<Text style={styles.actionText}>View map</Text>
 					</TouchableOpacity>
@@ -171,7 +175,7 @@ const styles = StyleSheet.create({
 		color: "black"
 	},
 	btn: {
-		backgroundColor: COLORS.primary, // Use your preferred color
+		backgroundColor: COLORS.primary, // 
 		padding: 10,
 		marginTop: 10,
 		// marginHorizontal: 10,
