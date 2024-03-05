@@ -32,7 +32,7 @@ const categoryIcons = [
 const HomeScreen = ({ navigation }) => {
 
 	const handleCategoryPress = (iconName) => {
-		console.log(`Pressed category ${iconName}`);
+		// console.log(`Pressed category ${iconName}`);
 		openMap({ query: iconName == "wc" ? "Toilet" : iconName, provider: 'google' });
 	};
 
@@ -53,7 +53,7 @@ const HomeScreen = ({ navigation }) => {
 	const RecommendedCard = ({ place }) => {
 		return (
 			<TouchableOpacity activeOpacity={0.8}
-				onPress={() => navigation.navigate('DetailsScreenCuisine', place)}>
+				onPress={() => navigation.navigate('DetailsScreen', {...place})}>
 
 				<ImageBackground style={style.rmCardImage} source={place.image}>
 					<Text
