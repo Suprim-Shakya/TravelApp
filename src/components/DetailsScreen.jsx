@@ -51,11 +51,11 @@ const SemiFinalDetailsScreen = ({ navigation, route }) => {
 
 	useEffect(() => {
 		async function updateMyLocation() {
-			const { latitude: mlat, longitude:mlng } = await getmyLocation()
-			const { distanceText, durationText } = await calculateDistanceDuration({ latitude: mlat, longitude:mlng }, { latitude, longitude })
-			const { durationText: walkingDuration } = await calculateDistanceDuration({ latitude: mlat, longitude:mlng }, { latitude, longitude }, "walking")
+			const { latitude: mlat, longitude: mlng } = await getmyLocation()
+			const { distanceText, durationText } = await calculateDistanceDuration({ latitude: mlat, longitude: mlng }, { latitude, longitude })
+			const { durationText: walkingDuration } = await calculateDistanceDuration({ latitude: mlat, longitude: mlng }, { latitude, longitude }, "walking")
 			setDistanceDuration({ distance: distanceText, drivingDuration: durationText, walkingDuration })
-			}
+		}
 
 		updateMyLocation();
 
@@ -63,7 +63,7 @@ const SemiFinalDetailsScreen = ({ navigation, route }) => {
 
 	async function handleViewMap() {
 		// console.log(`Navigating to ${latitude},${longitude}, ${className}`)
-		navigation.navigate('Maps', { location: { latitude: Number(latitude), longitude: Number(longitude)}, name: `${className}` })
+		navigation.navigate('Maps', { location: { latitude: Number(latitude), longitude: Number(longitude) }, name: `${className}` })
 	}
 
 	return (
@@ -80,13 +80,21 @@ const SemiFinalDetailsScreen = ({ navigation, route }) => {
 						<IconM name='map-marker-distance' color={COLORS.primary} size={30} style={styles.actionIcon} />
 						<Text style={styles.actionText}>{distanceDuration?.distance || "Distance"}</Text>
 					</TouchableOpacity>
-					<TouchableOpacity style={styles.group}>
+					{/* <TouchableOpacity style={styles.group}>
 						<Icon name='directions-bus' color={COLORS.primary} size={30} style={styles.actionIcon} />
 						<Text style={styles.actionText}>{distanceDuration?.drivingDuration?.replace(/days?/g, "D")?.replace(/hours?/g, "H")?.replace(/mins?/g, "M") || "Drive"}</Text>
 					</TouchableOpacity>
 					<TouchableOpacity style={styles.group}>
 						<Icon name='directions-walk' color={COLORS.primary} size={30} style={styles.actionIcon} />
-						<Text style={styles.actionText}>{distanceDuration?.walkingDuration?.replace("day", "D")?.replace(/hours?/g, "H")?.replace(/mins?/g, "M") || "Walk"}</Text>
+						<Text style={styles.actionText}>{distanceDuration?.walkingDuration?.replace(/days?/, "D")?.replace(/hours?/g, "H")?.replace(/mins?/g, "M") || "Walk"}</Text>
+					</TouchableOpacity> */}
+					<TouchableOpacity style={styles.group}>
+						<Icon name='directions-bus' color={COLORS.primary} size={30} style={styles.actionIcon} />
+						<Text style={styles.actionText}>{distanceDuration?.drivingDuration || "Drive"}</Text>
+					</TouchableOpacity>
+					<TouchableOpacity style={styles.group}>
+						<Icon name='directions-walk' color={COLORS.primary} size={30} style={styles.actionIcon} />
+						<Text style={styles.actionText}>{distanceDuration?.walkingDuration || "Walk"}</Text>
 					</TouchableOpacity>
 					<TouchableOpacity style={styles.group} onPress={handleViewMap} >
 						{latitude && longitude && <Icon name='map' color={COLORS.primary} size={30} style={styles.actionIcon} />}
@@ -96,7 +104,7 @@ const SemiFinalDetailsScreen = ({ navigation, route }) => {
 				</ActionCard>
 
 				<View style={styles.content}>
-					{ (architectureStyle || constructedBy || constructionDate || Ticket) && <TouchableOpacity style={styles.topCard}>
+					{(architectureStyle || constructedBy || constructionDate || Ticket) && <TouchableOpacity style={styles.topCard}>
 						{architectureStyle && <Text style={styles.detailText}>Architecture Style: {architectureStyle}</Text>}
 						{/* {constructedBy && <ExpandableCard title={"constructed By"} details={constructedBy} />} */}
 						{constructedBy && <Text style={styles.detailText}>Constructed By: {constructedBy}</Text>}
@@ -112,16 +120,16 @@ const SemiFinalDetailsScreen = ({ navigation, route }) => {
 
 
 					{className === "Kathmandu Durbar Square" ? (
-					<TouchableOpacity onPress={fetchInsideHeritage} style={styles.btn}>
-						<Text style={styles.btnTxt}>Explore Inside {className}</Text>
-					</TouchableOpacity>
-				) : null}
+						<TouchableOpacity onPress={fetchInsideHeritage} style={styles.btn}>
+							<Text style={styles.btnTxt}>Explore Inside {className}</Text>
+						</TouchableOpacity>
+					) : null}
 
-				<FlatList
-					data={finalData}
-					keyExtractor={(item) => item._id}
-					renderItem={renderItem}
-				/>
+					<FlatList
+						data={finalData}
+						keyExtractor={(item) => item._id}
+						renderItem={renderItem}
+					/>
 				</View>
 
 
@@ -180,13 +188,13 @@ const styles = StyleSheet.create({
 		marginTop: 10,
 		// marginHorizontal: 10,
 		alignItems: 'center',
-		borderRadius:5,
+		borderRadius: 5,
 		marginBottom: 20
 	},
 	btnTxt: {
 		color: COLORS.white,
 	},
-	
+
 	topCard: {
 		borderRadius: 8,
 		borderColor: 'grey',
@@ -237,6 +245,7 @@ const styles = StyleSheet.create({
 	},
 	actionText: {
 		color: "black",
+		fontSize: 12
 	},
 	group: {
 		alignItems: 'center'
