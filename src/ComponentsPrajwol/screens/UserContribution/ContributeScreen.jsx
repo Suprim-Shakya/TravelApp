@@ -5,6 +5,8 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import getLocalImage from '../../../componentsSaurav/getImage/getLocalImage';
 import addUserContribution from '../../../componentsSaurav/apiCalls/addUserContribution';
 import { ActivityIndicator } from 'react-native';
+import SmallButton from '../../../componentsSaurav/customComponents/SmallButton';
+import { getmyLocation } from '../../modules/getMyLocation';
 
 
 
@@ -20,6 +22,7 @@ export default function ContributeScreen() {
 	const [imageFile, setImageFile] = useState();
 	const [errors, setErrors] = useState({})
 	const [loading, setLoading] = useState(false)
+	const [locationLoading, setLocationLoading] = useState(false)
 
 	const validateForm = () => {
 		const mapRegex = /^\d+\.\d+,\d+\.\d+$/
@@ -90,6 +93,13 @@ export default function ContributeScreen() {
 		setTicketPrice(numericText);
 	};
 
+	async function addCurrentLocation() {
+		setLocationLoading(true)
+		const { latitude, longitude } = await getmyLocation();
+		setLocation(`${latitude},${longitude}`)
+		setLocationLoading(false)
+	}
+
 	return (
 		<ScrollView style={styles.container}>
 
@@ -150,6 +160,13 @@ export default function ContributeScreen() {
 					value={location}
 					onChangeText={text => setLocation(text.replace(/[^.,\d]/g, ""))}
 				/>
+				<View style={{ position: "absolute", right: -5, top: 20 }}>
+					{locationLoading ?
+						<SmallButton title={<ActivityIndicator/>}/>
+						:
+						<SmallButton  iconName={"google-maps"} onPress={addCurrentLocation} />
+					}
+				</View>
 			</View>
 
 			{errors?.location && <Text style={[styles.headingText, styles.errorText]}>{errors.location}</Text>}
