@@ -143,7 +143,7 @@ const HomeScreen = ({navigation}) => {
     async function fetchData(){
       const response=await fetchDetailsFromDb(parseInt(item.id))
       console.log(response)
-      navigation.navigate('DetectionDetail',{...response})
+      navigation.navigate('DetailsScreen',{...response})
     }
     await fetchData();
   };
