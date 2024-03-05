@@ -68,6 +68,7 @@ const HomeScreen = ({ navigation }) => {
 							right:0,
 						}}>
 						{place.className}
+						{place.className}
 					</Text>
 					<View
 						style={{
@@ -340,11 +341,14 @@ const styles = StyleSheet.create({
 		position: 'absolute',
 		bottom: 0,
 		paddingBottom:5,
+		bottom: 0,
+		paddingBottom:5,
 		fontSize: 20,
 		fontWeight: 'bold',
 		textAlign: 'center',
 		color: 'white',
 		width: '100%',
+		backgroundColor: "rgba(0,0,0,0.5)",
 		backgroundColor: "rgba(0,0,0,0.5)",
 	},
 });
