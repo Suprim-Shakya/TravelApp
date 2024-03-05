@@ -7,12 +7,12 @@ const ExpandableCard = ({ title, details }) => {
     const [expanded, setExpanded] = useState(true);
 
     return (
-        <TouchableOpacity onPress={() => setExpanded(!expanded)} style={styles.card}>
+        <TouchableOpacity onPress={() => setExpanded(!expanded)} style={styles.card} activeOpacity={0.8}>
             <View style={styles.head}>
                 <Text style={styles.title}>{title}</Text>
                 <Icon name={expanded ? "expand-less" : 'expand-more'} color={COLORS.placeholder} size={30} />
             </View>
-            {expanded && <Text style={styles.details}>{details}</Text>}
+            {expanded && <Text style={styles.details}>{details.replace("\\n", "\n\n\t\t")}</Text>}
         </TouchableOpacity>
     );
 };

@@ -27,7 +27,7 @@ import BottomDrawer from './src/componentsSaurav/screens/BottomDrawer';
 import RenderBookmarks from './src/componentsSaurav/screens/BookmarkScreen/RenderBookmarks';
 import RenderPlans from './src/componentsSaurav/screens/PlanScreen/RenderPlans';
 import GoogleSearch from './src/componentsSaurav/screens/GoogleSearch';
-import LanguageSelectionScreen from './src/componentsSaurav/screens/LanguageSelectionScreen';
+// import LanguageSelectionScreen from './src/componentsSaurav/screens/LanguageSelectionScreen';
 
 import ContributeScreen from './src/ComponentsPrajwol/screens/UserContribution/ContributeScreen'
 import UserContributions from './src/ComponentsPrajwol/screens/UserContribution/UserContributions';
@@ -38,7 +38,8 @@ import DetailsScreenCuisine from './src/views/screens/DetailsScreenCuisine';
 import HomeScreen from './src/views/screens/HomeScreen';
 import COLORS from './src/constants/colors';
 import OnBoardScreen from './src/views/screens/OnBoardScreen';
-import { useTranslation } from 'react-i18next';
+import SearchScreen from './src/views/screens/SearchScreen';
+// import { useTranslation } from 'react-i18next';
 
 
 const stack = createStackNavigator();
@@ -81,9 +82,9 @@ const TabNav = () => {
 				options={{ tabBarIcon: ({ color, size }) => <Icon name='camera' color={color} size={size * 1.2} /> }}
 				listeners={() => ({ tabPress: e => { e.preventDefault(); refRBSheet.current.open(); } })} />
 			<Tab.Screen name='Plan' component={RenderPlans}
-				options={{ headerTitle: "PLANS", tabBarIcon: ({ color, size }) => <Icon name='clipboard-list-outline' color={color} size={size * 1.2} /> }} />
+				options={{ headerTitle: "Plans", tabBarIcon: ({ color, size }) => <Icon name='clipboard-list-outline' color={color} size={size * 1.2} /> }} />
 			<Tab.Screen name='Maps' component={GoogleSearch}
-				options={{ headerTitle: "MAPS", tabBarIcon: ({ color, size }) => <Icon name='map' color={color} size={size * 1.2} /> }} />
+				options={{ headerTitle: "Maps", tabBarIcon: ({ color, size }) => <Icon name='map' color={color} size={size * 1.2} /> }} />
 		</Tab.Navigator>
 		<BottomDrawer refRBSheet={refRBSheet} />
 	</>
@@ -108,6 +109,7 @@ const MainStack = () => {
 			<stack.Screen name='DetectionDetail' component={DetectionDetail} options={{ headerShown: false }} />
 			<stack.Screen name='ActivitiesDetails' component={ActivitiesDetails} options={{ headerTitle: "Activity" }} />
 			<stack.Screen name='Maps' component={GoogleSearch} options={{ headerTitle: "Maps" }} />
+			<stack.Screen name="SearchScreen" component={SearchScreen} options={{ headerTitle: "Search" }}/>
 		</stack.Navigator>
 	)
 }
@@ -118,7 +120,7 @@ const MainApp = () => {
 	const { isLoggedIn, logout } = useAuth();
 	const Logout = () => {logout()};
 
-	const {t} = useTranslation();
+	// const {t} = useTranslation();
 
 	return (
 		<NavigationContainer >
@@ -138,8 +140,8 @@ const MainApp = () => {
 							}} />
 						<Drawer.Screen name='Bookmarks' component={RenderBookmarks}
 							options={{ drawerIcon: () => (<Icon name='bookmark' size={24} color={COLORS.placeholder} />) }} />
-						<Drawer.Screen name={t('Language')} component={LanguageSelectionScreen}
-							options={{ drawerIcon: () => (<Icon name='earth' size={24} color={COLORS.placeholder} />) }} />
+						{/* <Drawer.Screen name={t('Language')} component={LanguageSelectionScreen}
+							options={{ drawerIcon: () => (<Icon name='earth' size={24} color={COLORS.placeholder} />) }} /> */}
 						<Drawer.Screen name='Contribute' component={ContributeScreen}
 							options={{ drawerIcon: () => (<Icon name='hand-heart-outline' size={24} color={COLORS.placeholder} />) }} />
 						<Drawer.Screen name='User Contributions' component={UserContributions}
