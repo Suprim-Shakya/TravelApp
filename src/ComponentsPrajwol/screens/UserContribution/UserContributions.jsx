@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, TouchableOpacity, Image, StyleSheet, Pressable } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-// import fetchUserContribution from './fetchUserContribution';
-// import { ScrollView } from 'react-native-virtualized-view';
-// import FinalDetailsScreen from '../../../components/DetectionDetail';
 import { FlatList, RefreshControl } from 'react-native-gesture-handler';
 
 
@@ -20,15 +17,12 @@ const UserContributions = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // console.log("start")
-        console.log("start")
         setRefreshing(true);
         const details = await fetch("https://travelguide.khanalsaurav.com.np/api/v1/contribution/all");
         const result = await details.json();
         // console.log(JSON.stringify(result.data, null, 2)); 
         setContribDetails(result.data.reverse());
         setRefreshing(false);
-        console.log("end")
       } catch (error) {
         console.error('Error fetching user contributions:', error);
         setRefreshing(false);
@@ -41,9 +35,6 @@ const UserContributions = () => {
   const navigateToDetails = (item) => {
     const { location } = item;
     const [latitude, longitude] = location.split(',').map(coord => coord.trim());
-
-    // console.log(latitude,longitude);
-
 
     navigation.navigate('DetailsScreen', {
       latitude: parseFloat(latitude),
@@ -88,23 +79,6 @@ const UserContributions = () => {
   }
 
   return (
-    // <ScrollView>
-    //   {contribDetails  && (
-    //     <View>
-    //       {contribDetails.map((item) => (
-    //         <TouchableOpacity
-    //           key={item._id}
-    //           style={styles.card}
-    //           onPress={() => navigateToDetails(item)}
-    //         >
-    //           <Image source={{ uri: item.imageUrl }} style={styles.image} />
-    //           <Text style={styles.name}>{item.name}</Text>
-    //           {console.log(item)}
-    //         </TouchableOpacity>
-    //       ))}
-    //     </View>
-    //   )}
-    // </ScrollView>
     <FlatList
       data={contribDetails}
       renderItem={DetailCard}
