@@ -14,8 +14,8 @@ export default async function calculateDistanceDuration(origin, destination, mod
         // console.log('[calculate Distance Duration] Data from API:', data.rows[0].elements);
         const distanceText = data.rows[0].elements[0].distance.text;
         const durationText = data.rows[0].elements[0].duration.text;
-        console.log(distanceText);
-        console.log(durationText);
+        // console.log(distanceText);
+        // console.log(durationText);
         return { distanceText, durationText };
     } catch (error) {
         console.error('[calculate Distance Duration] Error fetching distance matrix:', error);
