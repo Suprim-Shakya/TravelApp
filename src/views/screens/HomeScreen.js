@@ -129,7 +129,7 @@ const HomeScreen = ({navigation}) => {
 
 		return (
 			() => {
-				console.log('clear use effect');
+				// console.log('clear use effect');
 				setDatam(null);
 				// setRenderSkeleton(true)
 			}
