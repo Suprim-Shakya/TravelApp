@@ -22,12 +22,13 @@ export default function ContributeScreen() {
 	const [loading, setLoading] = useState(false)
 
 	const validateForm = () => {
+		const mapRegex = /^\d+\.\d+,\d+\.\d+$/
 		let errors = {}
 		if (!name) errors.name = "Name is required"
 		if (!location) errors.location = "Location is required"
 		if (!imageUri) errors.image = "Image is required"
 		if (hasTicket && !ticketPrice) errors.ticketPrice = "Ticket Price is required"
-
+		if (!mapRegex.test(location)) errors.location = "Location must be formatted as: 27.6704, 85.3274"
 		setErrors(errors)
 
 		return Object.keys(errors).length === 0; //true if no error messages
@@ -147,7 +148,7 @@ export default function ContributeScreen() {
 					placeholderTextColor={COLORS.placeholder}
 					style={[styles.inputField, errors?.location && { borderColor: COLORS.error }]}
 					value={location}
-					onChangeText={text => setLocation(text)}
+					onChangeText={text => setLocation(text.replace(/[^.,\d]/g, ""))}
 				/>
 			</View>
 
@@ -222,7 +223,7 @@ export default function ContributeScreen() {
 					<View >
 						{loading ?
 							<View style={styles.btnContent}>
-								<Text style={styles.btnTxt}>Adding..</Text>
+								<Text style={styles.btnTxt}>Adding&nbsp;&nbsp;</Text>
 								<ActivityIndicator color={COLORS.white} />
 							</View>
 							: <Text style={styles.btnTxt}>Contribute</Text>
@@ -239,7 +240,7 @@ export default function ContributeScreen() {
 const styles = StyleSheet.create({
 	container: {
 		paddingHorizontal: 15,
-		backgroundColor: COLORS.background
+		backgroundColor: COLORS.background,
 	},
 	collection: {
 		marginTop: 20
@@ -310,7 +311,8 @@ const styles = StyleSheet.create({
 		color: COLORS.error
 	},
 	btnContent: {
-		flexDirection: 'row'
+		flexDirection: 'row',
+		marginBottom: 20
 	}
 })
 
