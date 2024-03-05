@@ -19,8 +19,7 @@ import calculateDistanceDuration from '../ComponentsPrajwol/modules/calculateDis
 const SemiFinalDetailsScreen = ({ navigation, route }) => {
 	const { _id, className, architectureStyle, constructedBy, Ticket, Description, imageLink, constructionDate, latitude, longitude, Location, Year, imageUrl, name, description, ticketPrice, ticketRequired, price } = route.params;
 
-	const [distance, setDistance] = useState(null);
-	const [myLocation, setMyLocation] = useState({})
+
 	const [distanceDuration, setDistanceDuration] = useState({})
 	const [finalData, setFinalData] = useState(null);
 
@@ -38,21 +37,17 @@ const SemiFinalDetailsScreen = ({ navigation, route }) => {
 
 	const renderItem = ({ item }) => (
 		<View style={styles.cardContainer}>
-			<Pressable>
-				<Pressable style={styles.smallCard}
-					onPress={() => handleClassItemPress(item)}
-					android_ripple={{
-						foreground: true,
-						radius: 500,
-						color: "rgba(0,0,0,0.3)",
-						borderless: false,
-					}}>
-					<Image source={{ uri: item.imageLink }} style={styles.cardImage} />
-					<View style={styles.cardContent}>
-						<Text style={styles.cardTitle}>{item.className}</Text>
-					</View>
-				</Pressable>
-			</Pressable>
+			{/* <Pressable> */}
+			<TouchableOpacity style={styles.smallCard}
+				activeOpacity={0.8}
+				onPress={() => handleClassItemPress(item)}
+			>
+				<Image source={{ uri: item.imageLink }} style={styles.cardImage} />
+				<View style={styles.cardContent}>
+					<Text style={styles.cardTitle}>{item.className}</Text>
+				</View>
+				{/* </Pressable> */}
+			</TouchableOpacity>
 		</View>
 	);
 
@@ -162,25 +157,25 @@ const styles = StyleSheet.create({
 	cardContainer: {
 		alignContent: 'center',
 		alignItems: 'center',
-		maxHeight: 315,
+		maxHeight: 300,
 		// paddingBottom: 20,
 		paddingRight: 10,
 		marginBottom: 50,
-		width: "auto"
+		overflow: 'hidden',
 	},
 	smallCard: {
 		flexDirection: 'column',
-		backgroundColor: 'white',
+		backgroundColor: 'rgb(245,245,245)',
 		borderRadius: 10,
-		// borderColor: "gray",
+		borderColor: "gray",
 		// borderWidth: 1,
-		elevation: 2,
+		// elevation: 2,
 		overflow: "hidden",
 		alignItems: "center",
 		alignContent: "center",
 	},
 	cardImage: {
-		width: "100%",
+		width: 250,
 		height: 250,
 		resizeMode: 'cover',
 	},
