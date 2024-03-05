@@ -17,9 +17,7 @@ import calculateDistanceDuration from '../ComponentsPrajwol/modules/calculateDis
 
 
 const SemiFinalDetailsScreen = ({ navigation, route }) => {
-	const { _id, className, architectureStyle, constructedBy, Ticket, Description, imageLink, constructionDate, latitude, longitude, Location, Year, imageUrl, name, description, ticketPrice, ticketRequired } = route.params;
-
-	console.log("ticketRequired: ", ticketRequired)
+	const { _id, className, architectureStyle, constructedBy, Ticket, Description, imageLink, constructionDate, latitude, longitude, Location, Year, imageUrl, name, description, ticketPrice, ticketRequired, price } = route.params;
 
 	const [distance, setDistance] = useState(null);
 	const [myLocation, setMyLocation] = useState({})
@@ -114,7 +112,7 @@ const SemiFinalDetailsScreen = ({ navigation, route }) => {
 				</ActionCard>
 
 				<ScrollView style={styles.content}>
-					{(architectureStyle || constructedBy || constructionDate || Ticket || ticketRequired || ticketPrice) && <TouchableOpacity style={styles.topCard}>
+					{(architectureStyle || constructedBy || constructionDate || Ticket || ticketRequired || ticketPrice || price) && <TouchableOpacity style={styles.topCard}>
 						{architectureStyle && <Text style={styles.detailText}>Architecture Style: {architectureStyle}</Text>}
 						{/* {constructedBy && <ExpandableCard title={"constructed By"} details={constructedBy} />} */}
 						{constructedBy && <Text style={styles.detailText}>Constructed By: {constructedBy}</Text>}
@@ -122,6 +120,7 @@ const SemiFinalDetailsScreen = ({ navigation, route }) => {
 						{Ticket && <Text style={styles.detailText}>Ticket Required: {Ticket}</Text>}
 						{ticketRequired && <Text style={styles.detailText}>Ticket Required: Yes</Text>}
 						{ticketPrice && <Text style={styles.detailText}>Ticket Price: {ticketPrice}</Text>}
+						{price && <Text style={styles.detailText}>Price: {price}</Text>}
 					</TouchableOpacity>}
 
 					{(Description || description) && (<>
