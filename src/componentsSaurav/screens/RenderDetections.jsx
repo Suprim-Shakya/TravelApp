@@ -57,7 +57,7 @@ export default RenderDetections
 const styles = StyleSheet.create({
 	scrollView: {
 		minHeight: '100%',
-		backgroundColor: COLORS.background
+		// backgroundColor: COLORS.background
 	}
 })
 
