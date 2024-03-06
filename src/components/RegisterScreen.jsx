@@ -1,4 +1,4 @@
-import { Pressable, ActivityIndicator, StyleSheet, Text, View } from 'react-native';
+import { Pressable, ActivityIndicator, StyleSheet, Text, View, StatusBar } from 'react-native';
 import { useState } from 'react';
 import COLORS from '../constants/colors';
 import { ScrollView, TextInput } from 'react-native-gesture-handler';
@@ -107,7 +107,7 @@ const RegisterScreen = ({ navigation }) => {
 
     return (
         <ScrollView style={styles.container}>
-            {/* <StatusBar translucent backgroundColor="rgba(0,0,0,0)" /> */}
+            <StatusBar backgroundColor={COLORS.primary} />
 
             <View style={styles.collection}>
                 <Text style={styles.headingText}>First name</Text>
