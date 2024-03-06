@@ -75,7 +75,7 @@ const data = [
     { id: '12', title: 'Kotilingeshwar Mahadev Temple' },
     { id: '13', title: 'Kumari Ghar' },
     { id: '14', title: 'Lalitpur Bhawan' },
-    { id: '15', title: 'Mahadev temple' },
+    { id: '15', title: 'Siva Parbati Temple' },
     { id: '16', title: 'Mahadev Chaitya' },
     { id: '17', title: 'Mahendreshwor Mahadev Temple' },
     { id: '18', title: 'Maju Dega' },
