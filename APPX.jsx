@@ -104,10 +104,7 @@ const MainStack = () => {
 			<stack.Screen name='RenderDetections' component={RenderDetections}
 				options={{ title: 'Detections', headerStyle: { backgroundColor: COLORS.primary }, headerTitleStyle: { color: 'white', fontWeight: 'bold' } }} />
 			<stack.Screen name='DetailsScreen' component={DetailsScreen} options={{ headerShown: false }} />
-			<stack.Screen name='DetailsScreenCuisine' component={DetailsScreenCuisine} options={{ headerShown: false }} />
-			<stack.Screen name='SemiFinalDetailsScreen' component={SemiFinalDetailsScreen} options={{ headerShown: false }} />
-			<stack.Screen name='DetectionDetail' component={DetectionDetail} options={{ headerShown: false }} />
-			<stack.Screen name='ActivitiesDetails' component={ActivitiesDetails} options={{ headerTitle: "Activity" }} />
+
 			<stack.Screen name='Maps' component={GoogleSearch} options={{ headerTitle: "Maps" }} />
 			<stack.Screen name="SearchScreen" component={SearchScreen} options={{ headerTitle: "Search" }}/>
 		</stack.Navigator>
