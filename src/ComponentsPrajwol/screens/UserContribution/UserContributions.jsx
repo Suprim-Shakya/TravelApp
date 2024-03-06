@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity, Image, StyleSheet, Pressable } from 'react-native';
+import { useState, useEffect } from 'react';
+import { View, Text, Image, StyleSheet, Pressable } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { FlatList, RefreshControl } from 'react-native-gesture-handler';
 

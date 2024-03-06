@@ -1,5 +1,5 @@
 import 'react-native-gesture-handler';
-import React, { useRef } from 'react';
+import { useRef } from 'react';
 import { StatusBar } from 'react-native';
 
 import { createStackNavigator } from '@react-navigation/stack';
@@ -17,10 +17,8 @@ import MenuButton from './src/componentsSaurav/customComponents/MenuButton';
 import BackButton from './src/componentsSaurav/customComponents/BackButton';
 
 import DetailsScreen from './src/components/DetailsScreen';
-import DetectionDetail from './src/components/DetectionDetail';
 import RegisterScreen from './src/components/RegisterScreen';
 import LoginScreen from './src/components/LoginScreen';
-import SemiFinalDetailsScreen from './src/components/DetailsScreen';
 
 import RenderDetections from './src/componentsSaurav/screens/RenderDetections';
 import BottomDrawer from './src/componentsSaurav/screens/BottomDrawer';
@@ -32,8 +30,6 @@ import GoogleSearch from './src/componentsSaurav/screens/GoogleSearch';
 import ContributeScreen from './src/ComponentsPrajwol/screens/UserContribution/ContributeScreen'
 import UserContributions from './src/ComponentsPrajwol/screens/UserContribution/UserContributions';
 import ActivitiesScreen from './src/ComponentsPrajwol/screens/ActivitiesScreen'
-import ActivitiesDetails from './src/ComponentsPrajwol/screens/ActivitiesDetails';
-import DetailsScreenCuisine from './src/views/screens/DetailsScreenCuisine';
 
 import HomeScreen from './src/views/screens/HomeScreen';
 import COLORS from './src/constants/colors';

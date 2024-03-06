@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet, Pressable } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import Icon from "react-native-vector-icons/MaterialCommunityIcons"
 const CustomCallout = ({ title, description, visible=true }) => {
     // const [visible, setVisible] = useState(calloutVisible)

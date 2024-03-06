@@ -1,5 +1,4 @@
-import { Pressable, StyleSheet, Text, View } from 'react-native'
-import React, { useState } from 'react'
+import { StyleSheet, View } from 'react-native';
 import COLORS from '../../constants/colors'
 
 const ActionCard = ({ children }) => {

@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { View, Text, TextInput, ScrollView, StyleSheet, Pressable, Image, Switch, Alert } from 'react-native';
+import { useState } from 'react';
+import { View, Text, TextInput, ScrollView, StyleSheet, Pressable, Image, Switch } from 'react-native';
 import COLORS from '../../../constants/colors';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import getLocalImage from '../../../componentsSaurav/getImage/getLocalImage';
@@ -101,7 +101,7 @@ export default function ContributeScreen() {
 	}
 
 	return (
-		<ScrollView style={styles.container}>
+        <ScrollView style={styles.container}>
 
 			<Pressable
 				onPress={handleAddImage}
@@ -250,7 +250,7 @@ export default function ContributeScreen() {
 			</View>
 
 		</ScrollView>
-	);
+    );
 };
 
 

@@ -1,8 +1,6 @@
-import React, { createContext, useContext, useEffect, useState } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 import { getAccessToken, removeAccessToken, setAccessToken } from '../componentsSaurav/modules/handleAccessToken';
 import LoadingScreen from '../componentsSaurav/screens/LoadingScreen';
-import { getLanguage, setLanguage } from '../componentsSaurav/modules/handleLanguage';
-import { useTranslation } from 'react-i18next';
 
 
 const AuthContext = createContext();

@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import { useState } from 'react';
 import { View, TextInput, FlatList, Text, StyleSheet, Pressable } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import fetchDetailsFromDb from '../../componentsSaurav/apiCalls/fetchDataFromDB';

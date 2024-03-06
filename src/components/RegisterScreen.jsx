@@ -1,5 +1,5 @@
-import { Pressable, ActivityIndicator, StatusBar, StyleSheet, Text, View } from 'react-native';
-import React, { useState } from 'react';
+import { Pressable, ActivityIndicator, StyleSheet, Text, View } from 'react-native';
+import { useState } from 'react';
 import COLORS from '../constants/colors';
 import { ScrollView, TextInput } from 'react-native-gesture-handler';
 import Icon from "react-native-vector-icons/MaterialCommunityIcons"
