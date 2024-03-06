@@ -239,7 +239,7 @@ export default function ContributeScreen() {
 				>
 					<View >
 						{loading ?
-							<View style={styles.btnContent}>
+							<View style={styles.btnTxt}>
 								<Text style={styles.btnTxt}>Adding&nbsp;&nbsp;</Text>
 								<ActivityIndicator color={COLORS.white} />
 							</View>
@@ -286,6 +286,7 @@ const styles = StyleSheet.create({
 	},
 	btnTxt: {
 		color: COLORS.white,
+		flexDirection:'row'
 	},
 	imageContainer: {
 		marginTop: 20,
