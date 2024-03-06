@@ -43,8 +43,8 @@ app.use("/api/v1/auth", authRoutes)
 import { verifyAccessToken } from "./middlewares/auth.middleware.js";
 import secretRouter from "./routes/protected.routes.js";
 
-app.use(verifyAccessToken)
-app.use("/api/v1/protected", secretRouter)
+//app.use(verifyAccessToken)
+app.use("/api/v1/protected",verifyAccessToken, secretRouter)
 
 import userContributionRouter from "./routes/userContribution.route.js"; 
 app.use("/api/v1/contribution", userContributionRouter)
