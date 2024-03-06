@@ -248,7 +248,7 @@ export default function ContributeScreen() {
 					</View>
 				</Pressable>
 			</View>
-
+						<View style={{height:20}}></View>
 		</ScrollView>
 	);
 };
