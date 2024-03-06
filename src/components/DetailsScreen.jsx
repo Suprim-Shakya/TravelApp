@@ -60,7 +60,7 @@ const SemiFinalDetailsScreen = ({ navigation, route }) => {
 			setDistanceDuration({ distance: distanceText, drivingDuration: durationText, walkingDuration })
 		}
 
-		if (latitude&&longitude) updateMyLocation();
+		if (latitude && longitude) updateMyLocation();
 
 	}, [])
 
@@ -107,7 +107,7 @@ const SemiFinalDetailsScreen = ({ navigation, route }) => {
 
 				</ActionCard>
 				}
-				<ScrollView style={[styles.content, !latitude && {marginTop: 30}]}>
+				<ScrollView style={[styles.content, !latitude && { marginTop: 30 }]}>
 					{(architectureStyle || constructedBy || constructionDate || Ticket || ticketRequired || ticketPrice || price) && <TouchableOpacity style={styles.topCard} activeOpacity={0.5}>
 						{architectureStyle && <Text style={styles.detailText}>Architecture Style: {architectureStyle}</Text>}
 						{/* {constructedBy && <ExpandableCard title={"constructed By"} details={constructedBy} />} */}
@@ -119,25 +119,25 @@ const SemiFinalDetailsScreen = ({ navigation, route }) => {
 						{price && <Text style={styles.detailText}>Price: {price}</Text>}
 					</TouchableOpacity>}
 
-					{(Description || description) && (<>
-
-						<ExpandableCard title={"Description"} details={Description || description} />
-					</>
-					)}
+					{
+						(Description || description) && <ExpandableCard title={"Description"} details={Description || description} />
+					}
 
 
-					{className === "Kathmandu Durbar Square" ? (
-						<TouchableOpacity onPress={fetchInsideHeritage} style={styles.btn}>
-							<Text style={styles.btnTxt}>Explore Inside {className}</Text>
-						</TouchableOpacity>
-					) : null}
+					{
+						className === "Kathmandu Durbar Square" && <>
+							<TouchableOpacity onPress={fetchInsideHeritage} style={styles.btn}>
+								<Text style={styles.btnTxt}>Explore Inside {className}</Text>
+							</TouchableOpacity>
+							<FlatList
+								data={finalData}
+								keyExtractor={(item) => item._id}
+								renderItem={renderItem}
+								horizontal={true}
+							/>
+						</>
+					}
 
-					<FlatList
-						data={finalData}
-						keyExtractor={(item) => item._id}
-						renderItem={renderItem}
-						horizontal={true}
-					/>
 				</ScrollView>
 
 
