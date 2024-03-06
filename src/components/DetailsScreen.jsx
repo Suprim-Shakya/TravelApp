@@ -31,7 +31,7 @@ const SemiFinalDetailsScreen = ({ navigation, route }) => {
 	}
 	async function handleClassItemPress(item) {
 		const info = await fetchDetailsFromDb(item.classNumber)
-		navigation.navigate('DetectionDetail', { ...info });
+		navigation.navigate('DetailsScreen', { ...info });
 
 	}
 
