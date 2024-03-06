@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { View, Text, TextInput, ScrollView, StyleSheet, Pressable, Image, Switch, Alert } from 'react-native';
+import { useState } from 'react';
+import { View, Text, TextInput, ScrollView, StyleSheet, Pressable, Image, Switch } from 'react-native';
 import COLORS from '../../../constants/colors';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import getLocalImage from '../../../componentsSaurav/getImage/getLocalImage';
@@ -49,7 +49,7 @@ export default function ContributeScreen() {
 
 	function createFormData() {
 		const formData = new FormData();
-		name.trim() !== '' && formData.append('name', name.toLowerCase());
+		name.trim() !== '' && formData.append('name', name);
 		location.trim() !== '' && formData.append('location', location);
 		category.trim() !== '' && formData.append('category', category);
 		hasTicket && formData.append("ticketRequired", true)
@@ -162,9 +162,9 @@ export default function ContributeScreen() {
 				/>
 				<View style={{ position: "absolute", right: -5, top: 20 }}>
 					{locationLoading ?
-						<SmallButton title={<ActivityIndicator/>}/>
+						<SmallButton title={<ActivityIndicator />} />
 						:
-						<SmallButton  iconName={"google-maps"} onPress={addCurrentLocation} />
+						<SmallButton iconName={"google-maps"} onPress={addCurrentLocation} />
 					}
 				</View>
 			</View>
@@ -239,7 +239,7 @@ export default function ContributeScreen() {
 				>
 					<View >
 						{loading ?
-							<View style={styles.btnContent}>
+							<View style={styles.btnTxt}>
 								<Text style={styles.btnTxt}>Adding&nbsp;&nbsp;</Text>
 								<ActivityIndicator color={COLORS.white} />
 							</View>
@@ -248,7 +248,7 @@ export default function ContributeScreen() {
 					</View>
 				</Pressable>
 			</View>
-
+						<View style={{height:20}}></View>
 		</ScrollView>
 	);
 };
@@ -286,6 +286,7 @@ const styles = StyleSheet.create({
 	},
 	btnTxt: {
 		color: COLORS.white,
+		flexDirection:'row'
 	},
 	imageContainer: {
 		marginTop: 20,

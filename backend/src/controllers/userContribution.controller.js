@@ -30,7 +30,7 @@ export const createUserContribution = asyncHandler(async (req, res, next) => {
     const userContribution = new UserContribution({
         userId: req.user._id,
         imageUrl: image?.url,
-        name: name.toLowerCase(),
+        name: name,
         description: description || "No description given",
         ticketRequired: ticketRequired || false,
         ticketPrice,
@@ -111,7 +111,7 @@ export const getCurrentUserContribution = asyncHandler(async (req, res) => {
 
 
 export const modifyUserContribution = asyncHandler(async (req, res) => {
-    const { _id, name, description, ticketRequired, ticketPrice, restrictions, category } = req.body;
+    const { _id, name, description, ticketRequired, ticketPrice, restrictions } = req.body;
 
     // Check if ID is provided
     if (!_id) {
@@ -127,11 +127,11 @@ export const modifyUserContribution = asyncHandler(async (req, res) => {
     }
 
     // Check if the current user is authorized to modify the contribution
-    if (itemToModify.userId !== (req.user._id).toString()) {
+    if (itemToModify.userId !== req.user._id) {
         return res.status(403).json(new ApiResponse(403, "Unauthorized: You do not have permission to modify this contribution"));
     }
 
-    const imageLocalPath = req.file?.path;
+    const imageLocalPath = req.file.path;
     let image
 
     if (imageLocalPath) {
@@ -146,7 +146,6 @@ export const modifyUserContribution = asyncHandler(async (req, res) => {
     itemToModify.ticketPrice = ticketPrice ?? itemToModify.ticketPrice;
     itemToModify.restrictions = restrictions || itemToModify.restrictions;
     itemToModify.isVerified = false;
-    itemToModify.category = category || itemToModify.category
 
     // // Extract data from request body
     // const newData = { imageUrl, name, description, ticketRequired, ticketPrice, restrictions, isVerified };

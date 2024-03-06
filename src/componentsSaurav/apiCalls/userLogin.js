@@ -1,6 +1,5 @@
 import { Alert } from "react-native";
 import { LOGIN_ENDPOINT } from "../config";
-import { setAccessToken } from "../modules/handleAccessToken";
 
 export default async function userLogin(data) {
 

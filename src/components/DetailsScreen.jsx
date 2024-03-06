@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { View, Text, Image, StyleSheet, TouchableOpacity, FlatList, Pressable } from 'react-native';
+import { useEffect, useState } from 'react';
+import { View, Text, Image, StyleSheet, TouchableOpacity, FlatList } from 'react-native';
 
 import COLORS from '../constants/colors';
 import { ScrollView } from 'react-native-gesture-handler';
@@ -16,8 +16,13 @@ import { getmyLocation } from '../ComponentsPrajwol/modules/getMyLocation';
 import calculateDistanceDuration from '../ComponentsPrajwol/modules/calculateDistanceDuration';
 
 
-const SemiFinalDetailsScreen = ({ navigation, route }) => {
+const DetailsScreen = ({ navigation, route }) => {
 	const { _id, className, architectureStyle, constructedBy, Ticket, Description, imageLink, constructionDate, latitude, longitude, Location, Year, imageUrl, name, description, ticketPrice, ticketRequired, price, image } = route.params;
+
+	navigation.setOptions({
+		headerShown: true,
+		headerTitle: className || "Details", 
+	});
 
 
 	const [distanceDuration, setDistanceDuration] = useState({})
@@ -31,7 +36,7 @@ const SemiFinalDetailsScreen = ({ navigation, route }) => {
 	}
 	async function handleClassItemPress(item) {
 		const info = await fetchDetailsFromDb(item.classNumber)
-		navigation.navigate('DetectionDetail', { ...info });
+		navigation.push('DetailsScreen', { ...info });
 
 	}
 
@@ -60,7 +65,7 @@ const SemiFinalDetailsScreen = ({ navigation, route }) => {
 			setDistanceDuration({ distance: distanceText, drivingDuration: durationText, walkingDuration })
 		}
 
-		if (latitude&&longitude) updateMyLocation();
+		if (latitude && longitude) updateMyLocation();
 
 	}, [])
 
@@ -71,7 +76,6 @@ const SemiFinalDetailsScreen = ({ navigation, route }) => {
 
 	return (
 		<>
-			<CustomHeader title={className} />
 			<View style={styles.container}>
 				{imageLink || imageUrl ? (
 					<Image source={{ uri: imageLink || imageUrl }} style={styles.image} />
@@ -107,7 +111,7 @@ const SemiFinalDetailsScreen = ({ navigation, route }) => {
 
 				</ActionCard>
 				}
-				<ScrollView style={[styles.content, !latitude && {marginTop: 30}]}>
+				<ScrollView style={[styles.content, !latitude && { marginTop: 30 }]}>
 					{(architectureStyle || constructedBy || constructionDate || Ticket || ticketRequired || ticketPrice || price) && <TouchableOpacity style={styles.topCard} activeOpacity={0.5}>
 						{architectureStyle && <Text style={styles.detailText}>Architecture Style: {architectureStyle}</Text>}
 						{/* {constructedBy && <ExpandableCard title={"constructed By"} details={constructedBy} />} */}
@@ -119,25 +123,25 @@ const SemiFinalDetailsScreen = ({ navigation, route }) => {
 						{price && <Text style={styles.detailText}>Price: {price}</Text>}
 					</TouchableOpacity>}
 
-					{(Description || description) && (<>
-
-						<ExpandableCard title={"Description"} details={Description || description} />
-					</>
-					)}
+					{
+						(Description || description) && <ExpandableCard title={"Description"} details={Description || description} />
+					}
 
 
-					{className === "Kathmandu Durbar Square" ? (
-						<TouchableOpacity onPress={fetchInsideHeritage} style={styles.btn}>
-							<Text style={styles.btnTxt}>Explore Inside {className}</Text>
-						</TouchableOpacity>
-					) : null}
+					{
+						className === "Kathmandu Durbar Square" && <>
+							<TouchableOpacity onPress={fetchInsideHeritage} style={styles.btn}>
+								<Text style={styles.btnTxt}>Explore Inside {className}</Text>
+							</TouchableOpacity>
+							<FlatList
+								data={finalData}
+								keyExtractor={(item) => item._id}
+								renderItem={renderItem}
+								horizontal={true}
+							/>
+						</>
+					}
 
-					<FlatList
-						data={finalData}
-						keyExtractor={(item) => item._id}
-						renderItem={renderItem}
-						horizontal={true}
-					/>
 				</ScrollView>
 
 
@@ -163,10 +167,11 @@ const styles = StyleSheet.create({
 		paddingRight: 10,
 		marginBottom: 50,
 		overflow: 'hidden',
+		elevation:3,
 	},
 	smallCard: {
 		flexDirection: 'column',
-		backgroundColor: 'rgb(245,245,245)',
+		backgroundColor: 'rgb(240,240,240)',
 		borderRadius: 10,
 		borderColor: "gray",
 		// borderWidth: 1,
@@ -213,7 +218,6 @@ const styles = StyleSheet.create({
 		backgroundColor: COLORS.light
 	},
 	container: {
-		marginTop: 50,
 		flex: 1,
 		backgroundColor: COLORS.white,
 		position: 'relative',
@@ -266,4 +270,4 @@ const styles = StyleSheet.create({
 	}
 });
 
-export default SemiFinalDetailsScreen;
+export default DetailsScreen;

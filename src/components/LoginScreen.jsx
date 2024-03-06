@@ -1,4 +1,4 @@
-import { Pressable, ActivityIndicator, TextInput, StyleSheet, Text, View } from 'react-native';
+import { Pressable, ActivityIndicator, TextInput, StyleSheet, Text, View, StatusBar } from 'react-native';
 import React, { useState } from 'react';
 import COLORS from '../constants/colors';
 import Icon from "react-native-vector-icons/MaterialCommunityIcons"
@@ -84,6 +84,7 @@ export default function LoginScreen({ navigation }) {
 
     return (
         <View style={styles.container}>
+        <StatusBar backgroundColor={COLORS.primary}/>   
         <View style={styles.content}>
 
             <View style={styles.collection}>

@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import { useState } from 'react';
 import { View, TextInput, FlatList, Text, StyleSheet, Pressable } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import fetchDetailsFromDb from '../../componentsSaurav/apiCalls/fetchDataFromDB';
@@ -75,7 +75,7 @@ const data = [
     { id: '12', title: 'Kotilingeshwar Mahadev Temple' },
     { id: '13', title: 'Kumari Ghar' },
     { id: '14', title: 'Lalitpur Bhawan' },
-    { id: '15', title: 'Mahadev temple' },
+    { id: '15', title: 'Shiva Parbati Temple' },
     { id: '16', title: 'Mahadev Chaitya' },
     { id: '17', title: 'Mahendreshwor Mahadev Temple' },
     { id: '18', title: 'Maju Dega' },

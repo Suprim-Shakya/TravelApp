@@ -1,5 +1,5 @@
-import React, { useEffect, useState, useRef } from 'react';
-import { StyleSheet, View, Text, Pressable, ActivityIndicator } from 'react-native';
+import { useEffect, useState, useRef } from 'react';
+import { StyleSheet, View, Text } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import CustomCallout from '../../componentsSaurav/customComponents/CustomCallout';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
@@ -9,7 +9,6 @@ import { useDispatch } from 'react-redux';
 import { addToPlan } from '../redux/features/planSlice';
 import Icon from "react-native-vector-icons/MaterialIcons"
 import COLORS from '../../constants/colors';
-import { getmyLocation } from '../../ComponentsPrajwol/modules/getMyLocation';
 
 const GoogleSearch = ({ navigation, route }) => {
 

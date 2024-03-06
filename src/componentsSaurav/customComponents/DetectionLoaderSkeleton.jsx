@@ -1,25 +1,23 @@
 import React from "react"
 import ContentLoader, { Rect } from "react-content-loader/native"
 import COLORS from "../../constants/colors"
+import { Dimensions } from "react-native"
+
+const {width: screenWidth} = Dimensions.get('window')
 
 const MyLoader = (props) => (
 	<ContentLoader
 		speed={1}
-		width={320}
-		height={160}
-		viewBox="0 0 320 160"
+		// width={screenWidth}
+		// height={300}
+		// viewBox={`0 0 ${screenWidth-20} 300`}
 		backgroundColor="#f5f5f5"
 		foregroundColor={COLORS.grey}
 		{...props}
 	>
-		<Rect x="180" y="11" rx="3" ry="3" width="90" height="6" />
-		<Rect x="5" y="5" rx="7" ry="7" width="100" height="150" />
-		<Rect x="120" y="40" rx="3" ry="3" width="200" height="6" />
-		<Rect x="120" y="60" rx="3" ry="3" width="200" height="6" />
-		<Rect x="120" y="80" rx="3" ry="3" width="200" height="6" />
-		<Rect x="120" y="100" rx="3" ry="3" width="200" height="6" />
-		<Rect x="150" y="120" rx="3" ry="3" width="60" height="25" />
-		<Rect x="240" y="120" rx="3" ry="3" width="60" height="25" />
+
+		<Rect x="10" y="10" rx="7" ry="7" width={screenWidth - 20} height="150" />
+
 	</ContentLoader>
 )
 
