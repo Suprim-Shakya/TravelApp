@@ -49,7 +49,7 @@ export default function ContributeScreen() {
 
 	function createFormData() {
 		const formData = new FormData();
-		name.trim() !== '' && formData.append('name', name.toLowerCase());
+		name.trim() !== '' && formData.append('name', name);
 		location.trim() !== '' && formData.append('location', location);
 		category.trim() !== '' && formData.append('category', category);
 		hasTicket && formData.append("ticketRequired", true)
@@ -101,7 +101,7 @@ export default function ContributeScreen() {
 	}
 
 	return (
-        <ScrollView style={styles.container}>
+		<ScrollView style={styles.container}>
 
 			<Pressable
 				onPress={handleAddImage}
@@ -162,9 +162,9 @@ export default function ContributeScreen() {
 				/>
 				<View style={{ position: "absolute", right: -5, top: 20 }}>
 					{locationLoading ?
-						<SmallButton title={<ActivityIndicator/>}/>
+						<SmallButton title={<ActivityIndicator />} />
 						:
-						<SmallButton  iconName={"google-maps"} onPress={addCurrentLocation} />
+						<SmallButton iconName={"google-maps"} onPress={addCurrentLocation} />
 					}
 				</View>
 			</View>
@@ -250,7 +250,7 @@ export default function ContributeScreen() {
 			</View>
 
 		</ScrollView>
-    );
+	);
 };
 
 

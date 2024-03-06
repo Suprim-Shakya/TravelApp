@@ -43,6 +43,7 @@ const UserContributions = () => {
         ...item,
         className: item.name // to show on map
       });
+      return
     }
 
     navigation.navigate('DetailsScreen', {
