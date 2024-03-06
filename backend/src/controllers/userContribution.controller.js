@@ -30,7 +30,7 @@ export const createUserContribution = asyncHandler(async (req, res, next) => {
     const userContribution = new UserContribution({
         userId: req.user._id,
         imageUrl: image?.url,
-        name: name.toLowerCase(),
+        name: name,
         description: description || "No description given",
         ticketRequired: ticketRequired || false,
         ticketPrice,

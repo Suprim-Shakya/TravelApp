@@ -1,9 +1,9 @@
 import { StatusBar, StyleSheet, Text, View } from 'react-native'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
 import { ScrollView } from 'react-native-virtualized-view';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { addToPlan, loadExistingPlan, removeFromPlan } from "../../redux/features/planSlice";
+import { loadExistingPlan, removeFromPlan } from "../../redux/features/planSlice";
 import COLORS from '../../../constants/colors';
 import getLocationOfPlans from '../../modules/getLocationOfPlans';
 import PlanCard from '../../customComponents/PlanCard';

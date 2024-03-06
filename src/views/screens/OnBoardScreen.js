@@ -1,5 +1,4 @@
 import { ImageBackground, StatusBar, StyleSheet, Text, View } from 'react-native';
-import React from 'react';
 import COLORS from '../../constants/colors';
 import CustomButton from '../../componentsSaurav/customComponents/CustomButton';
 

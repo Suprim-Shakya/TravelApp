@@ -1,10 +1,10 @@
 import 'react-native-gesture-handler';
-import React, { useRef } from 'react';
+import { useRef } from 'react';
 import { StatusBar } from 'react-native';
 
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, getFocusedRouteNameFromRoute } from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 
 import { Provider } from 'react-redux'; //redux
@@ -17,10 +17,8 @@ import MenuButton from './src/componentsSaurav/customComponents/MenuButton';
 import BackButton from './src/componentsSaurav/customComponents/BackButton';
 
 import DetailsScreen from './src/components/DetailsScreen';
-import DetectionDetail from './src/components/DetectionDetail';
 import RegisterScreen from './src/components/RegisterScreen';
 import LoginScreen from './src/components/LoginScreen';
-import SemiFinalDetailsScreen from './src/components/DetailsScreen';
 
 import RenderDetections from './src/componentsSaurav/screens/RenderDetections';
 import BottomDrawer from './src/componentsSaurav/screens/BottomDrawer';
@@ -32,8 +30,6 @@ import GoogleSearch from './src/componentsSaurav/screens/GoogleSearch';
 import ContributeScreen from './src/ComponentsPrajwol/screens/UserContribution/ContributeScreen'
 import UserContributions from './src/ComponentsPrajwol/screens/UserContribution/UserContributions';
 import ActivitiesScreen from './src/ComponentsPrajwol/screens/ActivitiesScreen'
-import ActivitiesDetails from './src/ComponentsPrajwol/screens/ActivitiesDetails';
-import DetailsScreenCuisine from './src/views/screens/DetailsScreenCuisine';
 
 import HomeScreen from './src/views/screens/HomeScreen';
 import COLORS from './src/constants/colors';
@@ -54,7 +50,7 @@ const LoginStack = () => {
 				headerShown: true,
 				headerStyle: { backgroundColor: COLORS.primary },
 				headerTitleStyle: { color: 'white', fontSize: 20, fontWeight: 'bold', alignSelf: 'center' },
-				headerLeft: () => <BackButton />
+				// headerLeft: () => <BackButton />
 			}}
 		>
 			<stack.Screen name='onBoard' component={OnBoardScreen} options={{ headerShown: false }} />
@@ -70,21 +66,22 @@ const TabNav = () => {
 	return (<>
 		<Tab.Navigator
 			screenOptions={{
-				headerShown: true, headerTitleAlign: 'center',
+				headerShown: false, headerTitleAlign: 'center',
 				headerStyle: { backgroundColor: COLORS.primary },
 				headerTitleStyle: { color: 'white', fontWeight: '600', },
-				headerLeft: () => <MenuButton />,
-				tabBarActiveTintColor: COLORS.primary, tabBarActiveBackgroundColor: COLORS.secondary
+				// headerLeft: () => <MenuButton />,
+				tabBarActiveTintColor: COLORS.primary, tabBarActiveBackgroundColor: COLORS.secondary,
+
 			}}>
-			<Tab.Screen name='Home' component={HomeScreen}
-				options={{ headerTitle: "Travel Guide", tabBarIcon: ({ color, size }) => <Icon name='home' color={color} size={size * 1.3} /> }} />
+			<Tab.Screen name=' ' component={HomeScreen}
+				options={{ headerShown: false, headerTitle: "Travel Guide", tabBarIcon: ({ color, size }) => <Icon name='home' color={color} size={size * 1.3} /> }} />
 			<Tab.Screen name='Scan' component={RenderDetections}
 				options={{ tabBarIcon: ({ color, size }) => <Icon name='camera' color={color} size={size * 1.2} /> }}
 				listeners={() => ({ tabPress: e => { e.preventDefault(); refRBSheet.current.open(); } })} />
 			<Tab.Screen name='Plan' component={RenderPlans}
 				options={{ headerTitle: "Plans", tabBarIcon: ({ color, size }) => <Icon name='clipboard-list-outline' color={color} size={size * 1.2} /> }} />
 			<Tab.Screen name='Maps' component={GoogleSearch}
-				options={{ headerTitle: "Maps", tabBarIcon: ({ color, size }) => <Icon name='map' color={color} size={size * 1.2} /> }} />
+				options={{ headerShown: false, headerTitle: "Maps", tabBarIcon: ({ color, size }) => <Icon name='map' color={color} size={size * 1.2} /> }} />
 		</Tab.Navigator>
 		<BottomDrawer refRBSheet={refRBSheet} />
 	</>
@@ -96,20 +93,28 @@ const MainStack = () => {
 	return (
 		<stack.Navigator
 			screenOptions={{
-				headerShown: true, headerTitleAlign: 'center',
-				headerStyle: { backgroundColor: COLORS.primary }, headerTitleStyle: { color: 'white', fontWeight: '600', },
-				headerLeft: () => <BackButton />, tabBarActiveTintColor: COLORS.primary, tabBarActiveBackgroundColor: COLORS.secondary
-			}}>
-			<stack.Screen name='tab' component={TabNav} options={{ headerShown: false }} />
+				headerShown: true,
+				headerTitleAlign: 'center',
+				headerStyle: { backgroundColor: COLORS.primary },
+				headerTitleStyle: { color: 'white', fontWeight: '600', },
+				headerMode: 'float',
+				headerShadowVisible: "false",
+				headerTintColor: "white",
+				// header
+				headerShadowVisible: false,
+				headerMode: 'float'
+			}}
+		>
+			<stack.Screen name='tab' component={TabNav}
+				options={
+					({ route }) => ({ headerTitle: getFocusedRouteNameFromRoute(route) ?? "Travel Guide", headerLeft: () => <MenuButton /> })
+				}
+			/>
 			<stack.Screen name='RenderDetections' component={RenderDetections}
-				options={{ title: 'Detections', headerStyle: { backgroundColor: COLORS.primary }, headerTitleStyle: { color: 'white', fontWeight: 'bold' } }} />
-			<stack.Screen name='DetailsScreen' component={DetailsScreen} options={{ headerShown: false }} />
-			<stack.Screen name='DetailsScreenCuisine' component={DetailsScreenCuisine} options={{ headerShown: false }} />
-			<stack.Screen name='SemiFinalDetailsScreen' component={SemiFinalDetailsScreen} options={{ headerShown: false }} />
-			<stack.Screen name='DetectionDetail' component={DetectionDetail} options={{ headerShown: false }} />
-			<stack.Screen name='ActivitiesDetails' component={ActivitiesDetails} options={{ headerTitle: "Activity" }} />
-			<stack.Screen name='Maps' component={GoogleSearch} options={{ headerTitle: "Maps" }} />
-			<stack.Screen name="SearchScreen" component={SearchScreen} options={{ headerTitle: "Search" }}/>
+				options={{ title: 'Detections' }} />
+			<stack.Screen name='DetailsScreen' component={DetailsScreen} />
+			<stack.Screen name='Maps' component={GoogleSearch} />
+			<stack.Screen name="SearchScreen" component={SearchScreen} options={{ headerTitle: "Search" }} />
 		</stack.Navigator>
 	)
 }
@@ -118,7 +123,7 @@ const MainStack = () => {
 const MainApp = () => {
 
 	const { isLoggedIn, logout } = useAuth();
-	const Logout = () => {logout()};
+	const Logout = () => { logout() };
 
 	// const {t} = useTranslation();
 
@@ -131,12 +136,16 @@ const MainApp = () => {
 						screenOptions={{
 							headerShown: true, headerTitleAlign: 'center',
 							headerStyle: { backgroundColor: COLORS.primary }, headerTitleStyle: { color: 'white', fontWeight: '600', },
-							headerLeft: () => <BackButton />, tabBarActiveTintColor: COLORS.primary, tabBarActiveBackgroundColor: COLORS.secondary
+							tabBarActiveTintColor: COLORS.primary, tabBarActiveBackgroundColor: COLORS.secondary,
+							// drawerLabelStyle: { fontSize: 17 },
+							headerLeft: () => <MenuButton />,
+							drawerActiveTintColor: COLORS.primary
 						}}>
 						<Drawer.Screen name='MainStack' component={MainStack}
 							options={{
-								headerShown: false, drawerLabel: "Travel Guide",
-								drawerLabelStyle: { fontWeight: '900', fontSize: 24, color: 'black', alignSelf: 'center' }
+								drawerLabelStyle: { fontSize: 18, fontWeight: 'bold' },
+								headerShown: false, drawerLabel: "Home",
+								drawerIcon: () => (<Icon name='home' size={28} color={COLORS.placeholder} />)
 							}} />
 						<Drawer.Screen name='Bookmarks' component={RenderBookmarks}
 							options={{ drawerIcon: () => (<Icon name='bookmark' size={24} color={COLORS.placeholder} />) }} />
